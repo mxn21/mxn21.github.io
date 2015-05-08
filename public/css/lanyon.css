@@ -1,0 +1,979 @@
+/*博客原作者:lanyon 可以访问 https://github.com/poole/lanyon
+ *
+ *博客修改: SooHu 已经布置到  https://github.com/soohu.github.io
+ *
+*/
+
+/*
+ * Contents 文件样式内容包括:
+ *
+ * Global resets 全局重置
+ * Component 组件
+   * Masthead 顶部栏
+   * Audioplayer 播放器
+   * Sidebar 侧边框
+   * Slide effect 侧边框动效
+   * Posts and pages 博文样式
+   * Pagination 标码页
+   * Reverse layout 侧边栏弹出
+   * Footer 页脚
+ * Responsive layout 响应式布局
+ * Themes 主题 已删除
+ */
+
+
+/*
+ * Global resets
+ *
+ * Update the foundational and global aspects of the page.
+ */
+
+/* Prevent scroll on narrow devices */
+
+*,
+*:after,
+*::before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a {
+  color: #268bd2;
+  text-decoration: none;
+}
+/* `:focus` is linked to `:hover` for basic accessibility */
+a:hover,
+a:focus {
+  color: #ac4142;
+  text-decoration: none;
+}
+
+
+
+body {
+  color: #515151;
+  background-color: #fff;
+  /*background-image: url(/public/img/bg.png);*/
+  background-repeat: repeat;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+
+
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+
+}
+
+html {
+  font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-size: 20px;
+  line-height: 1.5;
+}
+/*h1~h5 p strong */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Open Sans',"lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-weight: bold;
+  line-height: 1.5;
+  color: #313131;
+  letter-spacing: normal;/*字体间距*/
+  word-spacing: normal;
+  /*text-justify: auto;*/
+  /*text-rendering: optimizeLegibility;*/
+}
+
+h1 {
+  font-size: 2rem;
+}
+h2 {
+  margin-top: 2rem;
+  font-size: 1.5rem;
+}
+h3 {
+  margin-top: 1.5rem;
+  font-size: .8rem;
+}
+h4, h5, h6 {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+p {
+  font-size: 0.7rem;
+  line-height: 1.5;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+strong {
+  color: #303030;
+}
+
+/*other*/
+ul, ol, dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+li {
+	font-size: .7rem;
+}
+dt {
+  font-weight: bold;
+}
+dd {
+  margin-bottom: .5rem;
+}
+
+/* Misc */
+hr {
+  position: relative;
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #fff;
+}
+
+abbr {
+  font-size: 85%;
+  font-weight: bold;
+  color: #555;
+  text-transform: uppercase;
+}
+abbr[title] {
+  cursor: help;
+  border-bottom: 1px dotted #e5e5e5;
+}
+
+/* Code */
+code,
+pre {
+  font-family: Menlo, Monaco, "Courier New", monospace;
+}
+code {
+  padding: .25em .5em;
+  font-size: 0.7rem;
+  color: #bf616a;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+}
+pre {
+  border-radius: 5px;
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  font-size: .6rem;
+  line-height: 1.4;
+  white-space: pre;
+  white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
+  background-color: rgb(29,30,25);
+}
+pre code {
+  padding: 0;
+  font-size: 100%;
+  color: inherit;
+  background-color: transparent;
+}
+.highlight {
+  margin-bottom: 1rem;
+  border-radius: 4px;
+}
+.highlight pre {
+  margin-bottom: 0;
+}
+
+/* Quotes */
+blockquote {
+  padding: .5rem 1rem;
+  margin: .8rem 0;
+  color: #7a7a7a;
+  border-left: .25rem solid #e5e5e5;
+}
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+img {
+  display: block;
+  margin: 0 0 1rem;
+  border-radius: 5px;
+}
+
+/* Tables */
+table {
+  margin-bottom: 1rem;
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  border-collapse: collapse;
+}
+td,
+th {
+  padding: .25rem .5rem;
+  border: 1px solid #e5e5e5;
+}
+tbody tr:nth-child(odd) td,
+tbody tr:nth-child(odd) th {
+  background-color: #f9f9f9;
+}
+
+
+
+
+
+
+
+
+/*
+ * Wrapper
+ *
+ * The wrapper is used to position site content when the sidebar is toggled. We
+ * use an outter wrap to position the sidebar without interferring with the
+ * regular page content.
+ */
+
+.wrap {
+  position: relative;
+  width: 100%;
+}
+
+
+/*
+ * Container
+ *
+ * Center the page content.
+ */
+
+
+.container {
+  max-width: 38rem;
+  padding-left:  1rem;
+  padding-right: 1rem;
+  margin-left:  auto;
+  margin-right: auto;
+}
+.content {
+  background-color: #fff;
+}
+
+
+
+
+
+
+/*
+ * Masthead 顶部栏
+ *
+ * Super small header above the content for site name and short description.
+ */
+
+.masthead {
+  background-color: #fff;
+  /*position: fixed;*/
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  margin: 0 auto 3rem;
+  border-bottom: 1px solid #eee;
+  z-index: 100;
+}
+.masthead-title {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #505050;
+}
+
+/*HUS on hover effect*/
+.masthead-title a {
+  color: #ac4142;
+  display: inline-block;
+  font-size: 1.8rem;
+  line-height: 1.8rem;
+  text-decoration: none;
+  overflow: hidden;
+  padding-right: 10px;
+}
+.masthead-title a span {
+  position: relative;
+  display: inline-block;
+  -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  transition: transform 0.3s;
+}
+.masthead-title a span::before {
+  position: absolute;
+  top: 100%;
+  content: attr(data-hover);
+  -webkit-transform: translate3d(0,0,0);
+  -moz-transform: translate3d(0,0,0);
+  transform: translate3d(0,0,0);
+}
+.masthead-title a:hover span,
+.masthead-title a:focus span {
+  -webkit-transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+  transform: translateY(-100%);
+
+}
+/*有bug还没修复*/
+
+.masthead-title small {
+  font-size: 75%;
+  font-weight: 400;
+  color: #c0c0c0;
+  letter-spacing: 0;
+}
+
+/*AudioPlayer*/
+/*#amazingaudioplayer-1 {
+  position: relative;
+  right: 0;
+  top: 100px;
+}
+*/
+
+
+
+/* 
+ * Sidebar 侧边框
+ *
+ * The sidebar is the drawer, the item we are toggling with our handy hamburger
+ * button in the corner of the page.
+ *
+ * This particular sidebar implementation was inspired by Chris Coyier's
+ * "Offcanvas Menu with CSS Target" article, and the checkbox variation from the
+ * comments by a reader. It modifies both implementations to continue using the
+ * checkbox (no change in URL means no polluted browser history), but this uses
+ * `position` for the menu to avoid some potential content reflow issues.
+ *
+ * Source: http://css-tricks.com/off-canvas-menu-with-css-target/#comment-207504
+ */
+
+/* Style and "hide" the sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: -14rem;
+  width: 14rem;
+  visibility: hidden;
+  overflow-y: auto;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  font-size: .875rem; /* 15px */
+  color: rgba(255,255,255,.6);
+  background-color: #202020;
+  -webkit-transition: all .3s ease-in-out;
+          transition: all .3s ease-in-out;
+}
+
+
+/*Sideerbar 图片logo*/
+.sidebar-logo img {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 10px;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 41px;
+  transition: all 0.5s ease-in 0;
+}
+.sidebar-logo img:hover,:focus {
+  border-radius: 5px;
+  transform: rotate(360deg);
+
+}
+
+/* Sidebar content */
+.sidebar a {
+  font-weight: normal;
+  color: #fff;
+}
+.sidebar-item {
+  padding: 1rem;
+}
+.sidebar-item p:last-child {
+  margin-bottom: 0;
+}
+
+/* Sidebar nav */
+.sidebar-nav {
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.sidebar-nav-item {
+  display: block;
+  padding: .5rem 1.5rem;
+  border-top: 1px solid rgba(255,255,255,.1);
+  /*transition: 0.4s ease-in-out 0;*/
+}
+.sidebar-nav-item.active,
+a.sidebar-nav-item:hover,
+a.sidebar-nav-item:focus {
+  background-color: rgba(255,255,255,.1);
+  border-color: transparent;
+  /*transform: scale(0.9);/*缩放0.9*/
+}
+
+
+
+/* Hide the sidebar checkbox that we toggle with `.sidebar-toggle` */
+.sidebar-checkbox {
+  display: none;
+}
+
+/* Style the `label` that we use to target the `.sidebar-checkbox` */
+.sidebar-toggle {
+  position: absolute;
+  top:  1rem;
+  left: 1rem;
+  display: block;
+  width: 2.2rem;
+  padding: .5rem .65rem;
+  color: #505050;
+  background-color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.sidebar-toggle:before {
+  display: block;
+  content: "";
+  width: 100%;
+  padding-bottom: .125rem;
+  border-top: .375rem double;
+  border-bottom: .125rem solid;
+
+  /* Make the border inside the box */
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.sidebar-toggle:active,
+#sidebar-checkbox:checked ~ .sidebar-toggle {
+  color: #fff;
+  background-color: #505050;
+}
+
+
+
+
+/* Slide effect
+ *
+ * Handle the sliding effects of the sidebar and content in one spot, seperate
+ * from the default styles.
+ *
+ * As an a heads up, we don't use `transform: translate3d()` here because when
+ * mixed with `position: fixed;` for the sidebar toggle, it creates a new
+ * containing block. Put simply, the fixed sidebar toggle behaves like
+ * `position: absolute;` when transformed.
+ *
+ * Read more about it at http://meyerweb.com/eric/thoughts/2011/09/12/.
+ */
+/*sidebar effect*/
+.wrap,
+.sidebar,
+.sidebar-toggle {
+  z-index: 101;
+  -webkit-backface-visibility: hidden;
+      -ms-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+.wrap,
+.sidebar-toggle {
+  -webkit-transition: -webkit-transform .3s ease-in-out;
+          transition: transform .3s ease-in-out;
+}
+.sidebar-toggle {
+  position: fixed;
+  width: 2.25rem;
+}
+.sidebar-toggle:before {
+  padding-bottom: .15rem;
+  border-top-width: .45rem;
+  border-bottom-width: .15rem;
+}
+
+#sidebar-checkbox:checked + .sidebar {
+  visibility: visible;
+}
+#sidebar-checkbox:checked ~ .sidebar,
+#sidebar-checkbox:checked ~ .wrap,
+#sidebar-checkbox:checked ~ .sidebar-toggle {
+  -webkit-transform: translateX(14rem);
+      -ms-transform: translateX(14rem);
+          transform: translateX(14rem);
+}
+
+
+/*
+ * Posts and pages 博文页面
+ *
+ * Each post is wrapped in `.post` and is used on default and post layouts. Each
+ * page is wrapped in `.page` and is only used on the page layout.
+ */
+.posts {
+  position: relative;
+  top: 145px;
+}
+
+
+ /*文章外面的边框*/
+.post {
+  border: 1px solid rgb(200,200,200);
+  box-shadow: 3px 5px 3px rgb(220,220,220);
+  border-radius: 3px;
+}
+.post-name {
+  margin-top: 4rem;
+}
+.post .post-heading {
+  border-bottom: 1px solid #eee;
+}
+.post  .post-content {
+    padding: 0 25px;
+}
+
+/*头像*/
+.post-heading img {
+  float: left;
+  height: 60px;
+  width: 60px;
+  border: 2px solid #eee;
+  margin: 10px;
+  -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  transition: transform 0.3s;
+}
+.post-heading img:hover {
+  transform: rotate(15deg);
+}
+.page,
+.post {
+  margin-bottom: 4em;
+}
+
+
+.post p img {
+  width: 100%;
+}
+/*首页标题*/
+.post-title {
+  margin: 0 0 0 80px;
+  font-size: 1.3rem;
+  display: block;
+  padding: 10px 10px 0 10px;
+}
+.post-title a {
+    color: #000;
+}
+.post-title .post-title-home:hover,
+.post-title .post-title-home:focus {
+  color: #ac4142;
+}
+/*博文标题*/
+.post-title .post-title-blog {
+  text-decoration: none;
+  cursor: default;/*无鼠标样式*/
+  color: #000;
+}
+/* Blog post or page title */
+/*.page-title,
+.post-title,
+.post-title a {
+  font-size: 1.2rem;
+  display: block;
+  color: #303030;
+  padding: 10px;
+}
+.page-title,
+.post-title {
+  margin-top: 0;
+}*/
+
+
+/* 日期、分类、标签 */
+.post-info {
+  font-size: 0.6rem;
+  display: inline-block;
+  margin: 0 0 10px 10px;
+  color: #9a9a9a;
+}
+.post-info a {
+  color: #9a9a9a;
+}
+.post-info a:hover,
+.post-info a:focus {
+  color: #ac4142;
+}
+/*文章内容*/
+.post-content {
+  margin-top: 10px;
+}
+
+/*阅读全文*/
+.post-content .readmore a {
+  font-size: 0.7rem;
+}
+/*阅读全文hover样式*/
+.post-content .readmore a:hover,
+.post-content .readmore a:focus {
+  font-weight: bold;
+}
+
+
+/* Related posts */
+/*.related {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  border-top: 1px solid #eee;
+}
+.related-posts {
+  padding-left: 0;
+  list-style: none;
+}
+.related-posts h3 {
+  margin-top: 0;
+}
+.related-posts li small {
+  font-size: 75%;
+  color: #999;
+}
+.related-posts li a:hover {
+  color: #268bd2;
+  text-decoration: none;
+}
+.related-posts li a:hover small {
+  color: inherit;
+}*/
+
+/*主页页码 前五篇和后五篇*/
+.pagination {
+  overflow: hidden; /* clearfix */
+  /*margin-left: -1rem;
+  margin-right: -1rem;*/
+  margin: 10rem 0 2rem 0;
+  color: #ccc;
+  text-align: center;
+}
+.pagination-item {
+  font-size: 0.8rem;
+  display: block;
+  padding: 1rem;
+  border: 1px solid #eee;
+}
+.pagination-item:first-child {
+  margin-bottom: -1px;
+}
+a.pagination-item:hover {
+  color: #ac4142;
+  background-color: #f5f5f5;
+}
+
+/*博文页面 前一页和后一页*/
+
+.sub_pagination {
+  font-size: 0.6rem;
+  overflow: hidden; /* clearfix */
+  margin-left: -1rem;
+  margin-right: -1rem;
+  color: #ccc;
+  text-align: center;
+}
+.sub_pagination-item {
+  display: block;
+  padding: 1rem;
+  border: 1px solid #eee;
+}
+.sub_pagination-item:first-child {
+  margin-bottom: -1px;
+}
+a.sub_pagination-item:hover {
+  font-weight: bold;
+  color: #ac4142;
+  background-color: #f5f5f5;
+}
+
+
+
+
+
+/*
+ * Reverse layout
+ *
+ * Flip the orientation of the page by placing the `.sidebar` and sidebar toggle
+ * on the right side.
+ */
+
+.layout-reverse .sidebar {
+  left: auto;
+  right: -14rem;
+}
+.layout-reverse .sidebar-toggle {
+  left: auto;
+  right: 1rem;
+}
+
+.layout-reverse #sidebar-checkbox:checked ~ .sidebar,
+.layout-reverse #sidebar-checkbox:checked ~ .wrap,
+.layout-reverse #sidebar-checkbox:checked ~ .sidebar-toggle {
+  -webkit-transform: translateX(-14rem);
+      -ms-transform: translateX(-14rem);
+          transform: translateX(-14rem);
+}
+
+/*footer*/
+.footer {
+  border-top: 1px solid #eee;
+  font-size: 0.5rem;
+  padding: 12px 0 12px 0;
+  color: #777; 
+  text-align: center;
+}
+.footer p,
+.footer a {
+  font-size: 0.5rem;
+  margin-bottom: 10px;
+}
+.footer p a {
+  text-decoration: none;
+}
+.footer p a:hover,
+.footer p a:focus {
+  color: #ac4142;
+}
+.footer ul {
+  list-style: none;
+  text-align: center;
+  margin-bottom: 0;
+}
+.footer ul li {
+  display: inline;
+  padding-right: 5px;
+}
+.footer ul li:hover,:focus {
+  color: #000;
+}
+.footer li a {
+  color: #777;
+}
+.footer li a:hover {
+  color: #268bd2;
+}
+
+/*评论框，可以自定义多说评论*/
+#comment {
+  border: 1px solid rgb(200,200,200);
+  box-shadow: 3px 5px 3px rgb(220,220,220);
+  border-radius: 2px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+/* 归档页*/
+.page {
+  margin-top: 106px;
+}
+.page-title {
+  /*text-align: center;*/
+}
+h1.page-data-year {
+  /*position: fixed;*/
+  font-size: 1.5rem;
+  border-top: 1px solid #eee;
+}
+li.page-data-md {
+  margin-left: 1.5rem;
+  font-size: .7rem;
+  line-height: 1rem;
+}
+
+
+li.page-data-md a:hover,
+li.page-data-md a:focus {
+  color: #ac4142;
+} 
+li.page-data-md span a {
+  font-size: .6rem;
+  color: rgb(180,180,180);
+  float: right;
+}
+li.page-data-md span a:hover {
+  color: #ac4142;
+}
+/*分类页*/
+div.page-category {
+  text-align: center;
+}
+.page-category a {
+  font-size: .8rem;
+  line-height: 1.5rem;
+  background-color: #eee;
+  float: left;
+  padding: .2rem 1rem;
+  margin: 0 1rem 1rem 0;
+  border-radius: 8px;
+}
+.page-category a:hover,
+.page-category a:focus {
+  color: #ac4142;
+}
+
+
+h1.category-name {
+  font-size: 1.2rem;
+  font-weight: normal;
+  clear: both;
+  border-bottom: 1px solid #eee;
+  margin: 2rem 0 .5rem 0;
+}
+/*h1.category-name:first-of-type {
+  display: inline-block;
+  border-top: 1px solid #eee;
+}*/
+div.article {
+  /*margin-bottom: 2rem;  */
+}
+div.article span {
+  font-size: .7rem;
+}
+div.article a {
+  font-size: .7rem;
+}
+div.article a:hover,
+div.article a:focus {
+  color: #ac4142;
+}
+/*标签页*/
+div.page-tag {
+  text-align: center;
+}
+.page-tag a {
+  font-size: .6rem;
+  line-height: 1.5rem;
+  background-color: #eee;
+  float: left;
+  padding: .1rem .6rem;
+  margin: 0 1rem 1rem 0;
+  border-radius: 8px;
+}
+.page-tag a:hover,
+.page-tag a:focus {
+  color: #ac4142;
+}
+
+
+h1.tag-name {
+  font-size: 1.2rem;
+  font-weight: normal;
+  clear: both;
+  border-bottom: 1px solid #eee;
+  margin: 2rem 0 .5rem 0;
+}
+div.article {
+  /*margin-bottom: 2rem;  */
+}
+div.article span {
+  font-size: .7rem;
+}
+div.article a {
+  font-size: .7rem;
+}
+div.article a:hover,
+div.article a:focus {
+  color: #ac4142;
+}
+
+
+
+
+/*Reponsive layout 响应式布局*/
+
+
+/**/
+@media (min-width: 38rem) {
+  .container {
+    max-width: 32rem;
+  }
+}
+@media (min-width: 56rem) {
+  .container {
+    max-width: 38rem;
+  }
+}
+
+
+/*顶部栏*/
+/*小于800px时隐藏简介，站名居中显示*/
+@media screen and (max-width: 800px) {
+  .masthead-title {
+    text-align: center;
+  }
+  .masthead-title small {
+    display: none;
+  }
+}
+
+/*SideBar*/
+/*小于800px时侧边栏字体变小*/
+@media screen and (max-width: 800px) {
+  .sidebar {
+    font-size: 16px; /* 14px */
+  }
+}
+
+@media (max-width: 800px) {
+  .sidebar-item {
+    padding: 1.5rem;
+  }
+  .sidebar-nav-item {
+    padding-left:  1rem;
+    padding-right: 1rem;
+  }
+}
+
+
+
+/*分页*/
+
+@media (min-width: 600px) {
+  .pagination {
+    margin: 10rem 0 2rem 0;
+  }
+  .pagination-item {
+    float: left;
+    width: 50%;
+  }
+  .pagination-item:first-child {
+    margin-bottom: 0;
+    border-top-left-radius:    4px;
+    border-bottom-left-radius: 4px;
+  }
+  .pagination-item:last-child {
+    margin-left: -1px;
+    border-top-right-radius:    4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  /*subpagination*/
+  .sub_pagination {
+    margin: 3rem 0;
+  }
+  .sub_pagination-item {
+    float: left;
+    width: 50%;
+  }
+  .sub_pagination-item:first-child {
+    margin-bottom: 0;
+    border-top-left-radius:    4px;
+    border-bottom-left-radius: 4px;
+  }
+  .sub_pagination-item:last-child {
+    margin-left: -1px;
+    border-top-right-radius:    4px;
+    border-bottom-right-radius: 4px;
+  }
+}
