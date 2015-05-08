@@ -15,13 +15,19 @@ tag: [android studio]
 
 清除无效包引用      Option + Control + O
 
-查找                Cmd + F
+当前查找            Cmd + F
+
+全局查找class类名   Cmd + O
+
+全局查找            Option + Cmd + O
 
 查找+替换           Cmd + R
 
 上下移动代码        Option + Shift + Up/Down
 
-删除行              Cmd + Delete
+删除行              Cmd + Delete ; Cmd + X
+
+复制行              Cmd + D
 
 扩大缩小选中范围    Option + Up/Down
 
@@ -38,6 +44,11 @@ tag: [android studio]
 查找调用的位置      Ctrl + Option + H
 
 大小写转换          Cmd + Shift + U
+
+导包，自动修正      option + enter
+
+快速生成getter／setter方法，构造方法，toString()方法等    Cmd + N
+
 
 
 
