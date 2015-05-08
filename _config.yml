@@ -8,14 +8,14 @@ encoding:         "utf-8"
 permalink:        pretty
 
 # Setup
-title:            HuS
-tagline:          'Time is limited, To be a better man'
-description:      'Hello,World! Here is my personal weblog about technology and life.'
-url:              http://shelldone.com
+title:            Mxn
+tagline:          '竹杖芒鞋轻胜马,一蓑烟雨任平生’
+description:      ‘我的github首页’
+url:              https://github.com/mxn21
 
 author:
-  name:           'SooHu'
-  url:            https://github.com/SooHu
+  name:           ‘soul.mxn’
+  url:            https://github.com/mxn21
 
 paginate:         5
 
@@ -26,4 +26,4 @@ version:          1.0.0
 comments :
     provider : duoshuo
     duoshuo :
-      short_name : soohu
+      short_name :mxn
