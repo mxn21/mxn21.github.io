@@ -8,13 +8,13 @@ encoding:         "utf-8"
 permalink:        pretty
 
 # Setup
-title:            soul.Mxn
+title:            'soul.Mxn'
 tagline:          '竹杖芒鞋轻胜马,一蓑烟雨任平生'
 description:      '我的github'
 url:              https://github.com/mxn21
 
 author:
-  name:           'soul.mxn'
+  name:           'mxn'
   url:            https://github.com/mxn21
 
 paginate:         5
