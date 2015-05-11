@@ -19,7 +19,7 @@ tag: [android studio]
 
 全局查找class类名   Cmd + O
 
-全局查找            Option + Cmd + O
+全局查找            Option + Cmd + O ; 单击两次Shift
 
 查找+替换           Cmd + R
 
