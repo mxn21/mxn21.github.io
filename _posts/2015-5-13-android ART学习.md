@@ -1,0 +1,10 @@
+---
+layout: post
+author: mxn
+titile: android ART学习
+category: 技术博文
+tag: android
+---
+
+Android L默认采用ART运行环境，完全兼容64位移动处理器。Google称这将比此前的Dalvik模式性能提高两倍，但是会占用更多的内存空间。Android有三种运行模式：Native、Dalvik、ART。Dalvik明显是最慢的，完全的Native模式是最快的但是开发难度高，ART介于两者之间，并且不影响现有开发模式，所以Google选了ART。
+
