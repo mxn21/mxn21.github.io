@@ -11,7 +11,7 @@ title: About
 
 android 开发人员
 
-mail : mxn21@gmail.com
+mail : mxny21@gmail.com
 
 
 
