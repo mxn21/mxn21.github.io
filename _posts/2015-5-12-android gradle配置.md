@@ -55,6 +55,8 @@ productFlavors {
 
 {% endhighlight %}
 
+<!-- more -->
+
 #####4.编译android项目的参数
 
 {% highlight c %}
