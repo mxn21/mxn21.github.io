@@ -20,7 +20,7 @@ tag: [android]
             dropAllTables(db, true);
             onCreate(db);
         }
-     {% highlight  %}   
+     {% endhighlight  %}   
         
 通过oldVersion newVersion 来判断需要创建表或alter表
 
