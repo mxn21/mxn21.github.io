@@ -6,4 +6,20 @@ category: 技术博文
 tag: [android]
 ---
 
-码发现需要自己修改SQLiteOpenHelper
+####更新操作
+
+使用greenDao当android应用升级数据库新增表或者修改表，如何只是修改版本号数据会被清空。
+需要自己修改SQLiteOpenHelper
+1.找到greenDao生成的DaoMaster.java文件，里面有SQLiteOpenHelper实现
+2.修改DevOpenHelper类里的   public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 方法
+{% highlight java %}
+ @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            Log.i("greenDAO", "Upgrading schema from version " + oldVersion + " to " + newVersion + " by dropping all tables");
+            dropAllTables(db, true);
+            onCreate(db);
+        }
+     {% highlight  %}   
+        
+通过oldVersion newVersion 来判断需要创建表或alter表
+（原本以为greenDao生成的代码会自动来完成这一步）
