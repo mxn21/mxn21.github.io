@@ -22,4 +22,4 @@ tag: [android]
      {% highlight  %}   
         
 通过oldVersion newVersion 来判断需要创建表或alter表
-（原本以为greenDao生成的代码会自动来完成这一步）
+
