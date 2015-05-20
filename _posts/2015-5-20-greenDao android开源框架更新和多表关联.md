@@ -23,3 +23,8 @@ tag: [android]
         
 通过oldVersion newVersion 来判断需要创建表或alter表
 
+
+####多表关联操作
+
+http://greendao-orm.com/documentation/relations/
+
