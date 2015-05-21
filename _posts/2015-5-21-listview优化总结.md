@@ -12,7 +12,7 @@ tag: [android]
 2.1：不要直接拿个路径就去循环decodeFile();用Option保存图片大小、不要加载图片到内存去;
 2.2:  拿到的图片一定要经过边界压缩
 2.3:在ListView中取图片时也不要直接拿个路径去取图片，而是以WeakReference（使用WeakReference代替强引用。比如可以使用WeakReference<Context> mContextRef）、SoftReference、WeakHashMap等的来存储图片信息，不是图片。
-2.4:在getView中做图片转换时，产生的中间变量一定及时释放，用以下形式：
+2.4:在getView中做图片转换时，产生的中间变量一定及时释放.
 
 3、尽量避免在BaseAdapter中使用static 来定义全局静态变量，static是Java中的一个关键字，当用它来修饰成员变量时，那么该变量就属于该类，而不是该类的实例。所以用static修饰的变量，它的生命周期是很长的，如果用它来引用一些资源耗费过多的实例（比如Context的情况最多），这时就要尽量避免使用了.
 
