@@ -36,6 +36,8 @@ Activity 中
 
         // 创建一个线性布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        // 设置横向显示
+        //layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);  
         // 设置布局管理器
         recyclerView.setLayoutManager(layoutManager);
 
