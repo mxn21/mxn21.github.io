@@ -23,7 +23,7 @@ tag: [android]
      {% endhighlight  %}   
         
 通过oldVersion newVersion 来判断需要创建表或alter表
-
+http://blog.csdn.net/h3c4lenovo/article/details/43566169
 
 ####多表关联操作
 
