@@ -11,3 +11,34 @@ Android UI是线程不安全的，如果想要在子线程里进行UI操作，�
 ## 分析AsyncTask的源码
 
 在启动某一个任务之前，要先new出它的实例，因此，先来看一看AsyncTask构造函数中的源码，如下所示：
+
+{% highlight java %}
+ public AsyncTask() {
+        mWorker = new WorkerRunnable<Params, Result>() {
+            public Result call() throws Exception {
+                mTaskInvoked.set(true);
+
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+                //noinspection unchecked
+                return postResult(doInBackground(mParams));
+            }
+        };
+
+        mFuture = new FutureTask<Result>(mWorker) {
+            @Override
+            protected void done() {
+                try {
+                    postResultIfNotInvoked(get());
+                } catch (InterruptedException e) {
+                    android.util.Log.w(LOG_TAG, e);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException("An error occured while executing doInBackground()",
+                            e.getCause());
+                } catch (CancellationException e) {
+                    postResultIfNotInvoked(null);
+                }
+            }
+        };
+    }
+    
+     {% endhighlight  %}   
