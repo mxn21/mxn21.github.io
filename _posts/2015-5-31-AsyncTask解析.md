@@ -45,5 +45,23 @@ Android UI是线程不安全的，如果想要在子线程里进行UI操作，�
      
      
 只是初始化了两个变量，mWorker和mFuture，并在初始化mFuture的时候将mWorker作为参数传入。mWorker是一个Callable对象，mFuture是一个FutureTask对象，这两个变量会暂时保存在内存中，稍后才会用到它们。
-
+在mWorker的call方法中设置了 mTaskInvoked.set(true);
+  从private final AtomicBoolean mTaskInvoked = new AtomicBoolean();可以看出mTaskInvoked是boolean的原子化操作。
+  Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);设置了线程优先级。
+  doInBackground(mParams)返回的是Result对象，Result传递到postResult中
+  {% highlight java %}
+   protected abstract Result doInBackground(Params... params);
+    {% endhighlight  %}  
+    
+    再来看看postResult。
+     {% highlight java %}
+    private Result postResult(Result result) {
+        @SuppressWarnings("unchecked")
+        Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
+                new AsyncTaskResult<Result>(this, result));
+        message.sendToTarget();
+        return result;
+    }
+    
+        {% endhighlight  %} 
 
