@@ -65,3 +65,22 @@ Android UI是线程不安全的，如果想要在子线程里进行UI操作，�
     
         {% endhighlight  %} 
 
+这个方法接受了result之后再将自己本身返回，但是中间实例化了AsyncTaskResult，并且通过message发送出去。
+
+AsyncTaskResult是一个静态内部类：
+
+  {% highlight java %}
+  private static class AsyncTaskResult<Data> {
+        final AsyncTask mTask;
+        final Data[] mData;
+
+        AsyncTaskResult(AsyncTask task, Data... data) {
+            mTask = task;
+            mData = data;
+        }
+    }
+{% endhighlight  %} 
+
+
+
+
