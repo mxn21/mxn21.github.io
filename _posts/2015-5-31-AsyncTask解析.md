@@ -42,3 +42,8 @@ Android UI是线程不安全的，如果想要在子线程里进行UI操作，�
     }
     
      {% endhighlight  %}   
+     
+     
+只是初始化了两个变量，mWorker和mFuture，并在初始化mFuture的时候将mWorker作为参数传入。mWorker是一个Callable对象，mFuture是一个FutureTask对象，这两个变量会暂时保存在内存中，稍后才会用到它们。
+
+
