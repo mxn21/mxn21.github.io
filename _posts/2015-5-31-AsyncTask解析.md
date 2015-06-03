@@ -81,6 +81,17 @@ AsyncTaskResult是一个静态内部类：
     }
 {% endhighlight  %} 
 
+再看看mFuture，只有一句话，调用FutureTask的get(),传递到postResultIfNotInvoked()
+ postResultIfNotInvoked(get());
+ 
+   {% highlight java %}
+private void postResultIfNotInvoked(Result result) {
+        final boolean wasTaskInvoked = mTaskInvoked.get();
+        if (!wasTaskInvoked) {
+            postResult(result);
+        }
+    }
 
-
+{% endhighlight  %} 
+postResultIfNotInvoked中判断是否被调用，如果没有被调用，则执行postResult，发送message出去。
 
