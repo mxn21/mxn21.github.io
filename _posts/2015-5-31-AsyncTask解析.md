@@ -265,3 +265,16 @@ Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
        {% endhighlight %}
        
        在finish（）之中执行onPostExecute（）或者onCancelled（），然后设置mStatus为FINISHED完成状态，因为finish（）是在handler中执行，所以onPostExecute（）也是在主线程中执行。
+       
+       我们注意到，在刚才InternalHandler的handleMessage()方法里，还有一种MESSAGE_POST_PROGRESS的消息类型，这种消息是用于当前进度的，调用的正是onProgressUpdate()方法。
+               {% highlight java %} 
+       protected final void publishProgress(Progress... values) {
+        if (!isCancelled()) {
+            getHandler().obtainMessage(MESSAGE_POST_PROGRESS,
+                    new AsyncTaskResult<Progress>(this, values)).sendToTarget();
+        }
+    }
+    
+     {% endhighlight %}
+     在doInBackground()方法中调用publishProgress()方法才可以从子线程切换到UI线程，从而完成对UI元素的更新操作。
+     其实AsyncTask是对handler＋Runnable + Executor做了一个非常好的封装 。 
