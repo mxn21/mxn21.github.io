@@ -104,7 +104,8 @@ public final AsyncTask<Params, Progress, Result> execute(Params... params) {
 
 {% endhighlight  %} 
 sDefaultExecutor是一个默认线程池。
- 通过private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;初始化。
+ 通过 public static final Executor SERIAL_EXECUTOR = new SerialExecutor();
+ private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;初始化。
  设置时调用
  {% highlight java %}
  public static void setDefaultExecutor(Executor exec) {
@@ -138,8 +139,10 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
 {% highlight java %}
 
 在方法中首先判断了mStatus。在看看mStatus.
-  初始化的时候配置了private volatile Status mStatus = Status.PENDING;给mStatus赋值。
+  初始化的时候配置了
+  private volatile Status mStatus = Status.PENDING;给mStatus赋值。
   
+
   Status类型是一个枚举类
   {% highlight java %}
   public enum Status {
@@ -159,3 +162,12 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
 {% highlight java %}
 
 可以看到status把一个任务分为三种状态：未开始执行，正在执行，已经完成的任务。
+
+
+观察executeOnExecutor方法，第一次执行之mStatus的值是PENDING。要执行的时候把它设置成RUNNING。如果第二次执行,则会进入 
+if (mStatus != Status.PENDING)，然后进入 switch语句，无论哪个 case都抛出异常“Cannot execute task”，这也就是为什么execute（）只能被调用一次。
+
+随后传递 mWorker.mParams = params; 
+执行   exec.execute(mFuture); 将前面初始化的mFuture对象传了进去。
+可以看到这个执行的execute是SerialExecutor中的execute,下面看看SerialExecutor。
+
