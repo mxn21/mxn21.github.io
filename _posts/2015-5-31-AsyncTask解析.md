@@ -103,8 +103,16 @@ public final AsyncTask<Params, Progress, Result> execute(Params... params) {
 
 
 {% endhighlight  %} 
+sDefaultExecutor是一个默认线程池。
+ 通过private static volatile Executor sDefaultExecutor = SERIAL_EXECUTOR;初始化。
+ 设置时调用
+ {% highlight java %}
+ public static void setDefaultExecutor(Executor exec) {
+        sDefaultExecutor = exec;
+    }
+ {% endhighlight  %} 
 
-仅是调用了executeOnExecutor()方法，那么具体的逻辑就应该写在这个方法里了
+execute仅是调用了executeOnExecutor()方法，那么具体的逻辑就应该写在这个方法里了
 
 {% highlight java %}
 public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec,  
@@ -128,3 +136,26 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
 }  
 
 {% highlight java %}
+
+在方法中首先判断了mStatus。在看看mStatus.
+  初始化的时候配置了private volatile Status mStatus = Status.PENDING;给mStatus赋值。
+  
+  Status类型是一个枚举类
+  {% highlight java %}
+  public enum Status {
+        /**
+         * Indicates that the task has not been executed yet.
+         */
+        PENDING,
+        /**
+         * Indicates that the task is running.
+         */
+        RUNNING,
+        /**
+         * Indicates that {@link AsyncTask#onPostExecute} has finished.
+         */
+        FINISHED,
+    }
+{% highlight java %}
+
+可以看到status把一个任务分为三种状态：未开始执行，正在执行，已经完成的任务。
