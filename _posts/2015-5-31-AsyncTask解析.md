@@ -95,3 +95,11 @@ private void postResultIfNotInvoked(Result result) {
 {% endhighlight  %} 
 postResultIfNotInvoked中判断是否被调用，如果没有被调用，则执行postResult，发送message出去。
 
+接着如果想要启动某一个任务，就需要调用该任务的execute()方法，因此现在我们来看一看execute()方法的源码，如下所示：
+{% highlight java %}
+public final AsyncTask<Params, Progress, Result> execute(Params... params) {  
+    return executeOnExecutor(sDefaultExecutor, params);  
+}  
+
+
+{% endhighlight  %} 
