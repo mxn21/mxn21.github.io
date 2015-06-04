@@ -113,6 +113,9 @@ sDefaultExecutor是一个默认线程池。
     }
  {% endhighlight  %} 
 
+关于SerialExecutor后面会提到。
+
+
 execute仅是调用了executeOnExecutor()方法，那么具体的逻辑就应该写在这个方法里了
 
 {% highlight java %}
@@ -136,7 +139,7 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
     return this;  
 }  
 
-{% highlight java %}
+{% endhighlight %}
 
 在方法中首先判断了mStatus。在看看mStatus.
   初始化的时候配置了
@@ -159,7 +162,7 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
          */
         FINISHED,
     }
-{% highlight java %}
+{% endhighlight %}
 
 可以看到status把一个任务分为三种状态：未开始执行，正在执行，已经完成的任务。
 
@@ -170,4 +173,50 @@ if (mStatus != Status.PENDING)，然后进入 switch语句，无论哪个 case�
 随后传递 mWorker.mParams = params; 
 执行   exec.execute(mFuture); 将前面初始化的mFuture对象传了进去。
 可以看到这个执行的execute是SerialExecutor中的execute,下面看看SerialExecutor。
+  {% highlight java %}
+   private static class SerialExecutor implements Executor {
+        final ArrayDeque<Runnable> mTasks = new ArrayDeque<Runnable>();
+        Runnable mActive;
 
+        public synchronized void execute(final Runnable r) {
+            mTasks.offer(new Runnable() {
+                public void run() {
+                    try {
+                        r.run();
+                    } finally {
+                        scheduleNext();
+                    }
+                }
+            });
+            if (mActive == null) {
+                scheduleNext();
+            }
+        }
+
+        protected synchronized void scheduleNext() {
+            if ((mActive = mTasks.poll()) != null) {
+                THREAD_POOL_EXECUTOR.execute(mActive);
+            }
+        }
+    }
+  
+{% endhighlight %}
+
+可以看到在activity执行excute()时就会执行到SerialExecutor中的execute，注意这个方法有一个Runnable参数，这个参数的值就是mFuture对象。这个方法里的所有逻辑就是在子线程中执行的。
+方法中首先创建一个队列类型的mTasks ：final ArrayDeque<Runnable> mTasks = new ArrayDeque<Runnable>();
+然后把mFuture参数再封装到一个Runnable对象当中，然后在把Runnable对象添加到队列当中。mTasks.offer(new Runnable() {}.
+之后再调用scheduleNext（）方法。scheduleNext之中先从队列中取出一个任务，如果可以取出不为空的任务，则添加到真正的线程池THREAD_POOL_EXECUTOR之中执行。
+那么看看THREAD_POOL_EXECUTOR。
+
+public static final Executor THREAD_POOL_EXECUTOR
+            = new ThreadPoolExecutor(CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,
+                    TimeUnit.SECONDS, sPoolWorkQueue, sThreadFactory);
+                    
+ 线程池初始化了一些参数
+ 
+  private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+    private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
+    private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
+    private static final int KEEP_ALIVE = 1;
+    
+    最大线程数和cpu数量有关，也就是双核手机最多有5个线程。
