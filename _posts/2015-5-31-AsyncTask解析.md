@@ -103,3 +103,28 @@ public final AsyncTask<Params, Progress, Result> execute(Params... params) {
 
 
 {% endhighlight  %} 
+
+仅是调用了executeOnExecutor()方法，那么具体的逻辑就应该写在这个方法里了
+
+{% highlight java %}
+public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec,  
+        Params... params) {  
+    if (mStatus != Status.PENDING) {  
+        switch (mStatus) {  
+            case RUNNING:  
+                throw new IllegalStateException("Cannot execute task:"  
+                        + " the task is already running.");  
+            case FINISHED:  
+                throw new IllegalStateException("Cannot execute task:"  
+                        + " the task has already been executed "  
+                        + "(a task can be executed only once)");  
+        }  
+    }  
+    mStatus = Status.RUNNING;  
+    onPreExecute();  
+    mWorker.mParams = params;  
+    exec.execute(mFuture);  
+    return this;  
+}  
+
+{% highlight java %}
