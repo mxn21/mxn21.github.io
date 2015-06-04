@@ -220,3 +220,48 @@ public static final Executor THREAD_POOL_EXECUTOR
     private static final int KEEP_ALIVE = 1;
     
     最大线程数和cpu数量有关，也就是双核手机最多有5个线程。
+
+
+那么真正执行异步操作在哪里呢。答案就是最开始初始化时候WorkerRunnable对象里面的postResult(doInBackground(mParams));
+之前已经观察过，这个方法里面封装了MESSAGE_POST_RESULT的message，然后交给handle
+Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
+                new AsyncTaskResult<Result>(this, result));
+ 
+ 
+                {% highlight java %}  
+                private static class InternalHandler extends Handler {
+        public InternalHandler() {
+            super(Looper.getMainLooper());
+        }
+
+        @SuppressWarnings({"unchecked", "RawUseOfParameterizedType"})
+        @Override
+        public void handleMessage(Message msg) {
+            AsyncTaskResult<?> result = (AsyncTaskResult<?>) msg.obj;
+            switch (msg.what) {
+                case MESSAGE_POST_RESULT:
+                    // There is only one result
+                    result.mTask.finish(result.mData[0]);
+                    break;
+                case MESSAGE_POST_PROGRESS:
+                    result.mTask.onProgressUpdate(result.mData);
+                    break;
+            }
+        }
+    }
+    {% endhighlight %}
+    
+    handle收到这个类型的message后执行了finish（）
+        {% highlight java %} 
+        
+         private void finish(Result result) {
+        if (isCancelled()) {
+            onCancelled(result);
+        } else {
+            onPostExecute(result);
+        }
+        mStatus = Status.FINISHED;
+    }
+       {% endhighlight %}
+       
+       在finish（）之中执行onPostExecute（）或者onCancelled（），然后设置mStatus为FINISHED完成状态，因为finish（）是在handler中执行，所以onPostExecute（）也是在主线程中执行。
