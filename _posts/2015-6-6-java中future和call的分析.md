@@ -23,3 +23,19 @@ public interface Future<V> {
      {% endhighlight  %}   
 
 可以看到future是一个接口，里面定义了一些方法。
+
+再看看callable
+{% highlight java %}
+public interface Callable<V> {
+    /**
+     * Computes a result, or throws an exception if unable to do so.
+     *
+     * @return computed result
+     * @throws Exception if unable to compute a result
+     */
+    V call() throws Exception;
+}
+
+{% endhighlight  %}  
+
+他也是一个接口，里面定义了一个call方法。
