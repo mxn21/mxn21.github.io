@@ -21,3 +21,5 @@ public interface Future<V> {
 }
 
      {% endhighlight  %}   
+
+可以看到future是一个接口，里面定义了一些方法。
