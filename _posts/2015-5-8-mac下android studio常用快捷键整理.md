@@ -49,6 +49,7 @@ tag: [android studio]
 
 快速生成getter／setter方法，构造方法，toString()方法等    Cmd + N
 
+真正的全局查找     Cmd + Shift + F
 
 
 
