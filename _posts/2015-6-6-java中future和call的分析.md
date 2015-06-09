@@ -39,3 +39,6 @@ public interface Callable<V> {
 {% endhighlight  %}  
 
 他也是一个接口，里面定义了一个call方法。
+
+
+ Callable接口类似于Runnable，从名字就可以看出来了，但是Runnable不会返回结果，并且无法抛出返回结果的异常
