@@ -96,3 +96,5 @@ public interface Callable<V> {
   任务执行完毕
 
    {% highlight c %}
+   
+   可以看到myFutureTast.get()方法得到了Callable的call()方法的返回值，这里是100.
