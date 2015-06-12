@@ -200,3 +200,5 @@ public interface Callable<V> {
     }
 
         {% endhighlight  %}
+        
+        看到了get()并没有直接返回outcome，而是调用report。
