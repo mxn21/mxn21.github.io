@@ -44,7 +44,26 @@ public interface Callable<V> {
  Callable接口类似于Runnable，从名字就可以看出来了，但是Runnable不会返回结果，并且无法抛出返回结果的异常。
  而Callable功能更强大一些，被线程执行后，可以返回值，这个返回值可以被Future拿到，也就是说，Future可以拿到异步执行任务的返回值。
  
- 
+ 那么FutureTask是什么呢
+  {% highlight java %}
+ public class FutureTask<V> implements RunnableFuture<V> {}
+  {% endhighlight  %}  
+  可以看到FutureTask继承了RunnableFuture。
+  继续看RunnableFuture。
+  
+   {% highlight java %}
+   public interface RunnableFuture<V> extends Runnable, Future<V> {
+    /**
+     * Sets this Future to the result of its computation
+     * unless it has been cancelled.
+     */
+    void run();
+}
+   {% endhighlight  %}  
+   
+   RunnableFuture继承了Runnable和Future。那么也就可以说FutureTask是Future接口的一个具体的实例化。
+   FutureTask中覆写了Future中的get(),cancel()等方法。
+   
  下面看一个例子
  
  {% highlight java %}
