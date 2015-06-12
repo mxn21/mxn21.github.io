@@ -108,12 +108,46 @@ public interface Callable<V> {
  
   {% endhighlight  %}  
   输出结果：
+  
    {% highlight c %}
   已经提交了任务
   正在处理任务－－－－>Thread-0
   100
   任务执行完毕
 
-   {% highlight c %}
+   {% endhighlight  %}
    
    可以看到myFutureTast.get()方法得到了Callable的call()方法的返回值，这里是100.
+   
+   那么get()方法是怎么取得这个call()方法返回的值呢？
+   
+   继续看看FutureTask的源码。
+   首先是FutureTask通过传入Callable实例化，
+   
+    {% highlight java %}
+   
+    public FutureTask(Callable<V> callable) {
+        if (callable == null)
+            throw new NullPointerException();
+        this.callable = callable;
+        this.state = NEW;       // ensure visibility of callable
+    }
+    {% endhighlight  %}
+    
+    可以看到，传入对象为空的时候抛出异常，不为空的时候将callable保存到自己的变量中，
+    因为FutureTask继承了Runnable，所以当new Thread(myFutureTast).start(); 的时候一定会调用FutureTask覆写的run()方法。
+    那么找找这个方法。
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+   
