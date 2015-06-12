@@ -53,7 +53,10 @@ Android UI是线程不安全的，如果想要在子线程里进行UI操作，�
    protected abstract Result doInBackground(Params... params);
     {% endhighlight  %}  
     
-    再来看看postResult。
+ <!-- more -->
+再来看看postResult。
+
+
      {% highlight java %}
     private Result postResult(Result result) {
         @SuppressWarnings("unchecked")
@@ -218,10 +221,8 @@ public static final Executor THREAD_POOL_EXECUTOR
     private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
     private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
     private static final int KEEP_ALIVE = 1;
-    
-    最大线程数和cpu数量有关，也就是双核手机最多有5个线程。
 
-
+最大线程数和cpu数量有关，也就是双核手机最多有5个线程。
 那么真正执行异步操作在哪里呢。答案就是最开始初始化时候WorkerRunnable对象里面的postResult(doInBackground(mParams));
 之前已经观察过，这个方法里面封装了MESSAGE_POST_RESULT的message，然后交给handle
 Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
@@ -229,11 +230,11 @@ Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
  
  
                 {% highlight java %}  
-                private static class InternalHandler extends Handler {
+                
+     private static class InternalHandler extends Handler {
         public InternalHandler() {
             super(Looper.getMainLooper());
         }
-
         @SuppressWarnings({"unchecked", "RawUseOfParameterizedType"})
         @Override
         public void handleMessage(Message msg) {
@@ -249,9 +250,11 @@ Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
             }
         }
     }
+    
     {% endhighlight %}
     
-    handle收到这个类型的message后执行了finish（）
+ handle收到这个类型的message后执行了finish（）
+ 
         {% highlight java %} 
         
          private void finish(Result result) {
@@ -264,9 +267,11 @@ Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
     }
        {% endhighlight %}
        
-       在finish（）之中执行onPostExecute（）或者onCancelled（），然后设置mStatus为FINISHED完成状态，因为finish（）是在handler中执行，所以onPostExecute（）也是在主线程中执行。
-       
-       我们注意到，在刚才InternalHandler的handleMessage()方法里，还有一种MESSAGE_POST_PROGRESS的消息类型，这种消息是用于当前进度的，调用的正是onProgressUpdate()方法。
+ 
+ 在finish（）之中执行onPostExecute（）或者onCancelled（），然后设置mStatus为FINISHED完成状态，因为finish（）是在handler中执行，所以onPostExecute（）也是在主线程中执行。
+ 
+ 我们注意到，在刚才InternalHandler的handleMessage()方法里，还有一种MESSAGE_POST_PROGRESS的消息类型，这种消息是用于当前进度的，调用的正是onProgressUpdate()方法。
+ 
                {% highlight java %} 
        protected final void publishProgress(Progress... values) {
         if (!isCancelled()) {
@@ -276,5 +281,6 @@ Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
     }
     
      {% endhighlight %}
-     在doInBackground()方法中调用publishProgress()方法才可以从子线程切换到UI线程，从而完成对UI元素的更新操作。
-     其实AsyncTask是对handler＋Runnable + Executor做了一个非常好的封装 。 
+     
+在doInBackground()方法中调用publishProgress()方法才可以从子线程切换到UI线程，从而完成对UI元素的更新操作。
+其实AsyncTask是对handler＋Runnable + Executor做了一个非常好的封装 。 
