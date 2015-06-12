@@ -218,3 +218,10 @@ public interface Callable<V> {
            {% endhighlight  %}
 
 在report()中终于返回了之前的结果outcome 。 
+
+以上是对future,call,futureTast源码的走读，可以帮助理解三者之间的逻辑关系。
+
+
+
+
+
