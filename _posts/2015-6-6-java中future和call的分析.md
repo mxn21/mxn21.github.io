@@ -331,3 +331,19 @@ public class FutureTest {
     {% endhighlight  %}
     
     
+    输出结果如下：
+    {% highlight c %}
+    task1: flag = 0
+looping.
+looping.
+looping.
+task2 cancel: true
+Interrupted
+java.util.concurrent.ExecutionException: java.lang.Exception: Bad flag value!
+
+        {% endhighlight  %}
+        
+        第一个线程进入call()方法，通过get取得 call返回值和之前的例子没有什么不同。
+        第二个线程没有调用get(),而是调用了cancel(true)。结果并没有得到call的返回值，而是cancel覆写后的返回值，同时call()抛出异常。
+        第三个线程同样抛出异常。
+        
