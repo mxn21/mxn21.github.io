@@ -222,6 +222,40 @@ public interface Callable<V> {
 以上是对future,call,futureTast源码的走读，可以帮助理解三者之间的逻辑关系。
 
 
+再回顾最开始的代码
+	FutureTask<Integer> myFutureTast = new FutureTask(myCallable); 
+	new Thread(myFutureTast).start(); 
+	这两行还有另外一种写法，通过线程池来实现。
+	
+    {% highlight java %}	
+public class FutureTest {
 
+	public static void main(String[] args) {
+		MyCallable myCallable = new MyCallable() ; 
+		//方式1
+//		FutureTask<Integer> myFutureTast = new FutureTask(myCallable); 
+//		new Thread(myFutureTast).start(); 
+		//方式2
+		ExecutorService threadPool = Executors.newSingleThreadExecutor();  
+		Future<Integer> myFutureTast = threadPool.submit(myCallable) ; 
+		
+		System.out.println("已经提交了任务");
+		try {
+			System.out.println(myFutureTast.get());
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
+		}
+		System.out.println("任务执行完毕");
+	}
 
+}
+ {% endhighlight  %}
 
+运行结果和之前相同
+
+    {% highlight c %}
+    已经提交了任务
+正在处理任务－－－－>pool-1-thread-1
+100
+任务执行完毕
+     {% endhighlight  %}
