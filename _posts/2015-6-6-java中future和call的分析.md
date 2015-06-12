@@ -187,7 +187,16 @@ public interface Callable<V> {
         }
     }
      {% endhighlight  %}
+     
+    set()方法把这个result保存到一个新的变量outcome中，outcome就是计算的结果。
     
-    
-    
-   
+    那么get()一定是返回了这个outcome 。 
+     {% highlight java %}
+     public V get() throws InterruptedException, ExecutionException {
+        int s = state;
+        if (s <= COMPLETING)
+            s = awaitDone(false, 0L);
+        return report(s);
+    }
+
+        {% endhighlight  %}
