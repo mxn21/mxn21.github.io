@@ -63,7 +63,7 @@ public interface Callable<V> {
    
    RunnableFuture继承了Runnable和Future。那么也就可以说FutureTask是Future接口的一个具体的实例化。
    FutureTask中覆写了Future中的get(),cancel()等方法。
-   
+   <!-- more -->
  下面看一个例子
  
  {% highlight java %}
