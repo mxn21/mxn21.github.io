@@ -134,9 +134,9 @@ public interface Callable<V> {
     }
     {% endhighlight  %}
     
-    可以看到，传入对象为空的时候抛出异常，不为空的时候将callable保存到自己的变量中，
-    因为FutureTask继承了Runnable，所以当new Thread(myFutureTast).start(); 的时候一定会调用FutureTask覆写的run()方法。
-    那么找找这个方法。
+ 可以看到，传入对象为空的时候抛出异常，不为空的时候将callable保存到自己的变量中，
+ 因为FutureTask继承了Runnable，所以当new Thread(myFutureTast).start(); 的时候一定会调用FutureTask覆写的run()方法。
+ 那么找找这个方法。
     
     
      {% highlight java %}
@@ -175,9 +175,11 @@ public interface Callable<V> {
     }
     
     {% endhighlight  %}
-    
-    可以看到，把之前保存的callable变量，赋值给变量c,然后c调用了call(),把结果给了result ,再调用set(result) ; 
-    看看set方法 。 
+
+
+可以看到，把之前保存的callable变量，赋值给变量c,然后c调用了call(),把结果给了result ,再调用set(result) ; 
+看看set方法 。
+
        {% highlight java %}
     protected void set(V v) {
         if (UNSAFE.compareAndSwapInt(this, stateOffset, NEW, COMPLETING)) {
@@ -188,9 +190,11 @@ public interface Callable<V> {
     }
      {% endhighlight  %}
      
-    set()方法把这个result保存到一个新的变量outcome中，outcome就是计算的结果。
-    
-    那么get()一定是返回了这个outcome 。 
+     
+set()方法把这个result保存到一个新的变量outcome中，outcome就是计算的结果。
+那么get()一定是返回了这个outcome 。 
+
+
      {% highlight java %}
      public V get() throws InterruptedException, ExecutionException {
         int s = state;
@@ -199,11 +203,11 @@ public interface Callable<V> {
         return report(s);
     }
 
+
         {% endhighlight  %}
         
-        看到了get()并没有直接返回outcome，而是调用report。
-        
-        
+看到了get()并没有直接返回outcome，而是调用report。
+ 
          {% highlight java %}
           @SuppressWarnings("unchecked")
     private V report(int s) throws ExecutionException {
@@ -254,7 +258,7 @@ public class FutureTest {
 运行结果和之前相同
 
     {% highlight c %}
-    已经提交了任务
+ 已经提交了任务
 正在处理任务－－－－>pool-1-thread-1
 100
 任务执行完毕
@@ -330,8 +334,7 @@ public class FutureTest {
 } 
     {% endhighlight  %}
     
-    
-    输出结果如下：
+输出结果如下：
     {% highlight c %}
     task1: flag = 0
 looping.
@@ -341,14 +344,14 @@ task2 cancel: true
 Interrupted
 java.util.concurrent.ExecutionException: java.lang.Exception: Bad flag value!
 
-        {% endhighlight  %}
+  {% endhighlight  %}
         
-        第一个线程进入call()方法，通过get取得 call返回值和之前的例子没有什么不同。
-        第二个线程没有调用get(),而是调用了cancel(true)。结果并没有得到call的返回值，而是cancel覆写后的返回值，同时call()抛出异常。
-        第三个线程同样抛出异常。
+第一个线程进入call()方法，通过get取得 call返回值和之前的例子没有什么不同。
+第二个线程没有调用get(),而是调用了cancel(true)。结果并没有得到call的返回值，而是cancel覆写后的返回值，同时call()抛出异常。
+第三个线程同样抛出异常。
         
         
- ###总结
+###总结
  
   Callable 和 Future接口   
   Callable是类似于Runnable的接口，实现Callable接口的类和实现Runnable的类都是可被其它线程执行的任务。   
