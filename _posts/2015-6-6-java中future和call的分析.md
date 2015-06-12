@@ -202,3 +202,19 @@ public interface Callable<V> {
         {% endhighlight  %}
         
         看到了get()并没有直接返回outcome，而是调用report。
+        
+        
+         {% highlight java %}
+          @SuppressWarnings("unchecked")
+    private V report(int s) throws ExecutionException {
+        Object x = outcome;
+        if (s == NORMAL)
+            return (V)x;
+        if (s >= CANCELLED)
+            throw new CancellationException();
+        throw new ExecutionException((Throwable)x);
+    }
+         
+           {% endhighlight  %}
+
+在report()中终于返回了之前的结果outcome 。 
