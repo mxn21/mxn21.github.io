@@ -82,6 +82,9 @@ class GreetLoudlyActivity extends Activity {
 在这个例子中，因为application重新实例化了一个新的，所以name的值是空，当我们调用String#toUpperCase() 的时候造成了NullPointerException。
 
 那么核心问题就是：application不会永远在内存中，他会被杀死。
+也就是说，如果想在后面的页面中使用前面的页面存储的数据，而且把数据存储在application中，那么你的程序是会可能崩溃的。
+
+###解决方案
 
 
 
