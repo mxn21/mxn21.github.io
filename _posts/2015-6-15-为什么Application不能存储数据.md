@@ -125,4 +125,11 @@ adb shell kill -9 21997
 在application当中存储数据是错误的倾向，可以把数据存储在硬盘中，或者通过intent传递。
 这个不仅在application中适用，同样适用于其他public static 的变量。
 
+###哪些数据可以存储在application中
+可以在application的onCreate中初始化的数据，是可以保存的，因为每次程序启动时都会重新运行onCreate,重新初始化数据。
+
+
+
+
+
 
