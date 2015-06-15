@@ -120,7 +120,9 @@ adb shell kill -9 21997
 
 3、现在通过进程切换器回到app中，你就在一个新的application当中了。
 
+###总结
 
-
+在application当中存储数据是错误的倾向，可以把数据存储在硬盘中，或者通过intent传递。
+这个不仅在application中适用，同样适用于其他public static 的变量。
 
 
