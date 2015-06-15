@@ -91,6 +91,9 @@ class GreetLoudlyActivity extends Activity {
 2、把数据保存在通过持久化保存，存储在文件或者数据库中等。
 3、总是进行空指向检查，并且手动处理。
 
+###如何模拟application被杀死
+
+
 
 
 
