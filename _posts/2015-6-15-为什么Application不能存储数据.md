@@ -14,4 +14,22 @@ tag: [gradle]
 
 ###简单的测试
 
+Application如下所示：
+{% highlight java %}
 
+class MyApplication extends Application {
+    String name;
+    String getName() {
+        return name;
+    }
+    void setName(String name) {
+        this.name = name;
+    }
+}
+{% endhighlight %}
+
+在第一个activity中，我们在Application中储存user的name属性。
+
+
+
+<!-- more -->
