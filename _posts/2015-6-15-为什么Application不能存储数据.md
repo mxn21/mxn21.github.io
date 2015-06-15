@@ -77,6 +77,12 @@ class GreetLoudlyActivity extends Activity {
 7、系统重新创建了application实例，然后重新装载了第二个activity。
 8、第二个页面去application中取name的值，但是现在是null,程序因为NullPointerException崩溃。
 
+###程序崩溃的原因
+
+在这个例子中，因为application重新实例化了一个新的，所以name的值是空，当我们调用String#toUpperCase() 的时候造成了NullPointerException。
+
+那么核心问题就是：application不会永远在内存中，他会被杀死。
+
 
 
 
