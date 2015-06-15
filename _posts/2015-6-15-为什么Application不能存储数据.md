@@ -63,3 +63,13 @@ class GreetLoudlyActivity extends Activity {
 {% endhighlight %}
 
 <!-- more -->
+
+###剧本已经写好
+1、用户打开了app。
+2、在第一个activity中我们得到了name,然后储存在application中。
+3、在第二个界面中我们从activity中取出name，然后展示在页面上。
+4、用户按下了home键离开了app。
+5、几个小时后，系统悄悄地杀死了app来释放内存。
+
+
+
