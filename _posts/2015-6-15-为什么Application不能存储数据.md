@@ -71,5 +71,13 @@ class GreetLoudlyActivity extends Activity {
 4、用户按下了home键离开了app。
 5、几个小时后，系统悄悄地杀死了app来释放内存。
 
+到目前为止，没有出现什么问题，但是，接下来就到了程序崩溃的地方了。
+
+6、用户重新打开了app。
+7、系统重新创建了application实例，然后重新装载了第二个activity。
+8、第二个页面去application中取name的值，但是现在是null,程序因为NullPointerException崩溃。
+
+
+
 
 
