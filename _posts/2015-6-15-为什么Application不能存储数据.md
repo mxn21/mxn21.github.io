@@ -30,6 +30,36 @@ class MyApplication extends Application {
 
 在第一个activity中，我们在Application中储存user的name属性。
 
+{% highlight java %}
+class WhatIsYourNameActivity extends Activity {
+    void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.writing);
+        MyApplication app = (MyApplication) getApplication();
+        app.setName("Developer Phil");
+        startActivity(new Intent(this, GreetLoudlyActivity.class));
+    }
+}
+{% endhighlight %}
 
+在第二个activity中，我们取出name
+
+{% highlight java %}
+
+class GreetLoudlyActivity extends Activity {
+    TextView textview;
+    void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.reading);
+        textview = (TextView) findViewById(R.id.message);
+    }
+    void onResume() {
+        super.onResume();
+        MyApplication app = (MyApplication) getApplication();
+        textview.setText("HELLO " + app.getName().toUpperCase());
+    }
+}
+
+{% endhighlight %}
 
 <!-- more -->
