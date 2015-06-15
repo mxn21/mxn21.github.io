@@ -93,10 +93,32 @@ class GreetLoudlyActivity extends Activity {
 
 ###如何模拟application被杀死
 
+一种简单的方法是：如果你的应用是可调试的，可以在DDMS中使用“Stop Process” 来杀死进程。
 
+另一种方式：使用模拟器或者root过的手机
+1、通过home键退出程序。
+2、在terminal中
 
+{% highlight c %}
+# find the process id
+adb shell ps
+# then find the line with the package name of your app
 
+# Mac/Unix: save some time by using grep:
+adb shell ps | grep your.app.package
 
+# The result should look like:
+# USER      PID   PPID  VSIZE  RSS     WCHAN    PC         NAME
+# u0_a198   21997 160   827940 22064 ffffffff 00000000 S your.app.package
+
+# Kill the app by PID
+adb shell kill -9 21997
+
+# the app is now killed
+
+{% endhighlight %}
+
+3、现在通过进程切换器回到app中，你就在一个新的application当中了。
 
 
 
