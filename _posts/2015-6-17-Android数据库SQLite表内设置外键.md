@@ -157,3 +157,18 @@ public Cursor getEmpByDept(String Dept)
    return c;  
   }  
 {% endhighlight  %}
+
+取得部门ID
+{% highlight java %}
+public int GetDeptID(String Dept)  
+  {  
+   SQLiteDatabase db=this.getReadableDatabase();  
+   Cursor c=db.query(deptTable, new String[]{colDeptID+" as _id",colDeptName},  
+    colDeptName+"=?", new String[]{Dept}, null, null, null);  
+   //Cursor c=db.rawQuery("SELECT "+colDeptID+" as _id FROM "+deptTable+"   
+   //WHERE "+colDeptName+"=?", new String []{Dept});  
+   c.moveToFirst();  
+   return c.getInt(c.getColumnIndex("_id"));    
+  }  
+  {% endhighlight  %}
+ 上面部门和雇员信息的表因为实现的关联，所以更新和删除都会对对应的信息更新。
