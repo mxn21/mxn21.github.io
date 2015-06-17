@@ -105,6 +105,41 @@ SQLiteDatabase db=this.getWritableDatabase();
                      db.close();  
 {% endhighlight  %}
 
+更新数据
+
+{% highlight java %}
+public int UpdateEmp(Employee emp)  
+  {  
+   SQLiteDatabase db=this.getWritableDatabase();  
+   ContentValues cv=new ContentValues();  
+   cv.put(colName, emp.getName());  
+   cv.put(colAge, emp.getAge());  
+   cv.put(colDept, emp.getDept());  
+   return db.update(employeeTable, cv, colID+"=?",   
+    new String []{String.valueOf(emp.getID())});     
+  }  
+{% endhighlight  %}
 
 
+删除数据
+{% highlight java %}
+public void DeleteEmp(Employee emp)  
+  {  
+   SQLiteDatabase db=this.getWritableDatabase();  
+   db.delete(employeeTable,colID+"=?", new String [] {String.valueOf(emp.getID())});  
+   db.close();  
+  }  
+{% endhighlight  %}
 
+取得所有部门信息
+
+{% highlight java %}
+Cursor getAllDepts()  
+  {  
+   SQLiteDatabase db=this.getReadableDatabase();  
+   Cursor cur=db.rawQuery("SELECT "+colDeptID+" as _id,   
+    "+colDeptName+" from "+deptTable,new String [] {});  
+ 
+   return cur;  
+  }  
+{% endhighlight  %}
