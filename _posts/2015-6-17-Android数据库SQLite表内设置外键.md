@@ -143,3 +143,17 @@ Cursor getAllDepts()
    return cur;  
   }  
 {% endhighlight  %}
+
+
+取得部门内雇员信息
+{% highlight java %}
+
+public Cursor getEmpByDept(String Dept)  
+  {  
+   SQLiteDatabase db=this.getReadableDatabase();  
+   String [] columns=new String[]{"_id",colName,colAge,colDeptName};  
+   Cursor c=db.query(viewEmps, columns, colDeptName+"=?",   
+    new String[]{Dept}, null, null, null);  
+   return c;  
+  }  
+{% endhighlight  %}
