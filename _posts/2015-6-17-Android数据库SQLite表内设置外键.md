@@ -15,9 +15,10 @@ Employees
 Dept
 ####视图
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img2.JPG)
-
 ViewEmps:显示雇员信息和他所在的部门.
 
+ <!-- more -->
+ 
 ####创建数据库
 自定义一个辅助类继承SQLiteOpenHelper类.
 
