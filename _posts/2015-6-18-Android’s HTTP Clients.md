@@ -35,7 +35,12 @@ Accept-Encoding: gzip
 
  <!-- more -->
  在android 4.0 Ice Cream Sandwich 中也进行了一些升级，HttpURLConnection可以链接同一个ip的多个站点（既SNI，Server Name Indication），同时支持压缩和session.如何链接失败，会自动重连。HttpsURLConnection可以在保存旧服务器的兼容心的情况下，更高效的链接新的服务器 。 
- 
+
+在android 4.0中增加了response缓存，当使用cache时，HTTP request和满足一下三种情况之一：
+1、完全缓存responses到本地磁盘，当没有新的链接需要是，可以立即使用本地缓存。
+2、有选择的缓存一部分内容，需要服务器做一些验证。客户端发送一个request，例如：“Give me /foo.png if it changed since yesterday”
+服务器返回更新的内容，或者304 Not Modified status。如果没有更新，则没有内容被下载。
+3、不使用缓存，responses会在以后需要时再缓存。
  
  
 
