@@ -42,6 +42,18 @@ Accept-Encoding: gzip
 服务器返回更新的内容，或者304 Not Modified status。如果没有更新，则没有内容被下载。
 3、不使用缓存，responses会在以后需要时再缓存。
  
- 
+可以使用反射来缓存response到本地，下面的示例代码会在不影响之前版本的情况下打开缓存：
+{% highlight java %}
+private void enableHttpResponseCache() {
+    try {
+        long httpCacheSize = 10 * 1024 * 1024; // 10 MiB
+        File httpCacheDir = new File(getCacheDir(), "http");
+        Class.forName("android.net.http.HttpResponseCache")
+            .getMethod("install", File.class, long.class)
+            .invoke(null, httpCacheDir, httpCacheSize);
+    } catch (Exception httpResponseCacheNotAvailable) {
+    }
+}
+{% endhighlight  %}
 
-
+同时还要在服务器HTTP responses中设置cache headers。
