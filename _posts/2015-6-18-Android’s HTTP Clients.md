@@ -19,3 +19,5 @@ AndroidHttpClient默认不带gzip压缩。
 ### HttpURLConnection
 Java的HttpURLConnection，默认带gzip压缩
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img3.jpg)
+HttpURLConnection是一种很适合的轻量级 HTTP client，他的核心api可以让我们很简单的进行升级。
+
