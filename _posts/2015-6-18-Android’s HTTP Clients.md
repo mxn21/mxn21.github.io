@@ -14,3 +14,4 @@ DefaultHttpClient 和它的同类AndroidHttpClient都是适合浏览网页的可
 但是他们庞大的api使我们很难在不破坏兼容性的情况下对他们升级。android的开发团队已经不在继续使用 Apache HTTP Client.
 AndroidHttpClient默认不带gzip压缩。
 和HttpURLConnection相比两种方式请求connection都是keep alive，但是默认User-Agent不同。
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img4.jpg)
