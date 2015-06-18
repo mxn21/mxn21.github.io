@@ -22,3 +22,13 @@ Java的HttpURLConnection，默认带gzip压缩
 HttpURLConnection是一种很适合的轻量级 HTTP client，他的核心api可以让我们很简单的进行升级。
 但是在android 2.2之前HttpURLConnection有一些失败的bug.特别是在可读输入流里调用 close()的时候，会影响链接池，所以只能禁用连接池。
 
+{% highlight java %}
+private void disableConnectionReuseIfNecessary() {
+    // HTTP connection reuse which was buggy pre-froyo
+    if (Integer.parseInt(Build.VERSION.SDK) < Build.VERSION_CODES.FROYO) {
+        System.setProperty("http.keepAlive", "false");
+    }
+}
+{% endhighlight  %}
+
+
