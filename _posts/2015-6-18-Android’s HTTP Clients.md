@@ -57,3 +57,18 @@ private void enableHttpResponseCache() {
 {% endhighlight  %}
 
 同时还要在服务器HTTP responses中设置cache headers。
+
+### 哪个是最好的client
+在 Froyo(2.2) 之前，HttpURLConnection 有个重大 Bug，调用 close() 函数会影响连接池，导致连接复用失效，所以在 Froyo 之前使用 HttpURLConnection 需要关闭 keepAlive。
+ 
+另外在 Gingerbread(2.3) HttpURLConnection 默认开启了 gzip 压缩，提高了 HTTPS 的性能，Ice Cream Sandwich(4.0) HttpURLConnection 支持了请求结果缓存。
+再加上 HttpURLConnection 本身 API 相对简单，所以对 Android 来说，在 2.3 之后建议使用 HttpURLConnection，之前建议使用 AndroidHttpClient。
+ 
+Retrofit及Volley框架默认在Android Gingerbread(API 9)及以上都是用HttpURLConnection，9以下用HttpClient。
+
+### GZip压缩
+
+一般对于API请求需带上GZip压缩，因为API返回数据大都是JSon串之类字符串，GZip压缩后内容大小大幅降低，下面是这两个网页GZip压缩前后对比，都是第一条表示GZip压缩后，第二条为压缩前
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img5.jpg)
+
