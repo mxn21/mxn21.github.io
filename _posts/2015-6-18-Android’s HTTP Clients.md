@@ -34,7 +34,7 @@ private void disableConnectionReuseIfNecessary() {
 Accept-Encoding: gzip
 
  <!-- more -->
- 
+ 在android 4.0 Ice Cream Sandwich 中也进行了一些升级，HttpURLConnection可以链接同一个ip的多个站点（既SNI，Server Name Indication），同时支持压缩和session.如何链接失败，会自动重连。HttpsURLConnection可以在保存旧服务器的兼容心的情况下，更高效的链接新的服务器 。 
  
  
  
