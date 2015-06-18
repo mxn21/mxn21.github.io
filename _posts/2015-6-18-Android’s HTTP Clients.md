@@ -33,4 +33,10 @@ private void disableConnectionReuseIfNecessary() {
 在android 2.3 Gingerbread中增加了gzip支持 HttpURLConnection会在发出的request中自动增加这些header，并且处理对应的response:
 Accept-Encoding: gzip
 
+ <!-- more -->
+ 
+ 
+ 
+ 
+
 
