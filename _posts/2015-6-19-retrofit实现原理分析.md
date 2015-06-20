@@ -248,7 +248,105 @@ Map<Method, RestMethodInfo> getMethodInfoCache(Class<?> service) {
  
  {% highlight java %}
  /** Request metadata about a service interface declaration. */
-final class RestMethodInfo {...}
+final class RestMethodInfo {
+final Method method;
+ 
+  boolean loaded = false;   //方法是否已经load过(解析过)
+ 
+  // Method-level details
+  final ResponseType responseType;
+  final boolean isSynchronous;      //方法是同步还是异步.
+  final boolean isObservable;
+  Type responseObjectType;
+  RequestType requestType = RequestType.SIMPLE;
+  String requestMethod;
+  boolean requestHasBody;
+  String requestUrl;           
+  Set<String> requestUrlParamNames;
+  String requestQuery;
+  List<retrofit.client.Header> headers;
+  String contentTypeHeader;
+  boolean isStreaming;
+  private enum ResponseType {  //方法的返回值是什么类型
+    VOID,                      //void代表没有返回值,-->异步的方式
+    OBSERVABLE,               //rxjava
+    OBJECT                    //方法的返回值是对象--->同步的方式
+  }
+  RestMethodInfo(Method method) {
+    this.method = method;
+    responseType = parseResponseType();
+    isSynchronous = (responseType == ResponseType.OBJECT);
+    isObservable = (responseType ==           ResponseType.OBSERVABLE);
+  }
+ 
+   private ResponseType parseResponseType() {
+    // Synchronous methods have a non-void return type.       //同步的方法有一个非void的返回值
+    // Observable methods have a return type of Observable.   //Observable的方法 返回值类型应该是Observable
+    Type returnType = method.getGenericReturnType();
+ 
+    // Asynchronous methods should have a Callback type as the last argument. //异步的方法最后一个方法的参数类型应该是Callback.
+    Type lastArgType = nul
+    Class<?> lastArgClass = null;
+    Type[] parameterTypes = method.getGenericParameterTypes();
+    if (parameterTypes.length > 0) {
+      Type typeToCheck = parameterTypes[parameterTypes.length - 1];
+      lastArgType = typeToCheck;
+      if (typeToCheck instanceof ParameterizedType) {
+        typeToCheck = ((ParameterizedType) typeToCheck).getRawType();
+      }
+      if (typeToCheck instanceof Class) {
+        lastArgClass = (Class<?>) typeToCheck;
+      }
+    }
+ 
+    boolean hasReturnType = returnType != void.class;
+    boolean hasCallback = lastArgClass != null && Callback.class.isAssignableFrom(lastArgClass); //如果有CallBack, CallBack只能是最后一个参数.
+ 
+    // Check for invalid configurations.
+    if (hasReturnType && hasCallback) {                         //返回值是非void类型和方法有CallBack参数有且只能有一个满足.
+      throw methodError("Must have return type or Callback as last argument, not both.");
+    }
+    if (!hasReturnType && !hasCallback) {
+      throw methodError("Must have either a return type or Callback as last argument.");
+    }
+ 
+    if (hasReturnType) {
+      if (Platform.HAS_RX_JAVA) {
+        Class rawReturnType = Types.getRawType(returnType);
+        if (RxSupport.isObservable(rawReturnType)) {
+          returnType = RxSupport.getObservableType(returnType, rawReturnType);
+          responseObjectType = getParameterUpperBound((ParameterizedType) returnType);
+          return ResponseType.OBSERVABLE;
+        }
+      }
+      responseObjectType = returnType;
+      return ResponseType.OBJECT;
+    }
+ 
+    lastArgType = Types.getSupertype(lastArgType, Types.getRawType(lastArgType), Callback.class);
+    if (lastArgType instanceof ParameterizedType) {
+      responseObjectType = getParameterUpperBound((ParameterizedType) lastArgType);
+      return ResponseType.VOID;
+    }
+ 
+    throw methodError("Last parameter must be of type Callback<X> or Callback<? super X>.");
+  }
+ 
+private void parsePath(String path) {          //解析路径 如GET(string),注意这里会对string进行判断,必须以"/"开头. 所以不能是空字符串,如""
+    ...........
+}
+  List<retrofit.client.Header> parseHeaders(String[] headers) {  //解析Headers注解.
+　　.....
+}
+  private void parseParameters() {   //解析方法参数,如方法参数的@Header, @Query等.
+　　.......
+}
+  private void parseMethodAnnotations() { //解析http方式.如GET(),POST()
+　　.......
+ }
+}
+
+
 {% endhighlight  %}
 
 从RestMethodInfo类的注释来看，它和用户自定义的接口有密切的关系，也就是说，用户接口中定义的函数，由该类来解析说明和发出请求。
