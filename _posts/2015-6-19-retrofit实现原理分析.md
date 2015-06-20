@@ -150,3 +150,35 @@ private static Platform findPlatform() {
 }
 
    {% endhighlight  %}
+   
+   可以发现上面默认的Http的Executor是一个线程池.
+
+而CallBack的Executor是在主线程执行的. 由绑定MainLooper的Handler提交到主线程执行.
+    {% highlight java %}
+    
+    public final class MainThreadExecutor implements Executor {
+  private final Handler handler = new Handler(Looper.getMainLooper()); //关联主线程的Handler
+ 
+  @Override public void execute(Runnable r) {
+    handler.post(r);                                 //提交到主线程执行
+  }
+}
+   {% endhighlight  %}
+   
+   
+   {% highlight java %}
+
+public final boolean post(Runnable r)
+    {
+       return  sendMessageDelayed(getPostMessage(r), 0);
+    }
+    {% endhighlight  %}
+   
+   {% highlight java %}
+   
+   private static Message getPostMessage(Runnable r) {   //把runnable封装到Message中.
+      Message m = Message.obtain();
+      m.callback = r;
+      return m;
+  }
+    {% endhighlight  %}
