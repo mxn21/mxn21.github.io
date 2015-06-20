@@ -584,5 +584,66 @@ Request request = requestBuilder.build();
 
 如果判断用户不是希望同步执行，那么invokeRequest函数的执行将会在之后执行。首先，会判断你是否使用了RxJava。如果使用了RxJava ，则组建一个RxSupport（对RxJava 中类的简单封装），使用它的createRequestObservable函数对invokeRequest函数进行异步调用并返回一个ResponseWrapper。否则使用httpExecutor（前面初始化的时候被设置为CachedThreadPool（缓存线程池））对invokeRequest函数进行异步调用并返回一个ResponseWrapper。
 
-  
+  最后看看CallbackRunnable的实现
+    {% highlight java %}
+    abstract class CallbackRunnable<T> implements Runnable {
+  private final Callback<T> callback;
+  private final Executor callbackExecutor;
+  private final ErrorHandler errorHandler;
+
+  CallbackRunnable(Callback<T> callback, Executor callbackExecutor, ErrorHandler errorHandler) {
+    this.callback = callback;
+    this.callbackExecutor = callbackExecutor;
+    this.errorHandler = errorHandler;
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override public final void run() {
+    try {
+      final ResponseWrapper wrapper = obtainResponse();
+      callbackExecutor.execute(new Runnable() {
+        @Override public void run() {
+          callback.success((T) wrapper.responseBody, wrapper.response);
+        }
+      });
+    } catch (RetrofitError e) {
+      Throwable cause = errorHandler.handleError(e);
+      final RetrofitError handled = cause == e ? e : unexpectedError(e.getUrl(), cause);
+      callbackExecutor.execute(new Runnable() {
+        @Override public void run() {
+          callback.failure(handled);
+        }
+      });
+    }
+  }
+
+  public abstract ResponseWrapper obtainResponse();
+} 
+   {% endhighlight  %}
+   
+   就是一个普通的Runnable，在run方法中首先执行obtailResponse，从名字可以看到是执行请求返回Response，这个从前面可以看到执行了invokeRequest，和同步调用中一样执行请求。
+紧接着就提交了一个Runnable至callbackExecutor，在看Platform时看到了callbackExecotor是通过Platform.get().defaultCallbackExecutor()返回的，Android中是向主线程的一个Handler发消息
+
+值得注意的事，对于同步调用，如果遇到错误是直接抛异常，而对于异步调用，是调用Callback.failure()
+
+
+### retrofit的大体流程
+
+　用户自定义配置项的设置(如client,converter,拦截器等)--->解析接口的方法(如果曾经解析过就从缓存中获取),确定http访问的url,header,method等,确定是异步还是同步的方式------>使用具体的Client进行网络访问,并将数据封装到Response---->执行Converter的逻辑(有可能不用执行),把Response数据转换为一个具体对象.--->根据同步或者异步的方式,执行方法或者callBack的逻辑.
+　
+### retrofit框架的需要注意的几个小点.
+
+1.为什么同步方式不像正常的方式一样要求用户try_catch来提醒用户捕捉异常?
+
+　　通过上面的逻辑可以看到,真正进行网络访问,converter转换的逻辑都在invokeHandler.invoke()方法执行的时候执行. 而这个方法的调用是在 用户自定义接口调用接口方法的时候执行的.(不明白的可以看下动态代理的原理).而用户自定义的接口方法是没有抛出异常的.在java中,如果父类方法没有抛出异常,子类方法也不能显示的抛出异常.(子类方法只能抛出父类方法抛出异常或其子类).所以Retrofit就不能抛出各种异常(如IO异常). 并且要抓住异常后转换为RuntimeException抛出.(动态代理生成的接口的实现类其实内部也采用了同样的方法.)
+
+　　异常抓住后不能直接内部处理,应该提醒用户代码执行的时候出了问题,所以必须抓住异常后再次抛出.而对于CallBack的方式,因为有failure()方法提示用户代码逻辑出了问题,所以就不用re-throw异常了.
+
+　　2.关于 InvocationHandler的invoke()方法, 这个方法有个返回值. 那这个返回值返回的是什么呢?
+
+　　首先明确Method.invoke(Object receiver,Object.. args)是和 receiver.method(args)等价的,2个方法的返回值是一样的.
+
+public Object invoke(Object receiver, Object... args)  这里的Object是方法执行的的返回值.
+---> Returns the result of dynamically invoking this method. Equivalent to {@code receiver.methodName(arg1, arg2, ... , argN)}.
+　　动态代理生成了接口A的代理类B,B的同名方法内部其实调用的是invocationHandler的 invoke()方法.返回的也是invoke方法的返回值. 所以invoke返回的类型就应该和接口方法的返回值类型一样.
 
