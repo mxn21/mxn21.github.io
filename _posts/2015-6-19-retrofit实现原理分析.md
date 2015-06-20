@@ -182,3 +182,24 @@ public final boolean post(Runnable r)
       return m;
   }
     {% endhighlight  %}
+    
+    下面了解下 SimplePOST simplePost= adapter.create(SimplePOST.class)的内部逻辑.
+       {% highlight java %}
+    public <T> T create(Class<T> service) {
+    Utils.validateServiceClass(service);                                                      
+    return (T) Proxy.newProxyInstance(service.getClassLoader(), new Class<?>[] { service },   //动态代理
+        new RestHandler(getMethodInfoCache(service)));
+  }
+      {% endhighlight  %}
+      
+          {% highlight java %}
+      static <T> void validateServiceClass(Class<T> service) {      //确保create()参数是一个接口类型,且这个接口没有继承其他的接口.(使用动态代理的前提)
+   if (!service.isInterface()) {
+     throw new IllegalArgumentException("Only interface endpoint definitions are supported.");
+   }
+   if (service.getInterfaces().length > 0) {
+     throw new IllegalArgumentException("Interface definitions must not extend other interfaces.");
+   }
+ }
+      {% endhighlight  %}
+    
