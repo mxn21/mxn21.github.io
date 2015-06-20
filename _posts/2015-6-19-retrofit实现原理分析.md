@@ -227,6 +227,28 @@ public final boolean post(Runnable r)
 
 RestHandler 继承自 InvocationHandler 实现它的 invoke 函数，当代理类的接口函数被调用时，会先调用代理类的invoke 函数，然后在invoke 函数里通过反射调用用户指定的接口函数。
 
+查看invoke 函数的具体实现之间，我们先分析分析getMethodInfoCache(service)函数。
+
+下面是getMethodInfoCache函数的实现部分
+
+{% highlight java %}
+  public <T> T create(Class<T> service) {
+    Utils.validateServiceClass(service);
+    return (T) Proxy.newProxyInstance(service.getClassLoader(), new Class<?>[] { service },
+        new RestHandler(getMethodInfoCache(service)));
+  }
+
+ {% endhighlight  %}
+ 该函数使用了同步代码块 synchronized 以serviceMethodInfoCache为对象锁，防止其他线程在该函数执行的时候入侵，之后在serviceMethodInfoCache查询service是否在其中存在，如果不存在，就新new 一个LinkedHashMap<Method, RestMethodInfo>加入其中，RestMethodInfo是一个final 类型的class，下面是它的申明
+ {% highlight java %}
+ /** Request metadata about a service interface declaration. */
+final class RestMethodInfo {...}
+{% endhighlight  %}
+
+从RestMethodInfo类的注释来看，它和用户自定义的接口有密切的关系，也就是说，用户接口中定义的函数，由该类来解析说明和发出请求。
+
+之后就将methodDetailsCache（LinkedHashMap<Method, RestMethodInfo>类型）传入到RestHandler类的构造方法当中，为其的同名属性完成赋值的同时返回该类的实例。接下来我们就开始分析RestHandler中的invoke 函数，这可以说是retrofit的精髓所在。
+
 
    {% highlight java %}
    private class RestHandler implements InvocationHandler {
