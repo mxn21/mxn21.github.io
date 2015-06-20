@@ -570,3 +570,19 @@ Request request = requestBuilder.build();
  {% endhighlight  %}
  
  start 表示请求开始的时间，elapsedTime 表示该次请求花费的时间，而中间那句则是进行真正的网络请求，clientProvider 表示你在前面创建RestAdapter 时调调用ensureSaneDefaults函数所初始化的网络请求客户端（可能是OkClient, AndroidApacheClient,UrlFetchClient或者UrlConnectionClient四个的其中之一）。执行完成后返回一个response 这是一个Response常量实体类，和前面提到的Request常量实体类对应（一个表示请求实体，一个表示相应实体），里面存放着该次请求返回的Http协议头，状态码，body...etc .
+ 
+ 在请求之前还有一个profiler
+   {% highlight java %}
+ Object profilerObject = null;
+        if (profiler != null) {
+          profilerObject = profiler.beforeCall();
+        }
+        
+  {% endhighlight  %}
+  这里用到了AOP（面向切面）设计模式，如果用户设置了profiler的话，在请求的前后分别会调用profiler的beforeCall和afterCall函数，以通知用户请求的完成情况（在afterCall函数中传递了响应结果）。
+之后的代码就是对response 的一个处理了，如果响应结果不在200到300之间，Retrofit会抛出一个自定义的异常进行进一步的处理，如果在200到300之间则会对response的请求数据做进一步的处理 .比如调用new ResponseWrapper(response, convert);利用converter（Converter接口类型，但实际上是GsonConverter，对Gson的一个封装） 将数据解析为用户想要返回的那个类型。
+
+如果判断用户不是希望同步执行，那么invokeRequest函数的执行将会在之后执行。首先，会判断你是否使用了RxJava。如果使用了RxJava ，则组建一个RxSupport（对RxJava 中类的简单封装），使用它的createRequestObservable函数对invokeRequest函数进行异步调用并返回一个ResponseWrapper。否则使用httpExecutor（前面初始化的时候被设置为CachedThreadPool（缓存线程池））对invokeRequest函数进行异步调用并返回一个ResponseWrapper。
+
+  
+
