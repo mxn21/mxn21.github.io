@@ -183,6 +183,16 @@ public final boolean post(Runnable r)
   }
     {% endhighlight  %}
     
+    现在有下面一个接口,
+      {% highlight java %}
+    interface SimplePOST{
+      @POST("/android") 
+      Response getResponse();
+  }　
+  
+   {% endhighlight  %}
+  
+  
     下面了解下 SimplePOST simplePost= adapter.create(SimplePOST.class)的内部逻辑.
        {% highlight java %}
     public <T> T create(Class<T> service) {
@@ -203,3 +213,10 @@ public final boolean post(Runnable r)
  }
       {% endhighlight  %}
     
+　可以发现adapter.create()方法的内部实现是利用动态代理生成了service接口的一个实现类. 根据动态代理的原理. 可以得知调用实现类的方法其实就是调用InvocationtHandler的对应方法.
+　
+　　虽然这里是运用了动态代理的技术.但是却和一般的动态代理不一样. 一般的动态代理的InvocationHandler应该通过构造函数中传入委托类A.然后在invoke方法中调用A的方法, 但这里是没有委托类的.只是利用动态代理自动生成接口的实现类.
+
+　　因为java的动态代理是基于接口的,所以retrofit也要求用户自定义的也必须是一个接口. 
+
+　　注意invocationHandler的invoke()方法执行是在我们调用接口的方法的时候执行的.对于上面的代码就simplepost.getResponse()执行的时候.
