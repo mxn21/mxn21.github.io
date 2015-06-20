@@ -92,3 +92,61 @@ private static Platform findPlatform() {
  {% endhighlight  %}
  
  由于retrofit支持不同的平台，Platform用于判断使用的是哪个平台， retrofit的Android类继承了Platform, 根据android的特性对配置项做了处理.
+  {% highlight java %}
+ private static class Android extends Platform {
+    @Override Converter defaultConverter() {
+      return new GsonConverter(new Gson());  //默认的转换器是Gson
+    }
+ 
+    @Override Client.Provider defaultClient() {
+      final Client client;
+      if (hasOkHttpOnClasspath()) {  //有okhttp的路径就使用 Okhttp
+        client = OkClientInstantiator.instantiate();
+      } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
+        client = new AndroidApacheClient(); //没有okhttp,且版本小于2.3 使用HttpClient
+      } else {
+        client = new UrlConnectionClient();  //没有okhttp,且版本大于等于2.3 使用urlConnection.
+      }
+      return new Client.Provider() {
+        @Override public Client get() {
+          return client;
+        }
+      };
+    }
+ 
+    @Override Executor defaultHttpExecutor() {   //网络访问执行的线程.
+      return Executors.newCachedThreadPool(new ThreadFactory() {  //一个cached的线程池.可以复用老线程且线程长时间不用会自动回收. 线程池中线程不够会生成新线程.
+        @Override public Thread newThread(final Runnable r) {
+          return new Thread(new Runnable() {
+            @Override public void run() {
+              Process.setThreadPriority(THREAD_PRIORITY_BACKGROUND);    //设置线程的优先级 为最低
+              r.run();
+            }
+          }, RestAdapter.IDLE_THREAD_NAME);
+        }
+      });
+    }
+ 
+    @Override Executor defaultCallbackExecutor() { //异步执行的线程.
+      return new MainThreadExecutor();
+    }
+ 
+    @Override RestAdapter.Log defaultLog() {  //通过Log.d("Retrofit",String)打印log
+      return new AndroidLog("Retrofit");
+    }
+  }
+  
+   {% endhighlight  %}
+   
+   其中判断了是否有okHttp的路径
+     {% highlight java %}
+   private static boolean hasOkHttpOnClasspath() {
+  try {
+    Class.forName("com.squareup.okhttp.OkHttpClient"); //是否可以找到OkHttpClient类.
+    return true;
+  } catch (ClassNotFoundException ignored) {
+  }
+  return false;
+}
+
+   {% endhighlight  %}
