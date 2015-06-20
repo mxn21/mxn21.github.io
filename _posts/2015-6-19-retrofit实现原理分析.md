@@ -545,4 +545,28 @@ private void parsePath(String path) {          //解析路径 如GET(string),注
  }
  {% endhighlight  %}
  
+ 下面来分析每一步的调用流程。
+（一）判断call的method是不是属于当前代理Object申明的，如果是就返回方法调用后的结果而不继续向下执行。
+
+（二）调用getMethodInfo函数
+传入参数为调用RestHandler构造方法时传入的methodDetailsCache（LinkedHashMap<Method, RestMethodInfo>类型）和具体调用的method(Method类型)，返回值是一个RestMethodInfo的实例。getMethodInfo函数主要作用是将用户调用的method解析为一个RestMethodInfo实例，然后再将method和该RestMethodInfo实例以key-value键值对的形式绑定，存放在methodDetailsCache中，然后再将该RestMethodInfo实例返回。（ps: RestMethodInfo中的对Mehod接口解析是很重要的，但是这里作者就一笔带过了，读者自己看看吧，就是JAVA反射那套东西，还是很简单的）
+
+（三）调用并返回invokeRequest函数
+这里拿到了将method解析后的methodInfo（RestMethodInfo类型），判断该调用函数用户是想让它同步执行还是异步执行（利用RestMethodInfo中的isSynchronous属性判断），同步执行则进入到if判断，调用并返回invokeRequest函数.
+
+第一个参数RequestInterceptor接口是一个请求拦截器，能在请求执行之前向请求添加一些额外的数据，在最开始分析RestAdapter 创建的时候分析到ensureSaneDefaults 函数，如果没有在创建RestAdapter的时候传入自己实现的RequestInterceptor，那么Retrofit会给一个默认的RequestInterceptor空实现，指向RequestInterceptor接口类中的NONE属性。第二个参数是刚才Method解析后的RestMethodInfo，第三个参数是用户调用函数时传入的参数数组。
+
+methodInfo.init() 
+这个函数调用之后会将当前用户调用的方法进行进一步的解析，比如对@POST @GET @HEAD...etc 这些annotation的解析，并且每个实例只解析一次。
+RequestBuilder requestBuilder = new RequestBuilder(serverUrl, methodInfo, converter);
+从字面字面意思看，这个类和请求有关。确实，这个类里包含了用户请求网络所包含的各种参数，比如Host地址，Http协议头...etc 反正就是组成一个http请求所必要的东西。
+Request request = requestBuilder.build();
+由requestBuilder调用build函数产生一个Request类，该类是一个常量实体类，包含了最少的请求Http时所需要的信息。之后是请求信息的日志打印，在接下来关键的地方来了。
+   {% highlight java %}
+   long start = System.nanoTime();
+   Response response = clientProvider.get().execute(request);
+    long elapsedTime = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - start);
+
+ {% endhighlight  %}
  
+ start 表示请求开始的时间，elapsedTime 表示该次请求花费的时间，而中间那句则是进行真正的网络请求，clientProvider 表示你在前面创建RestAdapter 时调调用ensureSaneDefaults函数所初始化的网络请求客户端（可能是OkClient, AndroidApacheClient,UrlFetchClient或者UrlConnectionClient四个的其中之一）。执行完成后返回一个response 这是一个Response常量实体类，和前面提到的Request常量实体类对应（一个表示请求实体，一个表示相应实体），里面存放着该次请求返回的Http协议头，状态码，body...etc .
