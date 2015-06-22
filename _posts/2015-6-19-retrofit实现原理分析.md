@@ -184,7 +184,7 @@ public final boolean post(Runnable r)
   }
     {% endhighlight  %}
     
-    现在有下面一个接口,
+现在有下面一个接口,
       {% highlight java %}
     interface SimplePOST{
       @POST("/android") 
@@ -193,8 +193,8 @@ public final boolean post(Runnable r)
   
    {% endhighlight  %}
   
-  
-    下面了解下 SimplePOST simplePost= adapter.create(SimplePOST.class)的内部逻辑.
+下面了解下 SimplePOST simplePost= adapter.create(SimplePOST.class)的内部逻辑.
+    
        {% highlight java %}
     public <T> T create(Class<T> service) {
     Utils.validateServiceClass(service);                                                      
