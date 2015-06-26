@@ -15,3 +15,8 @@ tag: [android]
 需要用ListView或者其它显示大量Items的控件实时跟踪或者查看信息，并且希望最新的条目可以自动滚动到可视范围内。通过设置的控件transcriptMode属性可以将Android平台的控件（支持ScrollBar）自动滑动到最底部。
  android:transcriptMode="alwaysScroll"    
 
+#### clipToPadding属性
+
+设置listview距离上面的控件的padding,并且允许在padding中滑动。
+android:paddingTop="10dp"
+android:clipToPadding  = "false"
