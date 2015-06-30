@@ -1,12 +1,15 @@
 ---
 layout: post
 author: mxn
-title: android listview属性积累
+title: android listview和gridview属性积累
 category: 技术博文
 tag: [android]
 ---
 
+## ListView
+
 #### stackFromBottom属性
+
 这只该属性之后你做好的列表就会显示你列表的最下面，值为true和false。这个属性并不能是listview倒序排列
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img11.gif)
 
@@ -20,3 +23,18 @@ tag: [android]
 设置listview距离上面的控件的padding,并且允许在padding中滑动。
 android:paddingTop="10dp"
 android:clipToPadding  = "false"
+
+## gridView
+
+#### stretchMode 
+
+gridview的item两边显示多余的空白部分，设置 android:stretchMode="none"属性即可。
+
+#### clickable 
+
+gridview调用setonitemclicklistener时确保item的clickable属性为false
+
+#### scrollbarStyle
+
+当设置paddingright属性时，滚动条显示在里边，要想滚动条显示在外边，设置android:scrollbarStyle=" outsideOverlay "属性即可
+
