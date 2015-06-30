@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-6-30-ADB命令备忘录.md" afterPath="$PROJECT_DIR$/_posts/2015-6-30-ADB命令备忘录.md" />
-    </list>
+    <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="" />
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
