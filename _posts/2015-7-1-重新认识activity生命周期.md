@@ -29,10 +29,12 @@ Called when the current Window of the activity gains or loses focus.
 
 可以看出在窗口获得焦点或失去时调用
 
-<!-- more -->
 
 
 ```注意：onWindowFocusChanged当Activity被创建时是在onResume之后被调用，当Activity被覆盖或者退居后台或者当前Activity退出时，它是在onPause之后被调用```
+
+<!-- more -->
+
 
 下面的demo解释了整个生命周期：
 
@@ -85,11 +87,11 @@ Called when the current Window of the activity gains or loses focus.
         }
 
         //Activity窗口获得或失去焦点时被调用,在onResume之后或onPause之后
-        /*@Override
+        @Override
         public void onWindowFocusChanged(boolean hasFocus) {
             super.onWindowFocusChanged(hasFocus);
             Log.i(TAG, "onWindowFocusChanged called.");
-        }*/
+        }
 
         //Activity被覆盖到下面或者锁屏时被调用
         @Override
