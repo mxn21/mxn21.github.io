@@ -143,5 +143,11 @@ Called when the current Window of the activity gains or loses focus.
 
 	{% endhighlight %}
 
+注意到，除了几个常见的方法外，我们还添加了onWindowFocusChanged、onSaveInstanceState、onRestoreInstanceState方法：
 
+1.onWindowFocusChanged方法：在Activity窗口获得或失去焦点时被调用，例如创建时首次呈现在用户面前；当前Activity被其他Activity覆盖；
+当前Activity转到其他Activity或按Home键回到主屏，自身退居后台；用户退出当前Activity。以上几种情况都会调用onWindowFocusChanged，
+并且当Activity被创建时是在onResume之后被调用，当Activity被覆盖或者退居后台或者当前Activity退出时，它是在onPause之后被调用，如图所示：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img12.png)
 
