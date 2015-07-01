@@ -356,7 +356,8 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
 
 在暂停状态下的activity，因其activity信息完整保存在内存里且保持与窗口管理器的连接，所以可以直接调用onRestart（）方法还原activity。
 用户经常会使用返回按钮返回上一个界面（Activity），用户当然是希望上一个界面（Activity）和他原来看到或编辑的一样，在这种情况下你就需要使用之前已经保存好的状态信息和成员变量来还原上一个Activity。
-若要保存一个Activity的状态信息和成员变量，则需要实现回调方法onSaveInstanceState()。onSaveInstanceState()会在执行onStoped()方法之前调用，这个方法有一个参数Bundle，可以以“名称-值”的形式保存activity的信息
+若要保存一个Activity的状态信息和成员变量，则需要实现回调方法onSaveInstanceState()。onSaveInstanceState()会在执行onPause()
+方法之前调用，这个方法有一个参数Bundle，可以以“名称-值”的形式保存activity的信息
 （如使用putString(),putInt()方法）。接着在需要还原activity时，系统会调用onCreat()或者OnRestoreInstanceState()，这两个方法都传入一个以保存了activity信息的Bundle对象，通过提取Bundle对象的信息来恢复activity。
 如果没有信息需要保存到Bundle对象，那传递给这两个方法的将是空的Bundle对象（刚开始初始化一个activity时其实就是这种情况）
 
@@ -365,8 +366,27 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
 几乎所有的控件都实现了这个方法，因此在界面产生的可见变化都会自动保存下来，也就可以还原activity。举个例子：
 在EditText输入的内容或者CheckBox的选择，都会自动保存下来。而你所需要做的就是为需要保存信息的控件提供一个id（在
 XML文件里的属性android:id）,如果你没有为控件提供id，那系统是不会自动保存这些信息的。
-下面给出一些例子参考一下onSaveInstanceState()和OnRestoreInstanceState()方法的
+下面给出一些例子参考一下onSaveInstanceState()和OnRestoreInstanceState()方法的使用：
 
 
+	{% highlight java  %}
+
+    @Override
+    protected void OnSaveInstanceState(Bundle outState)
+    {
+        outState.PutString("myString", "HelloXamarin.Android OnSaveInstanceState");
+        outState.PutBoolean("myBool", true);
+        base.OnSaveInstanceState(outState);
+    }
+    @Override
+    protected void OnRestoreInstanceState(Bundle savedState)
+    {
+        base.OnRestoreSaveInstanceState(savedState);
+        var myString =savedState.GetString(amyStringa);
+        var myBool =GetBoolean(amyBoola);
+    }
+
+    {% endhighlight %}
 
 
+如果需要强制控件不保存对应的信息，可以在布局文件设置android:saveEnabled = “false”，或者使用控件对象的setSaveEnabled()方法。
