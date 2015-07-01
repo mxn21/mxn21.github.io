@@ -143,6 +143,8 @@ Called when the current Window of the activity gains or loses focus.
 
 	{% endhighlight %}
 
+#### onSaveInstanceState和onRestoreInstanceState
+
 注意到，除了几个常见的方法外，我们还添加了onWindowFocusChanged、onSaveInstanceState、onRestoreInstanceState方法：
 
 1.onWindowFocusChanged方法：在Activity窗口获得或失去焦点时被调用，例如创建时首次呈现在用户面前；当前Activity被其他Activity覆盖；
@@ -335,3 +337,36 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
 
 2.模拟器与真机差别很大：模拟器中如果不配置android:configChanges属性或配置值为orientation，切到横屏执行一次销毁->重建，切到竖屏执行两次。
 真机均为一次。模拟其中如果配置android:configChanges="orientation|keyboardHidden"，切竖屏执行一次onConfigurationChanged，切竖屏执行两次。真机均为一次。
+
+
+#### 重新认识生命周期
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img21.png)
+
+
+```上表中 “是否可以终止”是指系统是否可以在此方法执行完后直接销毁该Activity的实例（没有再去执行此Activity内的其他代码）。
+如上表所示，onPause(),onStop(),和onDestroy()三个方法是可以终止的。同时从状态图（上图）中可以知道onPause()方法是这三个方法中第一个调用的，
+自一个Activity创建开始，直到此Activity终止或销毁，onPause()是最后一个保证会被调用的方法（如在突发情况下系统回收内存，onStop()和onDestroy()就不会被调用）。
+因此，你应该在onPause()方法里保存一些关键的数据（如用户编辑的内容），所谓“关键“就是让你有选择地去保存一些重要的数据，因为onPause()方法执行时间过长，会延迟下一状态的切换，进而影响了用户的体验。
+在上表注明不可以被终止的方法也可能会被系统终止，不过这一情况只会在一些极端的情况下发生。
+同时可以联想到service的生命周期中没有onPause，所以想在service生命周期中判断service被中止，是比较棘手的```
+
+
+#### 保存Activity的状态信息(onSaveInstanceState和OnRestoreInstanceState的具体使用)
+
+在暂停状态下的activity，因其activity信息完整保存在内存里且保持与窗口管理器的连接，所以可以直接调用onRestart（）方法还原activity。
+用户经常会使用返回按钮返回上一个界面（Activity），用户当然是希望上一个界面（Activity）和他原来看到或编辑的一样，在这种情况下你就需要使用之前已经保存好的状态信息和成员变量来还原上一个Activity。
+若要保存一个Activity的状态信息和成员变量，则需要实现回调方法onSaveInstanceState()。onSaveInstanceState()会在执行onStoped()方法之前调用，这个方法有一个参数Bundle，可以以“名称-值”的形式保存activity的信息
+（如使用putString(),putInt()方法）。接着在需要还原activity时，系统会调用onCreat()或者OnRestoreInstanceState()，这两个方法都传入一个以保存了activity信息的Bundle对象，通过提取Bundle对象的信息来恢复activity。
+如果没有信息需要保存到Bundle对象，那传递给这两个方法的将是空的Bundle对象（刚开始初始化一个activity时其实就是这种情况）
+
+其实，即使你没有实现回调方法onSaveInstanceState()，系统也会执行默认的onSaveInstanceState()。值得注意的是，
+系统会为每个View组件执行相对应的onSaveInstanceState()，这可以使每一个组件保存自己相对应的信息。在Android里，
+几乎所有的控件都实现了这个方法，因此在界面产生的可见变化都会自动保存下来，也就可以还原activity。举个例子：
+在EditText输入的内容或者CheckBox的选择，都会自动保存下来。而你所需要做的就是为需要保存信息的控件提供一个id（在
+XML文件里的属性android:id）,如果你没有为控件提供id，那系统是不会自动保存这些信息的。
+下面给出一些例子参考一下onSaveInstanceState()和OnRestoreInstanceState()方法的
+
+
+
+
