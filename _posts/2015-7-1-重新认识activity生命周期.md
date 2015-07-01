@@ -390,3 +390,14 @@ XML文件里的属性android:id）,如果你没有为控件提供id，那系统�
 
 
 如果需要强制控件不保存对应的信息，可以在布局文件设置android:saveEnabled = “false”，或者使用控件对象的setSaveEnabled()方法。
+
+尽管系统默认执行onSaveInstanceState()保存对应控件的信息，有时候你需要实现这个方法去保存一些额外的变量。例如：你需要去保存一些在这个activity生命周期里会改变的变量（指控件信息之外的变量），这些会改变的变量系统是默认不保存的。
+
+需要注意的是：onSaveInstanceState()方法不保证一定会被调用，所以在这个方法里你只应该保存一些临时变量（如UI的状态），而不要去保存一些需要持久化的数据。相反，你应该在onPaused（）方法里保存需要持久化的数据（例如保存到数据库里的数据）。
+
+
+```Android系统上Back按钮和Home按钮的区别，尽管他们都可以导航到另外一个otherActivity（可以是其他程序的），
+可他们的作用原理是不一样的。在界面（Activity）上点击Back按钮，系统会认为这个Activity已完成其对应的实现逻辑，
+则调用对应的方法销毁此Activity；可当点击Home按钮时，系统会认为这个Activity还没有完成对应的逻辑，则系统并不会销毁这个Activity，
+而是让其处于停止态（Stopped State）。```
+
