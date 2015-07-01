@@ -322,3 +322,14 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
 系统先是调用onSaveInstanceState方法，我们保存了一个临时参数到Bundle对象里面，然后当Activity重建之后我们又成功的取出了这个参数。
 为了避免这样销毁重建的过程，我们需要在AndroidMainfest.xml中对OrientationActivity对应的<activity>配置android:configChanges="orientation"，然后我们再测试一下，
 我试着做了四次的旋转，打印如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img20.png)
+
+可以看到，每次旋转方向时，只有onConfigurationChanged方法被调用，没有了销毁重建的过程。
+
+以下是需要注意的几点：
+
+1.如果<activity>配置了android:screenOrientation属性，则会使android:configChanges="orientation"失效。
+
+2.模拟器与真机差别很大：模拟器中如果不配置android:configChanges属性或配置值为orientation，切到横屏执行一次销毁->重建，切到竖屏执行两次。
+真机均为一次。模拟其中如果配置android:configChanges="orientation|keyboardHidden"，切竖屏执行一次onConfigurationChanged，切竖屏执行两次。真机均为一次。
