@@ -196,7 +196,9 @@ Called when the current Window of the activity gains or loses focus.
 我们注意到，此时LifeCycleActivity的OnPause方法被调用，并没有调用onStop方法，因为此时的LifeCycleActivity没有退居后台，
 只是被覆盖或被锁屏；onSaveInstanceState会在onPause之前被调用。
 
-```注意：按锁屏键和对话框覆盖界面的生命周期是一样的，都只会进行onPause －－> onResume .不会onStop,onRestart,onStart ```
+```注意：按锁屏键和按HOME键的生命周期是不同的，按HOME执行onPause --> onStop --> onRestart --> onStart ---> onResume```
+```按锁屏键和对话框覆盖界面的生命周期是一样的，都只会进行onPause －－> onResume .不会执行onStop,onRestart,onStart ```
+
 
 5.按回退键使LifeCycleActivity从被覆盖回到前面，或者按解锁键解锁屏幕：
 
