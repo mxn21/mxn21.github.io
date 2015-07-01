@@ -230,3 +230,95 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
 这是应用中的Activity设置特定的方向是经常用到的办法，可以为我们省去不少不必要的麻烦。不过，我们今天讲的是屏幕方向改变时的生命周期，所以我们并不采用固定屏幕方向这种办法。
 下面我们就结合实例讲解一下屏幕转换的生命周期，我们新建一个Activity命名为OrientationActivity，如下：
 
+
+	{% highlight java  %}
+
+	public class OrientationActivity extends Activity {
+
+        private static final String TAG = "OrientationActivity";
+        private int param = 1;
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.orientation_portrait);
+            Log.i(TAG, "onCreate called.");
+        }
+
+        @Override
+        protected void onStart() {
+            super.onStart();
+            Log.i(TAG, "onStart called.");
+        }
+
+        @Override
+        protected void onRestart() {
+            super.onRestart();
+            Log.i(TAG, "onRestart called.");
+        }
+
+        @Override
+        protected void onResume() {
+            super.onResume();
+            Log.i(TAG, "onResume called.");
+        }
+
+        @Override
+        protected void onPause() {
+            super.onPause();
+            Log.i(TAG, "onPause called.");
+        }
+
+        @Override
+        protected void onStop() {
+            super.onStop();
+            Log.i(TAG, "onStop called.");
+        }
+
+        @Override
+        protected void onDestroy() {
+            super.onDestroy();
+            Log.i(TAG, "onDestory called.");
+        }
+
+        @Override
+        protected void onSaveInstanceState(Bundle outState) {
+            outState.putInt("param", param);
+            Log.i(TAG, "onSaveInstanceState called. put param: " + param);
+            super.onSaveInstanceState(outState);
+        }
+
+        @Override
+        protected void onRestoreInstanceState(Bundle savedInstanceState) {
+            param = savedInstanceState.getInt("param");
+            Log.i(TAG, "onRestoreInstanceState called. get param: " + param);
+            super.onRestoreInstanceState(savedInstanceState);
+        }
+
+        //当指定了android:configChanges="orientation"后,方向改变时onConfigurationChanged被调用
+        @Override
+        public void onConfigurationChanged(Configuration newConfig) {
+            super.onConfigurationChanged(newConfig);
+            Log.i(TAG, "onConfigurationChanged called.");
+            switch (newConfig.orientation) {
+            case Configuration.ORIENTATION_PORTRAIT:
+                setContentView(R.layout.orientation_portrait);
+                break;
+            case Configuration.ORIENTATION_LANDSCAPE:
+                setContentView(R.layout.orientation_landscape);
+                break;
+            }
+        }
+    }
+
+	{% endhighlight %}
+
+
+当我们旋转屏幕时，我们发现系统会先将当前Activity销毁，然后重建一个新的：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img19.png)
+
+
+系统先是调用onSaveInstanceState方法，我们保存了一个临时参数到Bundle对象里面，然后当Activity重建之后我们又成功的取出了这个参数。
+为了避免这样销毁重建的过程，我们需要在AndroidMainfest.xml中对OrientationActivity对应的<activity>配置android:configChanges="orientation"，然后我们再测试一下，
+我试着做了四次的旋转，打印如下：
