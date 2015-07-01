@@ -3,7 +3,7 @@ layout: post
 author: mxn
 titile: retrofit实现原理分析
 category: 技术博文
-tag: java
+tag: android
 ---
 
 retrofit有几个关键的地方.
