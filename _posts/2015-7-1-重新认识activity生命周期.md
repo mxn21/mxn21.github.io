@@ -196,6 +196,8 @@ Called when the current Window of the activity gains or loses focus.
 我们注意到，此时LifeCycleActivity的OnPause方法被调用，并没有调用onStop方法，因为此时的LifeCycleActivity没有退居后台，
 只是被覆盖或被锁屏；onSaveInstanceState会在onPause之前被调用。
 
+```注意：按锁屏键和对话框覆盖界面的生命周期是一样的，都只会进行onPause －－> onResume .不会onStop,onRestart,onStart ```
+
 5.按回退键使LifeCycleActivity从被覆盖回到前面，或者按解锁键解锁屏幕：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img17.png)
@@ -216,3 +218,15 @@ onRestoreInstanceState只有在杀死不在前台的Activity之后用户回到�
 
 首先介绍一下关于Activity屏幕方向的相关知识。
 我们可以为一个Activity指定一个特定的方向，指定之后即使转动屏幕方向，显示方向也不会跟着改变：
+
+1.指定为竖屏：在AndroidManifest.xml中对指定的Activity设置android:screenOrientation="portrait"，或者在onCreate方法中指定：
+
+setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);  //竖屏
+
+2.指定为横屏：在AndroidManifest.xml中对指定的Activity设置android:screenOrientation="landscape"，或者在onCreate方法中指定：
+
+setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
+
+这是应用中的Activity设置特定的方向是经常用到的办法，可以为我们省去不少不必要的麻烦。不过，我们今天讲的是屏幕方向改变时的生命周期，所以我们并不采用固定屏幕方向这种办法。
+下面我们就结合实例讲解一下屏幕转换的生命周期，我们新建一个Activity命名为OrientationActivity，如下：
+
