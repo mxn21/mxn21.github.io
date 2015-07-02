@@ -28,3 +28,13 @@ centerCrop  按比例扩大/缩小图片的size居中显示，使得图片的高
 centerInside  将图片的内容完整居中显示，使得图片按比例缩小或原来的大小（图片比View小时）使得图片宽等于或小于View的宽 （图片会完整显示）
 
 <!-- more -->
+
+附上两张实验的截图:
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img22.png)
+
+图1：　图片比ImageView大的截图
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img23.png)
+
+图2： 图比ImageView小 实验截图
