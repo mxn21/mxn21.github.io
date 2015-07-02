@@ -51,4 +51,6 @@ centerInside  将图片的内容完整居中显示，使得图片按比例缩小
 
 第四类：centerCrop 都是适应短的边，适应其中一条边，另一条边大于边缘。图片比例不变。
 
-第五类：centerInside
+第五类：centerInside 这个最麻烦，最容易和fitCenter弄混，这俩效果确实差不多。在图片大于边缘的时候效果是一样的，都是适应长边。
+区别就在于图片小的时候。fitCenter仍然会是一条边适应，另一条边小于边缘。但是centerInside不会适应任何一条边。centerInside会在图片
+四个周围留下空白。
