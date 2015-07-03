@@ -6,6 +6,8 @@ category: 技术博文
 tag: android
 ---
 
+### 理解task
+
 在看LaunchMode之前先理解一下Task。task是一个stack（栈），"Last in, First out"。一个task包含了一组activity实例。
 一般情况下，当用户打开一个新的app的时候一个新的task就被创建了，第一个打开的activity被叫做task的root。安卓系统可以同时运行很多个
 task，但是只有一个task在前台。
@@ -30,6 +32,7 @@ Activity的启动模式一种有四种，分别如下：
 launch mode可以在 AndroidManifest文件中配置，也可以使用Intent flags，比如FLAG_ACTIVITY_NEW_TASK,
 FLAG_ACTIVITY_CLEAR_TOP 和 FLAG_ACTIVITY_SINGLE_TOP 。
 
+其实还有一种情况比较特殊，不过很少使用，就是在一个app之间，我们给某一个Activity配置了taskAffinity属性，这个属性会影响singleTask等属性，这个可以大家自己去分析。
 
 
 standard：不论当前任务栈中是否存在该Activity，都会新建一个Activity，如 任务栈为A B，要启动B 那么任务栈为 A B B
@@ -42,7 +45,7 @@ singleTask：如果当前任务中存在要启动的Activity，那么就不会�
 singleInstance：将一个Activity的launchMode设置为该值时，表明这个Activity独自占用一个任务队列，这个队列中不让在加入其他的Activity
 
 
-
+<!-- more -->
 
 ### 应用场景
 
@@ -62,4 +65,10 @@ singleInstance：将一个Activity的launchMode设置为该值时，表明这个
 #### SingleInstance
 
 应用场景：闹铃的响铃界面。
-你以前设置了一个闹铃：上午6点。在上午5点58分，你启动了闹铃设置界面，并按 Home 键回桌面；在上午5点59分时，你在微信和朋友聊天；在6点时，闹铃响了，并且弹出了一个对话框形式的 Activity(名为 AlarmAlertActivity) 提示你到6点了(这个 Activity 就是以 SingleInstance 加载模式打开的)，你按返回键，回到的是微信的聊天界面，这是因为 AlarmAlertActivity 所在的 Task 的栈只有他一个元素，因此退出之后这个 Task 的栈空了。如果是以 SingleTask 打开 AlarmAlertActivity，那么当闹铃响了的时候，按返回键应该进入闹铃设置界面。
+你以前设置了一个闹铃：上午6点。在上午5点58分，你启动了闹铃设置界面，并按 Home 键回桌面；在上午5点59分时，你在微信和朋友聊天；
+在6点时，闹铃响了，并且弹出了一个对话框形式的 Activity(名为 AlarmAlertActivity) 提示你到6点了(这个 Activity 就是以
+SingleInstance 加载模式打开的)，你按返回键，回到的是微信的聊天界面，这是因为 AlarmAlertActivity 所在的 Task 的栈只有他一个元素，
+因此退出之后这个 Task 的栈空了。如果是以 SingleTask 打开 AlarmAlertActivity，那么当闹铃响了的时候，按返回键应该进入闹铃设置界面。
+
+
+### 源码分析
