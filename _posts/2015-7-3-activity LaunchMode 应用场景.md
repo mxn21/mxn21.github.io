@@ -308,3 +308,157 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
 
         {% endhighlight %}
 
+进入上面的if语句之后，就会调用performClearTaskLocked返回一个ActivityRecord，你可以去研究一下performClearTaskLocked的逻辑，这个方法传入了一个ActivityRecord r，就是将任务栈中r之上的AcrivityRecord 清除掉，并返回ActivityRecord r，这里返回的ActivityRecord 对应的就是Activity B。接着调用Activity B的onNewIntent方法。执行了这个else if，其他else if是都不会执行的，所以就直接执行到了
+
+       {% highlight java  %}
+       if (!addingToTask && reuseTask == null) {
+                          // We didn't do anything...  but it was needed (a.k.a., client
+                          // don't use that intent!)  And for paranoia, make
+                          // sure we have correctly resumed the top activity.
+                          if (doResume) {
+                              resumeTopActivityLocked(null, options);
+                          } else {
+                              ActivityOptions.abort(options);
+                          }
+                          return ActivityManager.START_TASK_TO_FRONT;
+                      }
+       {% endhighlight %}
+
+这里直接调用了resumeTopActivityLocked方法。到这里singleTask就分析完了，其他的启动模式大家可以按照这种思路进行分析。
+
+
+第四部分代码：
+
+       {% highlight java  %}
+       if (r.packageName != null) {
+                   // If the activity being launched is the same as the one currently
+                   // at the top, then we need to check if it should only be launched
+                   // once.
+                   ActivityRecord top = topRunningNonDelayedActivityLocked(notTop);
+                   if (top != null && r.resultTo == null) {
+                       if (top.realActivity.equals(r.realActivity) && top.userId == r.userId) {
+                           if (top.app != null && top.app.thread != null) {
+                               if ((launchFlags&Intent.FLAG_ACTIVITY_SINGLE_TOP) != 0
+                                   || r.launchMode == ActivityInfo.LAUNCH_SINGLE_TOP
+                                   || r.launchMode == ActivityInfo.LAUNCH_SINGLE_TASK) {
+                                   logStartActivity(EventLogTags.AM_NEW_INTENT, top, top.task);
+                                   // For paranoia, make sure we have correctly
+                                   // resumed the top activity.
+                                   if (doResume) {
+                                       resumeTopActivityLocked(null);
+                                   }
+                                   ActivityOptions.abort(options);
+                                   if ((startFlags&ActivityManager.START_FLAG_ONLY_IF_NEEDED) != 0) {
+                                       // We don't need to start a new activity, and
+                                       // the client said not to do anything if that
+                                       // is the case, so this is it!
+                                       return ActivityManager.START_RETURN_INTENT_TO_CALLER;
+                                   }
+                                   top.deliverNewIntentLocked(callingUid, r.intent);
+                                   return ActivityManager.START_DELIVERED_TO_TOP;
+                               }
+                           }
+                       }
+                   }
+
+               } else {
+                   if (r.resultTo != null) {
+                       sendActivityResultLocked(-1,
+                               r.resultTo, r.resultWho, r.requestCode,
+                           Activity.RESULT_CANCELED, null);
+                   }
+                   ActivityOptions.abort(options);
+                   return ActivityManager.START_CLASS_NOT_FOUND;
+               }
+
+               boolean newTask = false;
+               boolean keepCurTransition = false;
+
+               // Should this be considered a new task?
+               if (r.resultTo == null && !addingToTask
+                       && (launchFlags&Intent.FLAG_ACTIVITY_NEW_TASK) != 0) {
+                   if (reuseTask == null) {
+                       // todo: should do better management of integers.
+                       mService.mCurTask++;
+                       if (mService.mCurTask <= 0) {
+                           mService.mCurTask = 1;
+                       }
+                       r.setTask(new TaskRecord(mService.mCurTask, r.info, intent), null, true);
+                       if (DEBUG_TASKS) Slog.v(TAG, "Starting new activity " + r
+                               + " in new task " + r.task);
+                   } else {
+                       r.setTask(reuseTask, reuseTask, true);
+                   }
+                   newTask = true;
+                   if (!movedHome) {
+                       moveHomeToFrontFromLaunchLocked(launchFlags);
+                   }
+
+               } else if (sourceRecord != null) {
+                   if (!addingToTask &&
+                           (launchFlags&Intent.FLAG_ACTIVITY_CLEAR_TOP) != 0) {
+                       // In this case, we are adding the activity to an existing
+                       // task, but the caller has asked to clear that task if the
+                       // activity is already running.
+                       ActivityRecord top = performClearTaskLocked(
+                               sourceRecord.task.taskId, r, launchFlags);
+                       keepCurTransition = true;
+                       if (top != null) {
+                           logStartActivity(EventLogTags.AM_NEW_INTENT, r, top.task);
+                           top.deliverNewIntentLocked(callingUid, r.intent);
+                           // For paranoia, make sure we have correctly
+                           // resumed the top activity.
+                           if (doResume) {
+                               resumeTopActivityLocked(null);
+                           }
+                           ActivityOptions.abort(options);
+                           return ActivityManager.START_DELIVERED_TO_TOP;
+                       }
+                   } else if (!addingToTask &&
+                           (launchFlags&Intent.FLAG_ACTIVITY_REORDER_TO_FRONT) != 0) {
+                       // In this case, we are launching an activity in our own task
+                       // that may already be running somewhere in the history, and
+                       // we want to shuffle it to the front of the stack if so.
+                       int where = findActivityInHistoryLocked(r, sourceRecord.task.taskId);
+                       if (where >= 0) {
+                           ActivityRecord top = moveActivityToFrontLocked(where);
+                           logStartActivity(EventLogTags.AM_NEW_INTENT, r, top.task);
+                           top.updateOptionsLocked(options);
+                           top.deliverNewIntentLocked(callingUid, r.intent);
+                           if (doResume) {
+                               resumeTopActivityLocked(null);
+                           }
+                           return ActivityManager.START_DELIVERED_TO_TOP;
+                       }
+                   }
+                   // An existing activity is starting this new activity, so we want
+                   // to keep the new one in the same task as the one that is starting
+                   // it.
+                   r.setTask(sourceRecord.task, sourceRecord.thumbHolder, false);
+                   if (DEBUG_TASKS) Slog.v(TAG, "Starting new activity " + r
+                           + " in existing task " + r.task);
+
+               } else {
+                   // This not being started from an existing activity, and not part
+                   // of a new task...  just put it in the top task, though these days
+                   // this case should never happen.
+                   final int N = mHistory.size();
+                   ActivityRecord prev =
+                       N > 0 ? mHistory.get(N-1) : null;
+                   r.setTask(prev != null
+                           ? prev.task
+                           : new TaskRecord(mService.mCurTask, r.info, intent), null, true);
+                   if (DEBUG_TASKS) Slog.v(TAG, "Starting new activity " + r
+                           + " in new guessed " + r.task);
+               }
+
+               mService.grantUriPermissionFromIntentLocked(callingUid, r.packageName,
+                       intent, r.getUriPermissionsLocked());
+
+               if (newTask) {
+                   EventLog.writeEvent(EventLogTags.AM_CREATE_TASK, r.task.taskId);
+               }
+               logStartActivity(EventLogTags.AM_CREATE_ACTIVITY, r, r.task);
+               startActivityLocked(r, newTask, doResume, keepCurTransition, options);
+               return ActivityManager.START_SUCCESS;
+       {% endhighlight %}
