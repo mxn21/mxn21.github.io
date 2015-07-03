@@ -6,6 +6,14 @@ category: 技术博文
 tag: android
 ---
 
+在看LaunchMode之前先理解一下Task。task是一个stack（栈），"Last in, First out"。一个task包含了一组activity实例。
+一般情况下，当用户打开一个新的app的时候一个新的task就被创建了，第一个打开的activity被叫做task的root。安卓系统可以同时运行很多个
+task，但是只有一个task在前台。
+
+通过LaunchMode可以设置不同的activity关联到task的方式。
+
+
+
 Activity的启动模式一种有四种，分别如下：
 
 1、standard
