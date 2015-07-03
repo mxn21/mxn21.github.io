@@ -462,3 +462,7 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
                startActivityLocked(r, newTask, doResume, keepCurTransition, options);
                return ActivityManager.START_SUCCESS;
        {% endhighlight %}
+
+我刚刚使用singleTask模式分析时，并没有走到这里，大家可以另一种情况来分析，就可以走到这里。
+
+后台任务栈 A B，前台任务栈 E F，在前台任务栈中要启动后台任务的一个Activity C，也就是说后台任务栈中不存在C的情况，或者在一个app内通过配置taskAffinity属性也可以走到这里。
