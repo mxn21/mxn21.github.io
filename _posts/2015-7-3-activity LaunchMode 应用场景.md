@@ -299,3 +299,12 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
 首先注意默认的addingToTask是false，reuseTask为null，由于是singleTask的，所以((launchFlags&Intent.FLAG_ACTIVITY_NEW_TASK) != 0 && (launchFlags&Intent.FLAG_ACTIVITY_MULTIPLE_TASK) == 0)是成立的，即使这里不成立，后面的逻辑也是成立，所以必然进入该if语句
 
 继续跟进代码，会发现调用了findTaskLocked方法返回一个ActivityRecord，你可以查看findTaskLocked的逻辑，你会知道这个ActiivtyRecord 就是对应的是Activity C，继续往下走，就会调用 moveTaskToFrontLocked将后台任务移动到前台，由于我们考虑的是launchMode是singleTask，所以将会进入
+
+
+       {% highlight java  %}
+        else if ((launchFlags&Intent.FLAG_ACTIVITY_CLEAR_TOP) != 0
+                            || r.launchMode == ActivityInfo.LAUNCH_SINGLE_TASK
+                            || r.launchMode == ActivityInfo.LAUNCH_SINGLE_INSTANCE)
+
+        {% endhighlight %}
+
