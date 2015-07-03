@@ -12,8 +12,6 @@ task，但是只有一个task在前台。
 
 通过LaunchMode可以设置不同的activity关联到task的方式。
 
-
-
 Activity的启动模式一种有四种，分别如下：
 
 1、standard
@@ -23,6 +21,14 @@ Activity的启动模式一种有四种，分别如下：
 3、singleTask
 
 4、singleInstance
+
+这四种类型可以分为两大类：
+'standard' 和 'singleTop'可以在同一个栈中加载很多activity。
+
+'singleTask' 和 'singleInstance'的Activity会使用单例模式，并且这个Activity会是一个新的栈的root。
+
+
+
 
 
 standard：不论当前任务栈中是否存在该Activity，都会新建一个Activity，如 任务栈为A B，要启动B 那么任务栈为 A B B
