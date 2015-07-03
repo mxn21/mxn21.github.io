@@ -72,3 +72,37 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
 
 
 ### 源码分析
+下面我们就来看看和launchMode处理有关的代码吧
+
+对launchMode处理的逻辑主要是放在了ActivityStack的startActivityUncheckedLocked方法中，这份方法的逻辑有些复杂，
+我们来一部分一部分的分析：
+
+第一部分：
+
+    {% highlight java  %}
+    if (sourceRecord == null) {
+               // This activity is not being started from another...  in this
+               // case we -always- start a new task.
+               if ((launchFlags&Intent.FLAG_ACTIVITY_NEW_TASK) == 0) {
+                   Slog.w(TAG, "startActivity called from non-Activity context; forcing Intent.FLAG_ACTIVITY_NEW_TASK for: "
+                         + intent);
+                   launchFlags |= Intent.FLAG_ACTIVITY_NEW_TASK;
+               }
+           } else if (sourceRecord.launchMode == ActivityInfo.LAUNCH_SINGLE_INSTANCE) {
+               // The original activity who is starting us is running as a single
+               // instance...  this new activity it is starting must go on its
+               // own task.
+               launchFlags |= Intent.FLAG_ACTIVITY_NEW_TASK;
+           } else if (r.launchMode == ActivityInfo.LAUNCH_SINGLE_INSTANCE
+                   || r.launchMode == ActivityInfo.LAUNCH_SINGLE_TASK) {
+               // The activity being started is a single instance...  it always
+               // gets launched into its own task.
+               launchFlags |= Intent.FLAG_ACTIVITY_NEW_TASK;
+           }
+	{% endhighlight %}
+
+首先判断sourceRecord是否为Null(桌面启动一个Activity或者通过Context启动一个Activity时sourceRecord为null)，如果在启动的Intent中没有FLAG_ACTIVITY_NEW_TASK那么就会在该Intent中添加该标记。
+
+如果sourceRecord的launchMode设置的是singleinstance，那么就会在Intent添加FLAG_ACTIVITY_NEW_TASK，因为对于singleinstance的Activity，是不会和别人共享一个队列的。
+
+如果被启动的Activity的launchMode是singleinstance或者singletask，那么也会在Intent中添加FLAG_ACTIVITY_NEW_TASK标记(上面我们已经说过)。
