@@ -23,12 +23,12 @@ Activity的启动模式一种有四种，分别如下：
 4、singleInstance
 
 这四种类型可以分为两大类：
-'standard' 和 'singleTop'可以在同一个栈中加载很多activity。
+'standard' 和 'singleTop'可以在同一个栈中加载很多activity。区别于下面一组在于，这两个模式不会移除其他Activity。
 
 'singleTask' 和 'singleInstance'的Activity会使用单例模式，并且这个Activity会是一个新的栈的root。
 
 launch mode可以在 AndroidManifest文件中配置，也可以使用Intent flags，比如FLAG_ACTIVITY_NEW_TASK,
-FLAG_ACTIVITY_CLEAR_TOP 和 FLAG_ACTIVITY_SINGLE_TOP 。 
+FLAG_ACTIVITY_CLEAR_TOP 和 FLAG_ACTIVITY_SINGLE_TOP 。
 
 
 
