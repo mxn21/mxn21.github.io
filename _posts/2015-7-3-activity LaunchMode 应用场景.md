@@ -27,7 +27,8 @@ Activity的启动模式一种有四种，分别如下：
 
 'singleTask' 和 'singleInstance'的Activity会使用单例模式，并且这个Activity会是一个新的栈的root。
 
-
+launch mode可以在 AndroidManifest文件中配置，也可以使用Intent flags，比如FLAG_ACTIVITY_NEW_TASK,
+FLAG_ACTIVITY_CLEAR_TOP 和 FLAG_ACTIVITY_SINGLE_TOP 。 
 
 
 
@@ -38,6 +39,8 @@ singleTop：如果当前要创建的Activity就在任务栈的顶端，那么不
 singleTask：如果当前任务中存在要启动的Activity，那么就不会创建新的Activity，如果不存在就会创建新的Activity，如任务栈为 A B C，启动B ，那么任务栈就会变为A B
 
 singleInstance：将一个Activity的launchMode设置为该值时，表明这个Activity独自占用一个任务队列，这个队列中不让在加入其他的Activity
+
+
 
 
 ### 应用场景
