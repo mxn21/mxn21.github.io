@@ -13,7 +13,7 @@ scaleType的属性值有：matrix   fitXY  fitStart   fitCenter  fitEnd  center 
 
 matrix 用矩阵来绘制(从左上角起始的矩阵区域)
 
-fitXY  把图片不按比例扩大/缩小到View的大小显示（确保图片会完整显示，并充满View）
+fitXY  把图片不按比例扩大/缩小到View的大小显示（确保图片会完整显示，并充满View）
 
 fitStart  把图片按比例扩大/缩小到View的宽度，显示在View的上部分位置（图片会完整显示）
 
