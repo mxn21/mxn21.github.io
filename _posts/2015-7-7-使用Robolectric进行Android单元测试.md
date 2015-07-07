@@ -22,3 +22,16 @@ Robolectric可以处理控件展示、资源加载和很多使用native C实现�
 
 Robolectric允许我们在项目工程中或者持续集成（CI如hudson、jenkins）中使用jvm来执行测试用例，所以就省掉了打包、安装的过程，将测试用例的执行时间由分钟级降到秒级。
 
+### 配置
+
+    {% highlight java  %}
+    repositories {
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    }
+
+    dependencies {
+        testCompile "org.robolectric:robolectric:3.0-SNAPSHOT"
+    }
+    {% endhighlight %}
+
+  <!-- more -->
