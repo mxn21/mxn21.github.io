@@ -24,6 +24,35 @@ Robolectric允许我们在项目工程中或者持续集成（CI如hudson、jenk
 
 ### 配置
 
+
+首先，在project最外面的build.gradle中配置classpath
+
+    {% highlight java  %}
+
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'org.robolectric:robolectric-gradle-plugin:1.0.1'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+
+    {% endhighlight %}
+
+
     {% highlight java  %}
 
     dependencies {
