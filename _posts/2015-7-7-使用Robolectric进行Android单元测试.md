@@ -24,6 +24,12 @@ Robolectric允许我们在项目工程中或者持续集成（CI如hudson、jenk
 
 ### 配置
 
+    {% highlight java  %}
 
+    dependencies {
+       testCompile "org.robolectric:robolectric:2.4"
+    }
+
+    {% endhighlight %}
 
   <!-- more -->
