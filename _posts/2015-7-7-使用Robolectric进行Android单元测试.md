@@ -24,14 +24,6 @@ Robolectric允许我们在项目工程中或者持续集成（CI如hudson、jenk
 
 ### 配置
 
-    {% highlight java  %}
-    repositories {
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
-    }
 
-    dependencies {
-        testCompile "org.robolectric:robolectric:3.0-SNAPSHOT"
-    }
-    {% endhighlight %}
 
   <!-- more -->
