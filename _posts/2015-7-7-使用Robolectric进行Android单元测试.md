@@ -57,6 +57,8 @@ allprojects {
 
 然后在，项目的build.gradle中进行如下配置：
 
+    {% highlight java  %}
+
 apply plugin: 'com.android.application'
 // 1.test plugin
 apply plugin: 'org.robolectric'
@@ -122,4 +124,6 @@ robolectric {
         println "Executing test for ${descriptor.name} with result: ${result.resultType}"
     }
 }
+
+    {% endhighlight %}
 
