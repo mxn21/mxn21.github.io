@@ -33,7 +33,7 @@ Robolectric允许我们在项目工程中或者持续集成（CI如hudson、jenk
 
   <!-- more -->
 
-  
+
 #### 建立测试文件夹
 
 Android Studio新建项目的时候并没有建立测试文件夹，如果使用Eclipse需要新建一个项目用来测试。
@@ -49,6 +49,26 @@ Android Studio新建项目的时候并没有建立测试文件夹，如果使用
      }
 
     {% endhighlight %}
+
+#### 加入Gradle Test Plug-in
+
+通过Gradle运行Android unit tests需要加入 Gradle Android Test plug-in
+
+1、配置maven如下
+
+    {% highlight java  %}
+   maven {
+      url 'https://oss.sonatype.org/content/repositories/snapshots/'
+  }
+    {% endhighlight %}
+
+
+
+
+
+
+
+
 
 
 首先，在project最外面的build.gradle中配置classpath
