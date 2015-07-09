@@ -24,11 +24,31 @@ Robolectric允许我们在项目工程中或者持续集成（CI如hudson、jenk
 
 ### 配置
 
+#### 准备测试
+
 在Robolectric测试之前，有一些事情需要准备：
 1、建立一个测试文件夹，使Gradle和 Android Studio都能识别它
 2、在project中加入Gradle Android Test Plug
 3、加入自定义TestRunner
 
+  <!-- more -->
+
+  
+#### 建立测试文件夹
+
+Android Studio新建项目的时候并没有建立测试文件夹，如果使用Eclipse需要新建一个项目用来测试。
+因为Android Studio的项目基于Gradle构建，所以只要在项目下建立测试文件夹就可以了。
+我们可以把测试文件放在 src/test下，为了保证测试可以运行，我们需要告诉Gradle 和 Android Studio相对路径 。
+
+1、创建src/test/java用了放测试文件
+2、编辑build.gradle，在Android标签下，与defaultConfig同一级的地方加入配置
+
+    {% highlight java  %}
+    sourceSets {
+        instrumentTest.setRoot('src/test')
+     }
+
+    {% endhighlight %}
 
 
 首先，在project最外面的build.gradle中配置classpath
@@ -58,7 +78,7 @@ allprojects {
 
     {% endhighlight %}
 
-  <!-- more -->
+
 
 
 然后在，项目的build.gradle中进行如下配置：
