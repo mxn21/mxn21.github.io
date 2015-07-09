@@ -332,6 +332,7 @@ public void shouldProduceGreetingWhenButtonPressed() {
 
 当运行的时候，测试会fail。需要按下面的方法修复。
 打开MainActivity.java。加入如下的private class。
+
     {% highlight java  %}
 public static class MainFragment extends Fragment {
   @Override
@@ -356,3 +357,19 @@ public static class MainFragment extends Fragment {
 在代码中设置了OnClickListener监听，然后把editText的内容给了textView。
 同属需要改变MainActivity的构造函数，这样就可以在初始化的时候使用新的fragment class
 
+    {% highlight java  %}
+     if (savedInstanceState == null) {
+          getSupportFragmentManager().beginTransaction()
+                  .add(R.id.container, new MainFragment())
+                  .commit();
+      }
+     {% endhighlight %}
+
+现在测试通过了
+
+    {% highlight c  %}
+    $ ./gradlew test
+    BUILD SUCCESSFUL
+
+    Total time: 7.066 secs
+     {% endhighlight %}
