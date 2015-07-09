@@ -215,7 +215,7 @@ Robolectric会在测试启动阶段读取AndroidManifest.xml，如果测试在sr
 
 ./gradlew build
 
-
+test会直接运行tests, check 会运行tests和checkstyle等等, build会compiles包括test和check的一切。
 
 
     {% highlight c  %}
@@ -242,4 +242,38 @@ BUILD FAILED
 
 和预想的一样出现test failed，可以在浏览器中打开../RobolectricDemoProject/RobolectricDemo/build/test-report/debug/index
 .html来查看更多信息。
+
+#### 写另一个Robolectric Test
+
+    {% highlight java  %}
+@RunWith(MyTestRunner.class)
+public class SignInScreenTest {
+
+    @Test
+    public void should_start_intent_when_click_registration_button() {
+    2   Activity activity = new Activity();
+        SignInScreen signInScreen = new SignInSceen(activity);
+    3   TextView textView = (TextView)  signInScreen.findViewById(R.id.sign_in_registration);
+         textView.performClick();
+
+    4   ShadowActivity shadowActivity = Robolectric.shadowOf(activity);
+        Intent nextStartedActivity = shadowActivity.getNextStartedActivity();
+        ShadowIntent shadowIntent = Robolectric.shadowOf(nextStartedActivity);
+        assertThat((Class<WebPageActivity>) shadowIntent.getIntentClass(), equalTo(WebPageActivity.class));
+    }
+}
+    {% endhighlight %}
+
+在这段测试代码中：
+
+（1）声明了测试运行的test runner；就像普通的单元测试，它也分为了set up， method invoke，以及assert三个阶段。
+在（2）中，测试初始化了一个Activity用于提供Context，并使用这个Activity对象生成了一个SignInScreen实例；
+第二个阶段，也是就（3）中，代码在生成的登录界面中找到注册按钮，并进行点击。最为有意思的第三个阶段需要验证注册按钮的点击触发了我们期望的事件，即使用Implicit Intent来打开WebPageActivity。
+为了进行这个验证，（4）中首先通过Robolectric的静态方法shadowOf来获取activity对象相应的Shadow Object ，而通过这个Shadow Object,代码获得了activity对象的所开启的Intent对象。最后通过Intent对象的Shadow Object ，我们可以获得其intent class并进行验证。
+通过这个测试我们可以看到，有了Robolectric的帮助，我们可以轻松的生成Activity实例，加载xml布局文件，进行组件上的方法调用。通过shadow对象，我们则可以获取Android相关类的对象状态信息，来对测试的结果进行验证。实际上除了Intent，我们还可以对通过使用Robolectric对代码中的Dialog，HTTP请求，数据库操作等各个方面进行测试。
+
+Robolectric并没有为Android SDK中的所有类都定义shadow对象，你可以通过调用 Robolectric.getDefaultShadowClasses() 方法来查看你所需要的类是否已经被注册到了需要被shadow的类列表中。如果没有你可能就需要对其进行定制和扩展。关于如何添加Shadow Objects而增加Robolectric的功能，在Robolectric的网站文档中有详细的描述。
+
+由于Robolectric的测试是可以脱离Android的SDK运行于JVM上，我们就可以像运行普通的jUnit测试一样在IDE中或者在终端使用构建脚本运行我们的测试。
+
 
