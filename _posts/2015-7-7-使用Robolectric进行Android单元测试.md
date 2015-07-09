@@ -313,5 +313,20 @@ public void shouldNotBeNull() {
 }
     {% endhighlight %}
 
-下面写一个测试，在edit中放入一些文字，然后与我们规定的内容比较
+下面写一个测试，在edit中放入一些文字，点击按钮后与我们规定的内容比较
+
+    {% highlight java  %}
+@Test
+public void shouldProduceGreetingWhenButtonPressed() {
+  TextView textView = (TextView) activity.findViewById(R.id.textView);
+  Button button = (Button) activity.findViewById(R.id.button);
+  EditText editText = (EditText) activity.findViewById(R.id.editText);
+
+  editText.setText("Peter");
+  button.performClick();
+
+  assertThat(textView).containsText("Hello, Peter!");
+}
+
+    {% endhighlight %}
 
