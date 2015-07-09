@@ -295,3 +295,23 @@ import static org.fest.assertions.api.ANDROID.assertThat;
     }
     {% endhighlight %}
 
+验所有UI elements被初始化
+
+    {% highlight java  %}
+@Test
+public void shouldNotBeNull() {
+  assertThat(activity).isNotNull();
+
+  TextView textView = (TextView) activity.findViewById(R.id.textView);
+  assertThat(textView).isNotNull();
+
+  Button button = (Button) activity.findViewById(R.id.button);
+  assertThat(button).isNotNull();
+
+  EditText editText = (EditText) activity.findViewById(R.id.editText);
+  assertThat(editText).isNotNull();
+}
+    {% endhighlight %}
+
+下面写一个测试，在edit中放入一些文字，然后与我们规定的内容比较
+
