@@ -172,3 +172,56 @@ Robolectric会在测试启动阶段读取AndroidManifest.xml，如果测试在sr
 
 #### 写一个Robolectric Test
 
+在src/test/java下写一个Robolectric Test
+
+    {% highlight java  %}
+
+    package de.peterfriese.robolectricdemo;
+
+    import org.junit.Test;
+    import org.junit.runner.RunWith;
+
+    import de.peterfriese.robolectric.RobolectricGradleTestRunner;
+
+    import static org.junit.Assert.assertTrue;
+
+    @RunWith(RobolectricGradleTestRunner.class)
+    public class MainActivityTest {
+
+      @Test
+     public void shouldFail() {
+         assertTrue(false);
+     }
+    }
+    {% endhighlight %}
+
+有一些注意事项：需要使用刚创建的RobolectricGradleTestRunner，这样测试才能找到manifest。
+我们加入了一个简单的测试方法assertTrue(false);这个断言是注定失败的测试方法，如果运行的时候出现test fails，则说明运行正常。
+
+下面运行测试
+
+    {% highlight c  %}
+$ ./gradlew test
+
+de.peterfriese.robolectricdemo.MainActivityTest > shouldFail FAILED
+java.lang.AssertionError at MainActivityTest.java:15
+
+1 test completed, 1 failed
+:RobolectricDemo:testDebug FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':RobolectricDemo:testDebug'.
+> There were failing tests. See the report at: file:///Users/peterfriese/Projects/peterfriese.de/Robolectric/RobolectricDemoProject/RobolectricDemo/build/test-report/debug/index.html
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+BUILD FAILED
+
+    {% endhighlight %}
+
+和预想的一样出现test failed，可以在浏览器中打开../RobolectricDemoProject/RobolectricDemo/build/test-report/debug/index
+.html来查看更多信息。
+
