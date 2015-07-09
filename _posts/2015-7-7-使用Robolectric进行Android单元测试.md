@@ -330,3 +330,8 @@ public void shouldProduceGreetingWhenButtonPressed() {
 
     {% endhighlight %}
 
+当运行的时候，测试会fail。需要按下面的方法修复。
+打开MainActivity.java。加入如下的private class。
+    {% highlight java  %}
+
+    {% endhighlight %}
