@@ -76,109 +76,60 @@ Android Studio新建项目的时候并没有建立测试文件夹，如果使用
  instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
  instrumentTestCompile 'com.squareup:fest-android:1.0.+'
 
-
-
-首先，在project最外面的build.gradle中配置classpath
+最终的build.gradle文件如下
 
     {% highlight java  %}
-
-buildscript {
-    repositories {
-        jcenter()
-        mavenCentral()
+    buildscript {
+      repositories {
+          mavenCentral()
+          maven {
+              url 'https://oss.sonatype.org/content/repositories/snapshots/'
+          }
+      }
+      dependencies {
+          classpath 'com.android.tools.build:gradle:0.6.+'
+          classpath 'com.squareup.gradle:gradle-android-test-plugin:0.9.1-SNAPSHOT'
+      }
     }
+    apply plugin: 'android'
+    apply plugin: 'android-test'
+
+    repositories {
+      mavenCentral()
+      maven {
+          url 'https://oss.sonatype.org/content/repositories/snapshots/'
+      }
+    }
+
+    android {
+      compileSdkVersion 18
+      buildToolsVersion "18.1.0"
+
+      defaultConfig {
+          minSdkVersion 7
+          targetSdkVersion 18
+      }
+
+      sourceSets {
+          instrumentTest.setRoot('src/test')
+      }
+    }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
-        classpath 'org.robolectric:robolectric-gradle-plugin:1.0.1'
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+      compile 'com.android.support:appcompat-v7:+'
+
+      testCompile 'junit:junit:4.10'
+      testCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
+      testCompile 'com.squareup:fest-android:1.0.+'
+      instrumentTestCompile 'junit:junit:4.10'
+      instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
+      instrumentTestCompile 'com.squareup:fest-android:1.0.+'
+
     }
-}
-
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-}
-
-
     {% endhighlight %}
 
+#### 加入自定义Test Runner
 
-
-
-然后在，项目的build.gradle中进行如下配置：
-
-    {% highlight java  %}
-
-apply plugin: 'com.android.application'
-// 1.test plugin
-apply plugin: 'org.robolectric'
-android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
-
-    defaultConfig {
-        applicationId "kale.testapplication"
-        minSdkVersion 15
-        targetSdkVersion 18
-        versionCode 1
-        versionName "1.0"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    packagingOptions {
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'LICENSE.txt'
-    }
-}
-
-dependencies {
-    androidTestCompile 'junit:junit:4.12'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.1'
-    // 2. test-libs
-    androidTestCompile 'org.robolectric:robolectric:2.4'
-}
-
-// 3. test settings
-robolectric {
-    // Configure includes / excludes
-    include '**/*Test.class'
-    exclude '**/espresso/**/*.class'
-
-    // Configure max heap size of the test JVM
-    maxHeapSize = '2048m'
-
-    // Configure the test JVM arguments - Does not apply to Java 8
-    jvmArgs '-XX:MaxPermSize=512m', '-XX:-UseSplitVerifier'
-
-    // Specify max number of processes (default is 1)
-    maxParallelForks = 4
-
-    // Specify max number of test classes to execute in a test process
-    // before restarting the process (default is unlimited)
-    forkEvery = 150
-
-    // configure whether failing tests should fail the build
-    ignoreFailures true
-
-    // use afterTest to listen to the test execution results
-    afterTest { descriptor, result ->
-        println "Executing test for ${descriptor.name} with result: ${result.resultType}"
-    }
-}
-
-
-
-    {% endhighlight %}
+Robolectric会在测试启动阶段读取AndroidManifest.xml，如果测试在src/test/java下则无法找到AndroidManifest.xml，
+我们需要加入自定义Test Runner来解决这个问题。
 
