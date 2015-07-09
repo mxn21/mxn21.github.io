@@ -200,6 +200,16 @@ Robolectric会在测试启动阶段读取AndroidManifest.xml，如果测试在sr
 
 下面运行测试
 
+在Build Variants view中切换到unit tests
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img24.png)
+
+这样我们的测试文件夹会变成绿色
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img25.png)
+
+
+
+
     {% highlight c  %}
 $ ./gradlew test
 
