@@ -69,12 +69,16 @@ Android Studio新建项目的时候并没有建立测试文件夹，如果使用
 
 4、加入 test-only dependencies:
 
+    {% highlight c  %}
+
  testCompile 'junit:junit:4.10'
  testCompile 'org.robolectric:robolectric:2.1.+'
  testCompile 'com.squareup:fest-android:1.0.+'
  instrumentTestCompile 'junit:junit:4.10'
  instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
  instrumentTestCompile 'com.squareup:fest-android:1.0.+'
+
+     {% endhighlight %}
 
 最终的build.gradle文件如下
 
