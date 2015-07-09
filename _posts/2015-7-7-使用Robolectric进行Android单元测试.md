@@ -333,5 +333,26 @@ public void shouldProduceGreetingWhenButtonPressed() {
 当运行的时候，测试会fail。需要按下面的方法修复。
 打开MainActivity.java。加入如下的private class。
     {% highlight java  %}
+public static class MainFragment extends Fragment {
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+      final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+      Button button = (Button) rootView.findViewById(R.id.button);
+      button.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+              TextView textView = (TextView) rootView.findViewById(R.id.textView);
+              EditText editText = (EditText) rootView.findViewById(R.id.editText);
 
+              textView.setText(String.format("Hello, %s!", editText.getText()));
+          }
+      });
+
+      return rootView;
+  }
+}
     {% endhighlight %}
+
+在代码中设置了OnClickListener监听，然后把editText的内容给了textView。
+同属需要改变MainActivity的构造函数，这样就可以在初始化的时候使用新的fragment class
+
