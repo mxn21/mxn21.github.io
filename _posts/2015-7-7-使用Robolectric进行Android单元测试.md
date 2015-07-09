@@ -24,6 +24,12 @@ Robolectric允许我们在项目工程中或者持续集成（CI如hudson、jenk
 
 ### 配置
 
+在Robolectric测试之前，有一些事情需要准备：
+1、建立一个测试文件夹，使Gradle和 Android Studio都能识别它
+2、在project中加入Gradle Android Test Plug
+3、加入自定义TestRunner
+
+
 
 首先，在project最外面的build.gradle中配置classpath
 
