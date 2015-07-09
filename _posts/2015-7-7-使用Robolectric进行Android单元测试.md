@@ -277,3 +277,21 @@ Robolectric并没有为Android SDK中的所有类都定义shadow对象，你可�
 由于Robolectric的测试是可以脱离Android的SDK运行于JVM上，我们就可以像运行普通的jUnit测试一样在IDE中或者在终端使用构建脚本运行我们的测试。
 
 
+#### 测试用户交互
+
+确保静态导入Android FEST assertations
+
+import static org.fest.assertions.api.ANDROID.assertThat;
+
+我们需要在tests获取activity
+
+    {% highlight java  %}
+
+    private MainActivity activity;
+
+    @Before
+    public void setup() {
+      activity = Robolectric.buildActivity(MainActivity.class).get();
+    }
+    {% endhighlight %}
+
