@@ -207,6 +207,14 @@ Robolectric会在测试启动阶段读取AndroidManifest.xml，如果测试在sr
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img25.png)
 
+输入测试命令
+
+./gradlew test
+
+./gradlew check
+
+./gradlew build
+
 
 
 
