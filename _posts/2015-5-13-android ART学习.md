@@ -1,6 +1,6 @@
 ---
 layout: post
-author: mxn
+author:mxn 
 titile: android ART学习
 category: 技术博文
 tag: android
