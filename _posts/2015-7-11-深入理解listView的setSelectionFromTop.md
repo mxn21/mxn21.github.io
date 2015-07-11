@@ -66,4 +66,5 @@ ListView还有一个方法叫setSelection()，传入一个index整型数值，�
     }
     {% endhighlight %}
 
-
+原来，setSelection()内部就是调用了setSelectionFromTop()，只不过是Y轴的偏移量是0而已。
+现在应该对setSelection()和setSelectionFromTop()有了更深刻的认识了。
