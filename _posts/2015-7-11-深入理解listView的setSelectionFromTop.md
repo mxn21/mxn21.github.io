@@ -19,3 +19,38 @@ tag: android
     mList.setSelectionFromTop(index, top);
     {% endhighlight %}
 
+看一下setSelectionFromTop()的具体实现，代码如下：
+
+
+    {% highlight java  %}
+    public void setSelectionFromTop(int position, int y) {
+        if (mAdapter == null) {
+            return;
+        }
+
+        if (!isInTouchMode()) {
+            position = lookForSelectablePosition(position, true);
+            if (position >= 0) {
+                setNextSelectedPositionInt(position);
+            }
+        } else {
+            mResurrectToPosition = position;
+        }
+
+        if (position >= 0) {
+            mLayoutMode = LAYOUT_SPECIFIC;
+            mSpecificTop = mListPadding.top + y;
+
+            if (mNeedSync) {
+                mSyncPosition = position;
+                mSyncRowId = mAdapter.getItemId(position);
+            }
+
+            if (mPositionScroller != null) {
+                mPositionScroller.stop();
+            }
+            requestLayout();
+        }
+    }
+       {% endhighlight %}
+
