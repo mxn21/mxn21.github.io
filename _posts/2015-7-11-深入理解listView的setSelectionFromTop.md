@@ -62,6 +62,8 @@ ListView.getChildAt(int position)， 这个position指的是在可视的item中�
     }
        {% endhighlight %}
 
+  <!-- more -->
+  
 从上面的代码可以得知，setSelectionFromTop()的作用是设置ListView选中的位置，同时在Y轴设置一个偏移量（padding值）。
 ListView还有一个方法叫setSelection()，传入一个index整型数值，就可以让ListView定位到指定Item的位置。
 这两个方法有什么区别呢？看一下setSelection()的具体实现，代码如下：
