@@ -100,5 +100,8 @@ listView.setOnScrollListener(new OnScrollListener() {
 });
     {% endhighlight %}
 
- 
+ 在恢复位置时调用
+     {% highlight java  %}
+ listView.scrollTo(scrolledX, scrolledY);
+     {% endhighlight %}
 
