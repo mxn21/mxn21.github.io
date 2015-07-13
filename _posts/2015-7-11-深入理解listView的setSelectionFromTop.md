@@ -72,5 +72,33 @@ ListView还有一个方法叫setSelection()，传入一个index整型数值，�
 原来，setSelection()内部就是调用了setSelectionFromTop()，只不过是Y轴的偏移量是0而已。
 现在应该对setSelection()和setSelectionFromTop()有了更深刻的认识了。
 
-另外，可以通过别的方式可以记录listView滚动到的位置的坐标，然后利用listView.scrollTo精确的进行恢复
+另外，可以通过别的方式可以记录listView滚动到的位置的坐标，然后利用listView.scrollTo精确的进行恢复 。
+
+    {% highlight java  %}
+listView.setOnScrollListener(new OnScrollListener() {
+
+    /**
+     * 滚动状态改变时调用
+     */
+    @Override
+    public void onScrollStateChanged(AbsListView view, int scrollState) {
+        // 不滚动时保存当前滚动到的位置
+        if (scrollState == OnScrollListener.SCROLL_STATE_IDLE) {
+            if (currentMenuInfo != null) {
+                scrolledX = statusListView.getScrollX();
+                scrolledY = statusListView.getScrollY();
+            }
+        }
+    }
+
+    /**
+     * 滚动时调用
+     */
+    @Override
+    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+    }
+});
+    {% endhighlight %}
+
+ 
 
