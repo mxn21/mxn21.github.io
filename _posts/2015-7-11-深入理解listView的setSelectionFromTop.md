@@ -22,6 +22,7 @@ tag: android
 注解：ListView.getChildAt(int position)， 这个position指的是在可视的item中的索引，跟cursor里的位置是大不一样的。
 可以看看ListView.getChildCount()函数得到个数是小于或等于Cursor里的个数的（不考虑header的话）。
 虽然一共可能有20条数据，但是界面只能看到8条，那么这个ChildCount大约就是8了。
+另一方面， FirstVisiblePosition取出的是第一个可见的item在总的条数中的索引，再将会消失的header考虑进来
 
 看一下setSelectionFromTop()的具体实现，代码如下：
 
