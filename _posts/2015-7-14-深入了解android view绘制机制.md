@@ -143,6 +143,9 @@ private void rInflate(XmlPullParser parser, View parent, final AttributeSet attr
 任何一个视图都不可能凭空突然出现在屏幕上，它们都是要经过非常科学的绘制流程后才能显示出来的。
 每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()和onDraw()，下面我们逐个对这三个阶段展开进行探讨。
 
+#### 一. onMeasure()
+
+
 measure是测量的意思，那么onMeasure()方法顾名思义就是用于测量视图的大小的。View系统的绘制流程会从ViewRoot的performTraversals()方法中开始，在其内部调用View的measure()方法。
 
 ```注意:窗口的顶层视图的父视图是使用一个ViewRoot对象来描述的，也就是说，当前正在处理的视图容器的成员变量mParent指向的是一个ViewRoot对象```
@@ -360,3 +363,42 @@ public class MyView extends View {
 由此可见，视图大小的控制是由父视图、布局文件、以及视图本身共同完成的，父视图会提供给子视图参考的大小，而开发人员可以在XML文件中指定视图的大小，然后视图本身会对最终的大小进行拍板。
 到此为止，我们就把视图绘制流程的第一阶段分析完了。
 
+
+#### 二. onLayout()
+
+measure过程结束后，视图的大小就已经测量好了，接下来就是layout的过程了。正如其名字所描述的一样，这个方法是用于给视图进行布局的，也就是确定视图的位置。
+ViewRoot的performTraversals()方法会在measure结束后继续执行，并调用View的layout()方法来执行此过程，如下所示：
+host.layout(0, 0, host.mMeasuredWidth, host.mMeasuredHeight);
+
+layout()方法接收四个参数，分别代表着左、上、右、下的坐标，当然这个坐标是相对于当前视图的父视图而言的。可以看到，这里还把刚才测量出的宽度和高度传到了layout()方法中。
+那么我们来看下layout()方法中的代码是什么样的吧，如下所示：
+
+    {% highlight java  %}
+public void layout(int l, int t, int r, int b) {
+    int oldL = mLeft;
+    int oldT = mTop;
+    int oldB = mBottom;
+    int oldR = mRight;
+    boolean changed = setFrame(l, t, r, b);
+    if (changed || (mPrivateFlags & LAYOUT_REQUIRED) == LAYOUT_REQUIRED) {
+        if (ViewDebug.TRACE_HIERARCHY) {
+            ViewDebug.trace(this, ViewDebug.HierarchyTraceType.ON_LAYOUT);
+        }
+        onLayout(changed, l, t, r, b);
+        mPrivateFlags &= ~LAYOUT_REQUIRED;
+        if (mOnLayoutChangeListeners != null) {
+            ArrayList<OnLayoutChangeListener> listenersCopy =
+                    (ArrayList<OnLayoutChangeListener>) mOnLayoutChangeListeners.clone();
+            int numListeners = listenersCopy.size();
+            for (int i = 0; i < numListeners; ++i) {
+                listenersCopy.get(i).onLayoutChange(this, l, t, r, b, oldL, oldT, oldR, oldB);
+            }
+        }
+    }
+    mPrivateFlags &= ~FORCE_LAYOUT;
+}
+    {% endhighlight %}
+
+在layout()方法中，首先会调用setFrame()方法来判断视图的大小是否发生过变化，以确定有没有必要对当前的视图进行重绘，同时还会在这里把传递过来的四个参数分别赋值给mLeft、mTop、mRight和mBottom这几个变量。接下来会在第11行调用onLayout()方法，正如onMeasure()方法中的默认行为一样，也许你已经迫不及待地想知道onLayout()方法中的默认行为是什么样的了。进入onLayout()方法，咦？怎么这是个空方法，一行代码都没有？！
+
+没错，View中的onLayout()方法就是一个空方法，因为onLayout()过程是为了确定视图在布局中所在的位置，而这个操作应该是由布局来完成的，即父视图决定子视图的显示位置。既然如此，我们来看下ViewGroup中的onLayout()方法是怎么写的吧，代码如下：
