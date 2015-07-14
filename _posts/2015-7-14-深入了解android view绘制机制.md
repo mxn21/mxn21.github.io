@@ -323,7 +323,7 @@ protected void measureChildren(int widthMeasureSpec, int heightMeasureSpec) {
 
     {% endhighlight %}
 
-    这里首先会去遍历当前布局下的所有子视图，然后逐个调用measureChild()方法来测量相应子视图的大小，如下所示：
+这里首先会去遍历当前布局下的所有子视图，然后逐个调用measureChild()方法来测量相应子视图的大小，如下所示：
 
     {% highlight java  %}
 
