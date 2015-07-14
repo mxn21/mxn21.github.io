@@ -149,6 +149,7 @@ measure是测量的意思，那么onMeasure()方法顾名思义就是用于测�
 
  ViewRoot.performTraversals这个函数定义在文件frameworks/base/core/java/android/view/ViewRoot.java中。
  代码如下：
+
     {% highlight java  %}
 public final class ViewRoot extends Handler implements ViewParent,
         View.AttachInfo.Callbacks {
@@ -212,7 +213,13 @@ MeasureSpec的值由specSize和specMode共同组成的，其中specSize记录的
 
 表示开发人员可以将视图按照自己的意愿设置成任意的大小，没有任何限制。这种情况比较少见，不太会用到。
 
+widthMeasureSpec和heightMeasureSpec这两个值又是从哪里得到的呢？通常情况下，这两个值都是由父视图经过计算后传递给子视图的，说明父视图会在一定程度上决定子视图的大小。
+但是最外层的根视图，它的widthMeasureSpec和heightMeasureSpec又是从哪里得到的呢？这就需要去分析ViewRoot中的源码了，观察performTraversals()方法可以发现如下代码：
 
+    {% highlight java  %}
+childWidthMeasureSpec = getRootMeasureSpec(desiredWindowWidth, lp.width);
+childHeightMeasureSpec = getRootMeasureSpec(desiredWindowHeight, lp.height);
+    {% endhighlight %}
 
 
 
