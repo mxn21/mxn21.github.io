@@ -467,3 +467,52 @@ protected abstract void onLayout(boolean changed, int l, int t, int r, int b);
 这样getWidth()方法得到的值就是200 - 0 = 200，不会再和getMeasuredWidth()的值相同了。当然这种做法充分不尊重measure()过程计算出的结果，通常情况下是不推荐这么写的。getHeight()与getMeasureHeight()方法之间的关系同上，就不再重复分析了。
 到此为止，我们把视图绘制流程的第二阶段也分析完了。
 
+#### 三. onDraw()
+
+measure和layout的过程都结束后，接下来就进入到draw的过程了。同样，根据名字你就能够判断出，在这里才真正地开始对视图进行绘制。ViewRoot中的代码会继续执行并创建出一个Canvas对象，然后调用View的draw()方法来执行具体的绘制工作。draw()方法内部的绘制过程总共可以分为六步，
+其中第二步和第五步在一般情况下很少用到，因此这里我们只分析简化后的绘制过程。代码如下所示：
+
+    {% highlight java  %}
+    public void draw(Canvas canvas) {
+        if (ViewDebug.TRACE_HIERARCHY) {
+            ViewDebug.trace(this, ViewDebug.HierarchyTraceType.DRAW);
+        }
+        final int privateFlags = mPrivateFlags;
+        final boolean dirtyOpaque = (privateFlags & DIRTY_MASK) == DIRTY_OPAQUE &&
+                (mAttachInfo == null || !mAttachInfo.mIgnoreDirtyState);
+        mPrivateFlags = (privateFlags & ~DIRTY_MASK) | DRAWN;
+        // Step 1, draw the background, if needed
+        int saveCount;
+        if (!dirtyOpaque) {
+            final Drawable background = mBGDrawable;
+            if (background != null) {
+                final int scrollX = mScrollX;
+                final int scrollY = mScrollY;
+                if (mBackgroundSizeChanged) {
+                    background.setBounds(0, 0,  mRight - mLeft, mBottom - mTop);
+                    mBackgroundSizeChanged = false;
+                }
+                if ((scrollX | scrollY) == 0) {
+                    background.draw(canvas);
+                } else {
+                    canvas.translate(scrollX, scrollY);
+                    background.draw(canvas);
+                    canvas.translate(-scrollX, -scrollY);
+                }
+            }
+        }
+        final int viewFlags = mViewFlags;
+        boolean horizontalEdges = (viewFlags & FADING_EDGE_HORIZONTAL) != 0;
+        boolean verticalEdges = (viewFlags & FADING_EDGE_VERTICAL) != 0;
+        if (!verticalEdges && !horizontalEdges) {
+            // Step 3, draw the content
+            if (!dirtyOpaque) onDraw(canvas);
+            // Step 4, draw the children
+            dispatchDraw(canvas);
+            // Step 6, draw decorations (scrollbars)
+            onDrawScrollBars(canvas);
+            // we're done...
+            return;
+        }
+    }  
+     {% endhighlight %}
