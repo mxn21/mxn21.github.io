@@ -280,3 +280,28 @@ public final void measure(int widthMeasureSpec, int heightMeasureSpec) {
 
 
 默认会调用getDefaultSize()方法来获取视图的大小，如下所示：
+
+    {% highlight java  %}
+ public static int getDefaultSize(int size, int measureSpec) {
+        int result = size;
+        int specMode = MeasureSpec.getMode(measureSpec);
+        int specSize = MeasureSpec.getSize(measureSpec);
+
+        switch (specMode) {
+        case MeasureSpec.UNSPECIFIED:
+            result = size;
+            break;
+        case MeasureSpec.AT_MOST:
+        case MeasureSpec.EXACTLY:
+            result = specSize;
+            break;
+        }
+        return result;
+    }
+    {% endhighlight %}
+
+这里传入的measureSpec是一直从measure()方法中传递过来的。然后调用MeasureSpec.getMode()方法可以解析出specMode，调用MeasureSpec.getSize()方法可以解析出specSize。接下来进行判断，如果specMode等于AT_MOST或EXACTLY就返回specSize，这也是系统默认的行为。
+之后会在onMeasure()方法中调用setMeasuredDimension()方法来设定测量出的大小，这样一次measure过程就结束了。
+
+当然，一个界面的展示可能会涉及到很多次的measure，因为一个布局中一般都会包含多个子视图，每个视图都需要经历一次measure过程。
+ViewGroup中定义了一个measureChildren()方法来去测量子视图的大小，如下所示：
