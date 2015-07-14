@@ -8,7 +8,7 @@ tag: android
 
 这篇文章讲解View的工作原理以及自定义View的方法
 
-#### LayoutInflater
+### LayoutInflater
 
 先来看一下LayoutInflater的基本用法吧，它的用法非常简单，首先需要获取到LayoutInflater的实例，有两种方法可以获取到，第一种写法如下：
 
@@ -138,3 +138,7 @@ private void rInflate(XmlPullParser parser, View parent, final AttributeSet attr
 在setContentView()方法中，Android会自动在布局文件的最外层再嵌套一个FrameLayout，所以layout_width和layout_height属性才会有效果。```
 
 
+### view 绘制流程
+
+任何一个视图都不可能凭空突然出现在屏幕上，它们都是要经过非常科学的绘制流程后才能显示出来的。
+每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()和onDraw()，下面我们逐个对这三个阶段展开进行探讨。
