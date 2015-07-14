@@ -29,4 +29,64 @@ layoutInflater.inflate(resourceId, root);
 
 inflate()方法一般接收两个参数，第一个参数就是要加载的布局id，第二个参数是指给该布局的外部再嵌套一层父布局，如果不需要就直接传null。这样就成功成功创建了一个布局的实例，之后再将它添加到指定的位置就可以显示出来了。
 
+接下来我们就从源码的角度上看一看LayoutInflater到底是如何工作的。
+
+<!-- more -->
+  
+不管你是使用的哪个inflate()方法的重载，最终都会辗转调用到LayoutInflater的如下代码中：
+
+    {% highlight java  %}
+public View inflate(XmlPullParser parser, ViewGroup root, boolean attachToRoot) {
+    synchronized (mConstructorArgs) {
+        final AttributeSet attrs = Xml.asAttributeSet(parser);
+        mConstructorArgs[0] = mContext;
+        View result = root;
+        try {
+            int type;
+            while ((type = parser.next()) != XmlPullParser.START_TAG &&
+                    type != XmlPullParser.END_DOCUMENT) {
+            }
+            if (type != XmlPullParser.START_TAG) {
+                throw new InflateException(parser.getPositionDescription()
+                        + ": No start tag found!");
+            }
+            final String name = parser.getName();
+            if (TAG_MERGE.equals(name)) {
+                if (root == null || !attachToRoot) {
+                    throw new InflateException("merge can be used only with a valid "
+                            + "ViewGroup root and attachToRoot=true");
+                }
+                rInflate(parser, root, attrs);
+            } else {
+                View temp = createViewFromTag(name, attrs);
+                ViewGroup.LayoutParams params = null;
+                if (root != null) {
+                    params = root.generateLayoutParams(attrs);
+                    if (!attachToRoot) {
+                        temp.setLayoutParams(params);
+                    }
+                }
+                rInflate(parser, temp, attrs);
+                if (root != null && attachToRoot) {
+                    root.addView(temp, params);
+                }
+                if (root == null || !attachToRoot) {
+                    result = temp;
+                }
+            }
+        } catch (XmlPullParserException e) {
+            InflateException ex = new InflateException(e.getMessage());
+            ex.initCause(e);
+            throw ex;
+        } catch (IOException e) {
+            InflateException ex = new InflateException(
+                    parser.getPositionDescription()
+                    + ": " + e.getMessage());
+            ex.initCause(e);
+            throw ex;
+        }
+        return result;
+    }
+}
+    {% endhighlight %}
 
