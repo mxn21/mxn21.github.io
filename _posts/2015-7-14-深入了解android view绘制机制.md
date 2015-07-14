@@ -550,3 +550,21 @@ public class MyView extends View {
 }
 
      {% endhighlight %}
+
+可以看到，我们创建了一个自定义的MyView继承自View，并在MyView的构造函数中创建了一个Paint对象。Paint就像是一个画笔一样，配合着Canvas就可以进行绘制了。这里我们的绘制逻辑比较简单，在onDraw()方法中先是把画笔设置成黄色，然后调用Canvas的drawRect()方法绘制一个矩形。然后在把画笔设置成蓝色，并调整了一下文字的大小，然后调用drawText()方法绘制了一段文字。
+就这么简单，一个自定义的视图就已经写好了，现在可以在XML中加入这个视图，如下所示：
+
+    {% highlight java  %}
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.example.viewtest.MyView
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        />
+
+</LinearLayout>
+      {% endhighlight %}
+
+将MyView的宽度设置成200dp，高度设置成100dp，然后运行一下程序，结果如下图所示：
