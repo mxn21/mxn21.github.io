@@ -568,3 +568,5 @@ public class MyView extends View {
       {% endhighlight %}
 
 将MyView的宽度设置成200dp，高度设置成100dp，然后运行一下程序，结果如下图所示：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img27.png)
