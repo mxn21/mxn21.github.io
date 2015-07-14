@@ -514,5 +514,39 @@ measure和layout的过程都结束后，接下来就进入到draw的过程了。
             // we're done...
             return;
         }
-    }  
+    }
+     {% endhighlight %}
+
+可以看到，第一步是从第9行代码开始的，这一步的作用是对视图的背景进行绘制。这里会先得到一个mBGDrawable对象，然后根据layout过程确定的视图位置来设置背景的绘制区域，之后再调用Drawable的draw()方法来完成背景的绘制工作。那么这个mBGDrawable对象是从哪里来的呢？其实就是在XML中通过android:background属性设置的图片或颜色。当然你也可以在代码中通过setBackgroundColor()、setBackgroundResource()等方法进行赋值。
+接下来的第三步是在第34行执行的，这一步的作用是对视图的内容进行绘制。可以看到，这里去调用了一下onDraw()方法，那么onDraw()方法里又写了什么代码呢？进去一看你会发现，原来又是个空方法啊。其实也可以理解，因为每个视图的内容部分肯定都是各不相同的，这部分的功能交给子类来去实现也是理所当然的。
+
+第三步完成之后紧接着会执行第四步，这一步的作用是对当前视图的所有子视图进行绘制。但如果当前的视图没有子视图，那么也就不需要进行绘制了。因此你会发现View中的dispatchDraw()方法又是一个空方法，而ViewGroup的dispatchDraw()方法中就会有具体的绘制代码。
+
+以上都执行完后就会进入到第六步，也是最后一步，这一步的作用是对视图的滚动条进行绘制。那么你可能会奇怪，当前的视图又不一定是ListView或者ScrollView，为什么要绘制滚动条呢？其实不管是Button也好，TextView也好，任何一个视图都是有滚动条的，只是一般情况下我们都没有让它显示出来而已。绘制滚动条的代码逻辑也比较复杂，这里就不再贴出来了，因为我们的重点是第三步过程。
+
+通过以上流程分析，相信大家已经知道，View是不会帮我们绘制内容部分的，因此需要每个视图根据想要展示的内容来自行绘制。如果你去观察TextView、ImageView等类的源码，你会发现它们都有重写onDraw()这个方法，并且在里面执行了相当不少的绘制逻辑。绘制的方式主要是借助Canvas这个类，它会作为参数传入到onDraw()方法中，供给每个视图使用。Canvas这个类的用法非常丰富，基本可以把它当成一块画布，在上面绘制任意的东西，那么我们就来尝试一下吧。
+
+这里简单起见，我只是创建一个非常简单的视图，并且用Canvas随便绘制了一点东西，代码如下所示：
+
+    {% highlight java  %}
+public class MyView extends View {
+
+    private Paint mPaint;
+
+    public MyView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        mPaint.setColor(Color.YELLOW);
+        canvas.drawRect(0, 0, getWidth(), getHeight(), mPaint);
+        mPaint.setColor(Color.BLUE);
+        mPaint.setTextSize(20);
+        String text = "Hello View";
+        canvas.drawText(text, 0, getHeight() / 2, mPaint);
+    }
+}
+
      {% endhighlight %}
