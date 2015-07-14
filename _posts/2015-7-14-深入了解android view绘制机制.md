@@ -134,4 +134,7 @@ private void rInflate(XmlPullParser parser, View parent, final AttributeSet attr
 的值修改成多少，都不会有任何效果的，因为这两个值现在已经完全失去了作用。平时我们经常使用layout_width和layout_height来设置View的大小，并且一直都能正常工作，就好像这两个属性确实是用于设置View的大小的。
 而实际上则不然，它们其实是用于设置View在布局中的大小的，也就是说，首先View必须存在于一个布局中，之后如果将layout_width设置成match_parent表示让View的宽度填充满布局，如果设置成wrap_content表示让View的宽度刚好可以包含其内容，
 如果设置成具体的数值则View的宽度会变成相应的数值。这也是为什么这两个属性叫作layout_width和layout_height，而不是width和height。
-很明显通过inflate导入的根布局不存在于任何布局当中，所以layout_width和layout_height这两个属性理所当然没有任何作用。```
+很明显通过inflate导入的根布局不存在于任何布局当中，所以layout_width和layout_height这两个属性理所当然没有任何作用。
+在setContentView()方法中，Android会自动在布局文件的最外层再嵌套一个FrameLayout，所以layout_width和layout_height属性才会有效果。```
+
+
