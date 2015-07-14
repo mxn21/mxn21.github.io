@@ -130,7 +130,7 @@ private void rInflate(XmlPullParser parser, View parent, final AttributeSet attr
 可以看到，同样是createViewFromTag()方法来创建View的实例，然后还会递归调用rInflate()方法来查找这个View下的子元素，每次递归完成后则将这个View添加到父布局当中。
 这样的话，把整个布局文件都解析完成后就形成了一个完整的DOM结构，最终会把最顶层的根布局返回，至此inflate()过程全部结束。
 
-```注意通过inflate导入的根布局，不管你将根布局的layout_width和layout_height
+```注意:通过inflate导入的根布局，不管你将根布局的layout_width和layout_height
 的值修改成多少，都不会有任何效果的，因为这两个值现在已经完全失去了作用。平时我们经常使用layout_width和layout_height来设置View的大小，并且一直都能正常工作，就好像这两个属性确实是用于设置View的大小的。
 而实际上则不然，它们其实是用于设置View在布局中的大小的，也就是说，首先View必须存在于一个布局中，之后如果将layout_width设置成match_parent表示让View的宽度填充满布局，如果设置成wrap_content表示让View的宽度刚好可以包含其内容，
 如果设置成具体的数值则View的宽度会变成相应的数值。这也是为什么这两个属性叫作layout_width和layout_height，而不是width和height。
@@ -143,7 +143,60 @@ private void rInflate(XmlPullParser parser, View parent, final AttributeSet attr
 任何一个视图都不可能凭空突然出现在屏幕上，它们都是要经过非常科学的绘制流程后才能显示出来的。
 每一个视图的绘制过程都必须经历三个最主要的阶段，即onMeasure()、onLayout()和onDraw()，下面我们逐个对这三个阶段展开进行探讨。
 
-measure是测量的意思，那么onMeasure()方法顾名思义就是用于测量视图的大小的。View系统的绘制流程会从ViewRoot的performTraversals()方法中开始，在其内部调用View的measure()方法。measure()方法接收两个参数，widthMeasureSpec和heightMeasureSpec，这两个值分别用于确定视图的宽度和高度的规格和大小。
+measure是测量的意思，那么onMeasure()方法顾名思义就是用于测量视图的大小的。View系统的绘制流程会从ViewRoot的performTraversals()方法中开始，在其内部调用View的measure()方法。
+
+```注意:窗口的顶层视图的父视图是使用一个ViewRoot对象来描述的，也就是说，当前正在处理的视图容器的成员变量mParent指向的是一个ViewRoot对象```
+
+ ViewRoot.performTraversals这个函数定义在文件frameworks/base/core/java/android/view/ViewRoot.java中。
+ 代码如下：
+    {% highlight java  %}
+public final class ViewRoot extends Handler implements ViewParent,
+        View.AttachInfo.Callbacks {
+    ......
+    private void performTraversals() {
+        ......
+        // cache mView since it is used so much below...
+        final View host = mView;
+        ......
+        final boolean didLayout = mLayoutRequested;
+        ......
+        if (didLayout) {
+            ......
+            host.layout(0, 0, host.mMeasuredWidth, host.mMeasuredHeight);
+            ......
+            if ((host.mPrivateFlags & View.REQUEST_TRANSPARENT_REGIONS) != 0) {
+                // start out transparent
+                // TODO: AVOID THAT CALL BY CACHING THE RESULT?
+                host.getLocationInWindow(mTmpLocation);
+                mTransparentRegion.set(mTmpLocation[0], mTmpLocation[1],
+                        mTmpLocation[0] + host.mRight - host.mLeft,
+                        mTmpLocation[1] + host.mBottom - host.mTop);
+                host.gatherTransparentRegion(mTransparentRegion);
+                ......
+                if (!mTransparentRegion.equals(mPreviousTransparentRegion)) {
+                    mPreviousTransparentRegion.set(mTransparentRegion);
+                    // reconfigure window manager
+                    try {
+                        sWindowSession.setTransparentRegion(mWindow, mTransparentRegion);
+                    } catch (RemoteException e) {
+                    }
+                }
+            }
+            ......
+        }
+        ......
+        boolean cancelDraw = attachInfo.mTreeObserver.dispatchOnPreDraw();
+        if (!cancelDraw && !newSurface) {
+            ......
+            draw(fullRedrawNeeded);
+            ......
+        }
+    }
+    ......
+}
+            {% endhighlight %}
+
+measure()方法接收两个参数，widthMeasureSpec和heightMeasureSpec，这两个值分别用于确定视图的宽度和高度的规格和大小。
 
 MeasureSpec的值由specSize和specMode共同组成的，其中specSize记录的是大小，specMode记录的是规格。specMode一共有三种类型，如下所示：
 
@@ -158,4 +211,8 @@ MeasureSpec的值由specSize和specMode共同组成的，其中specSize记录的
 3. UNSPECIFIED
 
 表示开发人员可以将视图按照自己的意愿设置成任意的大小，没有任何限制。这种情况比较少见，不太会用到。
+
+
+
+
 
