@@ -221,5 +221,62 @@ childWidthMeasureSpec = getRootMeasureSpec(desiredWindowWidth, lp.width);
 childHeightMeasureSpec = getRootMeasureSpec(desiredWindowHeight, lp.height);
     {% endhighlight %}
 
+可以看到，这里调用了getRootMeasureSpec()方法去获取widthMeasureSpec和heightMeasureSpec的值，注意方法中传入的参数，其中lp.width和lp.height在创建ViewGroup实例的时候就被赋值了，
+它们都等于MATCH_PARENT。然后看下getRootMeasureSpec()方法中的代码，如下所示：
+
+    {% highlight java  %}
+private int getRootMeasureSpec(int windowSize, int rootDimension) {
+    int measureSpec;
+    switch (rootDimension) {
+    case ViewGroup.LayoutParams.MATCH_PARENT:
+        measureSpec = MeasureSpec.makeMeasureSpec(windowSize, MeasureSpec.EXACTLY);
+        break;
+    case ViewGroup.LayoutParams.WRAP_CONTENT:
+        measureSpec = MeasureSpec.makeMeasureSpec(windowSize, MeasureSpec.AT_MOST);
+        break;
+    default:
+        measureSpec = MeasureSpec.makeMeasureSpec(rootDimension, MeasureSpec.EXACTLY);
+        break;
+    }
+    return measureSpec;
+}
+    {% endhighlight %}
+
+可以看到，这里使用了MeasureSpec.makeMeasureSpec()方法来组装一个MeasureSpec，当rootDimension参数等于MATCH_PARENT的时候，MeasureSpec的specMode就等于EXACTLY，当rootDimension等于WRAP_CONTENT的时候，MeasureSpec的specMode就等于AT_MOST。并且MATCH_PARENT和WRAP_CONTENT时的specSize都是等于windowSize的，也就意味着根视图总是会充满全屏的。
+
+介绍了这么多MeasureSpec相关的内容，接下来我们看下View的measure()方法里面的代码吧，如下所示：
+
+    {% highlight java  %}
+public final void measure(int widthMeasureSpec, int heightMeasureSpec) {
+    if ((mPrivateFlags & FORCE_LAYOUT) == FORCE_LAYOUT ||
+            widthMeasureSpec != mOldWidthMeasureSpec ||
+            heightMeasureSpec != mOldHeightMeasureSpec) {
+        mPrivateFlags &= ~MEASURED_DIMENSION_SET;
+        if (ViewDebug.TRACE_HIERARCHY) {
+            ViewDebug.trace(this, ViewDebug.HierarchyTraceType.ON_MEASURE);
+        }
+        onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if ((mPrivateFlags & MEASURED_DIMENSION_SET) != MEASURED_DIMENSION_SET) {
+            throw new IllegalStateException("onMeasure() did not set the"
+                    + " measured dimension by calling"
+                    + " setMeasuredDimension()");
+        }
+        mPrivateFlags |= LAYOUT_REQUIRED;
+    }
+    mOldWidthMeasureSpec = widthMeasureSpec;
+    mOldHeightMeasureSpec = heightMeasureSpec;
+}
+        {% endhighlight %}
+
+注意观察，measure()这个方法是final的，因此我们无法在子类中去重写这个方法，说明Android是不允许我们改变View的measure框架的。然后在调用了onMeasure()
+方法，这里才是真正去测量并设置View大小的地方。
+
+    {% highlight java  %}
+ protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), widthMeasureSpec),
+                getDefaultSize(getSuggestedMinimumHeight(), heightMeasureSpec));
+    }
+        {% endhighlight %}
 
 
+默认会调用getDefaultSize()方法来获取视图的大小，如下所示：
