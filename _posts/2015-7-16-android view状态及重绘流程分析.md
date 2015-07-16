@@ -257,3 +257,24 @@ public void scheduleTraversals() {
 }
     {% endhighlight %}
 
+可以看到，这里调用了sendEmptyMessage()方法，并传入了一个DO_TRAVERSAL参数。如果你看一下ViewRoot的类定义就会发现，
+它是继承自Handler的，也就是说这里调用sendEmptyMessage()方法出的消息，会在ViewRoot的handleMessage()方法中接收到。
+那么看一下handleMessage()方法的代码吧，如下所示：
+
+    {% highlight java  %}
+    public void handleMessage(Message msg) {
+        switch (msg.what) {
+        case DO_TRAVERSAL:
+            if (mProfile) {
+                Debug.startMethodTracing("ViewRoot");
+            }
+            performTraversals();
+            if (mProfile) {
+                Debug.stopMethodTracing();
+                mProfile = false;
+            }
+            break;
+        ......
+    }
+    {% endhighlight %}
+
