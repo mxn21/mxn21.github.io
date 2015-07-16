@@ -29,3 +29,17 @@ tag: android
 5. pressed
 
 表示当前视图是否处于按下状态。可以调用setPressed()方法来对这一状态进行改变，传入true表示按下，传入false表示未按下。通常情况下这个状态都是由系统自动赋值的，但开发者也可以自己调用这个方法来进行改变。
+
+我们可以在项目的drawable目录下创建一个selector文件，在这里配置每种状态下视图对应的背景图片。但是它的背景原理到底是怎样的呢？这就又要从源码的层次上进行分析了。
+
+我们都知道，当手指按在视图上的时候，视图的状态就已经发生了变化，此时视图的pressed状态是true。每当视图的状态有发生改变的时候，就会回调View的drawableStateChanged()方法，代码如下所示：
+
+    {% highlight java  %}
+protected void drawableStateChanged() {
+    Drawable d = mBGDrawable;
+    if (d != null && d.isStateful()) {
+        d.setState(getDrawableState());
+    }
+}
+    {% endhighlight %}
+
