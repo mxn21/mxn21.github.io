@@ -283,3 +283,66 @@ public void scheduleTraversals() {
 
 了解了这些之后，我们再回过头来看看刚才的selectDrawable()方法中到底做了什么才能够控制背景图的改变，代码如下所示：
 
+    {% highlight java  %}
+    public boolean selectDrawable(int idx) {
+        if (idx == mCurIndex) {
+            return false;
+        }
+        final long now = SystemClock.uptimeMillis();
+        if (mDrawableContainerState.mExitFadeDuration > 0) {
+            if (mLastDrawable != null) {
+                mLastDrawable.setVisible(false, false);
+            }
+            if (mCurrDrawable != null) {
+                mLastDrawable = mCurrDrawable;
+                mExitAnimationEnd = now + mDrawableContainerState.mExitFadeDuration;
+            } else {
+                mLastDrawable = null;
+                mExitAnimationEnd = 0;
+            }
+        } else if (mCurrDrawable != null) {
+            mCurrDrawable.setVisible(false, false);
+        }
+        if (idx >= 0 && idx < mDrawableContainerState.mNumChildren) {
+            Drawable d = mDrawableContainerState.mDrawables[idx];
+            mCurrDrawable = d;
+            mCurIndex = idx;
+            if (d != null) {
+                if (mDrawableContainerState.mEnterFadeDuration > 0) {
+                    mEnterAnimationEnd = now + mDrawableContainerState.mEnterFadeDuration;
+                } else {
+                    d.setAlpha(mAlpha);
+                }
+                d.setVisible(isVisible(), true);
+                d.setDither(mDrawableContainerState.mDither);
+                d.setColorFilter(mColorFilter);
+                d.setState(getState());
+                d.setLevel(getLevel());
+                d.setBounds(getBounds());
+            }
+        } else {
+            mCurrDrawable = null;
+            mCurIndex = -1;
+        }
+        if (mEnterAnimationEnd != 0 || mExitAnimationEnd != 0) {
+            if (mAnimationRunnable == null) {
+                mAnimationRunnable = new Runnable() {
+                    @Override public void run() {
+                        animate(true);
+                        invalidateSelf();
+                    }
+                };
+            } else {
+                unscheduleSelf(mAnimationRunnable);
+            }
+            animate(true);
+        }
+        invalidateSelf();
+        return true;
+    }
+    {% endhighlight %}
+
+这里前面的代码我们可以都不管，关键是要看到在第54行一定会调用invalidateSelf()方法，这个方法中的代码如下所示：
+
+
+
