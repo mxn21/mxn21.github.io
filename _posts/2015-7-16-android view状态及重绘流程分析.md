@@ -114,3 +114,109 @@ public boolean setState(final int[] stateSet) {
 可以看到，这里会先调用indexOfStateSet()方法来找到当前视图状态所对应的Drawable资源下标，然后在第9行调用selectDrawable()方法并将下标传入，在这个方法中就会将视图的背景图设置为当前视图状态所对应的那张图片了。
 
 那你可能会有疑问，在前面一篇文章中我们说到，任何一个视图的显示都要经过非常科学的绘制流程的，很显然，背景图的绘制是在draw()方法中完成的，那么为什么selectDrawable()方法能够控制背景图的改变呢？这就要研究一下视图重绘的流程了。
+
+
+### 视图重绘
+
+虽然视图会在Activity加载完成之后自动绘制到屏幕上，但是我们完全有理由在与Activity进行交互的时候要求动态更新视图，比如改变视图的状态、以及显示或隐藏某个控件等。那在这个时候，之前绘制出的视图其实就已经过期了，此时我们就应该对视图进行重绘。
+
+调用视图的setVisibility()、setEnabled()、setSelected()等方法时都会导致视图重绘，而如果我们想要手动地强制让视图进行重绘，可以调用invalidate()方法来实现。当然了，setVisibility()、setEnabled()、setSelected()等方法的内部其实也是通过调用invalidate()方法来实现的，那么就让我们来看一看invalidate()方法的代码是什么样的吧。
+
+View的源码中会有数个invalidate()方法的重载和一个invalidateDrawable()方法，当然它们的原理都是相同的，因此我们只分析其中一种，代码如下所示：
+
+    {% highlight java  %}
+    void invalidate(boolean invalidateCache) {
+        if (ViewDebug.TRACE_HIERARCHY) {
+            ViewDebug.trace(this, ViewDebug.HierarchyTraceType.INVALIDATE);
+        }
+        if (skipInvalidate()) {
+            return;
+        }
+        if ((mPrivateFlags & (DRAWN | HAS_BOUNDS)) == (DRAWN | HAS_BOUNDS) ||
+                (invalidateCache && (mPrivateFlags & DRAWING_CACHE_VALID) == DRAWING_CACHE_VALID) ||
+                (mPrivateFlags & INVALIDATED) != INVALIDATED || isOpaque() != mLastIsOpaque) {
+            mLastIsOpaque = isOpaque();
+            mPrivateFlags &= ~DRAWN;
+            mPrivateFlags |= DIRTY;
+            if (invalidateCache) {
+                mPrivateFlags |= INVALIDATED;
+                mPrivateFlags &= ~DRAWING_CACHE_VALID;
+            }
+            final AttachInfo ai = mAttachInfo;
+            final ViewParent p = mParent;
+            if (!HardwareRenderer.RENDER_DIRTY_REGIONS) {
+                if (p != null && ai != null && ai.mHardwareAccelerated) {
+                    p.invalidateChild(this, null);
+                    return;
+                }
+            }
+            if (p != null && ai != null) {
+                final Rect r = ai.mTmpInvalRect;
+                r.set(0, 0, mRight - mLeft, mBottom - mTop);
+                p.invalidateChild(this, r);
+            }
+        }
+    }
+     {% endhighlight %}
+
+在这个方法中首先会调用skipInvalidate()方法来判断当前View是否需要重绘，判断的逻辑也比较简单，
+如果View是不可见的且没有执行任何动画，就认为不需要重绘了。之后会进行透明度的判断，并给View添加一些标记位，
+然后在第22和29行调用ViewParent的invalidateChild()方法，这里的ViewParent其实就是当前视图的父视图，
+因此会调用到ViewGroup的invalidateChild()方法中，代码如下所示：
+
+    {% highlight java  %}
+
+    public final void invalidateChild(View child, final Rect dirty) {
+        ViewParent parent = this;
+        final AttachInfo attachInfo = mAttachInfo;
+        if (attachInfo != null) {
+            final boolean drawAnimation = (child.mPrivateFlags & DRAW_ANIMATION) == DRAW_ANIMATION;
+            if (dirty == null) {
+                ......
+            } else {
+                ......
+                do {
+                    View view = null;
+                    if (parent instanceof View) {
+                        view = (View) parent;
+                        if (view.mLayerType != LAYER_TYPE_NONE &&
+                                view.getParent() instanceof View) {
+                            final View grandParent = (View) view.getParent();
+                            grandParent.mPrivateFlags |= INVALIDATED;
+                            grandParent.mPrivateFlags &= ~DRAWING_CACHE_VALID;
+                        }
+                    }
+                    if (drawAnimation) {
+                        if (view != null) {
+                            view.mPrivateFlags |= DRAW_ANIMATION;
+                        } else if (parent instanceof ViewRootImpl) {
+                            ((ViewRootImpl) parent).mIsAnimating = true;
+                        }
+                    }
+                    if (view != null) {
+                        if ((view.mViewFlags & FADING_EDGE_MASK) != 0 &&
+                                view.getSolidColor() == 0) {
+                            opaqueFlag = DIRTY;
+                        }
+                        if ((view.mPrivateFlags & DIRTY_MASK) != DIRTY) {
+                            view.mPrivateFlags = (view.mPrivateFlags & ~DIRTY_MASK) | opaqueFlag;
+                        }
+                    }
+                    parent = parent.invalidateChildInParent(location, dirty);
+                    if (view != null) {
+                        Matrix m = view.getMatrix();
+                        if (!m.isIdentity()) {
+                            RectF boundingRect = attachInfo.mTmpTransformRect;
+                            boundingRect.set(dirty);
+                            m.mapRect(boundingRect);
+                            dirty.set((int) boundingRect.left, (int) boundingRect.top,
+                                    (int) (boundingRect.right + 0.5f),
+                                    (int) (boundingRect.bottom + 0.5f));
+                        }
+                    }
+                } while (parent != null);
+            }
+        }
+    }
+     {% endhighlight %}
+
