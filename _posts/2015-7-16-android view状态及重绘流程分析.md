@@ -344,5 +344,14 @@ public void scheduleTraversals() {
 
 这里前面的代码我们可以都不管，关键是要看到在第54行一定会调用invalidateSelf()方法，这个方法中的代码如下所示：
 
+    {% highlight java  %}
+public void invalidateSelf() {
+    final Callback callback = getCallback();
+    if (callback != null) {
+        callback.invalidateDrawable(this);
+    }
+}
+     {% endhighlight %}
 
-
+可以看到，这里会先调用getCallback()方法获取Callback接口的回调实例，然后再去调用回调实例的invalidateDrawable()方法。
+那么这里的回调实例又是什么呢？观察一下View的类定义其实你就知道了，如下所示：
