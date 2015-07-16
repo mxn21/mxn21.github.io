@@ -278,3 +278,8 @@ public void scheduleTraversals() {
     }
     {% endhighlight %}
 
+熟悉的代码出现了！这里在第7行调用了performTraversals()方法，这不就是视图绘制的入口吗？虽然经过了很多辗转的调用，
+但是可以确定的是，调用视图的invalidate()方法后确实会走到performTraversals()方法中，然后重新执行绘制流程。
+
+了解了这些之后，我们再回过头来看看刚才的selectDrawable()方法中到底做了什么才能够控制背景图的改变，代码如下所示：
+
