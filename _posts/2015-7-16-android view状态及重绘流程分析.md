@@ -220,3 +220,28 @@ View的源码中会有数个invalidate()方法的重载和一个invalidateDrawab
     }
      {% endhighlight %}
 
+可以看到，这里在第10行进入了一个while循环，当ViewParent不等于空的时候就会一直循环下去。
+在这个while循环当中会不断地获取当前布局的父布局，并调用它的invalidateChildInParent()方法，
+在ViewGroup的invalidateChildInParent()方法中主要是来计算需要重绘的矩形区域，这里我们先不管它，当循环到最外层的根布局后，
+就会调用ViewRoot的invalidateChildInParent()方法了，代码如下所示：
+
+    {% highlight java  %}
+    public ViewParent invalidateChildInParent(final int[] location, final Rect dirty) {
+        invalidateChild(null, dirty);
+        return null;
+    }
+    {% endhighlight %}
+
+这里的代码非常简单，仅仅是去调用了invalidateChild()方法而已:
+
+    {% highlight java  %}
+
+public void invalidateChild(View child, Rect dirty) {
+    checkThread();
+    if (LOCAL_LOGV) Log.v(TAG, "Invalidate child: " + dirty);
+    mDirty.union(dirty);
+    if (!mWillDrawSoon) {
+        scheduleTraversals();
+    }
+}  
+    {% endhighlight %}
