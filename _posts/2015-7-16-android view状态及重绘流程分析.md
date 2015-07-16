@@ -59,3 +59,58 @@ public void setBackgroundResource(int resid) {
 }
       {% endhighlight %}
 
+可以看到，在第7行调用了Resource的getDrawable()方法将resid转换成了一个Drawable对象，然后调用了setBackgroundDrawable()方法并将这个Drawable对象传入，在setBackgroundDrawable()方法中会将传入的Drawable对象赋值给mBGDrawable。
+而我们在布局文件中通过android:background属性指定的selector文件，效果等同于调用setBackgroundResource()方法。也就是说drawableStateChanged()方法中的mBGDrawable对象其实就是我们指定的selector文件。
+
+接下来在drawableStateChanged()方法的第4行调用了getDrawableState()方法来获取视图状态，代码如下所示：
+
+    {% highlight java  %}
+public final int[] getDrawableState() {
+    if ((mDrawableState != null) && ((mPrivateFlags & DRAWABLE_STATE_DIRTY) == 0)) {
+        return mDrawableState;
+    } else {
+        mDrawableState = onCreateDrawableState(0);
+        mPrivateFlags &= ~DRAWABLE_STATE_DIRTY;
+        return mDrawableState;
+    }
+}
+     {% endhighlight %}
+
+在这里首先会判断当前视图的状态是否发生了改变，如果没有改变就直接返回当前的视图状态，如果发生了改变就调用onCreateDrawableState()方法来获取最新的视图状态。视图的所有状态会以一个整型数组的形式返回。
+在得到了视图状态的数组之后，就会调用Drawable的setState()方法来对状态进行更新，代码如下所示：
+
+    {% highlight java  %}
+
+public boolean setState(final int[] stateSet) {
+    if (!Arrays.equals(mStateSet, stateSet)) {
+        mStateSet = stateSet;
+        return onStateChange(stateSet);
+    }
+    return false;
+}
+     {% endhighlight %}
+
+这里会调用Arrays.equals()方法来判断视图状态的数组是否发生了变化，如果发生了变化则调用onStateChange()方法，否则就直接返回false。但你会发现，Drawable的onStateChange()方法中其实就只是简单返回了一个false，并没有任何的逻辑处理，这是为什么呢？这主要是因为mBGDrawable对象是通过一个selector文件创建出来的，而通过这种文件创建出来的Drawable对象其实都是一个StateListDrawable实例，
+因此这里调用的onStateChange()方法实际上调用的是StateListDrawable中的onStateChange()方法:
+
+    {% highlight java  %}
+    @Override
+    protected boolean onStateChange(int[] stateSet) {
+        int idx = mStateListState.indexOfStateSet(stateSet);
+        if (DEBUG) android.util.Log.i(TAG, "onStateChange " + this + " states "
+                + Arrays.toString(stateSet) + " found " + idx);
+        if (idx < 0) {
+            idx = mStateListState.indexOfStateSet(StateSet.WILD_CARD);
+        }
+        if (selectDrawable(idx)) {
+            return true;
+        }
+        return super.onStateChange(stateSet);
+    }
+
+         {% endhighlight %}
+
+
+可以看到，这里会先调用indexOfStateSet()方法来找到当前视图状态所对应的Drawable资源下标，然后在第9行调用selectDrawable()方法并将下标传入，在这个方法中就会将视图的背景图设置为当前视图状态所对应的那张图片了。
+
+那你可能会有疑问，在前面一篇文章中我们说到，任何一个视图的显示都要经过非常科学的绘制流程的，很显然，背景图的绘制是在draw()方法中完成的，那么为什么selectDrawable()方法能够控制背景图的改变呢？这就要研究一下视图重绘的流程了。
