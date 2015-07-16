@@ -243,5 +243,17 @@ public void invalidateChild(View child, Rect dirty) {
     if (!mWillDrawSoon) {
         scheduleTraversals();
     }
-}  
+}
     {% endhighlight %}
+
+这个方法也不长，它在第6行又调用了scheduleTraversals()这个方法:
+
+    {% highlight java  %}
+public void scheduleTraversals() {
+    if (!mTraversalScheduled) {
+        mTraversalScheduled = true;
+        sendEmptyMessage(DO_TRAVERSAL);
+    }
+}
+    {% endhighlight %}
+
