@@ -43,3 +43,19 @@ protected void drawableStateChanged() {
 }
     {% endhighlight %}
 
+在这里的第一步，首先是将mBGDrawable赋值给一个Drawable对象，那么这个mBGDrawable是什么呢？观察setBackgroundResource()方法中的代码，如下所示：
+
+    {% highlight java  %}
+public void setBackgroundResource(int resid) {
+    if (resid != 0 && resid == mBackgroundResource) {
+        return;
+    }
+    Drawable d= null;
+    if (resid != 0) {
+        d = mResources.getDrawable(resid);
+    }
+    setBackgroundDrawable(d);
+    mBackgroundResource = resid;
+}
+      {% endhighlight %}
+
