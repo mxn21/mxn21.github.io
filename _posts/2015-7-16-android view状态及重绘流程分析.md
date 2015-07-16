@@ -355,3 +355,15 @@ public void invalidateSelf() {
 
 可以看到，这里会先调用getCallback()方法获取Callback接口的回调实例，然后再去调用回调实例的invalidateDrawable()方法。
 那么这里的回调实例又是什么呢？观察一下View的类定义其实你就知道了，如下所示：
+
+    {% highlight java  %}
+public class View implements Drawable.Callback, Drawable.Callback2, KeyEvent.Callback,
+AccessibilityEventSource {
+    ......
+}
+    {% endhighlight %}
+
+
+View类正是实现了Callback接口，所以刚才其实调用的就是View中的invalidateDrawable()方法，之后就会按照我们前面分析的流程执行重绘逻辑，所以视图的背景图才能够得到改变的。
+另外需要注意的是，invalidate()方法虽然最终会调用到performTraversals()方法中，但这时measure和layout流程是不会重新执行的，因为视图没有强制重新测量的标志位，
+而且大小也没有发生过变化，所以这时只有draw流程可以得到执行。而如果你希望视图的绘制流程可以完完整整地重新走一遍，就不能使用invalidate()方法，而应该调用requestLayout()了。
