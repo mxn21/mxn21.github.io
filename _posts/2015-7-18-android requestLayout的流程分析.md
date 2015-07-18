@@ -88,4 +88,8 @@ layout调用之后，会清理掉FORCE_LAYOUT标记。
 
 通过上述分析发现，只要调用了requestlayout, 那么measure和onMeasure，以及layout，onlayout，draw onDraw都会被调用。
 
+#### 总结
 
+requestLayout：当view确定自身已经不再适合现有的区域时，该view本身调用这个方法要求parent view重新调用他的onMeasure onLayout来对重新设置自己位置。
+
+特别的当view的layoutparameter发生改变，并且它的值还没能应用到view上，这时候适合调用这个方法。
