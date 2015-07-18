@@ -52,7 +52,7 @@ onLayout调用后清理LAYOUT_REQUIRED标记。
 layout调用之后，会清理掉FORCE_LAYOUT标记。
 
     {% highlight java  %}
-    
+
   @SuppressWarnings({"unchecked"})
    public void layout(int l, int t, int r, int b) {
        int oldL = mLeft;
@@ -81,3 +81,11 @@ layout调用之后，会清理掉FORCE_LAYOUT标记。
        mPrivateFlags &= ~FORCE_LAYOUT;
    }
     {% endhighlight %}
+
+当然在上述过程中，影响到了兄弟或者是父亲View的大小， 那么也兄弟或者是父亲View也会调用layout/onLayout。
+不管其是否已经调用requestLayout。如果说指定的MeasureSpec为此也发生了变化，
+那么measure/onMeasure也会被调用。
+
+通过上述分析发现，只要调用了requestlayout, 那么measure和onMeasure，以及layout，onlayout，draw onDraw都会被调用。
+
+
