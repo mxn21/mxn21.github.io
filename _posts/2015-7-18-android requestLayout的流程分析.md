@@ -45,3 +45,39 @@ measure方法确认当前View是否有FORCE_LAYOUT标记。
     }
     {% endhighlight %}
 
+第二步。
+ 在随后的layout方法中，会判断这个标记。如果这个标记为true。
+那么就一定会调用onLayout.
+onLayout调用后清理LAYOUT_REQUIRED标记。
+layout调用之后，会清理掉FORCE_LAYOUT标记。
+
+    {% highlight java  %}
+    
+  @SuppressWarnings({"unchecked"})
+   public void layout(int l, int t, int r, int b) {
+       int oldL = mLeft;
+       int oldT = mTop;
+       int oldB = mBottom;
+       int oldR = mRight;
+       boolean changed = setFrame(l, t, r, b);
+       if (changed || (mPrivateFlags & LAYOUT_REQUIRED) == LAYOUT_REQUIRED) {
+           if (ViewDebug.TRACE_HIERARCHY) {
+               ViewDebug.trace(this, ViewDebug.HierarchyTraceType.ON_LAYOUT);
+           }
+
+           onLayout(changed, l, t, r, b);
+           mPrivateFlags &= ~LAYOUT_REQUIRED;
+
+           ListenerInfo li = mListenerInfo;
+           if (li != null && li.mOnLayoutChangeListeners != null) {
+               ArrayList<OnLayoutChangeListener> listenersCopy =
+                       (ArrayList<OnLayoutChangeListener>)li.mOnLayoutChangeListeners.clone();
+               int numListeners = listenersCopy.size();
+               for (int i = 0; i < numListeners; ++i) {
+                   listenersCopy.get(i).onLayoutChange(this, l, t, r, b, oldL, oldT, oldR, oldB);
+               }
+           }
+       }
+       mPrivateFlags &= ~FORCE_LAYOUT;
+   }
+    {% endhighlight %}
