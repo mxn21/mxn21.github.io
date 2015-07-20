@@ -154,7 +154,7 @@ measure是测量的意思，那么onMeasure()方法顾名思义就是用于测�
  根据之前设置的状态，判断是否需要重新计算视图大小(measure)、是否重新需要安置视图的位置(layout)、以及是否需要重绘
  (draw)```
 
-
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img28.png)
 
  ViewRoot.performTraversals这个函数定义在文件frameworks/base/core/java/android/view/ViewRoot.java中。
  代码如下：
