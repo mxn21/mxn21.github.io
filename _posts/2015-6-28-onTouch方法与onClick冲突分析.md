@@ -157,3 +157,19 @@ MyLayout中包含一个MyTextView控件:
 下面在来看一下ViewGroup中的onTouchEvent方法:
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img32.png)
+
+
+在ACTION_UP中的这段代码就是执行了onClick方法，具体可以看一下performClick方法解释:
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img33.png)
+
+mOnClickListener就是OnClickListener监听器，执行了onClick方法，所以上面的onClick方法是在ACTION_UP之后执行了。
+下面在来看一下这种情况，现在把onTouch方法的返回值改成true：看一下执行结果:
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img34.png)
+
+可以看到首先还是执行了MyTextView的dispatchTouchEvent方法，然后执行了onTouch中的ACTION_DOWN代码，同样当用户的弹起手指的时候执行了同样的过程，现在的问题是这样的执行过程为什么和上面的不一样呢？
+首先来看一下有哪些不一样的地方：
+第一个不一样的地方就是”子View的onTouchEvent方法执行了“这句话没有执行，那就是MyTextView中的onTouchEvent方法没有执行了，来看一下源码:
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img35.png)
