@@ -187,6 +187,16 @@ mOnClickListener就是OnClickListener监听器，执行了onClick方法，所以
 这里再解释一下为什么ListView中的Item中如果有Button，CheckBox等这样的组件的话，ListView中的setOnItemClick方法就是失效了，
 原因是Item没有获取焦点，焦点被Button等控件默认获取到了。ListView无法获得焦点，当然不能响应setOnItemClick。源码如下：
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img36.png)
+
+可以看到如果这个控件是可以点击的，那么onTouchEvent方法就返回true，当方法onTouchEvent方法返回true的时候说明这次事件被该控件消费了，
+不会再往上传递了。这里还有一个重要的信息是Android中像Button,CheckBox这样的控件默认都是可以点击的,所以不需要setClickable(true)方法来实现了，
+但是像TextView这样的控件默认是不可点击的，所以要通过setClickable(true)这样的方法来实现。另外，如果给TextView这样的控件设置监听器mOnClickListener,
+就是设置成可点击状态。代码如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img37.png)
+
+
 
 
 
