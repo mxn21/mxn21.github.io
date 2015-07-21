@@ -173,3 +173,16 @@ mOnClickListener就是OnClickListener监听器，执行了onClick方法，所以
 第一个不一样的地方就是”子View的onTouchEvent方法执行了“这句话没有执行，那就是MyTextView中的onTouchEvent方法没有执行了，来看一下源码:
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img35.png)
+
+在View中的dispatchTouchEvent方法中可以看到，是先执行OnTouchListener监听器中的onTouch方法，
+如果onTouchListener不为null,并且onTouch方法返回false的时候才执行onTouchEvent方法，
+现在我们把onTouch方法的返回值变成了true，所以onTouchEvent方法就不执行了。这里一定要注意onTouchEvent方法和onTouch方法的区别。
+
+第二个不一样的地方就是onClick方法没有执行了，因为onClick是在onTouchEvent执行后执行的，而 onTouchEvent都没有执行，所以onClick更不会执行。
+所以如果onTouch方法返回true，说明View这次消费了这次事件，所以就不会再执行后续的onClick方法了。
+
+所以事件传递流程是 onTouch --> onTouchEvent --> onClick。onTouch如果返回true,后面都不会执行。
+
+
+
+
