@@ -6,6 +6,7 @@ category: 技术博文
 tag: android
 ---
 
+### MotionEvent
 
 MotionEvent即一个触摸事件。对屏幕的几乎所有操作都会触发事件，如点击、放开、滑动等。
 
@@ -38,3 +39,36 @@ event.getX(index)和event.getY(index)可以获取到指定index点的坐标，�
         return FloatMath.sqrt(x * x + y * y);
     }
     {% endhighlight %}
+
+
+### 手势坐标介绍
+
+下面解释Android系统坐标及触摸MotionEvent e1和e2、速度velocityX、velocityY等值
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img29.jpg)
+
+（1）MotionEvent中 e1是手指第一次按上屏幕的起点，e2是抬起手指离开屏幕的终点，根据上图Android屏幕坐标系可知：
+
+手指向右滑动，终点（e2）在起点（e1）的右侧，有e2.getX() - e1.getX() 大于0
+手指向左滑动，终点（e2）在起点（e1）的左侧，有e2.getX() - e1.getX() 小于0
+手指向下滑动，终点（e2）在起点（e1）的下侧，有e2.getY() - e1.getY() 大于0
+手指向上滑动，终点（e2）在起点（e1）的上侧，有e2.getY() - e1.getY() 小于0
+
+ （2）onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY)
+
+distanceX，是前后两次call的X距离，不是e2与e1的水平距离
+
+distanceY，是前后两次call的Y距离，不是e2与e1的垂直距离
+
+具体数值的方向，请详见上图（中）
+
+ （3）onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+
+velocityX，是X轴的每秒速度
+
+velocityY，是Y轴的每秒速度
+
+具体数值的方向，请详见上图（右）
+
+仔细观察可以发现：velocityX、velocityY的方向与distanceX、distanceY方向正好相反.
+
