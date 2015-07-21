@@ -151,3 +151,9 @@ MyLayout中包含一个MyTextView控件:
 ，然后是执行了onTouch方法中的ACTION_DOWN中的代码，然后执行了MyTextView中的onTouchEvent方法，
 当用户弹起手指的时候又一次执行了这样的一个过程，最后就是执行了onClick方法，在这里就来看一下onTouchEvent中的源代码:
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img31.png)
+
+因为TextView继承View，可以查看View中的onTouchEvent方法，在这个方法中又调用了ViewGroup中的onTouchEvent方法，
+下面在来看一下ViewGroup中的onTouchEvent方法:
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img32.png)
