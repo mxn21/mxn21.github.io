@@ -40,6 +40,38 @@ event.getX(index)和event.getY(index)可以获取到指定index点的坐标，�
     }
     {% endhighlight %}
 
+<!-- more -->
+
+### MotionEvent 中getAction()与getActionMasked()的区别
+
+首先看代码:
+
+    {% highlight java  %}
+    public static final int ACTION_MASK = 0xff;
+
+    public final int getAction() {
+        return mAction;
+    }
+
+    public final int getActionMasked() {
+    return mAction & ACTION_MASK;
+    }
+    {% endhighlight %}
+
+他们有什么区别呢？如果mAction的值是在0x00到0xff之间的话。getAction()返回的值，和getActionMasked()的返回的值是一样的。
+那什么时候返回的值是不一样的呢？即当mAction值大于0xff时，那什么时候会大于0xff呢？
+这就是是当有多点触控时。
+
+mAction的低8位即0x00到0xff用来表示动作的类型信息。例如：MotionEvent#ACTION_DOWN的值是 0,即0x00。MotionEvent#ACTION_UP的值是 1，即0x01。
+但是，我们知道Android是支持多点触控的，那么怎么知道这个一个MotionEvent是哪一个触控点触发的呢？那么就还需要MotionEvent带有触控点索引信息。
+Android的解决方案时在；mAction的第二个8位中存储。例如，如果mAction的值是0x0000，则表示是第一个触控点的ACTION_DOWN操作。
+如果mAction的值是0x0100呢，则表示是第二个触控点的ACTION_DOWN操作。第三个的ACTION_DOWN呢？相信你可以推出来是0x0200。
+总而言之，mAction时的低8位（也就是0-7位）是动作类型信息。mAction的8-15位呢，是触控点的索引信息。（即表示是哪一个触控点的事件）。
+
+
+
+
+等等。
 
 ### 手势坐标介绍
 
