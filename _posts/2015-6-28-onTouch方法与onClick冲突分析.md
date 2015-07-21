@@ -184,5 +184,10 @@ mOnClickListener就是OnClickListener监听器，执行了onClick方法，所以
 所以事件传递流程是 onTouch --> onTouchEvent --> onClick。onTouch如果返回true,后面都不会执行。
 
 
+这里再解释一下为什么ListView中的Item中如果有Button，CheckBox等这样的组件的话，ListView中的setOnItemClick方法就是失效了，
+原因是Item没有获取焦点，焦点被Button等控件默认获取到了。ListView无法获得焦点，当然不能响应setOnItemClick。源码如下：
+
+
+
 
 
