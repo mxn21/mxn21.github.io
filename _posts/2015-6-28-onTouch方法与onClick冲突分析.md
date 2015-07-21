@@ -196,6 +196,15 @@ mOnClickListener就是OnClickListener监听器，执行了onClick方法，所以
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img37.png)
 
+所以解决ListView中setOnItemClick方法就是失效有两种解决方法：
+
+第一种就是让Button控件失去焦点，可以在布局文件中设置代码:android:focusable="false"即可。
+
+第二种就是把setOnItemClick方法中的逻辑代码放在adapter里面getView中的contentView的onClick方法中。因为listview无法获得焦点，不能监听，
+焦点在contentView里面的控件上，contentView里面的控件可以监听。
+
+
+
 
 
 
