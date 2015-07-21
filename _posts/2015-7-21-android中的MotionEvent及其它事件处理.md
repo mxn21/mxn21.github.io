@@ -25,3 +25,16 @@ MotionEvent.ACTION_MOVE：当有点在屏幕上移动时触发。值得注意的
 而我们的手指又不可能完全静止（即使我们感觉不到移动，但其实我们的手指也在不停地抖动），
 所以实际的情况是，基本上只要有点在屏幕上，此事件就会一直不停地被触发。
 
+举例子来说：当我们放一个食指到屏幕上时，触发ACTION_DOWN事件；
+再放一个中指到屏幕上，触发ACTION_POINTER_DOWN事件；此时再把食指或中指放开，都会触发ACTION_POINTER_UP事件；
+再放开最后一个手指，触发ACTION_UP事件；而同时在整个过程中，ACTION_MOVE事件会一直不停地被触发。
+
+event.getX(index)和event.getY(index)可以获取到指定index点的坐标，所以当屏幕上有两个点的时候，我们用如下方法来获取两点间的距离：
+
+    {% highlight java  %}
+    private float spacing(MotionEvent event) {
+         float x = event.getX(0) - event.getX(1);
+         float y = event.getY(0) - event.getY(1);
+        return FloatMath.sqrt(x * x + y * y);
+    }
+    {% endhighlight %}
