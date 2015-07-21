@@ -93,11 +93,7 @@ tag: [android]
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical">
-            <com.bbdtek.demo.MyButton
-                android:id="@+id/btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="点我"/>
+
             <com.bbdtek.demo.MyTextView
                 android:id="@+id/txt1"
                 android:layout_width="fill_parent"
