@@ -143,3 +143,11 @@ MyLayout中包含一个MyTextView控件:
     }
      {% endhighlight %}
 
+看一下运行结果:
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img30.png)
+
+可以看到先执行的是MyTextView的dispatchTouchEvent方法(这个方法是每次触发onTouch方法都会执行的)
+，然后是执行了onTouch方法中的ACTION_DOWN中的代码，然后执行了MyTextView中的onTouchEvent方法，
+当用户弹起手指的时候又一次执行了这样的一个过程，最后就是执行了onClick方法，在这里就来看一下onTouchEvent中的源代码:
+
