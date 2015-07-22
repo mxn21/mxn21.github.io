@@ -153,3 +153,7 @@ public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
        {% endhighlight %}
 
 通过这里的实现可以看到上面定义的三个常量设置的意思。
+
+所以遇到listview的item点击无响应的时候，原因多半是由于在你自己定义的Item中存在诸如ImageButton，Button，CheckBox等子控件(也可以说是Button或者Checkable的子类控件)，
+此时这些子控件会将焦点获取到，所以常常当点击item时变化的是子控件，item本身的点击没有响应。
+这时在Item布局的根布局加上android:descendantFocusability=”blocksDescendants”的属性就好了。
