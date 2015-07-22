@@ -97,7 +97,9 @@ View还提供了一个重要的方法：setWillNotDraw，我们看一看它的�
 他有三个常量可供设置
 
 1.FOCUS_BEFORE_DESCENDANTS ViewGroup本身先对焦点进行处理，如果没有处理则分发给child View进行处理
+
 2.FOCUS_AFTER_DESCENDANTS 先分发给Child View进行处理，如果所有的Child View都没有处理，则自己再处理
+
 3.FOCUS_BLOCK_DESCENDANTS ViewGroup本身进行处理，不管是否处理成功，都不会分发给ChildView进行处理
 
 我们看下这个方法的实现
