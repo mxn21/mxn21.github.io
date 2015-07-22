@@ -6,7 +6,7 @@ category: 技术博文
 tag: android
 ---
 
-### setWillNotDraw(false)
+## setWillNotDraw(false)
 
 如果要自定义一个ViewGroup，重写onDraw方法，它是不会被调用的，下面分析一下原因和解决方法。
 
@@ -58,9 +58,34 @@ final boolean dirtyOpaque = (privateFlags & DIRTY_MASK) == DIRTY_OPAQUE &&
 View还提供了一个重要的方法：setWillNotDraw，我们看一看它的实现：
 
     {% highlight java  %}
+    /**
+      * If this view doesn't do any drawing on its own, set this flag to
+      * allow further optimizations. By default, this flag is not set on
+      * View, but could be set on some View subclasses such as ViewGroup.
+      *
+      * Typically, if you override {@link #onDraw} you should clear this flag.
+      *
+      * @param willNotDraw whether or not this View draw on its own
+      */
  public void setWillNotDraw(boolean willNotDraw) {
      setFlags(willNotDraw ? WILL_NOT_DRAW : 0, DRAW_MASK);
 
  }
 
      {% endhighlight %}
+
+从这个方法的注释，我们可以看出，如果你想重写onDraw的话，你应该调用这个方法来清除flag，
+所以如果我们想要重写LinearLayout的onDraw的话，我们也可以在其构造方法中调用setWillNotDraw方法。
+在ViewGroup初始他时，它调用了一个私有方法：initViewGroup，它里面会有一句setFlags(WILL_NOT_DRAW, DRAW_MASK);
+相当于调用了setWillNotDraw(true)，所以说，对于ViewGroup，它就认为是透明的了。如果我们想要重写onDraw，就需要调用setWillNotDraw(false)
+
+
+### 总结一下
+
+1.ViewGroup默认情况下，会被设置成WILL_NOT_DRAW，这是从性能考虑，这样一来，onDraw就不会被调用了。
+
+2.如果我们要重要一个ViweGroup的onDraw方法，有两种方法：
+在构造函数里面，给其设置一个颜色，如#00000000。
+在构造函数里面，调用setWillNotDraw(false)，去掉其WILL_NOT_DRAW flag。
+
+
