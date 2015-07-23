@@ -24,6 +24,24 @@ scrollTo(int x, int y) 是将View中内容滑动到相应的位置，参考的�
 注意，图中黄色矩形区域表示的是一个parent View，绿色虚线矩形为parent view中的内容。一般情况下两者的大小一致，
 本文为了显示方便，将虚线框画小了一点。图中的黄色区域的位置始终不变，发生位置变化的是显示的内容。
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img38.png)
+
+同理，scrollTo(0, 100)的效果如下图所示：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img39.png)
+
+scrollTo(100, 100)的效果图如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img40.png)
+
+若函数中参数为负值，则子View的移动方向将相反.
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img41.png)
+
+
+
+
+
 
 
 
