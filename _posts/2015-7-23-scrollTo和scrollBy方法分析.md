@@ -17,6 +17,12 @@ getRight可以获得控件在parent中的相对位置。同时，也可以获得
 如：button.offsetLeftAndRignt(300)表示将button控件向左移动300个像素。
 
 
+### scrollTo(int x, int y)
+
+scrollTo(int x, int y) 是将View中内容滑动到相应的位置，参考的坐标系原点为parent View的左上角。
+调用scrollTo(100, 0)表示将View中的内容移动到x = 100， y = 0的位置，如下图所示。
+注意，图中黄色矩形区域表示的是一个parent View，绿色虚线矩形为parent view中的内容。一般情况下两者的大小一致，
+本文为了显示方便，将虚线框画小了一点。图中的黄色区域的位置始终不变，发生位置变化的是显示的内容。
 
 
 
