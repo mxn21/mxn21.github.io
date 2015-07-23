@@ -38,10 +38,47 @@ scrollTo(100, 100)的效果图如下：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img41.png)
 
+### scrollBy(int x, int y)
+
+scrollBy(int x, int y)其实是对scrollTo的包装，移动的是相当位置。 scrollTo(int x, int y)的源码和scrollBy(int x, int y)源码如下所示.
+
+    {% highlight java  %}
+
+public void scrollTo(int x, int y) {
+    if (mScrollX != x || mScrollY != y) {
+        int oldX = mScrollX;
+        int oldY = mScrollY;
+        mScrollX = x;
+        mScrollY = y;
+        invalidateParentCaches();
+        onScrollChanged(mScrollX, mScrollY, oldX, oldY);
+        if (!awakenScrollBars()) {
+            postInvalidateOnAnimation();
+        }
+    }
+}
+
+public void scrollBy(int x, int y) { scrollTo(mScrollX + x, mScrollY + y); }
+
+    {% endhighlight %}
 
 
+可见，mScrollX和mScrollY是View类中专门用于记录滑动位置的变量。这两个函数最终调用onScrollChanged()函数.
+
+理解了scrollTo(int x, int y)和scrollBy(int x, int y)的用法，就不难理解getScrollX() 和getScrollY()。这两个函数的源码如下所示：
 
 
+    {% highlight java  %}
+
+public final int getScrollX() {
+    return mScrollX;
+}
+
+public final int getScrollY() {
+    return mScrollY;
+}
+
+    {% endhighlight %}
 
 
 
