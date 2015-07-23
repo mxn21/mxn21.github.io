@@ -17,6 +17,8 @@ getRight可以获得控件在parent中的相对位置。同时，也可以获得
 如：button.offsetLeftAndRignt(300)表示将button控件向左移动300个像素。
 
 
+<!-- more -->
+
 ### scrollTo(int x, int y)
 
 scrollTo(int x, int y) 是将View中内容滑动到相应的位置，参考的坐标系原点为parent View的左上角。
@@ -65,20 +67,24 @@ public void scrollBy(int x, int y) { scrollTo(mScrollX + x, mScrollY + y); }
 
 可见，mScrollX和mScrollY是View类中专门用于记录滑动位置的变量。这两个函数最终调用onScrollChanged()函数.
 
-理解了scrollTo(int x, int y)和scrollBy(int x, int y)的用法，就不难理解getScrollX() 和getScrollY()。这两个函数的源码如下所示：
+理解了scrollTo(int x, int y)和scrollBy(int x, int y)的用法，就不难理解getScrollX() 和getScrollY()。
+在View.java中提供了mScrollX，mScrollY两个变量以及相应的属性方法去读取滚动值
+这两个函数的源码如下所示：
 
 
     {% highlight java  %}
+    protected int mScrollX;   //该视图内容相当于视图起始坐标的偏移量   ， X轴 方向
+    protected int mScrollY;   //该视图内容相当于视图起始坐标的偏移量   ， Y轴方向
+    public final int getScrollX() {
+        return mScrollX;
+    }
 
-public final int getScrollX() {
-    return mScrollX;
-}
-
-public final int getScrollY() {
-    return mScrollY;
-}
+    public final int getScrollY() {
+        return mScrollY;
+    }
 
     {% endhighlight %}
+
 
 
 
