@@ -11,6 +11,7 @@ tag: android
 友好的。于是，基于这种偏移控制，Scroller类被设计出来了，该类的主要作用是为偏移过程制定一定的控制流程，
 从而使偏移更流畅，更完美。
 
+### Scroller类介绍
 
 我们就分析下源码里去看看Scroller类的相关方法.
 其源代码(部分)如下： 路径位于 \frameworks\base\core\java\android\widget\Scroller.java
@@ -81,10 +82,41 @@ public class Scroller  {
 }
     {% endhighlight %}
 
-    
+
 
 <!-- more -->
 
+其中比较重要的两个方法为：
+
+public boolean computeScrollOffset()
+
+函数功能说明：根据当前已经消逝的时间计算当前的坐标点，保存在mCurrX和mCurrY值中。
+
+public void startScroll(int startX, int startY, int dx, int dy, int duration)
+
+函数功能说明：开始一个动画控制，由(startX , startY)在duration时间内前进(dx,dy)个单位，到达坐标为(startX+dx , startY+dy)处。
+
+
+### computeScroll(）方法介绍
+
+为了易于控制滑屏控制，Android框架提供了 computeScroll()方法去控制这个流程。在绘制View时，会在draw()过程调用该
+方法。因此， 再配合使用Scroller实例，我们就可以获得当前应该的偏移坐标，手动使View/ViewGroup偏移至该处。
+computeScroll()方法原型如下，该方法位于ViewGroup.java类中
+
+    {% highlight java  %}
+/**
+     * Called by a parent to request that a child update its values for mScrollX
+     * and mScrollY if necessary. This will typically be done if the child is
+     * animating a scroll using a {@link android.widget.Scroller Scroller}
+     * object.
+     */由父视图调用用来请求子视图根据偏移值 mScrollX,mScrollY重新绘制
+    public void computeScroll() { //空方法 ，自定义ViewGroup必须实现方法体
+
+    }
+    {% endhighlight %}
+
+为了实现偏移控制，一般自定义View/ViewGroup都需要重载该方法 。
+其调用过程位于View绘制流程draw()过程中，如下：
 
 
 
