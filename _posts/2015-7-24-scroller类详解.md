@@ -137,3 +137,35 @@ protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
 }
 
     {% endhighlight %}
+
+
+### ViewConfiguration类
+
+功能： 获得一些关于timeouts(时间)、sizes(大小)、distances(距离)的标准常量值 。
+
+常用方法：
+
+public int getScaledEdgeSlop
+
+说明：获得一个触摸移动的最小像素值。也就是说，只有超过了这个值，才代表我们该滑屏处理了
+
+public static int getLongPressTimeout()
+
+说明：获得一个执行长按事件监听(onLongClickListener)的值。也就是说，对某个View按下触摸时，只有超过了
+这个时间值在，才表示我们该对该View回调长按事件了；否则，小于这个时间点松开手指，只执行onClick监听。
+
+
+### VelocityTracker类
+
+功能：  根据触摸位置计算每像素的移动速率。
+
+常用方法有：
+
+public void addMovement (MotionEvent ev)
+
+功能：添加触摸对象MotionEvent ， 用于计算触摸速率。
+
+public void computeCurrentVelocity (int units)
+
+功能：以每像素units单位考核移动速率。额，其实我也不太懂，赋予值1000即可。
+
