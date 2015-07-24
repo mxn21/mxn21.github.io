@@ -118,5 +118,22 @@ computeScroll()方法原型如下，该方法位于ViewGroup.java类中
 为了实现偏移控制，一般自定义View/ViewGroup都需要重载该方法 。
 其调用过程位于View绘制流程draw()过程中，如下：
 
+    {% highlight java  %}
+@Override
+protected void dispatchDraw(Canvas canvas){
+    ...
 
+    for (int i = 0; i < count; i++) {
+        final View child = children[getChildDrawingOrder(count, i)];
+        if ((child.mViewFlags & VISIBILITY_MASK) == VISIBLE || child.getAnimation() != null) {
+            more |= drawChild(canvas, child, drawingTime);
+        }
+    }
+}
+protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
+    ...
+    child.computeScroll();
+    ...
+}
 
+    {% endhighlight %}
