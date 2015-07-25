@@ -83,7 +83,6 @@ public class Scroller  {
     {% endhighlight %}
 
 
-
 <!-- more -->
 
 其中比较重要的两个方法为：
@@ -168,4 +167,6 @@ public void addMovement (MotionEvent ev)
 public void computeCurrentVelocity (int units)
 
 功能：以每像素units单位考核移动速率。额，其实我也不太懂，赋予值1000即可。
+
+
 
