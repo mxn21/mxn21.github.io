@@ -14,8 +14,11 @@ Sparse array —稀疏数组
 
 HashMap是java里比较常用的一个集合类，在一般情况下，使用HashMap<K, V>，如果K整数类型的话，使用SparseArray效率会更高。
 
+### 稀疏数组
 
+假设有一个9*7的数组，其内容如下：
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img42.jpg)
 
 
 
