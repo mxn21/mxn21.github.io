@@ -280,3 +280,62 @@ long end4search = System.currentTimeMillis() - start4search;
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img50.png)
 
+代码9，我们试一些离散的数据。
+
+   {% highlight java  %}
+//使用Foo为了避免由原始类型被自动封装（auto-boxing，比如把int类型自动转存Integer对象类型）造成的干扰。
+class FOO{
+    Integer objKey;
+    int intKey;
+}
+...
+int MAX = 100000;
+
+HashMap<Integer, String> hash = new HashMap<Integer, String>();
+SparseArray<String> sparse = new SparseArray<String>();
+
+for (int i = 0; i < MAX; i++) {
+    hash.put(i, String.valueOf(i));
+    sparse.put(i, String.valueOf(i));
+}
+
+List<FOO> keylist4search = new ArrayList<FOO>();
+for (int i = 0; i < MAX; i++) {
+    FOO f = new FOO();
+    f.intKey = i;
+    f.objKey = Integer.valueOf(i);
+    keylist4search.add(f);
+}
+
+long start4search = System.currentTimeMillis();
+for (int i = 0; i < MAX; i++) {
+    hash.get(keylist4search.get(i).objKey);
+}
+long end4searchHash = System.currentTimeMillis() - start4search;
+
+long start4search2 = System.currentTimeMillis();
+for (int i = 0; i < MAX; i++) {
+    sparse.get(keylist4search.get(i).intKey);
+}
+long end4searchSparse = System.currentTimeMillis() - start4search2;
+   {% endhighlight %}
+
+代码9,运行5次之后的结果如下：
+
+表2:
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img51.png)
+
+从上面两个表中我们可以看出，当SparseArray中存在需要检索的下标时，SparseArray的性能略胜一筹（表1）。
+但是当检索的下标比较离散时，SparseArray需要使用多次二分检索，性能显然比hash检索方式要慢一些了（表2），
+但是按照官方文档的说法性能差异不是很大，不超过50%（ For containers holding up to hundreds of items, the performance difference is not significant, less than 50%.）
+总体而言，在Android这种内存比CPU更金贵的系统中，能经济地使用内存还是上策，何况SparseArray在其他方面的表现也不算差
+（另外，SparseArray删除数据的时候也做了优化——使用了延迟整理数组的方法,二者的性能相差无几）。
+
+### 总结
+
+1.稀疏数组的使用，对于索引是整数的情景，有时能带来一些效率的提升。
+减少了hashCode时间消耗，减小了所使用的内存大小。
+
+2.在所管理的对象数量很大时，效率却反而有可能更低：在插入的时候，有可能导致大段数组的复制;在删除之后，也有可能导致数组的大段元素被按个移动（不是复制数组，而是一个一个单独移动）;
+索引的映射，采用了二分查找，时间复杂度为O(logn)。
