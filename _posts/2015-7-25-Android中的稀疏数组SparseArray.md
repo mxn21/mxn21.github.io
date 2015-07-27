@@ -138,3 +138,34 @@ for(int i = 0; i < sparseArray.size(); i++) {
 }
      {% endhighlight %}
 
+### 测试
+
+下面我们就通过几段程序来证明SparseArray在各方面表现如何
+
+代码1：
+
+    {% highlight java  %}
+int MAX = 100000;
+long start = System.currentTimeMillis();
+HashMap<Integer, String> hash = new HashMap<Integer, String>();
+for (int i = 0; i < MAX; i++) {
+    hash.put(i, String.valueOf(i));
+}
+long ts = System.currentTimeMillis() - start;
+        {% endhighlight %}
+
+代码2：
+
+    {% highlight java  %}
+int MAX = 100000;
+long start = System.currentTimeMillis();
+SparseArray<String> sparse = new SparseArray<String>();
+for (int i = 0; i < MAX; i++) {
+    sparse.put(i, String.valueOf(i));
+}
+long ts = System.currentTimeMillis() - start;
+        {% endhighlight %}
+
+我们分别在long start处和long ts处设置断点，然后通过DDMS工具查看内存使用情况。
+代码1中，我们使用HashMap来创建100000条数据，开始创建前的系统内存情况为：
+
