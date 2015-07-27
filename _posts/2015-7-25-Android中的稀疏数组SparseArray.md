@@ -70,4 +70,57 @@ private static int binarySearch(int[] a, int start, int len, int key) {
 }
     {% endhighlight %}
 
-    
+如果输入的key在区间内则返回等于关键字或者最小的大于关键字的索引。
+如果关键字不在区间内，则将区间首个索引或者区间最后一个索引加1取反码，非负数的反码都是负数，因为符号位被取反了。
+
+
+### put过程
+
+put的过程分为以下几步：
+
+1.计算索引映射。
+
+2.如果在在区间内有对应槽位，设置值，返回。
+
+3.如有必要，进行扩容。
+
+容量以类似2的指数次幂增长。对象引用和和整数都占用4个字节，数组本身还需要占用3个字节。 为了内存4字节对齐，数组大小应该是：2^n - 3(n >=2)。
+
+4.如有必要，移动区段
+
+如果计算出的映射索引，在现有对象的位置上，需要移动区段。
+
+5.最后，设置值，将数据长度加1。
+
+主要代码如下，省略了部分细节：
+
+    {% highlight java  %}
+public void put(int key, E value) {
+
+    // 1. 计算索引
+    int i = binarySearch(mKeys, 0, mSize, key);
+
+    // 2. key已经有对应槽位，更新值
+    if (i >= 0) {
+        mValues[i] = value;
+    } else {
+        i = ~i;
+
+        // 3. 扩容
+        if (mSize >= mKeys.length) {
+        }
+
+        // 4. 移动区段
+        if (mSize - i != 0) {
+            // Log.e("SparseArray", "move " + (mSize - i));
+            System.arraycopy(mKeys, i, mKeys, i + 1, mSize - i);
+            System.arraycopy(mValues, i, mValues, i + 1, mSize - i);
+        }
+
+        // 4. 设置值，长度加1
+        mKeys[i] = key;
+        mValues[i] = value;
+        mSize++;
+    }
+}
+    {% endhighlight %}
