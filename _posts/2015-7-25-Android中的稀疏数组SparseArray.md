@@ -124,3 +124,16 @@ public void put(int key, E value) {
     }
 }
     {% endhighlight %}
+
+### get和遍历
+
+如果索引不存在，indexOfKey(int key)，将会返回负数值。
+遍历需要获取数组的总的对象大小，然后用keyAt(int index)获取索引或者valueAt(int index)获取值。
+
+    {% highlight java  %}
+int key = 0;
+for(int i = 0; i < sparseArray.size(); i++) {
+       key = sparseArray.keyAt(i);
+       Object obj = sparseArray.valueAt(key);
+}
+     {% endhighlight %}
