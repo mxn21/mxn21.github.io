@@ -189,3 +189,37 @@ long ts = System.currentTimeMillis() - start;
 可见使用 SparseArray 的确比 HashMap 节省内存，大概节省 35%左右的内存。
 
 
+下面把插入顺序变换一下，从大到小插入：
+
+代码3：
+
+    {% highlight java  %}
+int MAX = 100000;
+long start = System.currentTimeMillis();
+HashMap<Integer, String> hash = new HashMap<Integer, String>();
+for (int i = 0; i < MAX; i++) {
+    hash.put(MAX - i -1, String.valueOf(i));
+}
+long ts = System.currentTimeMillis() - start;
+     {% endhighlight %}
+
+代码4:
+
+    {% highlight java  %}
+int MAX = 100000;
+long start = System.currentTimeMillis();
+SparseArray<String> sparse = new SparseArray<String>();
+for (int i = 0; i < MAX; i++) {
+    sparse.put(MAX - i -1, String.valueOf(i));
+}
+long ts = System.currentTimeMillis() - start;
+         {% endhighlight %}
+
+我们分别把这4段代码分别运行5次，对比一下ts的时间（单位毫秒）：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img48.png)
+
+通过结果我们看出，在正序插入数据时候，SparseArray比HashMap要快一些；
+HashMap不管是倒序还是正序开销几乎是一样的；但是SparseArray的倒序插入要比正序插入要慢10倍以上，这时为什么呢？我们再看下面一段代码：
+
+
