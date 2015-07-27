@@ -29,4 +29,18 @@ HashMap是java里比较常用的一个集合类，在一般情况下，使用Has
 
 <!-- more-->
 
+和HashMap类似，SparseArray建立整数索引和对象的关系。和简单的对象数组相比，SparseArray允许索引之间有间隔。
+SparseArray支持和HashMap类似的put和get方法。在其内部，维护着两个数组，一个用于存储索引，一个用于存储对象。
+
+    {% highlight java  %}
+    public class SparseArray<E> implements Cloneable {
+
+        private int[] mKeys;
+        private Object[] mValues;
+        private int mSize;
+    {% endhighlight %}
+
+整数索引被从小到大映射到mKeys数组中。
+
+### 索引的映射
 
