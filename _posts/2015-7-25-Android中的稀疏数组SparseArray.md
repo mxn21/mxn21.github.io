@@ -174,3 +174,18 @@ long ts = System.currentTimeMillis() - start;
 创建HashMap之后，应用内存情况为：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img45.png)
+
+可见创建HashMap用去约 13.2M内存。
+再看 代码2，同样是创建100000条数据，我们用SparseArray来试试，开始创建前的内存使用情况为：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img46.png)
+
+创建SparseArray之后的情况：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img47.png)
+
+
+创建SparseArray共用去 8.626M内存。
+可见使用 SparseArray 的确比 HashMap 节省内存，大概节省 35%左右的内存。
+
+
