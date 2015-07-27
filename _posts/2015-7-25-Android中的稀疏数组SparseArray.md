@@ -44,3 +44,30 @@ SparseArray支持和HashMap类似的put和get方法。在其内部，维护着�
 
 ### 索引的映射
 
+在计算整数索引映射到数组中的位置的时候，用了一个改造过的的二分搜索算法：
+
+这个算法输入的参数是：要搜索的数组a，搜索的起始位置start, 搜索的长度len, 要检索的关键字key，如下:
+
+    {% highlight java  %}
+private static int binarySearch(int[] a, int start, int len, int key) {
+    int high = start + len, low = start - 1, guess;
+
+    while (high - low > 1) {
+        guess = (high + low) / 2;
+
+        if (a[guess] < key)
+            low = guess;
+        else
+            high = guess;
+    }
+
+    if (high == start + len)
+        return ~(start + len);
+    else if (a[high] == key)
+        return high;
+    else
+        return ~high;
+}
+    {% endhighlight %}
+
+    
