@@ -222,4 +222,61 @@ long ts = System.currentTimeMillis() - start;
 通过结果我们看出，在正序插入数据时候，SparseArray比HashMap要快一些；
 HashMap不管是倒序还是正序开销几乎是一样的；但是SparseArray的倒序插入要比正序插入要慢10倍以上，这时为什么呢？我们再看下面一段代码：
 
+    {% highlight java  %}
+    SparseArray<String> sparse = new SparseArray<String>(3);
+
+    sparse.put(1, "s1");
+    sparse.put(3, "s3");
+    sparse.put(2, "s2");
+         {% endhighlight %}
+
+我们在Eclipse的debug模式中，看Variables窗口,如图：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img49.png)
+
+及时我们是按照1,3,2的顺序排列的，但是在SparseArray内部还是按照正序排列的，这时因为SparseArray在检索数据的时候使用的是二分查找，
+所以每次插入新数据的时候SparseArray都需要重新排序，所以代码4中，逆序是最差情况。
+
+下面我们在简单看下检索情况：
+
+代码5:
+
+    {% highlight java  %}
+long start4search = System.currentTimeMillis();
+for (int i = 0; i < MAX; i++) {
+    hash.get(33333); //针对固定值检索
+}
+long end4search = System.currentTimeMillis() - start4search;
+     {% endhighlight %}
+
+代码6:
+     {% highlight java  %}
+long start4search = System.currentTimeMillis();
+for (int i = 0; i < MAX; i++) {
+    hash.get(i); //顺序检索
+}
+long end4search = System.currentTimeMillis() - start4search;
+      {% endhighlight %}
+
+代码7:
+     {% highlight java  %}
+long start4search = System.currentTimeMillis();
+for (int i = 0; i < MAX; i++) {
+    sparse.get(33333); //针对固定值检索
+}
+long end4search = System.currentTimeMillis() - start4search;
+      {% endhighlight %}
+
+代码8:
+       {% highlight java  %}
+long start4search = System.currentTimeMillis();
+for (int i = 0; i < MAX; i++) {
+    sparse.get(i); //顺序检索
+}
+long end4search = System.currentTimeMillis() - start4search;
+       {% endhighlight %}
+
+表1：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img50.png)
 
