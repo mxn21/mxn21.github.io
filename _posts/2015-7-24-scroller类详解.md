@@ -169,6 +169,12 @@ public void computeCurrentVelocity (int units)
 功能：以每像素units单位考核移动速率。额，其实我也不太懂，赋予值1000即可。
 
 
+### getScaledTouchSlop()
 
+返回一个距离，表示滑动的时候，手的移动要大于这个距离才开始移动控件。
+
+调用方法：
+
+ViewConfiguration.get(getContext()).getScaledTouchSlop();
 
 
