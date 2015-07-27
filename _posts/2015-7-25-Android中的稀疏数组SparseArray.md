@@ -27,7 +27,7 @@ HashMap是java里比较常用的一个集合类，在一般情况下，使用Has
 其中在稀疏数组中第一部分所记录的是原数组的列数和行数以及元素使用的个数、第二部分所记录的是原数组中元素的位置和内容。
 经过压缩之后，原来需要声明大小为63的数组，而使用压缩后，只需要声明大小为6*3的数组，仅需18个存储空间。
 
-<!-- more-->
+<!-- more -->
 
 和HashMap类似，SparseArray建立整数索引和对象的关系。和简单的对象数组相比，SparseArray允许索引之间有间隔。
 SparseArray支持和HashMap类似的put和get方法。在其内部，维护着两个数组，一个用于存储索引，一个用于存储对象。
@@ -169,3 +169,8 @@ long ts = System.currentTimeMillis() - start;
 我们分别在long start处和long ts处设置断点，然后通过DDMS工具查看内存使用情况。
 代码1中，我们使用HashMap来创建100000条数据，开始创建前的系统内存情况为：
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img44.png)
+
+创建HashMap之后，应用内存情况为：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img45.png)
