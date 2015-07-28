@@ -172,6 +172,45 @@ public float getXVelocity ()
 
 功能：获得X轴方向的移动速率。
 
+用法：一般在onTouchEvent事件中被调用，先在down事件中获取一个VecolityTracker对象，然后在move或up事件中获取速度，调用流程可如下列所示：
+
+    {% highlight java  %}
+VelocityTracker vTracker = null；
+@Override
+public boolean onTouchEvent(MotionEvent event){
+    int action = event.getAction();
+    switch(action){
+    case MotionEvent.ACTION_DOWN:
+        if(vTracker == null){
+            vTracker = VelocityTracker.obtain();
+        }else{
+            vTracker.clear();
+        }
+        vTracker.addMovement(event);
+        break;
+    case MotionEvent.ACTION_MOVE:
+        vTracker.addMovement(event);
+        //设置单位，1000 表示每秒多少像素（pix/second),1代表每微秒多少像素（pix/millisecond)。
+        vTracker.computeCurrentVelocity(1000);
+        //从左向右划返回正数，从右向左划返回负数
+        System.out.println("the x velocity is "+vTracker.getXVelocity());
+        //从上往下划返回正数，从下往上划返回负数
+        System.out.println("the y velocity is "+vTracker.getYVelocity());
+        break;
+    case MotionEvent.ACTION_UP:
+    case MotionEvent.ACTION_CANCEL:
+        vTracker.recycle();
+        break;
+    }
+    return true;
+}
+        {% endhighlight %}
+
+
+那么获得滑动速度有什么用呢，假如我们做一个滑动翻页的相册，那么可以设置一个常量，表示滑动最快速度。超过了这个速度则实现翻页效果，
+就可以使用上面的方法。这个速度是有正负之分的，所以可以用来区别滑动的方向。
+
+
 
 ### getScaledTouchSlop()
 
