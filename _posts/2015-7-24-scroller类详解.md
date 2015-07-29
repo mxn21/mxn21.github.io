@@ -85,11 +85,12 @@ public class Scroller  {
 
 <!-- more -->
 
-其中比较重要的两个方法为：
+其中比较重要的几个方法为：
 
 public boolean computeScrollOffset()
 
 函数功能说明：根据当前已经消逝的时间计算当前的坐标点，保存在mCurrX和mCurrY值中。
+当想要知道新的位置时，调用此函数。如果返回true，表示动画还没有结束。
 
 public void startScroll(int startX, int startY, int dx, int dy, int duration)
 
@@ -153,6 +154,13 @@ public static int getLongPressTimeout()
 说明：获得一个执行长按事件监听(onLongClickListener)的值。也就是说，对某个View按下触摸时，只有超过了
 这个时间值在，才表示我们该对该View回调长按事件了；否则，小于这个时间点松开手指，只执行onClick监听。
 
+public int getScaledTouchSlop()
+
+说明：返回一个距离，表示滑动的时候，手的移动要大于这个距离才开始移动控件。
+
+调用方法：
+
+ViewConfiguration.get(getContext()).getScaledTouchSlop();
 
 ### VelocityTracker类
 
@@ -212,12 +220,5 @@ public boolean onTouchEvent(MotionEvent event){
 
 
 
-### getScaledTouchSlop()
-
-返回一个距离，表示滑动的时候，手的移动要大于这个距离才开始移动控件。
-
-调用方法：
-
-ViewConfiguration.get(getContext()).getScaledTouchSlop();
 
 
