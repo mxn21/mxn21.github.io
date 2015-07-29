@@ -102,6 +102,7 @@ public class Scroller  {
 
 4.public void startScroll(int startX, int startY, int dx, int dy, int duration)
 
+以提供的起始点和将要滑动的距离开始滚动。
 函数功能说明：开始一个动画控制，由(startX , startY)在duration时间内前进(dx,dy)个单位，到达坐标为(startX+dx , startY+dy)处。
 
 5.public void abortAnimation ()
@@ -111,6 +112,22 @@ public class Scroller  {
 6.public final int getCurrX ()  / 　public final int getCurrY ()
 
 返回当前滚动X(Y)方向的偏移,返回值为距离原点X(Y)方向的绝对值
+
+7.public final int getDuration ()
+
+返回滚动事件的持续时间，以毫秒计算。
+
+8.public final int getStartX () /  public final int getStartY ()
+
+返回滚动起始点的X(Y)方向的偏移,返回值为起始点在X(Y)方向距离原点的绝对距离。
+
+9.public final boolean isFinished ()
+
+返回scroller是否已完成滚动。
+
+10.public int timePassed ()
+
+返回自滚动开始经过的时间,经过时间以毫秒为单位.
 
 
 ### computeScroll(）方法介绍
