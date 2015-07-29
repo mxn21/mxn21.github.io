@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-7-24-scroller类详解.md" afterPath="$PROJECT_DIR$/_posts/2015-7-24-scroller类详解.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +29,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2797784">
-              <caret line="87" column="8" selection-start-line="87" selection-start-column="8" selection-end-line="87" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.7534626">
+              <caret line="112" column="27" selection-start-line="112" selection-start-column="27" selection-end-line="112" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -930,8 +929,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2797784">
-          <caret line="87" column="8" selection-start-line="87" selection-start-column="8" selection-end-line="87" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.7534626">
+          <caret line="112" column="27" selection-start-line="112" selection-start-column="27" selection-end-line="112" selection-end-column="27" />
           <folding />
         </state>
       </provider>

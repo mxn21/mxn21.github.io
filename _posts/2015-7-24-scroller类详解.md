@@ -87,14 +87,30 @@ public class Scroller  {
 
 其中比较重要的几个方法为：
 
-public boolean computeScrollOffset()
+1.构造函数:public Scroller (Context context)
+
+使用缺省的持续持续时间和动画插入器创建一个Scroller。interpolator这里翻译为动画插入器.
+
+2.构造函数:public Scroller (Context context, Interpolator interpolator)
+
+根据指定的动画插入器创建一个Scroller，如果指定的动画插入器为空，则会使用缺省的动画插入器（粘滞viscous）创建。
+
+3.public boolean computeScrollOffset()
 
 函数功能说明：根据当前已经消逝的时间计算当前的坐标点，保存在mCurrX和mCurrY值中。
 当想要知道新的位置时，调用此函数。如果返回true，表示动画还没有结束。
 
-public void startScroll(int startX, int startY, int dx, int dy, int duration)
+4.public void startScroll(int startX, int startY, int dx, int dy, int duration)
 
 函数功能说明：开始一个动画控制，由(startX , startY)在duration时间内前进(dx,dy)个单位，到达坐标为(startX+dx , startY+dy)处。
+
+5.public void abortAnimation ()
+
+停止动画。Scroller滚动到最终x与y位置时中止动画。
+
+6.public final int getCurrX ()  / 　public final int getCurrY ()
+
+返回当前滚动X(Y)方向的偏移,返回值为距离原点X(Y)方向的绝对值
 
 
 ### computeScroll(）方法介绍
