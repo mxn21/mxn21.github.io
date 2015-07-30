@@ -408,6 +408,12 @@ XML文件里的属性android:id）,如果你没有为控件提供id，那系统�
 
 #### onAttachedToWindow()在整个Activity生命周期的位置及使用
 
+我们可以定位当View附加到窗体时，也就是View和Window绑定时就会调用这个函数，此时将会有一个Surface进行绘图之类的逻辑。
+接下来通过实验判断onAttachedToWindow在Activity整个生命周期中的位置。
+实验很简单，将Activity各个生命周期打上log，然后看LogCat中的结果
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img52.jpg)
+
 
 
 activity和fragment完整生命周期图如下：
