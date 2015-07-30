@@ -495,7 +495,9 @@ DecorView的LayoutParams是在ActivityThread的handleResumeActivity中设置的�
 并且该函数会调用Activity的onResume生命周期，所以在onResume之后可以设置窗体尺寸；```
 
 如果你在自己的view中Override了这个方法。那么onAttachedToWindow是在第一次onDraw前调用的。
-也就是我们写的View在没有绘制出来时调用的，但只会调用一次。我们可以在onAttachedToWindow这方法中做初始化工作，比如注册一些广播等等。
+也就是我们写的View在没有绘制出来时调用的，但只会调用一次。注意，此方法要保证在调用onDraw(Canvas)之前调用，
+但可能在调用 onDraw(Canvas) 之前的任何时刻，包括调用 onMeasure(int, int) 之前或之后。
+我们可以在onAttachedToWindow这方法中做初始化工作，比如注册一些广播等等。
 与onAttachedToWindow 相反的则是这个方法：nDetachedFromWindow()，我们销毁View的时候。我们写的这个View不再显示。
 这时我们就在这个方法做一些收尾工作，如：取消广播注册等等。
 
