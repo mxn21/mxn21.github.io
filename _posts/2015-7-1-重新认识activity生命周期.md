@@ -484,8 +484,15 @@ public final class ActivityThread {
 }
 	    {% endhighlight %}
 
+原来在ActivityThread执行handleResumeActivity时就会为PhoneWindow（r.activity.getWindow）中的DecorView设置LayoutParam，
+并且通过源码发现handleResumeActivity函数首先会执行performResumeActivity，此时会调用Activity的onResume()生命周期函数，
+这时问题就比较清晰了，看来只要在Activity的onResume生命周期后就能获取DecorView的LayoutParam，
+进而可以设置高度和宽度了。根据生命周期图，onResume()后面是onAttachedToWindow()，并且onAttachedToWindow只会调用一次，
+不会受用户操作行为影响。所以在onAttachedToWindow中进行窗口尺寸的修改再合适不过了。
 
-	  
+```总结：onAttachedToWindow运行在onResume之后；
+DecorView的LayoutParams是在ActivityThread的handleResumeActivity中设置的，
+并且该函数会调用Activity的onResume生命周期，所以在onResume之后可以设置窗体尺寸；```
 
 
 activity和fragment完整生命周期图如下：
