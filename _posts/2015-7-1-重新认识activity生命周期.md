@@ -414,6 +414,78 @@ XML文件里的属性android:id）,如果你没有为控件提供id，那系统�
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img52.jpg)
 
+看来我们最终要找的生命周期为onCreate->onStart->onResume->onAttachedToWindow.
+
+#### 为什么要在onAttachedToWindow中修改窗口尺寸
+
+将以下代码放到onCreate中进行测试
+
+	{% highlight java  %}
+View view = getWindow().getDecorView();
+WindowManager.LayoutParams lp = (WindowManager.LayoutParams)view.getLayoutParams();
+lp.gravity = Gravity.CENTER;
+lp.width = (dm.widthPixels * 4) / 5;
+lp.height = (dm.widthPixels * 4) / 5;
+getWindowManager().updateViewLayout(view,lp);
+    {% endhighlight %}
+
+结果在lp.gravity = Gravity.CENTER;这行报了空指针异常，所以view.getLayoutParams()获取的LayoutParams是空，那么问题来了！
+为什么onCreate()中DecorView的LayoutParams是空而onAttachedToWindow()中就不为空？
+要高清这个问题就要看DecorView在什么时候设置的LayoutParam。
+
+查看ActivityThread的源码
+
+	{% highlight java  %}
+public final class ActivityThread {
+    ......
+
+    final void handleResumeActivity(IBinder token, boolean clearHide, boolean isForward) {
+        ......
+
+        ActivityClientRecord r = performResumeActivity(token, clearHide);
+
+        if (r != null) {
+            final Activity a = r.activity;
+            ......
+
+            // If the window hasn't yet been added to the window manager,
+            // and this guy didn't finish itself or start another activity,
+            // then go ahead and add the window.
+            boolean willBeVisible = !a.mStartedActivity;
+            if (!willBeVisible) {
+                try {
+                    willBeVisible = ActivityManagerNative.getDefault().willActivityBeVisible(
+                            a.getActivityToken());
+                } catch (RemoteException e) {
+                }
+            }
+            if (r.window == null && !a.mFinished && willBeVisible) {
+                r.window = r.activity.getWindow();
+                View decor = r.window.getDecorView();
+                decor.setVisibility(View.INVISIBLE);
+                ViewManager wm = a.getWindowManager();
+                WindowManager.LayoutParams l = r.window.getAttributes();
+                a.mDecor = decor;
+                l.type = WindowManager.LayoutParams.TYPE_BASE_APPLICATION;
+                ......
+                if (a.mVisibleFromClient) {
+                    a.mWindowAdded = true;
+                    wm.addView(decor, l);
+                }
+            }
+
+            ......
+        }
+
+        ......
+    }
+
+    ......
+}
+	    {% endhighlight %}
+
+
+	  
 
 
 activity和fragment完整生命周期图如下：
