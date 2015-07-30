@@ -406,5 +406,11 @@ XML文件里的属性android:id）,如果你没有为控件提供id，那系统�
 则调用对应的方法销毁此Activity；可当点击Home按钮时，系统会认为这个Activity还没有完成对应的逻辑，则系统并不会销毁这个Activity，
 而是让其处于停止态（Stopped State）。```
 
+#### onAttachedToWindow()在整个Activity生命周期的位置及使用
+
+
+
 activity和fragment完整生命周期图如下：
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img26.jpg)
+
+
