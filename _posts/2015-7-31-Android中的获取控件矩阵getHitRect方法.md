@@ -65,3 +65,27 @@ public class MainActivity extends Activity {
 可以用类似的方法判断是否点击到该控件上boolean isHit = Trect.contains((int)event.getX(), (int)event.getY());
 
 
+注意：getHitRect作为获取控件所在的矩阵范围函数，我们平常调用时候如果是在控件的监听器里调用就没事，
+但是如果主动的在onCreate 或者 onResume中，拿到的矩阵坐标全是0.因为getHitRect方法不能直接在onCreate中调用
+，原因是该控件还未在这个界面框架中得以测量布局，不知道到底是多少，所以我们要寻找一个时机去做这件事，两个方法：
+
+1.运用该控件执行post（就把下面的那个parent当成你要获取getHitRect的方法）
+
+  {% highlight java  %}
+final View parent = (View) delegate.getParent();
+parent.post( new Runnable() {
+    // Post in the parent's message queue to make sure the parent
+    // lays out its children before we call getHitRect()
+    public void run() {
+        final Rect r = new Rect();
+        delegate.getHitRect(r);
+        r.top -= 4;
+        r.bottom += 4;
+        parent.setTouchDelegate( new TouchDelegate( r , delegate));
+    }
+});
+     {% endhighlight %}
+
+2.自定义该控件，覆写onDraw，调用getHitRect.
+
+
