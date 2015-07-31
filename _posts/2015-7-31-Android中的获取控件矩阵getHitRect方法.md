@@ -158,3 +158,29 @@ Android4.0设计规定的有效可触摸的UI元素标准是48dp，转化为一�
 
 若需要恢复该View的触摸范围：
 
+  {% highlight java  %}
+/**
+     * 还原View的触摸和点击响应范围,最小不小于View自身范围
+     *
+     * @param view
+     */
+    public static void restoreViewTouchDelegate(final View view) {
+
+        ((View) view.getParent()).post(new Runnable() {
+            @Override
+            public void run() {
+                Rect bounds = new Rect();
+                bounds.setEmpty();
+                TouchDelegate touchDelegate = new TouchDelegate(bounds, view);
+
+                if (View.class.isInstance(view.getParent())) {
+                    ((View) view.getParent()).setTouchDelegate(touchDelegate);
+                }
+            }
+        });
+    }
+     {% endhighlight %}
+
+使用TouchDelegate扩大View的触摸响应范围是一种比较灵活的方法，有时可与设置padding的方式结合使用。
+
+注意：将此法应用在ListView的getView()中绘制每个ItemView时，则Delegate的设置将部分失效，原因是ListView的绘制较特殊，可能无法获取到部分还未绘制出的View的正确坐标。
