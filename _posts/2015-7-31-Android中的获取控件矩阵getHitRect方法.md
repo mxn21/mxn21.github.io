@@ -114,4 +114,47 @@ Android4.0设计规定的有效可触摸的UI元素标准是48dp，转化为一�
 关键是什么时候去执行parent.setTouchDelegate()方法呢？要设置这个委派，必须得知道当前view大小以及它在parent的位置。
 而这些数据都是在onLayout才能确定（注：如果不是自定义View，只是在Activity中设置，请将这些操作置于onWindowFocusChanged()方法中）。
 
+代码如下：
+
+  {% highlight java  %}
+/**
+     * 扩大View的触摸和点击响应范围,最大不超过其父View范围
+     *
+     * @param view
+     * @param top
+     * @param bottom
+     * @param left
+     * @param right
+     */
+    public static void expandViewTouchDelegate(final View view, final int top,
+            final int bottom, final int left, final int right) {
+
+        ((View) view.getParent()).post(new Runnable() {
+            @Override
+            public void run() {
+                Rect bounds = new Rect();
+                view.setEnabled(true);
+                view.getHitRect(bounds);
+
+                bounds.top -= top;
+                bounds.bottom += bottom;
+                bounds.left -= left;
+                bounds.right += right;
+
+                TouchDelegate touchDelegate = new TouchDelegate(bounds, view);
+
+                if (View.class.isInstance(view.getParent())) {
+                    ((View) view.getParent()).setTouchDelegate(touchDelegate);
+                }
+            }
+        });
+    }
+       {% endhighlight %}
+
+采取此种方法的两点注意：
+
+1、若View的自定义触摸范围超出Parent的大小，则超出的那部分无效。
+2、一个Parent只能设置一个View的TouchDelegate，设置多个时只有最后设置的生效。
+
+若需要恢复该View的触摸范围：
 
