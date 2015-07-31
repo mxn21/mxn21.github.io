@@ -89,3 +89,12 @@ parent.post( new Runnable() {
 2.自定义该控件，覆写onDraw，调用getHitRect.
 
 
+### 扩大view点击范围
+
+Android4.0设计规定的有效可触摸的UI元素标准是48dp，转化为一个物理尺寸约为9毫米。7~10毫米，这是一个用户手指能准确并且舒适触摸的区域。
+
+如下图所示，你的UI元素可能小于48dp，图标仅有32dp，按钮仅有40dp，但是他们的实际可操作焦点区域最好都应达到48dp的大小。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img53.jpg)
+
+
