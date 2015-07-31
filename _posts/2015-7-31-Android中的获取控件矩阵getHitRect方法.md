@@ -47,3 +47,21 @@ public class MainActivity extends Activity {
 
 <!-- more -->
 
+查看log如下：
+
+  {% highlight java  %}
+06-17 18:07:55.534: E/hailong(5797): ---------TextView_left-------281
+06-17 18:07:55.534: E/hailong(5797): ---------TextView_top-------475
+06-17 18:07:55.534: E/hailong(5797): ---------TextView_right-------438
+06-17 18:07:55.534: E/hailong(5797): ---------TextView_bottom-------513
+06-17 18:07:55.534: E/hailong(5797): ---------Button_left-------281
+06-17 18:07:55.534: E/hailong(5797): ---------Button_top-------513
+06-17 18:07:55.534: E/hailong(5797): ---------Button_right-------439
+06-17 18:07:55.534: E/hailong(5797): ---------Button_bottom-------609
+     {% endhighlight %}
+
+这样我们就可以知道控件的顶点坐标了。
+
+可以用类似的方法判断是否点击到该控件上boolean isHit = Trect.contains((int)event.getX(), (int)event.getY());
+
+
