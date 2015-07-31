@@ -97,4 +97,21 @@ Android4.0设计规定的有效可触摸的UI元素标准是48dp，转化为一�
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img53.jpg)
 
+为使小的UI区域获得良好的触摸交互，根据View的特性，目前碰到了两种情况：
+
+1.如ImageView，设置其padding值，可触摸区域将向外扩展；
+
+2.如Button，设置其padding值，可触摸区域不变，其内内容显示区域向内压缩；
+
+情况1的控件，可直接设置其padding值达到目的，如 android:padding="10dp"
+
+情况2的控件，可使用TouchDelegate动态修改其触摸区域，达到扩大点击范围的效果.
+
+这里大致说一下setTouchDelegate的作用：假设有两个View，分别是v1，v2，我们可以通过v1的setTouchDelegate(bounds, v2)来委派触摸事件，
+其中bounds是一个Rect。v1中，落在这个范围的TouchEvent都会传给v2。
+
+既然是这样，那我们可以通过设置某个view的parent的touchDelegate来达到扩大这个view触摸范围的目的。
+关键是什么时候去执行parent.setTouchDelegate()方法呢？要设置这个委派，必须得知道当前view大小以及它在parent的位置。
+而这些数据都是在onLayout才能确定（注：如果不是自定义View，只是在Activity中设置，请将这些操作置于onWindowFocusChanged()方法中）。
+
 
