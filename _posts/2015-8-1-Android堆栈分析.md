@@ -90,3 +90,16 @@ AndroidStackTaskActivity2、AndroidStackTaskActivity3，具体代码如果下：
 
 当我们按下手机上的返回键时，栈顶的activity3触发onPause，activity2需要从状态stop到pause，所以触发了onPause->onStart->onResume，
 activity3触发onStop->onDestory，因为activity3从栈顶弹出，所以触发onDestory，此时，activity2在栈顶。
+
+如果继续按返回键，当前栈顶的activity弹出并被destory，直到home界面。当所有的activity都弹出了，这个task也就消亡了。
+
+
+当开始一个新的task时，前一个task被设置为后台，在后台，所有的activity都处理stop状态，但是back stack保留了所有后台activity的状态信息，只是丢失了焦点。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img55.png)
+
+反复的在两个activity之间切换，activity会产生多个独立的实例。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img56.png)
+
+
