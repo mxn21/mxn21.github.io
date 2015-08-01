@@ -75,4 +75,7 @@ AndroidStackTaskActivity2、AndroidStackTaskActivity3，具体代码如果下：
     }
     {% endhighlight %}
 
-    
+此时，生成的活动堆栈如下图所示：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img54.jpg)
+
