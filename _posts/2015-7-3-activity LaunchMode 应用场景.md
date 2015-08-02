@@ -42,8 +42,14 @@ singleTop：如果当前要创建的Activity就在任务栈的顶端，那么不
 那么任务栈为 A->B->A。
 ```声明成这种启动模式的Activity也可以被实例化多次，一个任务当中也可以包含多个这种Activity的实例。```
 
-singleTask：如果当前任务中存在要启动的Activity，那么就不会创建新的Activity，如果不存在就会创建新的Activity，如任务栈为 A->B->C，启动B
+singleTask：这种启动模式表示，系统会创建一个新的任务，并将启动的Activity放入这个新任务的栈底位置。
+但是，如果现有任务当中已经存在一个该Activity的实例了，那么系统就不会再创建一次它的实例，而是会直接调用它的onNewIntent()方法。
+声明成这种启动模式的Activity，在同一个任务当中只会存在一个实例。注意这里我们所说的启动Activity，都指的是启动其它应用程序中的Activity，
+因为"singleTask"模式在默认情况下只有启动其它程序的Activity才会创建一个新的任务，启动自己程序中的Activity还是会使用相同的任务
+如果当前任务中存在要启动的Activity，那么就不会创建新的Activity，如果不存在就会创建新的Activity，如任务栈为 A->B->C，启动B
 ，那么任务栈就会变为A->B。如任务栈为 A->B->C，启动D，那么任务栈就会变为D 。
+
+
 
 singleInstance：将一个Activity的launchMode设置为该值时，表明这个Activity独自占用一个任务队列，这个队列中不让在加入其他的Activity。
 

@@ -142,8 +142,13 @@ activity3触发onStop->onDestory，因为activity3从栈顶弹出，所以触发
 ### 使用manifest文件
 
 当在manifest文件中定义Activity的时候，你可以通过<activity>元素的launchMode属性来指定这个Activity应该如何与任务进行关联。
-launchMode属性一共有以下四种可选参数：standard,singleTop,singleTask,singleInstance
+launchMode属性一共有以下四种可选参数：standard,singleTop,singleTask,singleInstance.
+之前已经详细介绍过这些内容，这里不在分析。
 
+### 使用Intent flags
+
+除了使用manifest文件之外，你也可以在调用startActivity()方法的时候，为Intent加入一个flag来改变Activity与任务的关联方式，
+下面我们来一一讲解一下每种flag的作用：
 
 
 
