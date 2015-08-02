@@ -49,10 +49,15 @@ singleTask：这种启动模式表示，系统会创建一个新的任务，并�
 如果当前任务中存在要启动的Activity，那么就不会创建新的Activity，如果不存在就会创建新的Activity，如任务栈为 A->B->C，启动B
 ，那么任务栈就会变为A->B。如任务栈为 A->B->C，启动D，那么任务栈就会变为D 。
 
+其实不管是Activity在一个新任务当中启动，还是在当前任务中启动，返回键永远都会把我们带回到之前的一个Activity中的。
+但是有一种情况是比较特殊的，就是如果Activity指定了启动模式是"singleTask"，并且启动的是另外一个应用程序中的Activity，
+这个时候当发现该Activity正好处于一个后台任务当中的话，就会直接将这整个后台任务一起切换到前台。
+此时按下返回键会优先将目前最前台的任务(刚刚从后台切换到最前台)进行回退.
 
 
 singleInstance：将一个Activity的launchMode设置为该值时，表明这个Activity独自占用一个任务队列，这个队列中不让在加入其他的Activity。
-
+系统不会向声明成"singleInstance"的Activity所在的任务当中再添加其它Activity。
+也就是说，这种Activity所在的任务中始终只会有一个Activity，通过这个Activity再打开的其它Activity也会被放入到别的任务当中。
 
 <!-- more -->
 
@@ -71,6 +76,10 @@ singleInstance：将一个Activity的launchMode设置为该值时，表明这个
 你打开微信主界面(在栈的最底部)后，进入朋友圈(在栈的顶部)，此时你点击 Home 键回桌面，并打开网易新闻。
 假设你想将网易新闻的一条新闻分享给微信好友，那么就按照 分享->微信->好友A->分享给他->留在微信。接着会跳转微信的主界面，即不是你原本所在的朋友圈，并且微信的栈只剩下一个元素：主界面的 Activity。这里就使用了 SingleTask(即以 SingleTask 加载模式打开微信主界面)。
 
+再举一个例子，Android系统内置的浏览器程序声明自己浏览网页的Activity始终应该在一个独立的任务当中打开，
+也就是通过在<activity>元素中设置"singleTask"启动模式来实现的。这意味着，当你的程序准备去打开Android内置浏览器的时候，
+新打开的Activity并不会放入到你当前的任务中，而是会启动一个新的任务。而如果浏览器程序在后台已经存在一个任务了，则会把这个任务切换到前台。
+
 #### SingleInstance
 
 应用场景：闹铃的响铃界面。
@@ -78,6 +87,7 @@ singleInstance：将一个Activity的launchMode设置为该值时，表明这个
 在6点时，闹铃响了，并且弹出了一个对话框形式的 Activity(名为 AlarmAlertActivity) 提示你到6点了(这个 Activity 就是以
 SingleInstance 加载模式打开的)，你按返回键，回到的是微信的聊天界面，这是因为 AlarmAlertActivity 所在的 Task 的栈只有他一个元素，
 因此退出之后这个 Task 的栈空了。如果是以 SingleTask 打开 AlarmAlertActivity，那么当闹铃响了的时候，按返回键应该进入闹铃设置界面。
+
 
 
 ### 源码分析
