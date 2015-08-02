@@ -78,6 +78,8 @@ AndroidStackTaskActivity2、AndroidStackTaskActivity3，具体代码如果下：
     }
     {% endhighlight %}
 
+<!-- more -->
+
 此时，生成的活动堆栈如下图所示：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img54.jpg)
@@ -101,6 +103,8 @@ activity3触发onStop->onDestory，因为activity3从栈顶弹出，所以触发
 反复的在两个activity之间切换，activity会产生多个独立的实例。
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img56.png)
+
+
 
 
 
