@@ -103,3 +103,5 @@ activity3触发onStop->onDestory，因为activity3从栈顶弹出，所以触发
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img56.png)
 
 
+
+
