@@ -139,6 +139,10 @@ activity3触发onStop->onDestory，因为activity3从栈顶弹出，所以触发
 ```需要注意的是，有些启动模式在manifest中可以指定，但在Intent中是指定不了的。
 同样，也有些启动模式在Intent中可以指定，但在manifest中是指定不了的.```
 
+### 使用manifest文件
+
+当在manifest文件中定义Activity的时候，你可以通过<activity>元素的launchMode属性来指定这个Activity应该如何与任务进行关联。
+launchMode属性一共有以下四种可选参数：standard,singleTop,singleTask,singleInstance
 
 
 

@@ -40,6 +40,7 @@ standard：不论当前任务栈中是否存在该Activity，都会新建一个A
 singleTop：如果当前要创建的Activity就在任务栈的顶端，那么不会创建新的Activity，仅仅调用Activity的onNewIntent，
 如果不在栈顶(或者栈中没有该Activity)，那么还是会创建新的Activity，如任务栈为A->B。启动B,任务栈变为 A->B。如果启动A,
 那么任务栈为 A->B->A。
+```声明成这种启动模式的Activity也可以被实例化多次，一个任务当中也可以包含多个这种Activity的实例。```
 
 singleTask：如果当前任务中存在要启动的Activity，那么就不会创建新的Activity，如果不存在就会创建新的Activity，如任务栈为 A->B->C，启动B
 ，那么任务栈就会变为A->B。如任务栈为 A->B->C，启动D，那么任务栈就会变为D 。
