@@ -12,8 +12,20 @@ tag: android
 
 ### Task和Back Stack简介
 
-task是一组Activities的集合，一组Activities被Stack（back stack）所管理。
+task是一组Activities的集合，一组Activities被Stack（back stack）所管理,栈中Activity的顺序就是按照它们被打开的顺序依次存放的。
 
+手机的Home界面是大多数任务开始的地方，当用户在Home界面上点击了一个应用的图标时，这个应用的任务就会被转移到前台。
+如果这个应用目前并没有任何一个任务的话(说明这个应用最近没有被启动过)，系统就会去创建一个新的任务，
+并且将该应用的主Activity放入到返回栈当中。
+
+当一个Activity启动了另外一个Activity的时候，新的Activity就会被放置到返回栈的栈顶并将获得焦点。
+前一个Activity仍然保留在返回栈当中，但会处于停止状态。当用户按下Back键的时候，栈中最顶端的Activity会被移除掉，
+然后前一个Activity则会得重新回到最顶端的位置。返回栈中的Activity的顺序永远都不会发生改变，
+我们只能向栈顶添加Activity，或者将栈顶的Activity移除掉。因此，返回栈是一个典型的后进先出(last in, first out)的数据结构。
+
+<!-- more -->
+
+下面来用代码做一个验证：
 首先：我们来启动三个Activity来模拟生成活动与任务堆栈，三个Activity分别是：AndroidStackTaskActivity1、
 AndroidStackTaskActivity2、AndroidStackTaskActivity3，具体代码如果下：
 
@@ -78,7 +90,6 @@ AndroidStackTaskActivity2、AndroidStackTaskActivity3，具体代码如果下：
     }
     {% endhighlight %}
 
-<!-- more -->
 
 此时，生成的活动堆栈如下图所示：
 
