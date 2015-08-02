@@ -12,10 +12,10 @@ tag: android
 
 ### Task和Back Stack简介
 
-task是一组Activities的集合，一组Activities被Stack（back stack）所管理,栈中Activity的顺序就是按照它们被打开的顺序依次存放的。
+task(任务)是一组Activities的集合，一组Activities被Stack（back stack）所管理,栈中Activity的顺序就是按照它们被打开的顺序依次存放的。
 
-手机的Home界面是大多数任务开始的地方，当用户在Home界面上点击了一个应用的图标时，这个应用的任务就会被转移到前台。
-如果这个应用目前并没有任何一个任务的话(说明这个应用最近没有被启动过)，系统就会去创建一个新的任务，
+手机的Home界面是大多数task开始的地方，当用户在Home界面上点击了一个应用的图标时，这个应用的task就会被转移到前台。
+如果这个应用目前并没有任何一个任务的话(说明这个应用最近没有被启动过)，系统就会去创建一个新的task，
 并且将该应用的主Activity放入到返回栈当中。
 
 当一个Activity启动了另外一个Activity的时候，新的Activity就会被放置到返回栈的栈顶并将获得焦点。
@@ -107,13 +107,19 @@ activity3触发onStop->onDestory，因为activity3从栈顶弹出，所以触发
 如果继续按返回键，当前栈顶的activity弹出并被destory，直到home界面。当所有的activity都弹出了，这个task也就消亡了。
 
 
-当开始一个新的task时，前一个task被设置为后台，在后台，所有的activity都处理stop状态，但是back stack保留了所有后台activity的状态信息，只是丢失了焦点。
+当开始一个新的task时，前一个task被设置为后台。在后台，所有的activity都处理stop状态，但是back stack保留了所有后台activity的状态信息，只是丢失了焦点。
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img55.png)
 
-反复的在两个activity之间切换，activity会产生多个独立的实例。
+这个时候，用户还可以将任意后台的任务切换到前台，这样用户应该就会看到之前离开这个task时处于最顶端的那个Activity。
+
+由于返回栈中的Activity的顺序永远都不会发生改变，所以如果你的应用程序中允许有多个入口都可以启动同一个Activity，
+那么每次启动的时候就都会创建该Activity的一个新的实例，而不是将下面的Activity的移动到栈顶。这样的话就容易导致一个问题的产生，
+即同一个Activity有可能会被实例化很多次，如下图所示：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img56.png)
+
+
 
 
 
