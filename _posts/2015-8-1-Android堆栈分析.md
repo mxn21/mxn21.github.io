@@ -120,6 +120,24 @@ activity3触发onStop->onDestory，因为activity3从栈顶弹出，所以触发
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img56.png)
 
 
+但是呢，如果你不希望同一个Activity可以被多次实例化，这些功能甚至更多功能，
+都是可以通过在manifest文件中设置<activity>元素的属性，或者是在启动Activity时配置Intent的flag来实现的。
+
+下面我们就将开始讨论，如何通过manifest参数，以及Intent flag来改变Activity在任务中的默认行为。
+
+1.使用manifest文件
+
+当你在manifest文件中声明一个Activity的时候，你可以指定这个Activity在启动的时候该如何与任务进行关联。
+
+2.使用Intent flag
+
+当你调用startActivity()方法时，你可以在Intent中加入一个flag，从而指定新启动的Activity该如何与当前任务进行关联。
+也就是说，如果Activity A启动了Activity B，Activity B可以定义自己该如何与当前任务进行关联，
+而Activity A也可以要求Activity B该如何与当前任务进行关联。如果Activity B在manifest中已经定义了该如何与任务进行关联，
+而Activity A同时也在Intent中要求了Activity B该怎么样与当前任务进行关联，那么此时Intent中的定义将覆盖manifest中的定义。
+
+```需要注意的是，有些启动模式在manifest中可以指定，但在Intent中是指定不了的。
+同样，也有些启动模式在Intent中可以指定，但在manifest中是指定不了的.```
 
 
 
