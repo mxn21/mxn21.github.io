@@ -168,6 +168,19 @@ launchMode属性一共有以下四种可选参数：standard,singleTop,singleTas
 
 #### 3.FLAG_ACTIVITY_CLEAR_TOP
 
+设置了这个flag，如果要启动的Activity在当前任务中已经存在了，就不会再次创建这个Activity的实例，
+而是会把这个Activity之上的所有Activity全部关闭掉。比如说，一个任务当中有A、B、C、D四个Activity，
+然后D调用了startActivity()方法来启动B，并将flag指定成FLAG_ACTIVITY_CLEAR_TOP，那么此时C和D就会被关闭掉，
+现在返回栈中就只剩下A和B了。
+那么此时Activity B会接收到这个启动它的Intent，你可以决定是让Activity B调用onNewIntent()方法(不会创建新的实例)，
+还是将Activity B销毁掉并重新创建实例。如果Activity B没有在manifest中指定任何启动模式(也就是"standard"模式)，
+并且Intent中也没有加入一个FLAG_ACTIVITY_SINGLE_TOP flag，那么此时Activity B就会销毁掉，然后重新创建实例。
+而如果Activity B在manifest中指定了任何一种启动模式，或者是在Intent中加入了一个FLAG_ACTIVITY_SINGLE_TOP flag，
+那么就会调用Activity B的onNewIntent()方法。
+
+```FLAG_ACTIVITY_CLEAR_TOP和FLAG_ACTIVITY_NEW_TASK结合在一起使用也会有比较好的效果，比如可以将一个后台运行的任务切换到前台，
+并把目标Activity之上的其它Activity全部关闭掉。这个功能在某些情况下非常有用，比如说从通知栏启动Activity的时候。```
+
 
 
 
