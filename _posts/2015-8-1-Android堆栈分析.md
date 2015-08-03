@@ -199,7 +199,7 @@ affinity主要有以下两种应用场景：
 如果相同的话就会把它放入到现有任务当中，如果不同则会去创建一个新的任务。而同一个程序中所有Activity的affinity默认都是相同的，
 这也是前面为什么说，同一个应用程序中即使声明成"singleTask"，也不会为这个Activity再去创建一个新的任务了。
 
-当把Activity的allowTaskReparenting属性设置成true时，Activity就拥有了一个转移所在任务的能力。
+2.当把Activity的allowTaskReparenting属性设置成true时，Activity就拥有了一个转移所在任务的能力。
 具体点来说，就是一个Activity现在是处于某个任务当中的，但是它与另外一个任务具有相同的affinity值，
 那么当另外这个任务切换到前台的时候，该Activity就可以转移到现在的这个任务当中。
 
@@ -210,10 +210,22 @@ affinity主要有以下两种应用场景：
 这个Activity又会被转移到天气预报程序的任务当中，并显示出来，因为它们拥有相同的affinity值，
 并且将allowTaskReparenting属性设置成了true。
 
-2.清空返回栈
+### 清空返回栈
 
 如何用户将任务切换到后台之后过了很长一段时间，系统会将这个任务中除了最底层的那个Activity之外的其它所有Activity全部清除掉。
 当用户重新回到这个任务的时候，最底层的那个Activity将得到恢复。这个是系统默认的行为，因为既然过了这么长的一段时间，
 用户很有可能早就忘记了当时正在做什么，那么重新回到这个任务的时候，基本上应该是要去做点新的事情了。
 
+当然，既然说是默认的行为，那就说明我们肯定是有办法来改变的，在<activity>元素中设置以下几种属性就可以改变系统这一默认行为：
+```alwaysRetainTaskState```.
+如果将最底层的那个Activity的这个属性设置为true，那么上面所描述的默认行为就将不会发生，任务中所有的Activity
+即使过了很长一段时间之后仍然会被继续保留。
 
+```clearTaskOnLaunch```
+如果将最底层的那个Activity的这个属性设置为true，那么只要用户离开了当前任务，
+再次返回的时候就会将最底层Activity之上的所有其它Activity全部清除掉。简单来讲，就是一种和alwaysRetainTaskState完全相反的工作模式，
+它保证每次返回任务的时候都会是一种初始化状态，即使用户仅仅离开了很短的一段时间。
+
+```finishOnTaskLaunch```
+这个属性和clearTaskOnLaunch是比较类似的，不过它不是作用于整个任务上的，而是作用于单个Activity上。
+如果某个Activity将这个属性设置成true，那么用户一旦离开了当前任务，再次返回时这个Activity就会被清除掉。
