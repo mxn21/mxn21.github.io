@@ -150,6 +150,23 @@ launchMode属性一共有以下四种可选参数：standard,singleTop,singleTas
 除了使用manifest文件之外，你也可以在调用startActivity()方法的时候，为Intent加入一个flag来改变Activity与任务的关联方式，
 下面我们来一一讲解一下每种flag的作用：
 
+#### 1.FLAG_ACTIVITY_NEW_TASK
+
+设置了这个flag，新启动Activity就会被放置到一个新的task当中(与"singleTask"有点类似，但不完全一样)
+，当然这里讨论的仍然还是启动其它程序中的Activity。这个flag的作用通常是模拟一种Launcher的行为，
+即列出一推可以启动的东西，但启动的每一个Activity都是在运行在自己独立的任务当中的。
+
+#### 2.FLAG_ACTIVITY_SINGLE_TOP
+
+设置了这个flag，如果要启动的Activity在当前任务中已经存在了，并且还处于栈顶的位置，那么就不会再次创建这个Activity的实例，
+而是直接调用它的onNewIntent()方法。这种flag和在launchMode中指定"singleTop"模式所实现的效果是一样的。
+
+#### 3.FLAG_ACTIVITY_CLEAR_TOP
+
+
+
+
+
 
 
 
