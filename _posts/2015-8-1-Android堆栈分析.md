@@ -23,6 +23,11 @@ task(任务)是一组Activities的集合，一组Activities被Stack（back stack
 然后前一个Activity则会得重新回到最顶端的位置。返回栈中的Activity的顺序永远都不会发生改变，
 我们只能向栈顶添加Activity，或者将栈顶的Activity移除掉。因此，返回栈是一个典型的后进先出(last in, first out)的数据结构。
 
+task是可以跨应用的，这正是task存在的一个重要原因。有的Activity，虽然不在同一个app中，但为了保持用户操作的连贯性，
+把他们放在同一个任务中。例如，在我们的应用中的一个Activity A中点击发送邮件，会启动邮件程序的一个Activity B来发送邮件，
+这两个activity是存在于不同app中的，但是被系统放在一个任务中，这样当发送完邮件后，用户按back键返回，可以返回到原来的Activity A中，
+这样就确保了用户体验。
+
 <!-- more -->
 
 下面来用代码做一个验证：
