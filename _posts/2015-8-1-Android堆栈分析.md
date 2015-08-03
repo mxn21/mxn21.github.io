@@ -181,9 +181,13 @@ launchMode属性一共有以下四种可选参数：standard,singleTop,singleTas
 ```FLAG_ACTIVITY_CLEAR_TOP和FLAG_ACTIVITY_NEW_TASK结合在一起使用也会有比较好的效果，比如可以将一个后台运行的任务切换到前台，
 并把目标Activity之上的其它Activity全部关闭掉。这个功能在某些情况下非常有用，比如说从通知栏启动Activity的时候。```
 
+以上只介绍了常有用的几种控制Activity跳转的Flag标识.
 
+### affinity
 
-
+affinity可以用于指定一个Activity更加愿意依附于哪一个任务，在默认情况下，同一个应用程序中的所有Activity都具有相同的affinity，
+所以，这些Activity都更加倾向于运行在相同的任务当中。当然了，你也可以去改变每个Activity的affinity值，
+通过<activity>元素的taskAffinity属性就可以实现了。
 
 
 
