@@ -229,3 +229,5 @@ affinity主要有以下两种应用场景：
 ```finishOnTaskLaunch```
 这个属性和clearTaskOnLaunch是比较类似的，不过它不是作用于整个任务上的，而是作用于单个Activity上。
 如果某个Activity将这个属性设置成true，那么用户一旦离开了当前任务，再次返回时这个Activity就会被清除掉。
+
+
