@@ -189,6 +189,15 @@ affinity可以用于指定一个Activity更加愿意依附于哪一个任务，�
 所以，这些Activity都更加倾向于运行在相同的任务当中。当然了，你也可以去改变每个Activity的affinity值，
 通过<activity>元素的taskAffinity属性就可以实现了。
 
+taskAffinity属性接收一个字符串参数，你可以指定成任意的值(字符串中至少要包含一个.)，
+但必须不能和应用程序的包名相同，因为系统会使用包名来作为默认的affinity值。
+
+affinity主要有以下两种应用场景：
+1.当调用startActivity()方法来启动一个Activity时，默认是将它放入到当前的任务当中。但是，
+如果在Intent中加入了一个FLAG_ACTIVITY_NEW_TASK flag的话(或者该Activity在manifest文件中声明的启动模式是"singleTask")，
+系统就会尝试为这个Activity单独创建一个任务。但是规则并不是只有这么简单，系统会去检测要启动的这个Activity的affinity和当前任务的affinity是否相同，
+如果相同的话就会把它放入到现有任务当中，如果不同则会去创建一个新的任务。而同一个程序中所有Activity的affinity默认都是相同的，
+这也是前面为什么说，同一个应用程序中即使声明成"singleTask"，也不会为这个Activity再去创建一个新的任务了。
 
 
 
