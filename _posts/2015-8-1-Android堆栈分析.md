@@ -232,6 +232,11 @@ affinity主要有以下应用场景：
 这个Activity又会被转移到天气预报程序的任务当中，并显示出来，因为它们拥有相同的affinity值，
 并且将allowTaskReparenting属性设置成了true。
 
+一般来说，当Activity启动后，它就与启动它的Task关联，并且在那里耗尽它的整个生命周期。
+当当前的Task不再显示时，你可以使用这个特性来强制Activity移动到有着affinity的Task中。典型用法是：
+把一个应用程序的Activity移到另一个应用程序的主Task中。
+
+alwaysRetainTaskState,clearTaskOnLaunch,finishOnTaskLaunch可以放在一起讨论。
 如何用户将任务切换到后台之后过了很长一段时间，系统会将这个任务中除了最底层的那个Activity之外的其它所有Activity全部清除掉。
 当用户重新回到这个任务的时候，最底层的那个Activity将得到恢复。这个是系统默认的行为，因为既然过了这么长的一段时间，
 用户很有可能早就忘记了当时正在做什么，那么重新回到这个任务的时候，基本上应该是要去做点新的事情了。
