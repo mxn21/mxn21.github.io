@@ -279,3 +279,21 @@ alwaysRetainTaskState,clearTaskOnLaunch,finishOnTaskLaunch可以放在一起讨�
 如果这个特性和allowTaskReparenting都设定为“true”，这个特性胜出，Activity的affinity忽略。这个Activity不会重新宿主，但是会销毁。
 
 
+### Task和process的区别
+
+process一般翻译成进程，进程是操作系统内核中的一个概念，表示直接受内核调度的执行单位。在应用程序的角度看，我们用java编写的应用程序，
+运行在dalvik虚拟机中，可以认为一个运行中的dalvik虚拟机实例占有一个进程，所以，在默认情况下，
+一个应用程序的所有组件运行在同一个进程中。但是这种情况也有例外，即，应用程序中的不同组件可以运行在不同的进程中。
+只需要在manifest中用process属性指定组件所运行的进程的名字。如下所示：
+
+    {% highlight java  %}
+<activity android:name=".MyActivity" android:label="@string/app_nam"
+    android:process=":remote">
+</activity>
+
+     {% endhighlight %}
+这样的话这个activity会运行在一个独立的进程中。
+
+task是可以跨应用的，这正是task存在的一个重要原因。有的Activity，虽然不在同一个app中，但为了保持用户操作的连贯性，把他们放在同一个任务中。
+task不仅可以跨应用（Application），还可以跨进程（Process）。
+
