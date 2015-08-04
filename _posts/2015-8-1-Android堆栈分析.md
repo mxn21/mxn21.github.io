@@ -161,6 +161,11 @@ launchMode属性一共有以下四种可选参数：standard,singleTop,singleTas
 ，当然这里讨论的仍然还是启动其它程序中的Activity。这个flag的作用通常是模拟一种Launcher的行为，
 即列出一推可以启动的东西，但启动的每一个Activity都是在运行在自己独立的任务当中的。
 
+如果传递给startActivity()的Intent对象包含了FLAG_ACTIVITY_NEW_TASK标记，系统会为新Activity安排另外一个任务。
+一般情况下，如同标记所暗示的那样，这会是一个新任务。然而，这并不是必然的。如果已经存在了一个与新Activity有着同样affinity的任务
+，则Activity会载入那个任务之中。如果没有，则启用新任务。
+简言之：有相同affinity的任务，则压入该任务，否则创建一个新的任务。
+
 #### 2.FLAG_ACTIVITY_SINGLE_TOP
 
 设置了这个flag，如果要启动的Activity在当前任务中已经存在了，并且还处于栈顶的位置，那么就不会再次创建这个Activity的实例，
