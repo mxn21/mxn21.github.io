@@ -197,12 +197,20 @@ finishOnTaskLaunch.
 
 #### affinity
 
+通常来说一个程序内/任务栈中的Activity具有亲和力，也就是说具有相同亲和力的Activity默认属于同一个任务Task中.
+
 affinity可以用于指定一个Activity更加愿意依附于哪一个任务，在默认情况下，同一个应用程序中的所有Activity都具有相同的affinity，
 所以，这些Activity都更加倾向于运行在相同的任务当中。当然了，你也可以去改变每个Activity的affinity值，
 通过<activity>元素的taskAffinity属性就可以实现了。
 
 taskAffinity属性接收一个字符串参数，你可以指定成任意的值(字符串中至少要包含一个.)，
 但必须不能和应用程序的包名相同，因为系统会使用包名来作为默认的affinity值。
+
+```
+affinity决定两件事情——Activity重新宿主（从一个Task跳到了另一个Task中，新的Task就被称为重新宿主）的Task（参考allowTaskReparenting特性）
+和使用FLAG_ACTIVITY_NEW_TASK标志启动的Activity宿主的Task。
+  注意：affinity只有在加载activity的Intent对象包含了FLAG_ACTIVITY_NEW_TASK 标记，或者当activity的allowTaskReparenting属性设置为“true”时才有效。
+```
 
 affinity主要有以下应用场景：
 当调用startActivity()方法来启动一个Activity时，默认是将它放入到当前的任务当中。但是，
@@ -230,19 +238,34 @@ affinity主要有以下应用场景：
 
 当然，既然说是默认的行为，那就说明我们肯定是有办法来改变的，在<activity>元素中设置以下几种属性就可以改变系统这一默认行为：
 
-####alwaysRetainTaskState
+#### alwaysRetainTaskState
 
 如果将最底层的那个Activity的这个属性设置为true，那么上面所描述的默认行为就将不会发生，任务中所有的Activity
 即使过了很长一段时间之后仍然会被继续保留。
+
+一般来说，特定的情形如当用户从主画面重新选择这个Task时，系统会对这个Task进行清理（从stack中删除位于根Activity之上的所有Activivity）。
+典型的情况，当用户有一段时间没有访问这个Task时也会这么做，例如30分钟。
+然而，当这个特性设为“true”时，用户总是能回到这个Task的最新状态，无论他们是如何启动的。这非常有用，
+例如，像Browser应用程序，这里有很多的状态（例如多个打开的Tab），用户不想丢失这些状态。系统会为我们保持这些状态数据。
+
 
 #### clearTaskOnLaunch
 
 如果将最底层的那个Activity的这个属性设置为true，那么只要用户离开了当前任务，
 再次返回的时候就会将最底层Activity之上的所有其它Activity全部清除掉。简单来讲，就是一种和alwaysRetainTaskState完全相反的工作模式，
 它保证每次返回任务的时候都会是一种初始化状态，即使用户仅仅离开了很短的一段时间。
+这个特性只对启动一个新的Task的Activity（根Activity）有意义；对Task中其它的Activity忽略。
+
+假设，某人从主画面启动了ActivityP，并从那里迁移至Activity Q。接下来用户按下HOME，然后返回Activity P。
+一般，用户可能见到的是Activity Q，因为它是P的Task中最后工作的内容。然而，如果P设定这个特性为“true”，
+当用户按下HOME并使这个Task再次进入前台时，其上的所有的Activity(在这里是Q)都将被清除。因此，当返回到这个Task时，
+用户只能看到P。如果这个特性和allowTaskReparenting都设定为“true”，那些能重新宿主的Activity会移动到共享affinity的Task中；
+剩下的Activity都将被抛弃。
 
 #### finishOnTaskLaunch
+
 这个属性和clearTaskOnLaunch是比较类似的，不过它不是作用于整个任务上的，而是作用于单个Activity上。
 如果某个Activity将这个属性设置成true，那么用户一旦离开了当前任务，再次返回时这个Activity就会被清除掉。
+如果这个特性和allowTaskReparenting都设定为“true”，这个特性胜出，Activity的affinity忽略。这个Activity不会重新宿主，但是会销毁。
 
 
