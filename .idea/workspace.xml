@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-8-1-Android堆栈分析.md" afterPath="$PROJECT_DIR$/_posts/2015-8-1-Android堆栈分析.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="2015-8-1-Android堆栈分析.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2015-8-1-Android堆栈分析.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.4376731">
-              <caret line="214" column="0" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.30609417">
+              <caret line="180" column="86" selection-start-line="180" selection-start-column="86" selection-end-line="180" selection-end-column="86" />
               <folding />
             </state>
           </provider>
@@ -886,8 +885,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-8-1-Android堆栈分析.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.4376731">
-          <caret line="214" column="0" selection-start-line="214" selection-start-column="0" selection-end-line="214" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.30609417">
+          <caret line="180" column="86" selection-start-line="180" selection-start-column="86" selection-end-line="180" selection-end-column="86" />
           <folding />
         </state>
       </provider>
