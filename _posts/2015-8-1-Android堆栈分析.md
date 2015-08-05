@@ -202,12 +202,10 @@ affinity可以用于指定一个Activity更加愿意依附于哪一个任务，�
 所以，这些Activity都更加倾向于运行在相同的任务当中。当然了，你也可以去改变每个Activity的affinity值，
 通过<activity>元素的taskAffinity属性就可以实现了。
 
-taskAffinity属性接收一个字符串参数，你可以指定成任意的值(字符串中至少要包含一个.)，
-但必须不能和应用程序的包名相同，因为系统会使用包名来作为默认的affinity值。
+taskAffinity属性接收一个字符串参数，你可以指定成任意的值(字符串中至少要包含一个.)，但必须不能和应用程序的包名相同，因为系统会使用包名来作为默认的affinity值。
 
-```affinity决定两件事情——Activity重新宿主（从一个Task跳到了另一个Task中，新的Task就被称为重新宿主）的Task（参考allowTaskReparenting特性）
-和使用FLAG_ACTIVITY_NEW_TASK标志启动的Activity宿主的Task。注意：affinity只有在加载activity的Intent对象包含了FLAG_ACTIVITY_NEW_TASK 标记，
-或者当activity的allowTaskReparenting属性设置为“true”时才有效。```
+```affinity决定两件事情——Activity重新宿主（从一个Task跳到了另一个Task中，新的Task就被称为重新宿主）的Task（参考allowTaskReparenting特性）和使用FLAG_ACTIVITY_NEW_TASK标志启动的Activity宿主的Task。
+注意：affinity只有在加载activity的Intent对象包含了FLAG_ACTIVITY_NEW_TASK 标记，或者当activity的allowTaskReparenting属性设置为“true”时才有效。```
 
 affinity主要有以下应用场景：
 当调用startActivity()方法来启动一个Activity时，默认是将它放入到当前的任务当中。但是，
