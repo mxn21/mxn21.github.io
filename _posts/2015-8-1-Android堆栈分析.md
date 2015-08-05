@@ -141,8 +141,7 @@ activity3触发onStop->onDestory，因为activity3从栈顶弹出，所以触发
 而Activity A也可以要求Activity B该如何与当前任务进行关联。如果Activity B在manifest中已经定义了该如何与任务进行关联，
 而Activity A同时也在Intent中要求了Activity B该怎么样与当前任务进行关联，那么此时Intent中的定义将覆盖manifest中的定义。
 
-```需要注意的是，有些启动模式在manifest中可以指定，但在Intent中是指定不了的。
-同样，也有些启动模式在Intent中可以指定，但在manifest中是指定不了的.```
+```需要注意的是，有些启动模式在manifest中可以指定，但在Intent中是指定不了的。同样，也有些启动模式在Intent中可以指定，但在manifest中是指定不了的.```
 
 ### 使用manifest文件
 
@@ -211,11 +210,9 @@ affinity可以用于指定一个Activity更加愿意依附于哪一个任务，�
 taskAffinity属性接收一个字符串参数，你可以指定成任意的值(字符串中至少要包含一个.)，
 但必须不能和应用程序的包名相同，因为系统会使用包名来作为默认的affinity值。
 
-```
-affinity决定两件事情——Activity重新宿主（从一个Task跳到了另一个Task中，新的Task就被称为重新宿主）的Task（参考allowTaskReparenting特性）
-和使用FLAG_ACTIVITY_NEW_TASK标志启动的Activity宿主的Task。
-  注意：affinity只有在加载activity的Intent对象包含了FLAG_ACTIVITY_NEW_TASK 标记，或者当activity的allowTaskReparenting属性设置为“true”时才有效。
-```
+```affinity决定两件事情——Activity重新宿主（从一个Task跳到了另一个Task中，新的Task就被称为重新宿主）的Task（参考allowTaskReparenting特性）
+和使用FLAG_ACTIVITY_NEW_TASK标志启动的Activity宿主的Task。注意：affinity只有在加载activity的Intent对象包含了FLAG_ACTIVITY_NEW_TASK 标记，
+或者当activity的allowTaskReparenting属性设置为“true”时才有效。```
 
 affinity主要有以下应用场景：
 当调用startActivity()方法来启动一个Activity时，默认是将它放入到当前的任务当中。但是，
