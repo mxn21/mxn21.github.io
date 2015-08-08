@@ -18,6 +18,12 @@ MotionEvent.ACTION_DOWN：在第一个点被按下时触发。
 
 MotionEvent.ACTION_UP:当屏幕上唯一的点被放开时触发。
 
+MotionEvent.ACTION_CANCEL:当你的手指（或者其它）移动出范围的时候，当前的手势被中断，会触发这个事件。
+
+在设计设置页面的滑动开关时，如果不监听ACTION_CANCEL，在滑动到中间时，如果你手指上下移动，就是移动到开关控件之外，
+则此时会触发ACTION_CANCEL，而不是ACTION_UP，造成开关的按钮停顿在中间位置。
+意思就是，当用户保持按下操作，并从你的控件转移到外层控件时，会触发ACTION_CANCEL。
+
 MotionEvent.ACTION_POINTER_DOWN:当屏幕上已经有一个点被按住，此时再按下其他点时触发。
 
 MotionEvent.ACTION_POINTER_UP:当屏幕上有多个点被按住，松开其中一个点时触发（即非最后一个点被放开时）。
