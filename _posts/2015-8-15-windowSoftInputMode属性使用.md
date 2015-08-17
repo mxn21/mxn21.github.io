@@ -31,3 +31,45 @@ android:windowSoftInputMode表示Activity的主窗口如何与包含屏幕上的
 
 那么，这些取值到底是怎么影响到软键盘与窗口之间的交互的呢？下面，我们就一个个的测试这9个取值，到底是如何影响软键盘的显示的。
 
+1.stateUnspecified
+
+中文意思是未指定状态，当我们没有设置android:windowSoftInputMode属性的时候，软件默认采用的就是这种交互方式，
+系统会根据界面采取相应的软键盘的显示模式，比如，当界面上只有文本和按钮的时候，软键盘就不会自动弹出，因为没有输入的必要。
+那么，当界面上出现了获取了焦点的输入框的时候，软键盘会不会自动的弹出呢？这个还真不一定！比如，在下面的这个界面布局中，
+软键盘并不会自动弹出。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img57.png)
+
+就是说，默认的，在这种界面情况下，系统并不确定用户是否需要软键盘，因此不会自动弹出。但是，为什么说不一定呢？这是因为，如果我们在这个布局的外面，包裹上一个
+ScrollView，软键盘就会自动的弹出来了！如下，在这种布局文件下，软键盘会自动的弹出
+
+    {% highlight xml  %}
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="toOther"
+                android:text="跳转" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
+    {% endhighlight %}
+
