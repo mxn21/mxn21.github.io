@@ -157,3 +157,16 @@ ScrollView，软键盘就会自动的弹出来了！如下，在这种布局文�
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img63.png)
 
+而最下面也只能滑动到8，下面的内容也不能够滑动了。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img64.png)
+
+因此，我们就能够理解这个属性的作用了。通过以上的实验，我们可以得出结论，如果我们不设置"adjust..."的属性，
+对于没有滚动控件的布局来说，采用的是adjustPan方式，而对于有滚动控件的布局，则是采用的adjustResize方式。
+
+了解了上面的这些知识之后，我们就可以根据自己的需求设置不同的方式了。而且，关于如何使得界面加载的时候不显示软键盘，
+我们也有了一个很清楚的认识。
+
+
+
+
