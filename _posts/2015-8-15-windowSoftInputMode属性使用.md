@@ -237,4 +237,34 @@ public class ResizeLayout extends LinearLayout{
 
     {% endhighlight %}
 
+AndroidManifest.xml的Activity设置属性：android:windowSoftInputMode = "adjustResize"
+
+运行程序，点击文本框，查看调试信息：
+
+E/onMeasure 6(7960): =>onMeasure called! widthMeasureSpec=1073742144, heightMeasureSpec = 1073742024
+
+E/onMeasure 7(7960): =>onMeasure called! widthMeasureSpec=1073742144, heightMeasureSpec = 1073742025
+
+E/onSizeChanged 8(7960): =>onSizeChanged called! w=320,h=201,oldw=320,oldh=377
+
+E/onLayout 9(7960): =>OnLayout called! l=0, t=0,r=320,b=201
+
+从调试结果我们可以看出，当我们点击文本框后，根布局调用了onMeasure，onSizeChanged和onLayout。
+
+windowSoftInputMode的值如果设置为adjustPan，那么该Activity主窗口并不调整屏幕的大小以便留出软键盘的空间。
+相反，当前窗口的内容将自动移动以便当前焦点从不被键盘覆盖和用户能总是看到输入内容的部分。这个通常是不期望比调整大小，
+因为用户可能关闭软键盘以便获得与被覆盖内容的交互操作。上面的例子中，
+我们将AndroidManifest.xml的属性进行更改：android: windowSoftInputMode = "adjustPan"
+
+重新运行，并点击文本框，查看调试信息：
+
+E/onMeasure 6(8378): =>onMeasure called! widthMeasureSpec=1073742144, heightMeasureSpec=1073742200
+
+E/onMeasure 7(8378): =>onMeasure called! widthMeasureSpec=1073742144, heightMeasureSpec=1073742201
+
+E/onLayout 8(8378): =>OnLayout called! l=0, t=0,r=320,b=377
+
+我们看到：系统也重新进行了measrue和layout，但是我们发现，layout过程中onSizeChanged并没有调用，
+这说明输入法弹出前后并没有改变原有布局的大小。
+
 
