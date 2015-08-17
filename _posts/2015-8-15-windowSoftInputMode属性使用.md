@@ -167,6 +167,74 @@ ScrollView，软键盘就会自动的弹出来了！如下，在这种布局文�
 了解了上面的这些知识之后，我们就可以根据自己的需求设置不同的方式了。而且，关于如何使得界面加载的时候不显示软键盘，
 我们也有了一个很清楚的认识。
 
+```注意：当设置属性：android:windowSoftInputMode = "adjustResize",软键盘弹出时，要对主窗口布局重新进行布局，并调用onSizeChanged方法.
+而当我们设置android: windowSoftInputMode = "adjustPan"时，主窗口就不会调用onSizeChanged方法```
 
+我们通过一段代码来测试一下，当我们设置了该属性后，弹出输入法时，系统做了什么：
+重写Layout布局：
+
+    {% highlight java  %}
+public class ResizeLayout extends LinearLayout{
+    private static int count = 0;
+
+    public ResizeLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+
+        Log.e("onSizeChanged " + count++, "=>onResize called! w="+w + ",h="+h+",oldw="+oldw+",oldh="+oldh);
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
+        super.onLayout(changed, l, t, r, b);
+        Log.e("onLayout " + count++, "=>OnLayout called! l=" + l + ", t=" + t + ",r=" + r + ",b="+b);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        Log.e("onMeasure " + count++, "=>onMeasure called! widthMeasureSpec=" + widthMeasureSpec + ", heightMeasureSpec=" + heightMeasureSpec);
+    }
+
+    {% endhighlight %}
+
+我们的布局设置为：
+
+    {% highlight xml  %}
+<com.winuxxan.inputMethodTest.ResizeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+    />
+
+    <LinearLayout
+            android:id="@+id/bottom_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:gravity="bottom">s
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/hello"
+        android:background="#77777777"
+      />
+   </LinearLayout>
+</com.winuxxan.inputMethodTest.ResizeLayout>
+
+    {% endhighlight %}
 
 
