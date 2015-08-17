@@ -144,3 +144,16 @@ ScrollView，软键盘就会自动的弹出来了！如下，在这种布局文�
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img61.png)
 
 
+9.adjustPan
+
+如果设置为这个属性，那么Activity的屏幕大小并不会调整来保证软键盘的空间，而是采取了另外一种策略，系统会通过布局的移动，
+来保证用户要进行输入的输入框肯定在用户的视野范围里面，从而让用户可以看到自己输入的内容。对于没有滚动控件的布局来说，
+这个其实就是默认的设置，如果我们选择的位置偏下，上面的标题栏和部分控件会被顶上去。但是对于有滚动控件的布局来说，
+则不太一样，我们看下面的效果图。首先，这是软键盘没有弹出的时候，有滚动控件的显示范围，最下面显示的是9.
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img62.png)
+
+当我们点击5这个输入框，我们会发现下面的现象。最上面只能够显示到按钮，标题栏已经不能看到了。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img63.png)
+
