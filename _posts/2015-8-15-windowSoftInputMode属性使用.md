@@ -130,3 +130,17 @@ ScrollView，软键盘就会自动的弹出来了！如下，在这种布局文�
 这就是两中显示模式之间的差别。
 
 
+8.adjustResize
+
+这个属性表示Activity的主窗口总是会被调整大小，从而保证软键盘显示空间。我们先看显示效果。
+注意观察这个上面的标题栏和按钮，设置为adjustResize属性之后，对于没有滑动控件的布局，虽然还是不能选择所有的输入框，
+但是，窗口的显示方式发生了变化，默认属性时，整个布局是被顶上去了，但是设置为adjustResize属性，布局的位置并没有发生什么变化，
+这就是最大的区别。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img60.png)
+
+而对于有滑动控件的布局来说，显示效果和默认是一样的。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img61.png)
+
+
