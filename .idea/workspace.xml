@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-8-21-android渲染机制和丢帧分析.md" afterPath="$PROJECT_DIR$/_posts/2015-8-21-android渲染机制和丢帧分析.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-8-22-android垂直同步和三重缓存.md" afterPath="$PROJECT_DIR$/_posts/2015-8-22-android垂直同步和三重缓存.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="2015-8-19-从源码深入理解context.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.285714">
-              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="13" />
+            <state vertical-scroll-proportion="-2.9285715">
+              <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -37,24 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2015-8-21-android渲染机制和丢帧分析.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="2015-8-21-android渲染机制和丢帧分析.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2015-8-21-android渲染机制和丢帧分析.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.446429">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="MarkdownPreviewEditor">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2015-8-22-android垂直同步和三重缓存.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/_posts/2015-8-22-android垂直同步和三重缓存.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6448598">
-              <caret line="55" column="47" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
+            <state vertical-scroll-proportion="-0.8947368">
+              <caret line="112" column="51" selection-start-line="112" selection-start-column="51" selection-end-line="112" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -113,8 +99,8 @@
         <option value="$PROJECT_DIR$/_posts/2015-8-15-自定义view的三种构造方法浅析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-15-windowSoftInputMode属性使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md" />
-        <option value="$PROJECT_DIR$/_posts/2015-8-21-android渲染机制和丢帧分析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-22-android垂直同步和三重缓存.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-8-21-android渲染机制和丢帧分析.md" />
       </list>
     </option>
   </component>
@@ -479,16 +465,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/archive.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/category.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -941,10 +917,26 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-8-22-android垂直同步和三重缓存.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2897196">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/img/img72.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.285714">
-          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="13" />
+        <state vertical-scroll-proportion="-2.9285715">
+          <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -954,19 +946,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-8-21-android渲染机制和丢帧分析.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.446429">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-8-22-android垂直同步和三重缓存.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6448598">
-          <caret line="55" column="47" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
+        <state vertical-scroll-proportion="-0.8947368">
+          <caret line="112" column="51" selection-start-line="112" selection-start-column="51" selection-end-line="112" selection-end-column="51" />
           <folding />
         </state>
       </provider>
