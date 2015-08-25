@@ -287,3 +287,11 @@ process一般翻译成进程，进程是操作系统内核中的一个概念，�
 task是可以跨应用的，这正是task存在的一个重要原因。有的Activity，虽然不在同一个app中，但为了保持用户操作的连贯性，把他们放在同一个任务中。
 task不仅可以跨应用（Application），还可以跨进程（Process）。
 
+### 关于onNewIntent()
+
+launchMode为singleTask的时候，通过Intent启到一个Activity,如果系统已经存在一个实例，系统就会将请求发送到这个实例上，
+但这个时候，系统就不会再调用通常情况下我们处理请求数据的onCreate方法，而是调用onNewIntent方法.
+
+launchMode为singleTop的时候，如果IntentActivity处于任务栈的顶端，也就是说之前打开过的Activity，现在处于onPause、onStop 状态的话，
+其他应用再发送Intent的话，执行顺序为：onNewIntent，onRestart，onStart，onResume。
+
