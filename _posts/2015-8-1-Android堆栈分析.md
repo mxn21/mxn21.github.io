@@ -295,3 +295,26 @@ launchMode为singleTask的时候，通过Intent启到一个Activity,如果系统
 launchMode为singleTop的时候，如果IntentActivity处于任务栈的顶端，也就是说之前打开过的Activity，现在处于onPause、onStop 状态的话，
 其他应用再发送Intent的话，执行顺序为：onNewIntent，onRestart，onStart，onResume。
 
+不要忘记，系统可能会随时杀掉后台运行的 Activity ，如果这一切发生，那么系统就会调用 onCreate 方法，而不调用 onNewIntent 方法，一个好的解决方法就是在 onCreate 和 onNewIntent 方法中调用同一个处理数据的方法，如下所示：
+
+
+    {% highlight java  %}
+public void onCreate(Bundle savedInstanceState) {
+  super.onCreate(savedInstanceState);
+  setContentView(R.layout.main);
+  processExtraData();
+}
+protected void onNewIntent(Intent intent) {
+  super.onNewIntent(intent);
+   setIntent(intent);//must store the new intent unless getIntent() will return the old one
+  processExtraData()
+}
+private void processExtraData(){
+  Intent intent = getIntent();
+  //use the data received here
+}
+     {% endhighlight %}
+
+``注意onNewIntent如果没有调用setIntent(intent)，则getIntent()获取的数据将不是你所期望的。
+注意这句话：Note that getIntent() still returns the original Intent. You can use setIntent(Intent)
+ to update it to this new Intent.所以最好是调用setIntent(intent)，这样在使用getIntent()的时候就不会有问题了。``
