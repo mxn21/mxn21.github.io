@@ -147,3 +147,57 @@ private synchronized void register(Object subscriber, boolean sticky, int priori
     {% endhighlight %}
 
 对每一个订阅方法，对其调用subscribe方法，进入该方法看看到底干了什么
+
+    {% highlight java  %}
+private void subscribe(Object subscriber, SubscriberMethod subscriberMethod, boolean sticky, int priority) {
+        subscribed = true;
+        //从订阅方法中拿到订阅事件的类型
+        Class<?> eventType = subscriberMethod.eventType;
+        //通过订阅事件类型，找到所有的订阅（Subscription）,订阅中包含了订阅者，订阅方法
+        CopyOnWriteArrayList<Subscription> subscriptions = subscriptionsByEventType.get(eventType);
+        //创建一个新的订阅
+        Subscription newSubscription = new Subscription(subscriber, subscriberMethod, priority);
+        //将新建的订阅加入到这个事件类型对应的所有订阅列表
+        if (subscriptions == null) {
+            //如果该事件目前没有订阅列表，那么创建并加入该订阅
+            subscriptions = new CopyOnWriteArrayList<Subscription>();
+            subscriptionsByEventType.put(eventType, subscriptions);
+        } else {
+            //如果有订阅列表，检查是否已经加入过
+            for (Subscription subscription : subscriptions) {
+                if (subscription.equals(newSubscription)) {
+                    throw new EventBusException("Subscriber " + subscriber.getClass() + " already registered to event "
+                            + eventType);
+                }
+            }
+        }
+
+        //根据优先级插入订阅
+        int size = subscriptions.size();
+        for (int i = 0; i <= size; i++) {
+            if (i == size || newSubscription.priority > subscriptions.get(i).priority) {
+                subscriptions.add(i, newSubscription);
+                break;
+            }
+        }
+        //将这个订阅事件加入到订阅者的订阅事件列表中
+        List<Class<?>> subscribedEvents = typesBySubscriber.get(subscriber);
+        if (subscribedEvents == null) {
+            subscribedEvents = new ArrayList<Class<?>>();
+            typesBySubscriber.put(subscriber, subscribedEvents);
+        }
+        subscribedEvents.add(eventType);
+        //这个是对粘性事件的，暂时不讨论
+        if (sticky) {
+            Object stickyEvent;
+            synchronized (stickyEvents) {
+                stickyEvent = stickyEvents.get(eventType);
+            }
+            if (stickyEvent != null) {
+                postToSubscription(newSubscription, stickyEvent, Looper.getMainLooper() == Looper.myLooper());
+            }
+        }
+    }
+      {% endhighlight %}
+
+好了，到这里差不多register方法分析完了，大致流程就是这样的，我们总结一下：
