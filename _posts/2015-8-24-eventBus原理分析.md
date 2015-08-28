@@ -201,3 +201,43 @@ private void subscribe(Object subscriber, SubscriberMethod subscriberMethod, boo
       {% endhighlight %}
 
 好了，到这里差不多register方法分析完了，大致流程就是这样的，我们总结一下：
+
+1、找到被注册者中所有的订阅方法。
+2、依次遍历订阅方法，找到EventBus中eventType对应的订阅列表，然后根据当前订阅者和订阅方法创建一个新的订阅加入到订阅列表
+3、找到EvnetBus中subscriber订阅的事件列表，将eventType加入到这个事件列表。
+
+所以对于任何一个订阅者，我们可以找到它的 订阅事件类型列表，通过这个订阅事件类型，可以找到在订阅者中的订阅函数。
+
+register分析完了就分析一下post吧
+
+    {% highlight java  %}
+    public void post(Object event) {
+        //这个EventBus中只有一个，差不多是个单例吧，具体不用细究
+        PostingThreadState postingState = currentPostingThreadState.get();
+        List<Object> eventQueue = postingState.eventQueue;
+        //将事件放入队列
+        eventQueue.add(event);
+
+        if (postingState.isPosting) {
+            return;
+        } else {
+            postingState.isMainThread = Looper.getMainLooper() == Looper.myLooper();
+            postingState.isPosting = true;
+            if (postingState.canceled) {
+                throw new EventBusException("Internal error. Abort state was not reset");
+            }
+            try {
+                while (!eventQueue.isEmpty()) {
+                    //分发事件
+                    postSingleEvent(eventQueue.remove(0), postingState);
+                }
+            } finally {
+                postingState.isPosting = false;
+                postingState.isMainThread = false;
+            }
+        }
+    }
+      {% endhighlight %}
+
+post里面没有什么具体逻辑，它的功能主要是调用postSingleEvent完成的，进入到这个函数看看吧
+
