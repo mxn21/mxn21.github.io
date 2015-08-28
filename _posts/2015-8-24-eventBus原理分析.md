@@ -42,12 +42,14 @@ private synchronized void register(Object subscriber, boolean sticky, int priori
     {% highlight java  %}
 
     List<SubscriberMethod> findSubscriberMethods(Class<?> subscriberClass) {
-    
+    //通过订阅者类名创建一个key
             String key = subscriberClass.getName();
             List<SubscriberMethod> subscriberMethods;
             synchronized (methodCache) {
+              //判断是否有缓存，有缓存直接返回缓存
                 subscriberMethods = methodCache.get(key);
             }
+              //第一次进来subscriberMethods肯定是Null
             if (subscriberMethods != null) {
                 return subscriberMethods;
             }
@@ -57,29 +59,40 @@ private synchronized void register(Object subscriber, boolean sticky, int priori
             StringBuilder methodKeyBuilder = new StringBuilder();
             while (clazz != null) {
                 String name = clazz.getName();
+                 //过滤掉系统类
                 if (name.startsWith("java.") || name.startsWith("javax.") || name.startsWith("android.")) {
                     // Skip system classes, this just degrades performance
                     break;
                 }
-
+            //通过反射，获取到订阅者的所有方法
                 // Starting with EventBus 2.2 we enforced methods to be public (might change with annotations again)
                 Method[] methods = clazz.getDeclaredMethods();
                 for (Method method : methods) {
                     String methodName = method.getName();
+                     //只找以onEvent开头的方法
                     if (methodName.startsWith(ON_EVENT_METHOD_NAME)) {
                         int modifiers = method.getModifiers();
+                        //判断订阅者是否是public的,并且是否有修饰符，看来订阅者只能是public的，并且不能被final，static等修饰
                         if ((modifiers & Modifier.PUBLIC) != 0 && (modifiers & MODIFIERS_IGNORE) == 0) {
+                         //获得订阅函数的参数
                             Class<?>[] parameterTypes = method.getParameterTypes();
+                             //看了参数的个数只能是1个
                             if (parameterTypes.length == 1) {
+                             //获取onEvent后面的部分
                                 String modifierString = methodName.substring(ON_EVENT_METHOD_NAME.length());
                                 ThreadMode threadMode;
                                 if (modifierString.length() == 0) {
+                                //订阅函数为onEvnet
+                                //记录线程模型为PostThread,意义就是发布事件和接收事件在同一个线程执行，详细可以参考我对于四个订阅函数不同点分析
                                     threadMode = ThreadMode.PostThread;
                                 } else if (modifierString.equals("MainThread")) {
+                                /对应onEventMainThread
                                     threadMode = ThreadMode.MainThread;
                                 } else if (modifierString.equals("BackgroundThread")) {
+                                  //对应onEventBackgrondThread
                                     threadMode = ThreadMode.BackgroundThread;
                                 } else if (modifierString.equals("Async")) {
+                                //对应onEventAsync
                                     threadMode = ThreadMode.Async;
                                 } else {
                                     if (skipMethodVerificationForClasses.containsKey(clazz)) {
@@ -88,6 +101,7 @@ private synchronized void register(Object subscriber, boolean sticky, int priori
                                         throw new EventBusException("Illegal onEvent method, check for typos: " + method);
                                     }
                                 }
+                                //获取参数类型，其实就是接收事件的类型
                                 Class<?> eventType = parameterTypes[0];
                                 methodKeyBuilder.setLength(0);
                                 methodKeyBuilder.append(methodName);
@@ -95,6 +109,7 @@ private synchronized void register(Object subscriber, boolean sticky, int priori
                                 String methodKey = methodKeyBuilder.toString();
                                 if (eventTypesFound.add(methodKey)) {
                                     // Only add if not already found in a sub class
+                                     //封装一个订阅方法对象，这个对象包含Method对象，threadMode对象，eventType对象
                                     subscriberMethods.add(new SubscriberMethod(method, threadMode, eventType));
                                 }
                             }
@@ -104,8 +119,10 @@ private synchronized void register(Object subscriber, boolean sticky, int priori
                         }
                     }
                 }
+                 //看了还会遍历父类的订阅函数
                 clazz = clazz.getSuperclass();
             }
+            //最后加入缓存，第二次使用直接从缓存拿
             if (subscriberMethods.isEmpty()) {
                 throw new EventBusException("Subscriber " + subscriberClass + " has no public methods called "
                         + ON_EVENT_METHOD_NAME);
@@ -117,5 +134,16 @@ private synchronized void register(Object subscriber, boolean sticky, int priori
             }
         }
 
-
        {% endhighlight %}
+
+对于这个方法的讲解都在注释里面了，这里就不在重复叙述了，到了这里我们就找到了一个订阅者的所有的订阅方法。
+
+我们回到register方法：
+
+    {% highlight java  %}
+    for (SubscriberMethod subscriberMethod : subscriberMethods) {
+           subscribe(subscriber, subscriberMethod, sticky, priority);
+       }
+    {% endhighlight %}
+
+对每一个订阅方法，对其调用subscribe方法，进入该方法看看到底干了什么
