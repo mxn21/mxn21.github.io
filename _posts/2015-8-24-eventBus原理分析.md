@@ -241,3 +241,88 @@ register分析完了就分析一下post吧
 
 post里面没有什么具体逻辑，它的功能主要是调用postSingleEvent完成的，进入到这个函数看看吧
 
+    {% highlight java  %}
+private void postSingleEvent(Object event, PostingThreadState postingState) throws Error {
+       Class<? extends Object> eventClass = event.getClass();
+    //找到eventClass对应的事件，包含父类对应的事件和接口对应的事件
+       List<Class<?>> eventTypes = findEventTypes(eventClass);
+       boolean subscriptionFound = false;
+       int countTypes = eventTypes.size();
+       for (int h = 0; h < countTypes; h++) {
+           Class<?> clazz = eventTypes.get(h);
+           CopyOnWriteArrayList<Subscription> subscriptions;
+           synchronized (this) {
+            //找到订阅事件对应的订阅，这个是通过register加入的（还记得吗....）
+               subscriptions = subscriptionsByEventType.get(clazz);
+           }
+           if (subscriptions != null && !subscriptions.isEmpty()) {
+               for (Subscription subscription : subscriptions) {
+                   postingState.event = event;
+                   postingState.subscription = subscription;
+                   boolean aborted = false;
+                   try {
+                    //对每个订阅调用该方法
+                       postToSubscription(subscription, event, postingState.isMainThread);
+                       aborted = postingState.canceled;
+                   } finally {
+                       postingState.event = null;
+                       postingState.subscription = null;
+                       postingState.canceled = false;
+                   }
+                   if (aborted) {
+                       break;
+                   }
+               }
+               subscriptionFound = true;
+           }
+       }
+    //如果没有订阅发现，那么会Post一个NoSubscriberEvent事件
+       if (!subscriptionFound) {
+           Log.d(TAG, "No subscribers registered for event " + eventClass);
+           if (eventClass != NoSubscriberEvent.class && eventClass != SubscriberExceptionEvent.class) {
+               post(new NoSubscriberEvent(this, event));
+           }
+       }
+   }
+     {% endhighlight %}
+
+这个方法有个核心方法 postToSubscription方法，进入看看吧
+
+    {% highlight java  %}
+private void postToSubscription(Subscription subscription, Object event, boolean isMainThread) {
+        //第一个参数就是传入的订阅，第二个参数就是对于的分发事件，第三个参数非常关键：是否在主线程
+        switch (subscription.subscriberMethod.threadMode) {
+        //这个threadMode是怎么传入的，仔细想想？是不是根据onEvent,onEventMainThread,onEventBackground,onEventAsync决定的？
+        case PostThread:
+            //直接在本线程中调用订阅函数
+            invokeSubscriber(subscription, event);
+            break;
+        case MainThread:
+            if (isMainThread) {
+                //如果直接在主线程，那么直接在本现场中调用订阅函数
+                invokeSubscriber(subscription, event);
+            } else {
+                //如果不在主线程，那么通过handler实现在主线程中执行，具体我就不跟踪了
+                mainThreadPoster.enqueue(subscription, event);
+            }
+            break;
+        case BackgroundThread:
+            if (isMainThread) {
+                //如果主线程，创建一个runnable丢入线程池中
+                backgroundPoster.enqueue(subscription, event);
+            } else {
+                //如果子线程，则直接调用
+                invokeSubscriber(subscription, event);
+            }
+            break;
+        case Async:
+            //不论什么线程，直接丢入线程池
+            asyncPoster.enqueue(subscription, event);
+            break;
+        default:
+            throw new IllegalStateException("Unknown thread mode: " + subscription.subscriberMethod.threadMode);
+        }
+    }
+       {% endhighlight %}
+
+好了 ，对于EventBus的分析就到这里了。
