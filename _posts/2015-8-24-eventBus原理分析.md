@@ -449,12 +449,39 @@ PS：在此之前的版本 EventBus 允许自定义事件响应函数名称，�
 
 事件主线程处理，对应ThreadMode.MainThread。继承自 Handler，enqueue 函数将事件放到队列中，并利用 handler 发送 message，handleMessage 函数从队列中取事件，invoke 事件响应函数处理。
 
+### AsyncPoster.java
 
-###
-###
-###
-###
-###
-###
+事件异步线程处理，对应ThreadMode.Async，继承自 Runnable。enqueue 函数将事件放到队列中，并调用线程池执行当前任务，在 run 函数从队列中取事件，invoke 事件响应函数处理。
+
+### BackgroundPoster.java
+
+事件 Background 处理，对应ThreadMode.BackgroundThread，继承自 Runnable。enqueue 函数将事件放到队列中，并调用线程池执行当前任务，
+在 run 函数从队列中取事件，invoke 事件响应函数处理。与 AsyncPoster.java 不同的是，BackgroundPoster 中的任务只在同一个线程中依次执行，
+而不是并发执行。
+
+### PendingPost.java
+
+订阅者和事件信息实体类，并含有同一队列中指向下一个对象的指针。通过缓存存储不用的对象，减少下次创建的性能消耗。
+
+### PendingPostQueue.java
+
+通过 head 和 tail 指针维护一个PendingPost队列。HandlerPoster、AsyncPoster、BackgroundPoster 都包含一个此队列实例，
+表示各自的订阅者及事件信息队列，在事件到来时进入队列，处理时从队列中取出一个元素进行处理。
+
+### SubscriberExceptionEvent.java
+
+当调用事件处理函数异常时发送的 EventBus 内部自定义事件，通过 post 发送，订阅者可自行订阅这类事件进行处理。
+
+### NoSubscriberEvent.java
+
+当没有事件处理函数对事件处理时发送的 EventBus 内部自定义事件，通过 post 发送，订阅者可自行订阅这类事件进行处理。
+
+### EventBusException.java
+
+封装于 RuntimeException 之上的 Exception，只是覆盖构造函数，相当于一个标记，标记是属于 EventBus 的 Exception。
+
+### ThreadMode.java
+
+线程 Mode 枚举类，表示事件响应函数执行线程信息，包括ThreadMode.PostThread、ThreadMode.MainThread、ThreadMode.BackgroundThread、ThreadMode.Async四种。
 
 
