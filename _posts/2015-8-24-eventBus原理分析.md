@@ -169,7 +169,14 @@ subscriberMethodFinde通过一个findSubscriberMethods方法找到了一个订�
        }
     {% endhighlight %}
 
-对每一个订阅方法，对其调用subscribe方法，进入该方法看看到底干了什么
+对每一个订阅方法，对其调用subscribe方法，
+
+subscribe 函数分三步
+第一步：通过subscriptionsByEventType得到该事件类型所有订阅者信息队列，根据优先级将当前订阅者信息插入到订阅者队列subscriptionsByEventType中；
+第二步：在typesBySubscriber中得到当前订阅者订阅的所有事件队列，将此事件保存到队列typesBySubscriber中，用于后续取消订阅；
+第三步：检查这个事件是否是 Sticky 事件，如果是则从stickyEvents事件保存队列中取出该事件类型最后一个事件发送给当前订阅者。
+
+进入该方法看看到底干了什么
 
     {% highlight java  %}
 private void subscribe(Object subscriber, SubscriberMethod subscriberMethod, boolean sticky, int priority) {
