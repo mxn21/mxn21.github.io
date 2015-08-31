@@ -13,7 +13,7 @@ EventBus是一个Android端优化的publish/subscribe消息总线，简化了应
 EventBus的使用是很简单，但是如果我们理解EvnetBus的原理，那么我们就能非常轻松的使用EventBus了。
 ## 类关系图
 
-![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img90.jpg)
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img90.png)
 
 以上是 EventBus 主要类的关系图，从中我们也可以看出大部分类都与 EventBus 直接关联。上部分主要是订阅者相关信息，中间是 EventBus 类，
 下面是发布者发布事件后的调用。具体类的功能请看下面的详细介绍。
@@ -69,7 +69,7 @@ PS：在此之前的版本 EventBus 还允许自定义事件响应函数名称�
 
 register 函数流程图如下：
 
-![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img89.jpg)
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img89.png)
 
 接下来我们就看看这个函数具体干了什么
 
