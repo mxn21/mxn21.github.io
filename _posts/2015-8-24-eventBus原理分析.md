@@ -395,5 +395,21 @@ ThreadMode 共有四类：
 1.defaultInstance默认的 EventBus 实例，根据EventBus.getDefault()函数得到。
 2.DEFAULT_BUILDER默认的 EventBus Builder。
 3.eventTypesCache事件对应类型及其父类和实现的接口的缓存，以 eventType 为 key，元素为 Object 的 ArrayList 为 Value，Object 对象为 eventType 的父类或接口。
+4.subscriptionsByEventType事件订阅者的保存队列，以 eventType 为 key，元素为Subscription的 ArrayList 为 Value，其中Subscription为订阅者信息，由 subscriber, subscriberMethod, priority 构成。
+5.typesBySubscriber订阅者订阅的事件的保存队列，以 subscriber 为 key，元素为 eventType 的 ArrayList 为 Value。
+6.stickyEventsSticky 事件保存队列，以 eventType 为 key，event 为元素，由此可以看出对于同一个 eventType 最多只会有一个 event 存在。
+7.currentPostingThreadState当前线程的 post 信息，包括事件队列、是否正在分发中、是否在主线程、订阅者信息、事件实例、是否取消。
+8.mainThreadPoster、backgroundPoster、asyncPoster事件主线程处理者、事件 Background 处理者、事件异步处理者。
+9.subscriberMethodFinder订阅者响应函数信息存储和查找类。
+10.executorService异步和 BackGround 处理方式的线程池。
+11.throwSubscriberException当调用事件处理函数异常时是否抛出异常，默认为 false，建议通过EventBus.builder().throwSubscriberException(true).installDefaultEventBus()打开。
+12.logSubscriberExceptions当调用事件处理函数异常时是否打印异常信息，默认为 true。
+13.logNoSubscriberMessages当没有订阅者订阅该事件时是否打印日志，默认为 true。
+14.sendSubscriberExceptionEvent当调用事件处理函数异常时是否发送 SubscriberExceptionEvent 事件，若此开关打开，
+订阅者可通过public void onEvent(SubscriberExceptionEvent event)订阅该事件进行处理，默认为 true。
+15.sendNoSubscriberEvent当没有事件处理函数对事件处理时是否发送 NoSubscriberEvent 事件，若此开关打开，
+订阅者可通过public void onEvent(NoSubscriberEvent event)订阅该事件进行处理，默认为 true。
+16.eventInheritance是否支持事件继承，默认为 true。
+
 
 
