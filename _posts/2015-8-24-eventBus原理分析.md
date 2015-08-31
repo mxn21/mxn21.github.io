@@ -32,6 +32,28 @@ EventBus 默认可通过静态函数 getDefault 获取单例，当然有需要�
 
 就从EvnetBus的入口开始看吧：EventBus.register
 
+EventBus.getDefault().register(this);
+
+首先：
+
+EventBus.getDefault()是个单例：
+
+    {% highlight java  %}
+   public static EventBus getDefault() {
+       if (defaultInstance == null) {
+           synchronized (EventBus.class) {
+               if (defaultInstance == null) {
+                   defaultInstance = new EventBus();
+               }
+           }
+       }
+       return defaultInstance;
+   }
+
+     {% endhighlight %}
+
+使用了双重判断的方式，防止并发的问题，还能极大的提高效率。
+
     {% highlight java  %}
    public void register(Object subscriber) {
         register(subscriber, false, 0);
