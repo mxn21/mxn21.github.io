@@ -262,6 +262,10 @@ private void subscribe(Object subscriber, SubscriberMethod subscriberMethod, boo
 
 所以对于任何一个订阅者，我们可以找到它的订阅事件类型列表，通过这个订阅事件类型，可以找到在订阅者中的订阅函数。
 
+你只要记得一件事：扫描了所有的方法，把匹配的方法最终保存在subscriptionsByEventType（Map，key：eventType ； value：CopyOnWriteArrayList<Subscription> ）中；
+
+eventType是我们方法参数的Class，Subscription中则保存着subscriber, subscriberMethod（method, threadMode, eventType）, priority；包含了执行改方法所需的一切。
+
 register分析完了就分析一下其他方法吧
 
 #### post
