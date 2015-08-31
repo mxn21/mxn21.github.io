@@ -236,9 +236,15 @@ private void subscribe(Object subscriber, SubscriberMethod subscriberMethod, boo
 2、依次遍历订阅方法，找到EventBus中eventType对应的订阅列表，然后根据当前订阅者和订阅方法创建一个新的订阅加入到订阅列表
 3、找到EvnetBus中subscriber订阅的事件列表，将eventType加入到这个事件列表。
 
-所以对于任何一个订阅者，我们可以找到它的 订阅事件类型列表，通过这个订阅事件类型，可以找到在订阅者中的订阅函数。
+所以对于任何一个订阅者，我们可以找到它的订阅事件类型列表，通过这个订阅事件类型，可以找到在订阅者中的订阅函数。
 
-register分析完了就分析一下post吧
+register分析完了就分析一下其他方法吧
+
+post 函数用于发布事件，cancel 函数用于取消某订阅者订阅的所有事件类型、removeStickyEvent 函数用于删除 sticky 事件。
+
+post 函数流程图如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img91.jpg)
 
     {% highlight java  %}
     public void post(Object event) {
