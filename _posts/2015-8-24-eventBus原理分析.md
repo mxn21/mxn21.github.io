@@ -361,4 +361,14 @@ private void postToSubscription(Subscription subscription, Object event, boolean
     }
        {% endhighlight %}
 
-好了 ，对于EventBus的分析就到这里了。
+可以看出：post 函数会首先得到当前线程的 post 信息PostingThreadState，其中包含事件队列，将当前事件添加到其事件队列中，
+然后循环调用postSingleEvent函数发布队列中的每个事件。
+
+postSingleEvent 函数会先去eventTypesCache得到该事件对应类型的的父类及接口类型，没有缓存则查找并插入缓存。循环得到的每个类型和接口，调用 postSingleEventForEventType 函数发布每个事件到每个订阅者。
+
+postSingleEventForEventType 函数在subscriptionsByEventType查找该事件订阅者订阅者队列，调用 postToSubscription 函数向每个订阅者发布事件。
+
+postToSubscription 函数中会判断订阅者的 ThreadMode，从而决定在什么 Mode 下执行事件响应函数。
+
+ThreadMode 共有四类：
+
