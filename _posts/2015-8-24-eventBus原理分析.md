@@ -11,22 +11,24 @@ EventBus是一个Android端优化的publish/subscribe消息总线，简化了应
 比如请求网络，等网络返回时通过Handler或Broadcast通知UI，两个Fragment之间需要通过Listener通信，这些需求都可以通过EventBus实现。
 
 EventBus的使用是很简单，但是如果我们理解EvnetBus的原理，那么我们就能非常轻松的使用EventBus了。
-### 类关系图
+## 类关系图
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img90.jpg)
 
 以上是 EventBus 主要类的关系图，从中我们也可以看出大部分类都与 EventBus 直接关联。上部分主要是订阅者相关信息，中间是 EventBus 类，
 下面是发布者发布事件后的调用。具体类的功能请看下面的详细介绍。
 
-### 核心类功能介绍
+## 核心类功能介绍
 
-####  EventBus.java
+###  EventBus.java
 
 EventBus 类负责所有对外暴露的 API，其中的 register、post、unregister 函数配合上自定义的 EventType 及事件响应函数即可完成核心功能.
 EventBus 默认可通过静态函数 getDefault 获取单例，当然有需要也可以通过 EventBusBuilder 或 构造函数新建一个 EventBus，
 每个新建的 EventBus 发布和订阅事件都是相互隔离的，即一个 EventBus 对象中的发布者发布事件，另一个 EventBus 对象中的订阅者不会收到该订阅。
 
 <!-- more -->
+
+#### register
 
 就从EvnetBus的入口开始看吧：EventBus.register
 
@@ -240,6 +242,8 @@ private void subscribe(Object subscriber, SubscriberMethod subscriberMethod, boo
 
 register分析完了就分析一下其他方法吧
 
+#### post
+
 post 函数用于发布事件，cancel 函数用于取消某订阅者订阅的所有事件类型、removeStickyEvent 函数用于删除 sticky 事件。
 
 post 函数流程图如下：
@@ -383,5 +387,13 @@ ThreadMode 共有四类：
 由于后台线程是唯一的，当事件超过一个的时候，它们会被放在队列中依次执行，因此该类响应方法虽然没有PostThread类和MainThread类方法对性能敏感，
 但最好不要有重度耗时的操作或太频繁的轻度耗时操作，以造成其他操作等待。适用场景：操作轻微耗时且不会过于频繁，即一般的耗时操作都可以放在这里；
 
+4.Async：不论发布线程是否为主线程，都使用一个空闲线程来处理。和BackgroundThread不同的是，Async类的所有线程是相互独立的，
+因此不会出现卡线程的问题。适用场景：长耗时操作，例如网络访问。
+
+#### 主要成员变量含义
+
+1.defaultInstance默认的 EventBus 实例，根据EventBus.getDefault()函数得到。
+2.DEFAULT_BUILDER默认的 EventBus Builder。
+3.eventTypesCache事件对应类型及其父类和实现的接口的缓存，以 eventType 为 key，元素为 Object 的 ArrayList 为 Value，Object 对象为 eventType 的父类或接口。
 
 
