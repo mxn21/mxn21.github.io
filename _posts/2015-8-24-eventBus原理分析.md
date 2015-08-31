@@ -274,7 +274,7 @@ post 函数用于发布事件，cancel 函数用于取消某订阅者订阅的�
 
 post 函数流程图如下：
 
-![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img91.jpg)
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img91.png)
 
     {% highlight java  %}
     public void post(Object event) {
