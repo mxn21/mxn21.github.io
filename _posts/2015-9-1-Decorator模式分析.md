@@ -48,29 +48,60 @@ public interface Component {
 
     {% highlight java  %}
 public class Person implements Component{
-
     private String name;
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public Person(String name){
         this.name = name;
     }
-
     @Override
     public void show() {
         System.out.println("装扮的" + name);
     }
-
 }
 
      {% endhighlight %}
+
+
+3.创建装饰类 Decorator 实现 Component 接口
+
+    {% highlight java  %}
+public class Decorator implements Component{
+    private Component mComponent;
+    public void decoratorObj(Component component){
+        mComponent = component;
+    }
+    @Override
+    public void show() {
+
+        if(mComponent != null){
+            mComponent.show();
+        }
+    }
+}
+     {% endhighlight %}
+
+4.分别创建具体的装饰类：Jeans.java , Pelisse.java, Sandal.java ...等等，分别继承 Decorator.java 类：
+
+    {% highlight java  %}
+/** 牛仔裤 */
+public class Jeans extends Decorator {
+
+    @Override
+    public void show(){
+        System.out.println("穿牛仔裤");
+        super.show();
+    }
+}
+     {% endhighlight %}
+
+其余类类似，在这里就省略了。
+
+5.客户端测试类：
 
 
 
