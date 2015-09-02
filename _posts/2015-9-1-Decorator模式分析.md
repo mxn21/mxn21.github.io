@@ -13,7 +13,7 @@ tag: android
 
 我们先来看下该设计模式的UML结构图
 
-![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img91.png)
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img92.png)
 
 如上图所示，主要包括四个部分：
 
@@ -32,5 +32,19 @@ tag: android
 而Decorator也不用知道具体的组件。
 装饰模式是继承关系的一个替代方案。我们看装饰类Decorator，不管装饰多少层，返回的对象还是Component,装饰模式可以动态地扩展一个实现类的功能。
 
+## 装饰模式在Android源码中的应用
 
+在Android源码中，其中一个比较经典的使用到装饰模式的就是由Context抽象类扩展出的ContextWrapper的设计。继承结构如下图所示：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img93.png)
+
+1. Context就是我们的抽象组件，它提供了应用运行的基本环境，是各组件和系统服务通信的桥梁，隐藏了应用与系统服务通信的细节，简化了上层应用的开发。所以Contex就是“装饰模式”里的Component。
+
+2. Context类是个抽象类，android.app.ContextImpl派生实现了它的抽象接口。ContextImpl对象会与Android框架层的各个服务（包括组件管理服务、资源管理服务、安装管理服务等）建立远程连接，通过对Android进程间的通信机制（IPC）和这些服务进行通信。所以ContextImpl就是“装饰模式”里的ConcreteComponent。
+
+3. 如果上层应用期望改变Context接口的实现，就需要使用android.content.ContextWrapper类，它派生自Context，其中具体实现都是通过组合的方式调用ContextImpl类的实例（在ContextWrapper中的private属性mBase）来完成的。这样的设计，使得ContextImpl与ContextWrapper子类的实现可以单独变化，彼此独立。所以可以看出ContextWrapper就是“装饰模式”里的Decorator。
+
+4. Android的界面组件Activity、服务组件Service以及应用基类Application都派生于ContextWrapper，它们可以通过重载来修改Context接口的实现。所以可以看出Activity、服务组件Service以及应用基类Application就是“装饰模式”里的具体装饰角色A、B、C。
+
+注：上图可以看出界面组件基类android.app.Activity添加了界面绘制相关的实现，增加了处理界面事件的相关接口。它存放界面中各控件的对象，并与窗口管理服务建立连接，传递界面相关的事件和操作。
 
