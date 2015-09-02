@@ -103,6 +103,41 @@ public class Jeans extends Decorator {
 
 5.客户端测试类：
 
+    {% highlight java  %}
+/**
+ * 装饰模式测试客户端
+ * @author Andy.Chen
+ *
+ */
+public class DecoratorClient {
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to Andy.Chen Blog!" +"\n"
+                   +"Decorator Patterns." +"\n");
+
+        Person mPerson = new Person("Andy");
+
+        Sandal mSandal = new Sandal();
+        Jeans mJeans = new Jeans();
+        TShirt mShirt = new TShirt();
+
+        mShirt.decoratorObj(mPerson);
+        mJeans.decoratorObj(mShirt);
+        mSandal.decoratorObj(mJeans);
+        mSandal.show();
+
+    }
+}
+     {% endhighlight %}
+
+测试显示输出的结果如下：
+
+    {% highlight c  %}
+        穿凉鞋
+        穿牛仔裤
+        穿T-Shirt
+        装扮的Andy
+     {% endhighlight %}
 
 
 
