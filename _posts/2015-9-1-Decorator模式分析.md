@@ -25,6 +25,55 @@ tag: android
 
 4. 具体装饰角色，如上图中的ConcreteDecoratorA和ConcreteDecoratorB，我们要把我们最核心的、最原始的、最基本的东西装饰成其它东西。
 
+<!-- more -->
+
+## 实现方式
+
+假设情景：某人装扮自己形象，穿衣服，裤子，鞋子，戴帽子等来把自己给包装起来，需要把所需的功能按正确的顺序串联起来进行控制，我们应该如何设计才能做到呢？如下，先看下代码结构图：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img94.png)
+
+1.先创建一个接口类：Component.java
+
+    {% highlight java  %}
+public interface Component {
+
+    void show();
+
+}
+     {% endhighlight %}
+
+
+2.创建一个具体的 ConcreteComponent 来实现 Component 接口：Person.java
+
+    {% highlight java  %}
+public class Person implements Component{
+
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Person(String name){
+        this.name = name;
+    }
+
+    @Override
+    public void show() {
+        System.out.println("装扮的" + name);
+    }
+
+}
+
+     {% endhighlight %}
+
+
+
 
 ## 装饰模式的优势
 
