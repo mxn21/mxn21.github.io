@@ -133,10 +133,10 @@ public class DecoratorClient {
 测试显示输出的结果如下：
 
     {% highlight c  %}
-        穿凉鞋
-        穿牛仔裤
-        穿T-Shirt
-        装扮的Andy
+    穿凉鞋
+    穿牛仔裤
+    穿T-Shirt
+    装扮的Andy
      {% endhighlight %}
 
 
@@ -162,4 +162,12 @@ public class DecoratorClient {
 4. Android的界面组件Activity、服务组件Service以及应用基类Application都派生于ContextWrapper，它们可以通过重载来修改Context接口的实现。所以可以看出Activity、服务组件Service以及应用基类Application就是“装饰模式”里的具体装饰角色A、B、C。
 
 注：上图可以看出界面组件基类android.app.Activity添加了界面绘制相关的实现，增加了处理界面事件的相关接口。它存放界面中各控件的对象，并与窗口管理服务建立连接，传递界面相关的事件和操作。
+
+## 装饰模式和代理模式的区别
+
+从功能效果上看
+
+装饰模式：在不改变接口的前提下，动态扩展对象的功能
+
+代理模式：在不改变接口的前提下，控制对象的访问
 
