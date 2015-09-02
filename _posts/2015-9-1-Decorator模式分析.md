@@ -28,5 +28,9 @@ tag: android
 
 ## 装饰模式的优势
 
+装饰类和被装饰类可以独立发展，而不会相互耦合。换句话说，Component类无须知道Decorator类，Decorator类是从外部来扩展Component类的功能，
+而Decorator也不用知道具体的组件。
+装饰模式是继承关系的一个替代方案。我们看装饰类Decorator，不管装饰多少层，返回的对象还是Component,装饰模式可以动态地扩展一个实现类的功能。
+
 
 
