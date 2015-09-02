@@ -179,4 +179,23 @@ public class DecoratorClient {
 被装饰的对象交给Decorator来维护即可，还降低了复杂性。
 做到如此最重要的是：Decorator是一个透明的包装；也就说被包装后的对象和被包装的对象具有一致性，在使用装饰对象时就像使用原对象一样，而不需要加以区分；故要使Decorator和Component具有一致的接口，
 从同一个父类派生下来——保持接口的一致性。Decorator是对象的装饰包装，Decorator如果太复杂，有可能破坏Decorator与Component的一致性，
-故Decorator尽量保持简单所添加的职责单一。所以Decorator要做到：动态的包装对象，添加对象新的职责，保持与原对象一致性；
+故Decorator尽量保持简单所添加的职责单一。所以Decorator要做到：动态的包装对象，添加对象新的职责，保持与原对象一致性。
+
+### 其他参考
+
+Proxy, Decorator, Adapter, and Bridge are all variations on "wrapping" a class. But their uses are different.
+
+1.Proxy could be used when you want to lazy-instantiate an object, or hide the fact that you're
+calling a remote service, or control access to the object.
+
+2.Decorator is also called "Smart Proxy." This is used when you want to add functionality to an
+object, but not by extending that object's type. This allows you to do so at runtime.
+
+3.Adapter is used when you have an abstract interface, and you want to map that interface to
+another object which has similar functional role, but a different interface.
+
+4.Bridge is very similar to Adapter, but we call it Bridge when you define both the abstract
+interface and the underlying implementation. I.e. you're not adapting to some legacy or third-party code, you're the designer of all the code but you need to be able to swap out different implementations.
+
+5.Facade is a higher-level (read: simpler) interface to a subsystem of one or more classes.
+Suppose you have a complex concept that requires multiple objects to represent. Making changes to that set of objects is confusing, because you don't always know which object has the method you need to call. That's the time to write a Facade that provides high-level methods for all the complex operations you can do to the collection of objects. Example: a Domain Model for a school section, with methods like countStudents(), reportAttendance(), assignSubstituteTeacher(), and so on.
