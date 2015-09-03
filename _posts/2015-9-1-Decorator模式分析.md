@@ -140,7 +140,6 @@ public class DecoratorClient {
      {% endhighlight %}
 
 
-
 ## 装饰模式的优势
 
 装饰类和被装饰类可以独立发展，而不会相互耦合。换句话说，Component类无须知道Decorator类，Decorator类是从外部来扩展Component类的功能，
