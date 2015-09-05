@@ -133,10 +133,10 @@ public class DecoratorClient {
 测试显示输出的结果如下：
 
     {% highlight c  %}
-    穿凉鞋
-    穿牛仔裤
-    穿T-Shirt
-    装扮的Andy
+        穿凉鞋
+        穿牛仔裤
+        穿T-Shirt
+        装扮的Andy
      {% endhighlight %}
 
 
