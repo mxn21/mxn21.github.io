@@ -77,7 +77,6 @@ public class Decorator implements Component{
     }
     @Override
     public void show() {
-
         if(mComponent != null){
             mComponent.show();
         }
