@@ -18,4 +18,5 @@ Closeable接口包含唯一一个抽象方法close()，当close()被调用时，
 
 ### Flushable接口
 
-Flushable接口也只包含一个方法flush()。很多输出流继承了这个接口，并且覆写了flush()。
+Flushable接口也只包含一个方法flush()。很多输出流继承了这个接口，并且覆写了flush()。当这个方法被调用时，缓存中的数据被写入到文件中。
+
