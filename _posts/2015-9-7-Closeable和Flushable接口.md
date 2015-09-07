@@ -35,3 +35,14 @@ Flushable接口也只包含一个方法flush()。很多输出流继承了这个�
 
 close()和flush()方法都抛出了异常exception IOException，在使用时必须要处理异常。
 
+
+### Appendable
+
+在说一下Appendable接口，继承这个接口的所有已知实现类：BufferedWriter, CharArrayWriter, CharBuffer, FileWriter,
+FilterWriter, LogStream, OutputStreamWriter, PipedWriter, PrintStream, PrintWriter, StringBuffer,
+StringBuilder, StringWriter, Writer。
+
+Appendable接口的实现类的对象能够被添加 char 序列和值。如果某个类的实例打算接收取自 java.util.Formatter 的格式化输出，那么该类必须实现 Appendable 接口。
+要添加的字符应该是有效的 Unicode 字符。Appendable 对于多线程访问而言是安全的。线程安全由扩展和实现此接口的类负责。
+
+
