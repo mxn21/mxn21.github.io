@@ -18,3 +18,4 @@ Closeable接口包含唯一一个抽象方法close()，当close()被调用时，
 
 ### Flushable接口
 
+Flushable接口也只包含一个方法flush()。很多输出流继承了这个接口，并且覆写了flush()。
