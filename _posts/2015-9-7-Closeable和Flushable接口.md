@@ -20,3 +20,18 @@ Closeable接口包含唯一一个抽象方法close()，当close()被调用时，
 
 Flushable接口也只包含一个方法flush()。很多输出流继承了这个接口，并且覆写了flush()。当这个方法被调用时，缓存中的数据被写入到文件中。
 
+
+下面是一下继承了Closeable接口或Flushable接口的类的例子：
+
+    {% highlight java  %}
+
+    public abstract class InputStream extends Object implements Closeable
+    public abstract class OutputStream extends Object implements Closeable, Flushable
+    public abstract class Reader extends Object implements Readable, Closeable
+    public abstract class Writer extends Object implements Appendable, Closeable, Flushable
+    public class PrintStream extends FilterOutputStream implements Appendable, Closeable
+
+     {% endhighlight %}
+
+close()和flush()方法都抛出了异常exception IOException，在使用时必须要处理异常。
+
