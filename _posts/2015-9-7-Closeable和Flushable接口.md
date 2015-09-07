@@ -45,4 +45,16 @@ StringBuilder, StringWriter, Writer。
 Appendable接口的实现类的对象能够被添加 char 序列和值。如果某个类的实例打算接收取自 java.util.Formatter 的格式化输出，那么该类必须实现 Appendable 接口。
 要添加的字符应该是有效的 Unicode 字符。Appendable 对于多线程访问而言是安全的。线程安全由扩展和实现此接口的类负责。
 
+Appendable有三个方法：
+
+    {% highlight java  %}
+
+    //向此 Appendable 添加指定字符。
+    Appendable append(char c) throws IOException;
+    //向此 Appendable 添加指定的字符序列。
+    Appendable append(CharSequence csq) throws IOException;
+    //向此 Appendable 添加指定字符序列的子序列。
+    Appendable append(CharSequence csq, int start, int end) throws IOException;
+
+     {% endhighlight %}
 
