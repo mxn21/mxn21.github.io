@@ -46,3 +46,6 @@ java.lang.IllegalStateException: Can not perform this action after onSaveInstanc
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img97.png)
 
 
+因为Activity生命周期上的细微的改变，support library需要根据不同版本改变行为。例如，在Honeycomb和以后的设备上，每一次在onSaveInstanceState()
+之后调用commit()都会抛出异常，来警告开发者发生了状态丢失。然后在Honeycomb之前的设备上，并不是每一次都会抛出异常，因为它们调用onSaveInstanceState()的
+时机更早，所以更容易发生状态丢失。所以android团队被迫做了妥协，
