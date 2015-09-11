@@ -36,7 +36,8 @@ java.lang.IllegalStateException: Can not perform this action after onSaveInstanc
 
 ### exception出现的时间
 
-
+如果你之前遇到过这种异常，你可能会注意到在不同版本的系统上，有一些细小的不同。例如你可能发现在旧的版本上，不太容易出现这种错误，
+或者在使用support library时比使用framework classes是更容易出现这种错误。
 
 
 
