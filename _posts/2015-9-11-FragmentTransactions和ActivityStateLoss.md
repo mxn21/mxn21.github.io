@@ -26,5 +26,10 @@ java.lang.IllegalStateException: Can not perform this action after onSaveInstanc
 由于这些不稳定的行为是始终对用户隐藏的，所以framework给了每一个Activity一个机会，在销毁之前通过调用onSaveInstanceState()保存自己的状态。
 当这些保存的状态。在以后进行重新装载的时候，用户需要感觉后台切换到前台是无缝的，而不管Activity有没有销毁。
 
+当framework调用onSaveInstanceState()，需要传递一个Bundle对象，来保存Activity的状态，Activity在里面记录了dialogs，fragments
+和views的状态。当方法return的时候，系统包装了Bundle对象，并且把这个对象通过Binder接口传递到系统服务进程，这那里它可以安全的保存。
+当系统未来打算重建Activity时，系统重新把这个Bundle传递回application，用来使用它恢复Activity的旧的状态。
+
+
 
 
