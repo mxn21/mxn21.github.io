@@ -31,6 +31,9 @@ java.lang.IllegalStateException: Can not perform this action after onSaveInstanc
 当系统未来打算重建Activity时，系统重新把这个Bundle传递回application，用来使用它恢复Activity的旧的状态。
 
 那么为什么会报出这个异常呢，这个错误阻止了onSaveInstanceState()被调用时Bundle保存Activity的内容。这意味着当在onSaveInstanceState()
-之后调用FragmentTransaction#commit()时，transaction不会被保存，因为在一开始它没有作为Activity的状态被记录。
+之后调用FragmentTransaction#commit()时，transaction不会被保存，因为在一开始它没有作为Activity的状态被记录。从用户的角度来看，这个transaction
+会丢失，导致意外的U状态丢失。为了保证用户体验，系统会不惜一切代价避免状态丢失，简单的做法是当发生这种情况，抛出IllegalStateException异常。
+
+
 
 
