@@ -34,6 +34,9 @@ java.lang.IllegalStateException: Can not perform this action after onSaveInstanc
 之后调用FragmentTransaction#commit()时，transaction不会被保存，因为在一开始它没有作为Activity的状态被记录。从用户的角度来看，这个transaction
 会丢失，导致意外的U状态丢失。为了保证用户体验，系统会不惜一切代价避免状态丢失，简单的做法是当发生这种情况，抛出IllegalStateException异常。
 
+### exception出现的时间
+
+
 
 
 
