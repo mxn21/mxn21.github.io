@@ -34,6 +34,8 @@ java.lang.IllegalStateException: Can not perform this action after onSaveInstanc
 之后调用FragmentTransaction#commit()时，transaction不会被保存，因为在一开始它没有作为Activity的状态被记录。从用户的角度来看，这个transaction
 会丢失，导致意外的U状态丢失。为了保证用户体验，系统会不惜一切代价避免状态丢失，简单的做法是当发生这种情况，抛出IllegalStateException异常。
 
+<!-- more -->
+
 ### exception出现的时间
 
 如果你之前遇到过这种异常，你可能会注意到在不同版本的系统上，有一些细小的不同。例如你可能发现在旧的版本上，不太容易出现这种错误，
@@ -89,5 +91,80 @@ commit FragmentTransactions可能会导致ui上的改变，而产生不好的用
 我们还需要在 onPause()中调用PauseHandler.pause()，在onResume()中调用PauseHandler.resume()。
 把Handler handleMessage()用processMessage()替代。提供一个storeMessage()的实现，永远返回true。
 
+代码如下：
 
+    {% highlight java  %}
 
+/**
+ * Message Handler class that supports buffering up of messages when the
+ * activity is paused i.e. in the background.
+ */
+public abstract class PauseHandler extends Handler {
+
+    /**
+     * Message Queue Buffer
+     */
+    final Vector<Message> messageQueueBuffer = new Vector<Message>();
+
+    /**
+     * Flag indicating the pause state
+     */
+    private boolean paused;
+
+    /**
+     * Resume the handler
+     */
+    final public void resume() {
+        paused = false;
+
+        while (messageQueueBuffer.size() > 0) {
+            final Message msg = messageQueueBuffer.elementAt(0);
+            messageQueueBuffer.removeElementAt(0);
+            sendMessage(msg);
+        }
+    }
+
+    /**
+     * Pause the handler
+     */
+    final public void pause() {
+        paused = true;
+    }
+
+    /**
+     * Notification that the message is about to be stored as the activity is
+     * paused. If not handled the message will be saved and replayed when the
+     * activity resumes.
+     *
+     * @param message
+     *            the message which optional can be handled
+     * @return true if the message is to be stored
+     */
+    protected abstract boolean storeMessage(Message message);
+
+    /**
+     * Notification message to be processed. This will either be directly from
+     * handleMessage or played back from a saved message when the activity was
+     * paused.
+     *
+     * @param message
+     *            the message to be handled
+     */
+    protected abstract void processMessage(Message message);
+
+    /** {@inheritDoc} */
+    @Override
+    final public void handleMessage(Message msg) {
+        if (paused) {
+            if (storeMessage(msg)) {
+                Message msgCopy = new Message();
+                msgCopy.copyFrom(msg);
+                messageQueueBuffer.add(msgCopy);
+            }
+        } else {
+            processMessage(msg);
+        }
+    }
+}
+
+    {% endhighlight %}

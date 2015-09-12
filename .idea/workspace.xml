@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-9-11-FragmentTransactions和ActivityStateLoss.md" afterPath="$PROJECT_DIR$/_posts/2015-9-11-FragmentTransactions和ActivityStateLoss.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +29,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="167" column="22" selection-start-line="167" selection-start-column="22" selection-end-line="167" selection-end-column="22" />
+            <state vertical-scroll-proportion="-4.285714">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -43,8 +42,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.81578946">
-              <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+            <state vertical-scroll-proportion="-1.4736842">
+              <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -56,8 +55,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="88" />
+            <state vertical-scroll-proportion="-5.8965516">
+              <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -885,30 +884,8 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-9-8-okhttp缓存浅析.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="88" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/img/img96.png">
       <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-9-1-Decorator模式分析.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="167" column="22" selection-start-line="167" selection-start-column="22" selection-end-line="167" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
         <state />
       </provider>
     </entry>
@@ -932,10 +909,32 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-9-8-okhttp缓存浅析.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8965516">
+          <caret line="19" column="12" selection-start-line="19" selection-start-column="12" selection-end-line="19" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-9-1-Decorator模式分析.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.285714">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-9-11-FragmentTransactions和ActivityStateLoss.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.81578946">
-          <caret line="92" column="0" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+        <state vertical-scroll-proportion="-1.4736842">
+          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
       </provider>
