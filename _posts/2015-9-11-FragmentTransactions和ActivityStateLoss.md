@@ -74,6 +74,9 @@ Activity#onPostResume()中调用。这两个方法保证会在Activity恢复它�
 * FragmentTransaction在onPostExecute()中被执行commit，导致异常抛出。
 
 一般来说，对于以上情形，应该避免在在异步回调方法中commit transaction。Google的工程师也同意这种做法。因为在异步回调中使用
-commit FragmentTransactions可能会导致ui上的改变，而产生不好的用户体验。
+commit FragmentTransactions可能会导致ui上的改变，而产生不好的用户体验。如果你的应用需要在异步回调中处理transaction，并且没有简单的办法
+保证在onSaveInstanceState()之后调用，那么必须借助commitAllowingStateLoss()方法来避免可能发生的状态丢失。
+
+
 
 
