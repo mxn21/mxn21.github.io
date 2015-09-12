@@ -65,4 +65,7 @@ java.lang.IllegalStateException: Can not perform this action after onSaveInstanc
 如果你的项目中需要在除了oncreate()方法之外的生命周期方法中使用commit transaction，那么应该在FragmentActivity#onResumeFragments()或
 Activity#onPostResume()中调用。这两个方法保证会在Activity恢复它的原始数据之后再调用，因此它们都能避免状态丢失的错误。
 
+2.避免再异步回调方法中操作transaction。例如AsyncTask#onPostExecute()和LoaderManager
+.LoaderCallbacks#onLoadFinished()。当它们调用时，无法知道当前Activity的生命周期的状态。
+
 
