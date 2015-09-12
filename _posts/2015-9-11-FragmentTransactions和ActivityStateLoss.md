@@ -65,7 +65,7 @@ java.lang.IllegalStateException: Can not perform this action after onSaveInstanc
 如果你的项目中需要在除了oncreate()方法之外的生命周期方法中使用commit transaction，那么应该在FragmentActivity#onResumeFragments()或
 Activity#onPostResume()中调用。这两个方法保证会在Activity恢复它的原始数据之后再调用，因此它们都能避免状态丢失的错误。
 
-2.避免再异步回调方法中操作transaction。例如AsyncTask#onPostExecute()和LoaderManager
+2.避免在异步回调方法中操作transaction。例如AsyncTask#onPostExecute()和LoaderManager
 .LoaderCallbacks#onLoadFinished()。当它们调用时，无法知道当前Activity的生命周期的状态。考虑一下下面的情形：
 
 * 一个activity执行了AsyncTask
@@ -73,5 +73,7 @@ Activity#onPostResume()中调用。这两个方法保证会在Activity恢复它�
 * AsyncTask执行完毕，onPostExecute()被调用，但是它不知道Activity已经被停止。
 * FragmentTransaction在onPostExecute()中被执行commit，导致异常抛出。
 
+一般来说，对于以上情形，应该避免在在异步回调方法中commit transaction。Google的工程师也同意这种做法。因为在异步回调中使用
+commit FragmentTransactions可能会导致ui上的改变，而产生不好的用户体验。
 
 
