@@ -349,3 +349,6 @@ public class FragmentTestActivity extends Activity {
 
     {% endhighlight %}
 
+这里在PausedHandler中增加了storeMessage()方法，这样即使activity停止了也可以立即处理信息，如果这个方法返回了fasle，那么
+信息就被丢弃掉。
+
