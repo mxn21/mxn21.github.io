@@ -168,3 +168,184 @@ public abstract class PauseHandler extends Handler {
 }
 
     {% endhighlight %}
+
+下面是PausedHandler如何使用的范例。点击按钮会发送一个延时的消息给handler，然后handler在ui线程中收到消息，显示一个DialogFragment。
+我们点击按钮来打开一个dialog，这是按下home键，如果不使用PausedHandler则会抛出IllegalStateException。
+
+
+    {% highlight java  %}
+
+public class FragmentTestActivity extends Activity {
+
+    /**
+     * Used for "what" parameter to handler messages
+     */
+    final static int MSG_WHAT = ('F' << 16) + ('T' << 8) + 'A';
+    final static int MSG_SHOW_DIALOG = 1;
+
+    int value = 1;
+
+    final static class State extends Fragment {
+
+        static final String TAG = "State";
+        /**
+         * Handler for this activity
+         */
+        public ConcreteTestHandler handler = new ConcreteTestHandler();
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setRetainInstance(true);
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+
+            handler.setActivity(getActivity());
+            handler.resume();
+        }
+
+        @Override
+        public void onPause() {
+            super.onPause();
+
+            handler.pause();
+        }
+
+        public void onDestroy() {
+            super.onDestroy();
+            handler.setActivity(null);
+        }
+    }
+
+    /**
+     * 2 second delay
+     */
+    final static int DELAY = 2000;
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+
+        if (savedInstanceState == null) {
+            final Fragment state = new State();
+            final FragmentManager fm = getFragmentManager();
+            final FragmentTransaction ft = fm.beginTransaction();
+            ft.add(state, State.TAG);
+            ft.commit();
+        }
+
+        final Button button = (Button) findViewById(R.id.popup);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final FragmentManager fm = getFragmentManager();
+                State fragment = (State) fm.findFragmentByTag(State.TAG);
+                if (fragment != null) {
+                    // Send a message with a delay onto the message looper
+                    fragment.handler.sendMessageDelayed(
+                            fragment.handler.obtainMessage(MSG_WHAT, MSG_SHOW_DIALOG, value++),
+                            DELAY);
+                }
+            }
+        });
+    }
+
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+    }
+
+    /**
+     * Simple test dialog fragment
+     */
+    public static class TestDialog extends DialogFragment {
+
+        int value;
+
+        /**
+         * Fragment Tag
+         */
+        final static String TAG = "TestDialog";
+
+        public TestDialog() {
+        }
+
+        public TestDialog(int value) {
+            this.value = value;
+        }
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                Bundle savedInstanceState) {
+            final View inflatedView = inflater.inflate(R.layout.dialog, container, false);
+            TextView text = (TextView) inflatedView.findViewById(R.id.count);
+            text.setText(getString(R.string.count, value));
+            return inflatedView;
+        }
+    }
+
+    /**
+     * Message Handler class that supports buffering up of messages when the
+     * activity is paused i.e. in the background.
+     */
+    static class ConcreteTestHandler extends PauseHandler {
+
+        /**
+         * Activity instance
+         */
+        protected Activity activity;
+
+        /**
+         * Set the activity associated with the handler
+         *
+         * @param activity
+         *            the activity to set
+         */
+        final void setActivity(Activity activity) {
+            this.activity = activity;
+        }
+
+        @Override
+        final protected boolean storeMessage(Message message) {
+            // All messages are stored by default
+            return true;
+        };
+
+        @Override
+        final protected void processMessage(Message msg) {
+
+            final Activity activity = this.activity;
+            if (activity != null) {
+                switch (msg.what) {
+
+                case MSG_WHAT:
+                    switch (msg.arg1) {
+                    case MSG_SHOW_DIALOG:
+                        final FragmentManager fm = activity.getFragmentManager();
+                        final TestDialog dialog = new TestDialog(msg.arg2);
+
+                        // We are on the UI thread so display the dialog
+                        // fragment
+                        dialog.show(fm, TestDialog.TAG);
+                        break;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+}
+
+    {% endhighlight %}
+
