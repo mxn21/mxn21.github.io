@@ -66,6 +66,12 @@ java.lang.IllegalStateException: Can not perform this action after onSaveInstanc
 Activity#onPostResume()中调用。这两个方法保证会在Activity恢复它的原始数据之后再调用，因此它们都能避免状态丢失的错误。
 
 2.避免再异步回调方法中操作transaction。例如AsyncTask#onPostExecute()和LoaderManager
-.LoaderCallbacks#onLoadFinished()。当它们调用时，无法知道当前Activity的生命周期的状态。
+.LoaderCallbacks#onLoadFinished()。当它们调用时，无法知道当前Activity的生命周期的状态。考虑一下下面的情形：
+
+* 一个activity执行了AsyncTask
+* 用户按了Home键导致onSaveInstanceState()和onStop()被调用
+* AsyncTask执行完毕，onPostExecute()被调用，但是它不知道Activity已经被停止。
+* FragmentTransaction在onPostExecute()中被执行commit，导致异常抛出。
+
 
 
