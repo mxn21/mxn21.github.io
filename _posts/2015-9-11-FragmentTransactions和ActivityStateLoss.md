@@ -82,6 +82,12 @@ commit FragmentTransactions可能会导致ui上的改变，而产生不好的用
 更好的解决办法当然是确保在activity状态保存之前调用commit()，这样才会有更好的用户体验。除非状态丢失不可避免，否则不应该使用commitAllowingStateLoss()。
 
 
+### 一种优雅的解决方案
+
+下面的方法中创建一个自定义类，包装了android.os.Handler，在activity的onPause()的时候缓存信息，然后在resume里面拿出来。
+确保任何改变fragment状态的操作，例如commit，dismiss等，在handler中操作。从PauseHandler class中取得handler。
+我们还需要在 onPause()中调用PauseHandler.pause()，在onResume()中调用PauseHandler.resume()。
+把Handler handleMessage()用processMessage()替代。提供一个storeMessage()的实现，永远返回true。
 
 
 
