@@ -75,7 +75,12 @@ Activity#onPostResume()中调用。这两个方法保证会在Activity恢复它�
 
 一般来说，对于以上情形，应该避免在在异步回调方法中commit transaction。Google的工程师也同意这种做法。因为在异步回调中使用
 commit FragmentTransactions可能会导致ui上的改变，而产生不好的用户体验。如果你的应用需要在异步回调中处理transaction，并且没有简单的办法
-保证在onSaveInstanceState()之后调用，那么必须借助commitAllowingStateLoss()方法来避免可能发生的状态丢失。
+保证在onSaveInstanceState()之后调用，那么必须借助commitAllowingStateLoss()方法。
+
+3.使用commitAllowingStateLoss()作为最后的办法。commit()和commitAllowingStateLoss()
+唯一的区别就是commitAllowingStateLoss()在发生状态丢失时不会抛出异常。一般情况下最好不要使用commitAllowingStateLoss()，因为可能出现状态丢失。
+更好的解决办法当然是确保在activity状态保存之前调用commit()，这样才会有更好的用户体验。除非状态丢失不可避免，否则不应该使用commitAllowingStateLoss()。
+
 
 
 
