@@ -46,7 +46,6 @@ FragmentPagerAdapter 继承自 PagerAdapter。相比通用的 PagerAdapter，该
 因为当数据集发生变化时，往往对应的 Fragment 已经生成，如果传递数据部分代码放到了 getItem() 中，这部分代码将不会被调用。
 这也是为什么很多人发现调用 PagerAdapter.notifyDataSetChanged() 后，getItem() 没有被调用的一个原因。
 
-
 ### instantiateItem()
 
 * 函数中判断一下要生成的 Fragment 是否已经生成过了，如果生成过了，就使用旧的，旧的将被 Fragment.attach()；如果没有，
@@ -57,4 +56,26 @@ FragmentPagerAdapter 继承自 PagerAdapter。相比通用的 PagerAdapter，该
 重载该函数，并调用 FragmentPagerAdapter.instantiateItem() 取得该函数返回 Fragment 对象，然后，我们该 Fragment 对象中对应的方法，
 将数据传递过去，然后返回该对象。
 * 否则，如果将这部分传递数据的代码放到 getItem()中，在 PagerAdapter.notifyDataSetChanged() 后，这部分数据设置代码将不会被调用.
+
+### destroyItem()
+
+* 该函数被调用后，会对 Fragment 进行 FragmentTransaction.detach()。这里不是 remove()，只是 detach()，
+因此 Fragment 还在 FragmentManager 管理中，Fragment 所占用的资源不会被释放。
+
+
+## FragmentStatePagerAdapter
+
+FragmentStatePagerAdapter 和前面的 FragmentPagerAdapter 一样，是继承子 PagerAdapter。但是，和 FragmentPagerAdapter 不一样的是，
+正如其类名中的 'State' 所表明的含义一样，该 PagerAdapter 的实现将只保留当前页面，当页面离开视线后，就会被消除，释放其资源；
+而在页面需要显示时，生成新的页面。这么实现的好处就是当拥有大量的页面时，不必在内存中占用大量的内存。
+
+### getItem()
+
+* 一个该类中新增的虚函数。
+* 函数的目的为生成新的 Fragment 对象。
+* Fragment.setArguments() 这种只会在新建 Fragment 时执行一次的参数传递代码，可以放在这里。
+* 由于 FragmentStatePagerAdapter.instantiateItem() 在大多数情况下，都将调用 getItem() 来生成新的对象，
+因此如果在该函数中放置与数据集相关的 setter 代码，基本上都可以在 instantiateItem() 被调用时执行，但这和设计意图不符。
+毕竟还有部分可能是不会调用 getItem() 的。因此这部分代码应该放到 instantiateItem() 中。
+
 
