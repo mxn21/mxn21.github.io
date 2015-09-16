@@ -78,4 +78,59 @@ FragmentStatePagerAdapter 和前面的 FragmentPagerAdapter 一样，是继承�
 因此如果在该函数中放置与数据集相关的 setter 代码，基本上都可以在 instantiateItem() 被调用时执行，但这和设计意图不符。
 毕竟还有部分可能是不会调用 getItem() 的。因此这部分代码应该放到 instantiateItem() 中。
 
+### instantiateItem()
+
+* 除非碰到 FragmentManager 刚好从 SavedState 中恢复了对应的 Fragment 的情况外，该函数将会调用 getItem() 函数，
+生成新的 Fragment 对象。新的对象将被 FragmentTransaction.add()。
+* FragmentStatePagerAdapter 就是通过这种方式，每次都创建一个新的 Fragment，而在不用后就立刻释放其资源，来达到节省内存占用的目的的。
+
+### destroyItem()
+
+* 将 Fragment 移除，即调用 FragmentTransaction.remove()，并释放其资源。
+
+
+## 解决方案
+
+对于FragmentPagerAdapter，复写pageradapter的getItemPosition方法设置tag为POSITION_NONE意思是没有找到child要求重新加载。
+结果你发现是刷新了一下但内容还是原始的数据。通过对fragmentpageadapter的源码查看你会在instantiateItem方法里面发现这一段：
+
+    {% highlight java  %}
+ String name = makeFragmentName(container.getId(), position);
+        Fragment fragment = mFragmentManager.findFragmentByTag(name);
+        if (fragment != null) {
+            if (DEBUG) Log.v(TAG, "Attaching item #" + position + ": f=" + fragment);
+            mCurTransaction.attach(fragment);
+        } else {
+            fragment = getItem(position);
+            if (DEBUG) Log.v(TAG, "Adding item #" + position + ": f=" + fragment);
+            mCurTransaction.add(container.getId(), fragment,
+                    makeFragmentName(container.getId(), position));
+        }
+    {% endhighlight %}
+
+它会先去FragmentManager里面去查找有没有相关的fragment如果有就直接使用如果没有才会触发fragmentpageadapter的getItem
+方法获取一个fragment。所以你更新的fragmentList集合是没有作用的，还要清除FragmentManager里面缓存的fragment，或者重写instantiateItem。
+
+针对 FragmentPagerAdapter 的解决办法如下列代码所示：
+
+    {% highlight java  %}
+@Override
+public Fragment getItem(int position) {
+    MyFragment f = new MyFragment();
+    return f;
+}
+
+@Override
+public Object instantiateItem(ViewGroup container, int position) {
+    MyFragment f = (MyFragment) super.instantiateItem(container, position);
+    String title = mList.get(position);
+    f.setTitle(title);
+    return f;
+}
+
+@Override
+public int getItemPosition(Object object) {
+    return PagerAdapter.POSITION_NONE;
+}
+    {% endhighlight %}
 
