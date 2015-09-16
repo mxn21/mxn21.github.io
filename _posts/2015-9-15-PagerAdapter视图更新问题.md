@@ -23,4 +23,8 @@ destroyItem(), getCount() 以及 isViewFromObject()。
 .dataSetChanged() 被调用时，认为不必触发 PagerAdapter.instantiateItem()。很多人因为没有重载该函数，
 而导致调用PagerAdapter.notifyDataSetChanged() 后，什么都没有发生。
 
+### instantiateItem()
+
+在每次 ViewPager 需要一个用以显示的 Object 的时候，该函数都会被 ViewPager.addNewItem() 调用。
+
 <!-- more -->
