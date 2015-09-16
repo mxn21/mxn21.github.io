@@ -109,7 +109,11 @@ FragmentStatePagerAdapter 和前面的 FragmentPagerAdapter 一样，是继承�
     {% endhighlight %}
 
 它会先去FragmentManager里面去查找有没有相关的fragment如果有就直接使用如果没有才会触发fragmentpageadapter的getItem
-方法获取一个fragment。所以你更新的fragmentList集合是没有作用的，还要清除FragmentManager里面缓存的fragment，或者重写instantiateItem。
+方法获取一个fragment。
+假如现在有了三个城市A、B、C，position分别为0、1、2.然后添加了一个城市Z，Z的position为0，A为1，B为2，C为3。FragmentManager里已经存在了position
+为0,1,2的fragment，所以前三个视图没有改变，但现在需要的fragment的数目变了，增加1。会创建position为3的fragment，而此时是城市C，所以这样就会导致显示两次C，而新增的Z城市没有显示。
+
+所以你更新的fragmentList集合是没有作用的，还要清除FragmentManager里面缓存的fragment，或者重写instantiateItem。
 
 针对 FragmentPagerAdapter 的解决办法如下列代码所示：
 
@@ -133,4 +137,37 @@ public int getItemPosition(Object object) {
     return PagerAdapter.POSITION_NONE;
 }
     {% endhighlight %}
+
+
+或者：
+    {% highlight java  %}
+@Override
+public Fragment getItem(int position) {
+    MyFragment f = new MyFragment();
+    return f;
+}
+
+
+@Override
+public int getItemPosition(Object object) {
+    return PagerAdapter.POSITION_NONE;
+}
+
+
+private void removeALlFragments(){
+    FragmentTransaction transaction = fm.beginTransaction();
+    for (int i=0; i<fragments.size(); i++){
+        Fragment fg = fragments.get(i);
+        transaction.remove(fg);
+    }
+    transaction.commit();
+    fragments.clear();
+}
+
+    {% endhighlight %}
+
+总结：
+对于 FragmentPagerAdapter 的解决方案就是，分别重载 getItem() 以及 instantiateItem() 对象。getItem() 只用于生成新的与数据无关的 Fragment；
+而 instantiateItem() 函数则先调用父类中的 instantiateItem() 取得所对应的 Fragment 对象，然后，根据对应的数据，调用该对象对应的方法进行数据设置。
+当然，不要忘记重载 getItemPosition() 函数，返回 POSITION_NONE。
 
