@@ -48,3 +48,13 @@ FragmentPagerAdapter 继承自 PagerAdapter。相比通用的 PagerAdapter，该
 
 
 ### instantiateItem()
+
+* 函数中判断一下要生成的 Fragment 是否已经生成过了，如果生成过了，就使用旧的，旧的将被 Fragment.attach()；如果没有，
+就调用 getItem() 生成一个新的，新的对象将被 FragmentTransation.add()。
+* FragmentPagerAdapter 会将所有生成的 Fragment 对象通过 FragmentManager 保存起来备用，以后需要该 Fragment 时，
+都会从 FragmentManager 读取，而不会再次调用 getItem() 方法。
+* 如果需要在生成 Fragment 对象后，将数据集中的一些数据传递给该 Fragment，这部分代码应该放到这个函数的重载里。在我们继承的子类中，
+重载该函数，并调用 FragmentPagerAdapter.instantiateItem() 取得该函数返回 Fragment 对象，然后，我们该 Fragment 对象中对应的方法，
+将数据传递过去，然后返回该对象。
+* 否则，如果将这部分传递数据的代码放到 getItem()中，在 PagerAdapter.notifyDataSetChanged() 后，这部分数据设置代码将不会被调用.
+
