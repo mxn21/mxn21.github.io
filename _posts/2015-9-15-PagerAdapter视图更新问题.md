@@ -10,6 +10,7 @@ android3.0以后，可以在项目中使用ViewPager+Fragment实现tab分页+子
 fragment List集合后调用fragmentpageadpater的notifyDataSetChanged方法时发现数据根本就没有刷新。
 要搞明白这个问题，需要阅读相关几个类的相关方法的实现。
 
+
 ## PagerAdapter
 
 这个类是FragmentPagerAdapter 以及 FragmentStatePagerAdapter 的基类。如果继承自该类，至少需要实现 instantiateItem(),
@@ -28,6 +29,7 @@ destroyItem(), getCount() 以及 isViewFromObject()。
 在每次 ViewPager 需要一个用以显示的 Object 的时候，该函数都会被 ViewPager.addNewItem() 调用。
 
 <!-- more -->
+
 
 ## FragmentPagerAdapter
 
