@@ -120,3 +120,7 @@ public class ViewStubActivity extends Activity {
 ViewStub是快捷编程与高效编程之间的产物。与其手动的inflate View并在运行时添加到View层次上，不如简单的使用ViewStub。
 它相当“廉价”且易于使用。ViewStub唯一的缺点是现在不支持<merge />标签。
 
+在使用ViewStub的过程中，有一点需要特别注意。对于一个ViewStub而言，当setVisibility(int)或inflate()方法被调用之后，
+这个ViewStub在布局中将被使用指定的View替换，所以inflate过一遍的ViewStub，如果被隐藏之后再次想要显示，
+将不能使用inflate()方法，但是可以再次使用setVisibility(int)方法设置为可见，这就是这两个方法的区别。
+而inflate()被调用之后，返回的是父布局控件对象。
