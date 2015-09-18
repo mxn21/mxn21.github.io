@@ -123,4 +123,19 @@ ViewStub是快捷编程与高效编程之间的产物。与其手动的inflate V
 在使用ViewStub的过程中，有一点需要特别注意。对于一个ViewStub而言，当setVisibility(int)或inflate()方法被调用之后，
 这个ViewStub在布局中将被使用指定的View替换，所以inflate过一遍的ViewStub，如果被隐藏之后再次想要显示，
 将不能使用inflate()方法，但是可以再次使用setVisibility(int)方法设置为可见，这就是这两个方法的区别。
-而inflate()被调用之后，返回的是父布局控件对象。
+而inflate()被调用之后，返回的是父布局控件对象,ViewStub对象会被置为空。按句话说，某个被ViewStub指定的布局被Inflate后，就不会够再通过ViewStub来控制它了。
+因此，如果多次对ViewStub进行infalte，会出现错误信息：ViewStub must have a non-null ViewGroup viewParent。
+
+### 总结
+
+1.当布局文件inflate时，ViewStub控件虽然也占据内存，但是相相比于其他控件，ViewStub所占内存很小；
+
+2.布局文件inflate时，ViewStub主要是作为一个“占位符”的性质，放置于view tree中，且ViewStub本身是不可见的。
+ViewStub中有一个layout属性，指向ViewStub本身可能被替换掉的布局文件，在一定时机时，通过viewStub.inflate()完成此过程；
+
+3.ViewStub本身是不可见的，对ViewStub setVisibility(..)与其他控件不一样，ViewStub的setVisibility 成View.VISIBLE或INVISIBLE
+如果是首次使用，都会自动inflate其指向的布局文件，并替换ViewStub本身，再次使用则是相当于对其指向的布局文件设置可见性。
+
+4.前面讲到的ViewStub指向的布局文件解析inflate并替换掉当前ViewStub本身，并不是完全意义上的替换（与include标签还不太一样），
+替换时，布局文件的layout params是以ViewStub为准，其他布局属性是以布局文件自身为准。
+
