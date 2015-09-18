@@ -19,6 +19,8 @@ ViewStub是一个看不见的，轻量级的View。它没有尺寸，也不会�
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img103.jpg)
 
+<!-- more -->
+
 2.单击ButtonOne后渲染ViewStub中的布局，如下图：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img104.jpg)
