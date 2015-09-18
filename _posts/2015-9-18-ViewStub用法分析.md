@@ -13,13 +13,13 @@ ViewStub中的布局只有在你需要的时候才会渲染到主界面中。
 ViewStub是一个看不见的，轻量级的View。它没有尺寸，也不会绘制以及以某种形式参与到布局中来。这意味着ViewStub去inflate以及
 保留在View层次中的代价是很廉价的。ViewStub最佳的描述称之为“懒惰的include”。ViewStub中引用的布局只在你想添加到UI上时才会显示。
 
+<!-- more -->
+
 ### 使用方法
 
 1.在ButtonOne与ButtonTwo之间存在一个ViewStub布局，如下图：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img103.jpg)
-
-<!-- more -->
 
 2.单击ButtonOne后渲染ViewStub中的布局，如下图：
 
