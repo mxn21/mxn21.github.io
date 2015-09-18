@@ -204,3 +204,71 @@ public void setVisibility(int visibility) {
 }
     {% endhighlight %}
 
+重写来父类的方法,通过上面方法可以知道,如果mInflatedViewRef为null,并且visibility == VISIBLE || visibility == INVISIBLE)
+就会调用的inflate(); 实际上inflate()做的就是初始化这个ViewStub的内容,并且替换自己(ViewStub),
+这里的mInflatedViewRef其实就是inflate()初始化的内容view,所以在上面的setVisibility首先要看看这个ViewStub是否已经inflate()了.
+
+下面来看看inflate()这个方法的源码:
+
+    {% highlight java  %}
+public View inflate() {
+        final ViewParent viewParent = getParent();
+
+        if (viewParent != null && viewParent instanceof ViewGroup) {
+            if (mLayoutResource != 0) {
+                final ViewGroup parent = (ViewGroup) viewParent;
+                final LayoutInflater factory;
+                if (mInflater != null) {
+                    factory = mInflater;
+                } else {
+                    factory = LayoutInflater.from(mContext);
+                }
+final View view = factory.inflate(mLayoutResource, parent,
+                        false);
+                if (mInflatedId != NO_ID) {
+                    view.setId(mInflatedId);
+                }
+                final int index = parent.indexOfChild(this);
+                parent.removeViewInLayout(this);
+                final ViewGroup.LayoutParams layoutParams = getLayoutParams();
+                if (layoutParams != null) {
+                  parent.addView(view, index, layoutParams);
+                } else {
+                  parent.addView(view, index);
+                }
+                mInflatedViewRef = new WeakReference<view>(view);
+                if (mInflateListener != null) {
+                    mInflateListener.onInflate(this, view);
+                }
+                return view;
+            } else {
+                throw new IllegalArgumentException("ViewStub must have a valid layoutResource");
+            }
+        } else {
+            throw new IllegalStateException("ViewStub must have a non-null ViewGroup viewParent");
+        }
+    }
+    {% endhighlight %}
+
+通过上面的代码,你应该很清楚了,这里的mLayoutResource其实在ViewStub初始化的时候就会被赋值的.看看源码:
+
+    {% highlight java  %}
+
+    public ViewStub(Context context, AttributeSet attrs, int defStyle) {
+        TypedArray a = context.obtainStyledAttributes(attrs, com.android.internal.R.styleable.ViewStub,
+                defStyle, 0);
+
+        mInflatedId = a.getResourceId(R.styleable.ViewStub_inflatedId, NO_ID);
+        <span style="background-color: rgb(255, 0, 0);">mLayoutResource = a.getResourceId(R.styleable.ViewStub_layout, 0);</span>
+
+        a.recycle();
+
+        a = context.obtainStyledAttributes(attrs, com.android.internal.R.styleable.View, defStyle, 0);
+        mID = a.getResourceId(R.styleable.View_id, NO_ID);
+        a.recycle();
+
+        initialize(context);
+    }
+
+    {% endhighlight %}
+
