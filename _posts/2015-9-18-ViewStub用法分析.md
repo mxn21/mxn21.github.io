@@ -21,3 +21,87 @@ ViewStub中的布局只有在你需要的时候才会渲染到主界面中。
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img104.jpg)
 
 3.实现代码：
+
+res/layout/main.xml实现：
+
+    {% highlight xml  %}
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:orientation = "vertical"
+    android:layout_width = "fill_parent"
+    android:layout_height = "fill_parent"
+    >
+
+    <Button
+        android:id = "@+id/show"
+        android:text = "ButtonOne"
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        />
+
+    <ViewStub
+        android:id = "@+id/viewStub"
+        android:layout = "@layout/green_layout"
+        android:layout_width = "300dip"
+        android:layout_height = "300dip"
+        />
+
+    <Button
+        android:layout_width = "wrap_content"
+        android:layout_height = "wrap_content"
+        android:text = "ButtonTwo"
+        />
+
+</LinearLayout>
+
+    {% endhighlight %}
+
+main.xml中ViewStub组件里的布局实现：
+
+    {% highlight xml  %}
+
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:background = "@color/green">
+
+</LinearLayout>
+
+    {% endhighlight %}
+
+
+主Activity实现：
+
+    {% highlight java  %}
+
+public class ViewStubActivity extends Activity {
+
+    private ViewStub mViewStub;
+
+    private Button mShow;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+
+        mViewStub = (ViewStub) findViewById(R.id.viewStub);
+
+        mShow = (Button) findViewById(R.id.show);
+        mShow.setOnClickListener(new OnClickListener() {
+            public void onClick(View view) {
+                if (mViewStub != null) {
+                    mViewStub.inflate();
+                }
+            }
+        });
+    }
+}
+
+    {% endhighlight %}
+
