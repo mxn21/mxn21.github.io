@@ -161,3 +161,46 @@ private void initialize(Context context) {
 setVisibility(GONE);就时把这个view设置成GONE,也就是说我们这个ViewStub默认情况下就是会被初始化成一个GONE的view,这样以来在布局文件加载的时候,
 这个ViewStub被视为不可见的。此外还调用了这个方法:setWillNotDraw(true);这样一来,该view的onDraw就不会执行。
 
+原文的说明:A ViewStub is an invisible,其实不仅仅是调用上面这两个方法来实现的, 通过查看ViewStub这个类,
+你会发现,ViewStub来重写来父类(view)的两个方法draw和dispatchDraw以及onMeasure, 以此来覆盖父类的这两个方法.
+下面是ViewStub对方法draw和dispatchDraw以及onMeasure从写的源码:
+
+    {% highlight java  %}
+@Override
+protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    setMeasuredDimension(0, 0);
+}
+
+@Override
+public void draw(Canvas canvas) {
+}
+
+@Override
+protected void dispatchDraw(Canvas canvas) {
+}
+    {% endhighlight %}
+
+看了上面代码,会发现draw和dispatchDraw都是什么也不做， 并且onMeasure还什么也不做,直接setMeasuredDimension(0, 0);来把view区域设置位0.
+看到这几行源码你就明白,原来一个ViewStub虽然是一个view,却是一个没有任何显示内容,也不显示任何内容的特殊view,并且对layout在加载时候不可见的.
+
+当把这个ViewStub设置为visible,或者调用inflate()的时候,这个ViewStubde 的layout就会inflated,并且用inflated出的view替换原来ViewStub在整个布局的位置.
+我们来看看下面的源码:
+
+    {% highlight java  %}
+public void setVisibility(int visibility) {
+    if (mInflatedViewRef != null) {
+        View view = mInflatedViewRef.get();
+        if (view != null) {
+            view.setVisibility(visibility);
+        } else {
+            throw new IllegalStateException("setVisibility called on un-referenced view");
+        }
+    } else {
+        super.setVisibility(visibility);
+        if (visibility == VISIBLE || visibility == INVISIBLE) {
+            inflate();
+        }
+    }
+}
+    {% endhighlight %}
+
