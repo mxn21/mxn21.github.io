@@ -10,6 +10,9 @@ ViewStub组件和<include>标签的作用类似，主要是为了提高布局的
 ViewStub中的布局不会随着它所在布局的渲染而渲染，而<include>标签中的布局会随着它所在布局的渲染而渲染，
 ViewStub中的布局只有在你需要的时候才会渲染到主界面中。
 
+ViewStub是一个看不见的，轻量级的View。它没有尺寸，也不会绘制以及以某种形式参与到布局中来。这意味着ViewStub去inflate以及
+保留在View层次中的代价是很廉价的。ViewStub最佳的描述称之为“懒惰的include”。ViewStub中引用的布局只在你想添加到UI上时才会显示。
+
 ### 使用方法
 
 1.在ButtonOne与ButtonTwo之间存在一个ViewStub布局，如下图：
@@ -21,6 +24,11 @@ ViewStub中的布局只有在你需要的时候才会渲染到主界面中。
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img104.jpg)
 
 3.实现代码：
+
+为了使用ViewStub，你所有需要做的是指定android:id特性，便于以后inflate，指定android:layout特性，
+引用布局文件。ViewStub还允许你使用第三个特性，android:inflatedId，你可以使用它来重写包含的布局文件中的根元素的id。
+最后，在ViewStub上设定的layout_*参数将会应用到包含的布局文件的顶部。
+
 
 res/layout/main.xml实现：
 
@@ -104,4 +112,11 @@ public class ViewStubActivity extends Activity {
 }
 
     {% endhighlight %}
+
+你准备inflate ViewStub时，调用inflate()方法即可。你还可以设定ViewStub的Visibility为VISIBLE或INVISIBLE，
+也会触发inflate。注意的是，使用inflate()方法能返回布局文件的根View。
+
+有一点需要记住的是：当ViewStub inflate后，这个ViewStub就从View层次中移除了。因此，没有必要保留一个对ViewStub的引用。
+ViewStub是快捷编程与高效编程之间的产物。与其手动的inflate View并在运行时添加到View层次上，不如简单的使用ViewStub。
+它相当“廉价”且易于使用。ViewStub唯一的缺点是现在不支持<merge />标签。
 
