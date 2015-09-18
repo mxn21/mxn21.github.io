@@ -139,3 +139,25 @@ ViewStub中有一个layout属性，指向ViewStub本身可能被替换掉的布�
 4.前面讲到的ViewStub指向的布局文件解析inflate并替换掉当前ViewStub本身，并不是完全意义上的替换（与include标签还不太一样），
 替换时，布局文件的layout params是以ViewStub为准，其他布局属性是以布局文件自身为准。
 
+
+### ViewStub源码分析
+
+下面我们来看第一段原文说明:A ViewStub is an invisible, zero-sized View that can be used to lazily inflate
+layout resources at runtime.
+
+这一句英文说明指出来ViewStub的几乎所有特点:(1)不可见的(invisible)；(2)没有大小的(zero-sized)；(3)能够用于在运行时候延迟加载的.下面来看看,
+她是如何实现这三个特点的。
+
+不可见的(invisible): 在初始化ViewStub的时候,构造函数就会调用这个方法:initialize,来把这个view(ViewStub)设置为GONE,请看如下源码:
+
+    {% highlight java  %}
+private void initialize(Context context) {
+    mContext = context;
+    setVisibility(GONE);
+    setWillNotDraw(true);
+}
+    {% endhighlight %}
+
+setVisibility(GONE);就时把这个view设置成GONE,也就是说我们这个ViewStub默认情况下就是会被初始化成一个GONE的view,这样以来在布局文件加载的时候,
+这个ViewStub被视为不可见的。此外还调用了这个方法:setWillNotDraw(true);这样一来,该view的onDraw就不会执行。
+
