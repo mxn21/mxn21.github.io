@@ -15,4 +15,14 @@ ViewDragHelper解决了android中手势处理过于复杂的问题，在DrawerLa
 
 其实ViewDragHelper并不是第一个用于分析手势处理的类，gesturedetector也是，但是在和拖动相关的手势分析方面gesturedetector只能说是勉为其难。
 
+<!-- more -->
+
+## 使用示例
+
+首先我们通过一个简单的例子来看看其快捷的用法
+
+1.自定义ViewGroup
+
+
+
 
