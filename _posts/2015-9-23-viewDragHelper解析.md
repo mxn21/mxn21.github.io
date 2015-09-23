@@ -26,9 +26,10 @@ ViewDragHelper解决了android中手势处理过于复杂的问题，在DrawerLa
 ViewDragHelper一般用在一个自定义ViewGroup的内部，比如下面自定义了一个继承于LinearLayout的MyLayout，
 MyLayout内部有一个子viewmDragView作为成员变量,创建一个带有回调接口的ViewDragHelper.
 其中1.0f是敏感度参数参数越大越敏感。第一个参数为this，表示该类生成的对象，他是ViewDragHelper的拖动处理对象，必须为ViewGroup。
+第三个参数就是Callback，在用户的触摸过程中会回调相关方法.
 
+   {% highlight java  %}
 
- {% highlight java  %}
 public class  MyLayout extends LinearLayout
 {
     private ViewDragHelper mDragger;
@@ -72,4 +73,33 @@ public class  MyLayout extends LinearLayout
     }
 }
 
- {% endhighlight %}
+   {% endhighlight %}
+
+onInterceptTouchEvent中通过使用mDragger.shouldInterceptTouchEvent(event)来决定我们是否应该拦截当前的事件。
+onTouchEvent中通过mDragger.processTouchEvent(event)处理事件。
+
+ViewDragHelper中拦截和处理事件时，需要会回调CallBack中的很多方法来决定一些事，比如：哪些子View可以移动、对个移动的View的边界的控制等等。
+
+上面复写的3个方法：
+
+* tryCaptureView如何返回ture则表示可以捕获该view，你可以根据传入的第一个view参数决定哪些可以捕获
+* clampViewPositionHorizontal,clampViewPositionVertical可以在该方法中对child移动的边界进行控制，
+left , top 分别为即将移动到的位置，比如横向的情况下，我希望只在ViewGroup的内部移动，即：最小>=paddingleft，
+最大<=ViewGroup.getWidth()-paddingright-child.getWidth,就可以按照如下代码编写：
+
+
+   {% highlight java  %}
+
+   @Override
+   public int clampViewPositionHorizontal(View child, int left, int dx)
+    {
+     final int leftBound = getPaddingLeft();
+     final int rightBound = getWidth() - mDragView.getWidth() - leftBound;
+     final int newLeft = Math.min(Math.max(left, leftBound), rightBound);
+     return newLeft;
+               }
+   {% endhighlight %}
+
+这样我们就完成了一个简单的自定义ViewGroup，可以自由的拖动子View。
+
+2.布局文件
