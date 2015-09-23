@@ -23,6 +23,11 @@ ViewDragHelper解决了android中手势处理过于复杂的问题，在DrawerLa
 
 1.自定义ViewGroup
 
+ViewDragHelper一般用在一个自定义ViewGroup的内部，比如下面自定义了一个继承于LinearLayout的MyLayout，
+MyLayout内部有一个子viewmDragView作为成员变量,创建一个带有回调接口的ViewDragHelper.
+其中1.0f是敏感度参数参数越大越敏感。第一个参数为this，表示该类生成的对象，他是ViewDragHelper的拖动处理对象，必须为ViewGroup。
+
+
  {% highlight java  %}
 public class  MyLayout extends LinearLayout
 {
