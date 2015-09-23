@@ -23,6 +23,48 @@ ViewDragHelper解决了android中手势处理过于复杂的问题，在DrawerLa
 
 1.自定义ViewGroup
 
+ {% highlight java  %}
+public class  MyLayout extends LinearLayout
+{
+    private ViewDragHelper mDragger;
 
+    public MyLayout(Context context, AttributeSet attrs)
+    {
+        super(context, attrs);
+        mDragger = ViewDragHelper.create(this, 1.0f, new ViewDragHelper.Callback()
+        {
+            @Override
+            public boolean tryCaptureView(View child, int pointerId)
+            {
+                return true;
+            }
 
+            @Override
+            public int clampViewPositionHorizontal(View child, int left, int dx)
+            {
+                return left;
+            }
 
+            @Override
+            public int clampViewPositionVertical(View child, int top, int dy)
+            {
+                return top;
+            }
+        });
+    }
+
+   @Override
+    public boolean onInterceptTouchEvent(MotionEvent event)
+    {
+        return mDragger.shouldInterceptTouchEvent(event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event)
+    {
+        mDragger.processTouchEvent(event);
+        return true;
+    }
+}
+
+ {% endhighlight %}
