@@ -143,3 +143,6 @@ left , top 分别为即将移动到的位置，比如横向的情况下，我希
   </com.mxn.view.MyLayout>
 
     {% endhighlight %}
+
+我们的自定义ViewGroup中有三个TextView。能够去让子View去跟随我们手指移动.
+
