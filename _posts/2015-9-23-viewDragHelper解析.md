@@ -103,3 +103,43 @@ left , top 分别为即将移动到的位置，比如横向的情况下，我希
 这样我们就完成了一个简单的自定义ViewGroup，可以自由的拖动子View。
 
 2.布局文件
+
+    {% highlight xml %}
+
+  <com.mxn.view.MyLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                xmlns:tools="http://schemas.android.com/tools"
+                                android:layout_width="match_parent"
+                                android:orientation="vertical"
+                                android:layout_height="match_parent"
+      >
+
+      <TextView
+          android:layout_margin="10dp"
+          android:gravity="center"
+          android:layout_gravity="center"
+          android:background="#44ff0000"
+          android:text="I can be dragged !"
+          android:layout_width="100dp"
+          android:layout_height="100dp"/>
+
+      <TextView
+          android:layout_margin="10dp"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:background="#44ff0000"
+          android:text="I can be dragged !"
+          android:layout_width="100dp"
+          android:layout_height="100dp"/>
+
+      <TextView
+          android:layout_margin="10dp"
+          android:layout_gravity="center"
+          android:gravity="center"
+          android:background="#44ff0000"
+          android:text="I can be dragged !"
+          android:layout_width="100dp"
+          android:layout_height="100dp"/>
+
+  </com.mxn.view.MyLayout>
+
+    {% endhighlight %}
