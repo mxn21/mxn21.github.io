@@ -153,3 +153,17 @@ left , top 分别为即将移动到的位置，比如横向的情况下，我希
 clampViewPositionHorizontal的第二个参数是指当前拖动子view应该到达的x坐标。所以按照常理这个方法原封返回第二个参数就可以了，
 但为了让被拖动的view遇到边界之后就不在拖动，对返回的值做了更多的考虑。
 
+    {% highlight java %}
+@Override
+public int clampViewPositionHorizontal(View child, int left, int dx) {
+  Log.d("DragLayout", "clampViewPositionHorizontal " + left + "," + dx);
+  final int leftBound = getPaddingLeft();
+  final int rightBound = getWidth() - mDragView.getWidth();
+  final int newLeft = Math.min(Math.max(left, leftBound), rightBound);
+  return newLeft;
+}
+    {% endhighlight %}
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img111.gif)
+
+
