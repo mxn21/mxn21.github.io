@@ -75,6 +75,7 @@ public class  MyLayout extends LinearLayout
 
    {% endhighlight %}
 
+要让ViewDragHelper能够处理拖动需要将触摸事件传递给ViewDragHelper，这点和gesturedetector是一样的.
 onInterceptTouchEvent中通过使用mDragger.shouldInterceptTouchEvent(event)来决定我们是否应该拦截当前的事件。
 onTouchEvent中通过mDragger.processTouchEvent(event)处理事件。
 
