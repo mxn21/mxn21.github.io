@@ -189,3 +189,12 @@ clampViewPositionHorizontal 和 clampViewPositionVertical必须要重写，因�
 通过DragHelperCallback的tryCaptureView方法的返回值可以决定一个parentview中哪个子view可以拖动，现在假设有两个子views
 (mDragView1和mDragView2)  ，如下实现tryCaptureView之后，则只有mDragView1是可以拖动的。
 
+    {% highlight java %}
+@Override
+public boolean tryCaptureView(View child, int pointerId) {
+  returnchild == mDragView1;
+}
+    {% endhighlight %}
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img113.gif)
+
