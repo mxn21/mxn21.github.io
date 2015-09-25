@@ -186,3 +186,6 @@ public int clampViewPositionVertical(View child, int top, int dy) {
 clampViewPositionHorizontal 和 clampViewPositionVertical必须要重写，因为默认它返回的是0。事实上我们在这两个方法中所能做的事情很有限。
 这两个方法的作用就是给了我们重新定义目的坐标的机会。
 
+通过DragHelperCallback的tryCaptureView方法的返回值可以决定一个parentview中哪个子view可以拖动，现在假设有两个子views
+(mDragView1和mDragView2)  ，如下实现tryCaptureView之后，则只有mDragView1是可以拖动的。
+
