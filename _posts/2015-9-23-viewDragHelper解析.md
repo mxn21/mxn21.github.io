@@ -62,6 +62,7 @@ public class  MyLayout extends LinearLayout
    @Override
     public boolean onInterceptTouchEvent(MotionEvent event)
     {
+
         return mDragger.shouldInterceptTouchEvent(event);
     }
 
@@ -146,4 +147,9 @@ left , top 分别为即将移动到的位置，比如横向的情况下，我希
     {% endhighlight %}
 
 我们的自定义ViewGroup中有三个TextView。能够去让子View去跟随我们手指移动.
+
+
+注意在DragHelperCallback中实现clampViewPositionHorizontal方法， 并且返回一个适当的数值就能实现横向拖动效果，
+clampViewPositionHorizontal的第二个参数是指当前拖动子view应该到达的x坐标。所以按照常理这个方法原封返回第二个参数就可以了，
+但为了让被拖动的view遇到边界之后就不在拖动，对返回的值做了更多的考虑。
 
