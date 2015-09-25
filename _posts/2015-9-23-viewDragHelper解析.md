@@ -181,3 +181,8 @@ public int clampViewPositionVertical(View child, int top, int dy) {
 }
     {% endhighlight %}
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img112.gif)
+
+clampViewPositionHorizontal 和 clampViewPositionVertical必须要重写，因为默认它返回的是0。事实上我们在这两个方法中所能做的事情很有限。
+这两个方法的作用就是给了我们重新定义目的坐标的机会。
+
