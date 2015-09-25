@@ -167,3 +167,17 @@ public int clampViewPositionHorizontal(View child, int left, int dx) {
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img111.gif)
 
 
+同上，处理纵向的拖动：
+
+在DragHelperCallback中实现clampViewPositionVertical方法，实现过程同clampViewPositionHorizontal
+
+    {% highlight java %}
+@Override
+public int clampViewPositionVertical(View child, int top, int dy) {
+  final int topBound = getPaddingTop();
+  final int bottomBound = getHeight() - mDragView.getHeight();
+  final int newTop = Math.min(Math.max(top, topBound), bottomBound);
+  return newTop;
+}
+    {% endhighlight %}
+
