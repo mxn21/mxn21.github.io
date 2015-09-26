@@ -229,3 +229,20 @@ public void onEdgeDragStarted(int edgeFlags, int pointerId) {
 
 手指释放的时候回调：
 
+    {% highlight java %}
+        @Override
+        public void onViewReleased(View releasedChild, float xvel, float yvel)
+        {
+                //mAutoBackView手指释放时可以自动回去
+                if (releasedChild == mAutoBackView)
+                {
+                    mDragger.settleCapturedViewAt(mAutoBackOriginPos.x, mAutoBackOriginPos.y);
+                    invalidate();
+                }
+       }
+
+      {% endhighlight %}
+
+重写了Callback中的onViewReleased，我们在onViewReleased中判断如果是mAutoBackView则调用settleCapturedViewAt回到初始的位置。
+大家可以看到紧随其后的代码是invalidate();因为其内部使用的是mScroller.startScroll，所以别忘了需要invalidate()以及结合computeScroll方法一起。
+
