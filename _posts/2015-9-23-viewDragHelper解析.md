@@ -246,3 +246,16 @@ public void onEdgeDragStarted(int edgeFlags, int pointerId) {
 重写了Callback中的onViewReleased，我们在onViewReleased中判断如果是mAutoBackView则调用settleCapturedViewAt回到初始的位置。
 大家可以看到紧随其后的代码是invalidate();因为其内部使用的是mScroller.startScroll，所以别忘了需要invalidate()以及结合computeScroll方法一起。
 
+需要加上：
+
+    {% highlight java %}
+    @Override
+    public void computeScroll()
+    {
+        if(mDragger.continueSettling(true))
+        {
+            invalidate();
+        }
+    }
+      {% endhighlight %}
+
