@@ -267,3 +267,31 @@ public void onEdgeDragStarted(int edgeFlags, int pointerId) {
 getViewHorizontalDragRange和getViewVerticalDragRange，只有这两个方法返回大于0的值才能正常的捕获。
 
 所以，如果你用Button测试，或者给TextView添加了clickable = true ，都记得重写下面这两个方法：
+
+    {% highlight java %}
+@Override
+public int getViewHorizontalDragRange(View child)
+{
+     return getMeasuredWidth()-child.getMeasuredWidth();
+}
+
+@Override
+public int getViewVerticalDragRange(View child)
+{
+     return getMeasuredHeight()-child.getMeasuredHeight();
+}
+      {% endhighlight %}
+
+方法的返回值应当是该childView横向或者纵向的移动的范围，当前如果只需要一个方向移动，可以只复写一个。
+
+到此，我们列一下所有的Callback方法，看看还有哪些没用过的：
+
+* onViewDragStateChanged
+
+当ViewDragHelper状态发生变化时回调（IDLE,DRAGGING,SETTING[自动滚动时]）
+
+onViewPositionChanged
+
+当captureview的位置发生改变时回调
+
+
