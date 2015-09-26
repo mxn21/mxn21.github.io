@@ -215,3 +215,12 @@ public void onEdgeTouched(int edgeFlags, int pointerId) {
 }
       {% endhighlight %}
 
+如果你想在边缘滑动的时候根据滑动距离移动一个子view，可以通过实现onEdgeDragStarted方法，并在onEdgeDragStarted方法中手动指定要移动的子View
+
+    {% highlight java %}
+@Override
+public void onEdgeDragStarted(int edgeFlags, int pointerId) {
+    mDragHelper.captureChildView(mDragView2, pointerId);
+}
+      {% endhighlight %}
+
