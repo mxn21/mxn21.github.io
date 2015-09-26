@@ -227,3 +227,5 @@ public void onEdgeDragStarted(int edgeFlags, int pointerId) {
 我们在onEdgeDragStarted回调方法中，主动通过captureChildView对其进行捕获，该方法可以绕过tryCaptureView，所以我们的tryCaptureView
 虽然并未返回true，但却不影响。注意如果需要使用边界检测需要添加上mDragger.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT);。
 
+手指释放的时候回调：
+
