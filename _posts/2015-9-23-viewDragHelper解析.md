@@ -200,3 +200,18 @@ public boolean tryCaptureView(View child, int pointerId) {
 
 滑动边缘:
 分为滑动左边缘还是右边缘：EDGE_LEFT和EDGE_RIGHT，下面的代码设置了可以处理滑动左边缘：
+
+    {% highlight java %}
+mDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT);
+    {% endhighlight %}
+
+假如如上设置，onEdgeTouched方法会在左边缘滑动的时候被调用，这种情况下一般都是没有和子view接触的情况。
+
+    {% highlight java %}
+@Override
+public void onEdgeTouched(int edgeFlags, int pointerId) {
+    super.onEdgeTouched(edgeFlags, pointerId);
+    Toast.makeText(getContext(), "edgeTouched", Toast.LENGTH_SHORT).show();
+}
+      {% endhighlight %}
+
