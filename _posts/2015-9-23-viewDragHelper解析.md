@@ -290,8 +290,23 @@ public int getViewVerticalDragRange(View child)
 
 当ViewDragHelper状态发生变化时回调（IDLE,DRAGGING,SETTING[自动滚动时]）
 
-onViewPositionChanged
+* onViewPositionChanged
 
 当captureview的位置发生改变时回调
 
+* onViewCaptured
+
+当captureview被捕获时回调
+
+* onEdgeTouched
+
+当触摸到边界时回调。
+
+* onEdgeLock
+
+true的时候会锁住当前的边界，false则unLock。
+
+* getOrderedChildIndex
+
+改变同一个坐标（x,y）去寻找captureView位置的方法。（具体在：findTopChildUnder方法中）
 
