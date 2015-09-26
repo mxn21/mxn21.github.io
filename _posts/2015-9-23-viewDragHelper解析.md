@@ -198,3 +198,5 @@ public boolean tryCaptureView(View child, int pointerId) {
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img113.gif)
 
+滑动边缘:
+分为滑动左边缘还是右边缘：EDGE_LEFT和EDGE_RIGHT，下面的代码设置了可以处理滑动左边缘：
