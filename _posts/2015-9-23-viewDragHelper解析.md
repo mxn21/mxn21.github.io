@@ -310,3 +310,53 @@ true的时候会锁住当前的边界，false则unLock。
 
 改变同一个坐标（x,y）去寻找captureView位置的方法。（具体在：findTopChildUnder方法中）
 
+总结下，方法的大致的回调顺序：
+
+    {% highlight c %}
+shouldInterceptTouchEvent：
+
+DOWN:
+    getOrderedChildIndex(findTopChildUnder)
+    ->onEdgeTouched
+
+MOVE:
+    getOrderedChildIndex(findTopChildUnder)
+    ->getViewHorizontalDragRange &
+      getViewVerticalDragRange(checkTouchSlop)(MOVE中可能不止一次)
+    ->clampViewPositionHorizontal&
+      clampViewPositionVertical
+    ->onEdgeDragStarted
+    ->tryCaptureView
+    ->onViewCaptured
+    ->onViewDragStateChanged
+
+processTouchEvent:
+
+DOWN:
+    getOrderedChildIndex(findTopChildUnder)
+    ->tryCaptureView
+    ->onViewCaptured
+    ->onViewDragStateChanged
+    ->onEdgeTouched
+MOVE:
+    ->STATE==DRAGGING:dragTo
+    ->STATE!=DRAGGING:
+        onEdgeDragStarted
+        ->getOrderedChildIndex(findTopChildUnder)
+        ->getViewHorizontalDragRange&
+          getViewVerticalDragRange(checkTouchSlop)
+        ->tryCaptureView
+        ->onViewCaptured
+        ->onViewDragStateChanged
+
+      {% endhighlight %}
+
+ok，上述是正常情况下大致的流程，当然整个过程可能会存在很多判断不成立的情况。
+
+从上面也可以解释，我们在之前TextView(clickable=false)的情况下，没有编写getViewHorizontalDragRange方法时，
+是可以移动的。因为直接进入processTouchEvent的DOWN，然后就onViewCaptured、onViewDragStateChanged（进入DRAGGING状态），
+接下来MOVE就直接dragTo了。
+
+而当子View消耗事件的时候，就需要走shouldInterceptTouchEvent，MOVE的时候经过一系列的判断（getViewHorizontalDragRange，
+clampViewPositionVertical等），才能够去tryCaptureView。
+
