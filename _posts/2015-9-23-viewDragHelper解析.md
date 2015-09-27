@@ -377,3 +377,31 @@ public static ViewDragHelper create(ViewGroup forParent, Callback cb) {
 }
 
     {% endhighlight %}
+
+create()的两个参数很好理解，第一个是我们自定义的ViewGroup，第二个是控制子View拖拽需要的回调对象。create()直接调用了ViewDragHelper构造方法，
+我们再来看看这个构造方法。
+
+    {% highlight java %}
+private ViewDragHelper(Context context, ViewGroup forParent, Callback cb) {
+        if (forParent == null) {
+            throw new IllegalArgumentException("Parent view may not be null");
+        }
+        if (cb == null) {
+            throw new IllegalArgumentException("Callback may not be null");
+        }
+
+        mParentView = forParent;
+        mCallback = cb;
+
+        final ViewConfiguration vc = ViewConfiguration.get(context);
+        final float density = context.getResources().getDisplayMetrics().density;
+        mEdgeSize = (int) (EDGE_SIZE * density + 0.5f);
+
+        mTouchSlop = vc.getScaledTouchSlop();
+        mMaxVelocity = vc.getScaledMaximumFlingVelocity();
+        mMinVelocity = vc.getScaledMinimumFlingVelocity();
+        mScroller = ScrollerCompat.create(context, sInterpolator);
+    }
+
+    {% endhighlight %}
+
