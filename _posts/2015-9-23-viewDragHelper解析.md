@@ -360,3 +360,20 @@ ok，上述是正常情况下大致的流程，当然整个过程可能会存在
 而当子View消耗事件的时候，就需要走shouldInterceptTouchEvent，MOVE的时候经过一系列的判断（getViewHorizontalDragRange，
 clampViewPositionVertical等），才能够去tryCaptureView。
 
+## 源码分析
+
+ViewDragHelper重载了两个create()静态方法，先看两个参数的create()方法：
+
+    {% highlight java %}
+/**
+ * Factory method to create a new ViewDragHelper.
+ *
+ * @param forParent Parent view to monitor
+ * @param cb Callback to provide information and receive events
+ * @return a new ViewDragHelper instance
+ */
+public static ViewDragHelper create(ViewGroup forParent, Callback cb) {
+	return new ViewDragHelper(forParent.getContext(), forParent, cb);
+}
+
+    {% endhighlight %}
