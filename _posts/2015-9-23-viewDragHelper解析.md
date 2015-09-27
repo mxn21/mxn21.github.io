@@ -405,3 +405,6 @@ private ViewDragHelper(Context context, ViewGroup forParent, Callback cb) {
 
     {% endhighlight %}
 
+这个构造函数是私有的，也是仅有的构造函数，所以外部只能通过create()工厂方法来创建ViewDragHelper实例了。
+这里要求了我们传递的自定义ViewGroup和回调对象不能为空，否则会直接抛出异常中断程序。在这里也初始化了一些触摸滑动需要的参考值和辅助类。
+
