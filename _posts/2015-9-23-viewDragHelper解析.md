@@ -408,3 +408,11 @@ private ViewDragHelper(Context context, ViewGroup forParent, Callback cb) {
 这个构造函数是私有的，也是仅有的构造函数，所以外部只能通过create()工厂方法来创建ViewDragHelper实例了。
 这里要求了我们传递的自定义ViewGroup和回调对象不能为空，否则会直接抛出异常中断程序。在这里也初始化了一些触摸滑动需要的参考值和辅助类。
 
+* mParentView和mCallback分别保存传递过来的对应参数
+* ViewConfiguration类里定义了View相关的一系列时间、大小、距离等常量
+* mEdgeSize表示边缘触摸的范围。例如mEdgeSize为20dp并且用户注册监听了左侧边缘触摸时，触摸点的x坐标小于mParentView.getLeft() +
+mEdgeSize时（即触摸点在容器左边界往右20dp内）就算做是左侧的边缘触摸，详见ViewDragHelper的getEdgesTouched()方法。
+* mTouchSlop是一个很小的距离值，只有在前后两次触摸点的距离超过mTouchSlop
+的值时，我们才把这两次触摸算作是“滑动”，我们只在此时进行滑动处理，否则任何微小的距离的变化我们都要处理的话会显得太频繁，如果处理过程又比较复杂耗时就会使界面产生卡顿。
+* mMaxVelocity、mMinVelocity是fling时的最大、最小速率，单位是像素每秒。
+* mScroller是View滚动的辅助类，
