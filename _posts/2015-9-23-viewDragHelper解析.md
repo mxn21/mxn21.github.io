@@ -415,4 +415,24 @@ mEdgeSize时（即触摸点在容器左边界往右20dp内）就算做是左侧�
 * mTouchSlop是一个很小的距离值，只有在前后两次触摸点的距离超过mTouchSlop
 的值时，我们才把这两次触摸算作是“滑动”，我们只在此时进行滑动处理，否则任何微小的距离的变化我们都要处理的话会显得太频繁，如果处理过程又比较复杂耗时就会使界面产生卡顿。
 * mMaxVelocity、mMinVelocity是fling时的最大、最小速率，单位是像素每秒。
-* mScroller是View滚动的辅助类，
+* mScroller是View滚动的辅助类
+
+再看三个参数的create()方法：
+
+    {% highlight java %}
+    /**
+     * Factory method to create a new ViewDragHelper.
+     *
+     * @param forParent Parent view to monitor
+     * @param sensitivity Multiplier for how sensitive the helper should be about detecting
+     *                    the start of a drag. Larger values are more sensitive. 1.0f is normal.
+     * @param cb Callback to provide information and receive events
+     * @return a new ViewDragHelper instance
+     */
+    public static ViewDragHelper create(ViewGroup forParent, float sensitivity, Callback cb) {
+    	final ViewDragHelper helper = create(forParent, cb);
+    	helper.mTouchSlop = (int) (helper.mTouchSlop * (1 / sensitivity));
+    	return helper;
+    }
+    {% endhighlight %}
+
