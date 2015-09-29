@@ -362,6 +362,8 @@ clampViewPositionVertical等），才能够去tryCaptureView。
 
 ## 源码分析
 
+### ViewDragHelper实例的创建
+
 ViewDragHelper重载了两个create()静态方法，先看两个参数的create()方法：
 
     {% highlight java %}
@@ -435,4 +437,9 @@ mEdgeSize时（即触摸点在容器左边界往右20dp内）就算做是左侧�
     	return helper;
     }
     {% endhighlight %}
+
+第二个参数sensitivity是用来调节mTouchSlop的值。sensitivity越大，mTouchSlop越小，对滑动的检测就越敏感。
+例如sensitivity为1时，前后触摸点距离超过20dp才进行滑动处理，现在sensitivity为2的话，前后触摸点距离超过10dp就进行处理了。
+
+### 对Touch事件的处理
 
