@@ -443,3 +443,7 @@ mEdgeSize时（即触摸点在容器左边界往右20dp内）就算做是左侧�
 
 ### 对Touch事件的处理
 
+当mParentView（自定义ViewGroup）被触摸时，首先会调用mParentView的onInterceptTouchEvent(MotionEvent ev)，
+接着就调用shouldInterceptTouchEvent(MotionEvent ev) ，所以先来看看这个方法的ACTION_DOWN部分：
+
+
