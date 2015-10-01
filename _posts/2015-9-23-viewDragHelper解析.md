@@ -497,6 +497,10 @@ public boolean shouldInterceptTouchEvent(MotionEvent ev) {
 }
     {% endhighlight %}
 
+看9~21行，首先是关于多点触控.mVelocityTracker记录下触摸的各个点信息，稍后可以用来计算本次滑动的速率，每次发生ACTION_DOWN事件都会调用cancel()，
+而在cancel()方法里mVelocityTracker又被清空了，所以mVelocityTracker记录下的是本次ACTION_DOWN事件直至ACTION_UP事件发生后
+（下次ACTION_DOWN事件发生前）的所有触摸点的信息。
+
 
 
 
