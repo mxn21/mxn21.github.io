@@ -527,3 +527,10 @@ public View findTopChildUnder(int x, int y) {
 }
 
     {% endhighlight %}
+
+代码很简单，注释里也说明的很清楚了。如果在同一个位置有两个子View重叠，想要让下层的子View被选中，
+那么就要实现Callback里的getOrderedChildIndex(int index)方法来改变查找子View的顺序；例如topView（上层View）的index是4，
+bottomView（下层View）的index是3，按照正常的遍历查找方式（getOrderedChildIndex()默认直接返回index），会选择到topView，
+要想让bottomView被选中就得这么写：
+
+
