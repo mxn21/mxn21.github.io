@@ -533,4 +533,14 @@ public View findTopChildUnder(int x, int y) {
 bottomView（下层View）的index是3，按照正常的遍历查找方式（getOrderedChildIndex()默认直接返回index），会选择到topView，
 要想让bottomView被选中就得这么写：
 
+    {% highlight java %}
+public int getOrderedChildIndex(int index) {
+	int indexTop = mParentView.indexOfChild(topView);
+	int indexBottom = mParentView.indexOfChild(bottomView);
+	if (index == indexTop) {
+		return indexBottom;
+	}
+	return index;
+}
+    {% endhighlight %}
 
