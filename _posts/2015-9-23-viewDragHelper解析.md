@@ -446,4 +446,58 @@ mEdgeSize时（即触摸点在容器左边界往右20dp内）就算做是左侧�
 当mParentView（自定义ViewGroup）被触摸时，首先会调用mParentView的onInterceptTouchEvent(MotionEvent ev)，
 接着就调用shouldInterceptTouchEvent(MotionEvent ev) ，所以先来看看这个方法的ACTION_DOWN部分：
 
+    {% highlight java %}
+/**
+ * Check if this event as provided to the parent view's onInterceptTouchEvent should
+ * cause the parent to intercept the touch event stream.
+ *
+ * @param ev MotionEvent provided to onInterceptTouchEvent
+ * @return true if the parent view should return true from onInterceptTouchEvent
+ */
+public boolean shouldInterceptTouchEvent(MotionEvent ev) {
+    final int action = MotionEventCompat.getActionMasked(ev);
+    final int actionIndex = MotionEventCompat.getActionIndex(ev);
+
+    if (action == MotionEvent.ACTION_DOWN) {
+        // Reset things for a new event stream, just in case we didn't get
+        // the whole previous stream.
+        cancel();
+    }
+
+    if (mVelocityTracker == null) {
+        mVelocityTracker = VelocityTracker.obtain();
+    }
+    mVelocityTracker.addMovement(ev);
+
+    switch (action) {
+        case MotionEvent.ACTION_DOWN: {
+            final float x = ev.getX();
+            final float y = ev.getY();
+            final int pointerId = MotionEventCompat.getPointerId(ev, 0);
+            saveInitialMotion(x, y, pointerId);
+
+            final View toCapture = findTopChildUnder((int) x, (int) y);
+
+            // Catch a settling view if possible.
+            if (toCapture == mCapturedView && mDragState == STATE_SETTLING) {
+                tryCaptureViewForDrag(toCapture, pointerId);
+            }
+
+            final int edgesTouched = mInitialEdgesTouched[pointerId];
+            if ((edgesTouched & mTrackingEdges) != 0) {
+                mCallback.onEdgeTouched(edgesTouched & mTrackingEdges, pointerId);
+            }
+            break;
+        }
+
+		// 其他case暂且省略
+    }
+
+    return mDragState == STATE_DRAGGING;
+}
+    {% endhighlight %}
+
+
+
+
 
