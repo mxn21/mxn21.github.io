@@ -505,7 +505,25 @@ public boolean shouldInterceptTouchEvent(MotionEvent ev) {
 触摸手指编号（pointerId），如果触摸到了mParentView的边缘还会记录触摸的是哪个边缘。接着调用findTopChildUnder((int) x, (int) y);
 来获取当前触摸点下最顶层的子View，看findTopChildUnder的源码：
 
+    {% highlight java %}
+/**
+ * Find the topmost child under the given point within the parent view's coordinate system.
+ * The child order is determined using {@link Callback#getOrderedChildIndex(int)}.
+ *
+ * @param x X position to test in the parent's coordinate system
+ * @param y Y position to test in the parent's coordinate system
+ * @return The topmost child view under (x, y) or null if none found.
+ */
+public View findTopChildUnder(int x, int y) {
+    final int childCount = mParentView.getChildCount();
+    for (int i = childCount - 1; i >= 0; i--) {
+        final View child = mParentView.getChildAt(mCallback.getOrderedChildIndex(i));
+        if (x >= child.getLeft() && x < child.getRight() &&
+                y >= child.getTop() && y < child.getBottom()) {
+            return child;
+        }
+    }
+    return null;
+}
 
-
-
-
+    {% endhighlight %}
