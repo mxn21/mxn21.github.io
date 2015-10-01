@@ -501,6 +501,10 @@ public boolean shouldInterceptTouchEvent(MotionEvent ev) {
 而在cancel()方法里mVelocityTracker又被清空了，所以mVelocityTracker记录下的是本次ACTION_DOWN事件直至ACTION_UP事件发生后
 （下次ACTION_DOWN事件发生前）的所有触摸点的信息。
 
+再来看24~42行case MotionEvent.ACTION_DOWN部分，先是调用saveInitialMotion(x, y, pointerId)保存手势的初始信息，即ACTION_DOWN发生时的触摸点坐标（x、y）、
+触摸手指编号（pointerId），如果触摸到了mParentView的边缘还会记录触摸的是哪个边缘。接着调用findTopChildUnder((int) x, (int) y);
+来获取当前触摸点下最顶层的子View，看findTopChildUnder的源码：
+
 
 
 
