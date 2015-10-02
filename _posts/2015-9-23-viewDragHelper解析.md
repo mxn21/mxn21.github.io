@@ -544,3 +544,11 @@ public int getOrderedChildIndex(int index) {
 }
     {% endhighlight %}
 
+32~35行，这里还看到了一个mDragState成员变量，它共有三种取值：
+
+1.STATE_IDLE：所有的View处于静止空闲状态
+2.STATE_DRAGGING：某个View正在被用户拖动（用户正在与设备交互）
+3.STATE_SETTLING：某个View正在安置状态中（用户并没有交互操作），就是自动滚动的过程中
+
+mCapturedView默认为null，所以一开始不会执行这里的代码，mDragState处于STATE_SETTLING状态时才会执行tryCaptureViewForDrag()，
+执行的情况到后面再分析
