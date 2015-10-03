@@ -551,4 +551,7 @@ public int getOrderedChildIndex(int index) {
 3.STATE_SETTLING：某个View正在安置状态中（用户并没有交互操作），就是自动滚动的过程中
 
 mCapturedView默认为null，所以一开始不会执行这里的代码，mDragState处于STATE_SETTLING状态时才会执行tryCaptureViewForDrag()，
-执行的情况到后面再分析
+执行的情况到后面再分析.
+
+37~40行调用了Callback.onEdgeTouched向外部通知mParentView的某些边缘被触摸到了，mInitialEdgesTouched是在刚才调用过的saveInitialMotion方法里进行赋值的。
+
