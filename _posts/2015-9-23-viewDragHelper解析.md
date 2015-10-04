@@ -555,3 +555,5 @@ mCapturedView默认为null，所以一开始不会执行这里的代码，mDragS
 
 37~40行调用了Callback.onEdgeTouched向外部通知mParentView的某些边缘被触摸到了，mInitialEdgesTouched是在刚才调用过的saveInitialMotion方法里进行赋值的。
 
+ACTION_DOWN部分处理完了，跳过switch语句块，剩下的代码就只有return mDragState == STATE_DRAGGING;。在ACTION_DOWN部分没有对mDragState进行赋值，其默认值为STATE_IDLE，所以此处返回false。
+
