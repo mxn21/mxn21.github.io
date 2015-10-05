@@ -575,3 +575,53 @@ onInterceptTouchEvent()的ACTION_MOVE部分具体做了怎样的处理，稍后�
 
 接下来对这两种情况逐一解析。
 
+假设没有子View消费这次事件，根据刚才的分析最终就会调用processTouchEvent(MotionEvent ev)的ACTION_DOWN部分：
+
+    {% highlight java %}
+    /**
+     * Process a touch event received by the parent view. This method will dispatch callback events
+     * as needed before returning. The parent view's onTouchEvent implementation should call this.
+     *
+     * @param ev The touch event received by the parent view
+     */
+    public void processTouchEvent(MotionEvent ev) {
+        final int action = MotionEventCompat.getActionMasked(ev);
+        final int actionIndex = MotionEventCompat.getActionIndex(ev);
+
+        if (action == MotionEvent.ACTION_DOWN) {
+            // Reset things for a new event stream, just in case we didn't get
+            // the whole previous stream.
+            cancel();
+        }
+
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();
+        }
+        mVelocityTracker.addMovement(ev);
+
+        switch (action) {
+            case MotionEvent.ACTION_DOWN: {
+                final float x = ev.getX();
+                final float y = ev.getY();
+                final int pointerId = MotionEventCompat.getPointerId(ev, 0);
+                final View toCapture = findTopChildUnder((int) x, (int) y);
+
+                saveInitialMotion(x, y, pointerId);
+
+                // Since the parent is already directly processing this touch event,
+                // there is no reason to delay for a slop before dragging.
+                // Start immediately if possible.
+                tryCaptureViewForDrag(toCapture, pointerId);
+
+                final int edgesTouched = mInitialEdgesTouched[pointerId];
+                if ((edgesTouched & mTrackingEdges) != 0) {
+                    mCallback.onEdgeTouched(edgesTouched & mTrackingEdges, pointerId);
+                }
+                break;
+            }
+    		// 其他case暂且省略
+        }
+    }
+    {% endhighlight %}
+
+
