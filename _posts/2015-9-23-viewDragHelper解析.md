@@ -557,3 +557,6 @@ mCapturedView默认为null，所以一开始不会执行这里的代码，mDragS
 
 ACTION_DOWN部分处理完了，跳过switch语句块，剩下的代码就只有return mDragState == STATE_DRAGGING;。在ACTION_DOWN部分没有对mDragState进行赋值，其默认值为STATE_IDLE，所以此处返回false。
 
+那么返回false后接下来应该是会调用哪个方法呢,接下来会在mParentView的所有子View中寻找响应这个Touch事件的View（会调用每个子View
+的dispatchTouchEvent()方法，dispatchTouchEvent里一般又会调用onTouchEvent()）.
+
