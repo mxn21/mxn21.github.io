@@ -567,4 +567,11 @@ onTouchEvent()才能继续接受到接下来的ACTION_MOVE、ACTION_UP等事件�
 不会影响接下来的事件接受），因为拖动的相关代码是写在processTouchEvent()里的ACTION_MOVE部分的。
 要注意的是返回true后mParentView的onInterceptTouchEvent()就不会收到后续的ACTION_MOVE、ACTION_UP等事件了。
 
-2.
+2.如果有子View消费了本次ACTION_DOWN事件，mParentView的onTouchEvent()就收不到ACTION_DOWN事件了，
+也就是ViewDragHelper的processTouchEvent(MotionEvent ev)收不到ACTION_DOWN事件了。
+不过只要该View没有调用过requestDisallowInterceptTouchEvent(true)，mParentView的onInterceptTouchEvent()的ACTION_MOVE部分还是会执行的，
+如果在此时返回了true拦截了ACTION_MOVE事件，processTouchEvent()里的ACTION_MOVE部分也就会正常执行，拖动也就没问题了。
+onInterceptTouchEvent()的ACTION_MOVE部分具体做了怎样的处理，稍后再来解析。
+
+接下来对这两种情况逐一解析。
+
