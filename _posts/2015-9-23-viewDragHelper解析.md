@@ -624,4 +624,6 @@ onInterceptTouchEvent()的ACTION_MOVE部分具体做了怎样的处理，稍后�
     }
     {% endhighlight %}
 
+这段代码跟shouldInterceptTouchEvent()里ACTION_DOWN那部分基本一致，唯一区别就是这里没有约束条件直接调用了tryCaptureViewForDrag()方法，现在来看看这个方法：
+
 
