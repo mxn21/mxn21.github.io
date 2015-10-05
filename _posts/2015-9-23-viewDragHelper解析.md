@@ -560,3 +560,11 @@ ACTION_DOWN部分处理完了，跳过switch语句块，剩下的代码就只有
 那么返回false后接下来应该是会调用哪个方法呢,接下来会在mParentView的所有子View中寻找响应这个Touch事件的View（会调用每个子View
 的dispatchTouchEvent()方法，dispatchTouchEvent里一般又会调用onTouchEvent()）.
 
+1.如果没有子View消费这次事件（子View的dispatchTouchEvent()返回都是false），会调用mParentView的super.dispatchTouchEvent
+(ev)，即View中的dispatchTouchEvent(ev)，然后调用mParentView的onTouchEvent()方法，
+再调用ViewDragHelper的processTouchEvent(MotionEvent ev)方法。此时（ACTION_DOWN事件发生时）mParentView的onTouchEvent()要返回true，
+onTouchEvent()才能继续接受到接下来的ACTION_MOVE、ACTION_UP等事件，否则无法完成拖动（除了ACTION_DOWN外的其他事件发生时返回true或false都
+不会影响接下来的事件接受），因为拖动的相关代码是写在processTouchEvent()里的ACTION_MOVE部分的。
+要注意的是返回true后mParentView的onInterceptTouchEvent()就不会收到后续的ACTION_MOVE、ACTION_UP等事件了。
+
+2.
