@@ -678,3 +678,17 @@ public void captureChildView(View childView, int activePointerId) {
 代码很简单，在captureChildView(toCapture, pointerId)中将要拖动的View和触摸的手指编号记录下来，并调用Callback的onViewCaptured(childView, activePointerId)通知外部有子View被捕获到了，
 再调用setDragState()设置当前的状态为STATE_DRAGGING，看setDragState()源码：
 
+    {% highlight java %}
+void setDragState(int state) {
+    if (mDragState != state) {
+        mDragState = state;
+        mCallback.onViewDragStateChanged(state);
+        if (mDragState == STATE_IDLE) {
+            mCapturedView = null;
+        }
+    }
+}
+    {% endhighlight %}
+
+状态改变后会调用Callback的onViewDragStateChanged()通知状态的变化。
+
