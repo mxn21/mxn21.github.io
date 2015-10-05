@@ -650,3 +650,6 @@ boolean tryCaptureViewForDrag(View toCapture, int pointerId) {
 }
     {% endhighlight %}
 
+这里调用了Callback的tryCaptureView(View child, int pointerId)方法，把当前触摸到的View和触摸手指编号传递了过去，在tryCaptureView()中决定是否需要拖动当前触摸到的View，如果要拖动当前触摸到的View就在tryCaptureView()中返回true，让ViewDragHelper把当前触摸的View捕获下来，
+接着就调用了captureChildView(toCapture, pointerId)方法：
+
