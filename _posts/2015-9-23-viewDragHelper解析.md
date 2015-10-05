@@ -653,3 +653,28 @@ boolean tryCaptureViewForDrag(View toCapture, int pointerId) {
 这里调用了Callback的tryCaptureView(View child, int pointerId)方法，把当前触摸到的View和触摸手指编号传递了过去，在tryCaptureView()中决定是否需要拖动当前触摸到的View，如果要拖动当前触摸到的View就在tryCaptureView()中返回true，让ViewDragHelper把当前触摸的View捕获下来，
 接着就调用了captureChildView(toCapture, pointerId)方法：
 
+    {% highlight java %}
+/**
+ * Capture a specific child view for dragging within the parent. The callback will be notified
+ * but {@link Callback#tryCaptureView(android.view.View, int)} will not be asked permission to
+ * capture this view.
+ *
+ * @param childView Child view to capture
+ * @param activePointerId ID of the pointer that is dragging the captured child view
+ */
+public void captureChildView(View childView, int activePointerId) {
+    if (childView.getParent() != mParentView) {
+        throw new IllegalArgumentException("captureChildView: parameter must be a descendant " +
+                "of the ViewDragHelper's tracked parent view (" + mParentView + ")");
+    }
+
+    mCapturedView = childView;
+    mActivePointerId = activePointerId;
+    mCallback.onViewCaptured(childView, activePointerId);
+    setDragState(STATE_DRAGGING);
+}
+    {% endhighlight %}
+
+代码很简单，在captureChildView(toCapture, pointerId)中将要拖动的View和触摸的手指编号记录下来，并调用Callback的onViewCaptured(childView, activePointerId)通知外部有子View被捕获到了，
+再调用setDragState()设置当前的状态为STATE_DRAGGING，看setDragState()源码：
+
