@@ -743,3 +743,9 @@ public void processTouchEvent(MotionEvent ev) {
 }
     {% endhighlight %}
 
+要注意的是，如果一直没松手，这部分代码会一直调用。这里先判断mDragState是否为STATE_DRAGGING，而唯一调用setDragState(STATE_DRAGGING)的地方就是tryCaptureViewForDrag()了，
+刚才在ACTION_DOWN里调用过tryCaptureViewForDrag()，现在又要分两种情况。
+
+如果刚才在ACTION_DOWN里捕获到要拖动的View，那么就执行if部分的代码，这个稍后解析，先考虑没有捕获到的情况。没有捕获到的话，mDragState依然是STATE_IDLE，然后会执行else部分的代码。这里主要就是检查有没有哪个手指触摸到了要拖动的View上，触摸上了就尝试捕获它，然后让mDragState变为STATE_DRAGGING，之后就会执行if部分的代码了。这里还有两个方法涉及到了Callback里的方法，需要来解析一下，
+分别是reportNewEdgeDrags()和checkTouchSlop()，先看reportNewEdgeDrags()：
+
