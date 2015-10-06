@@ -992,3 +992,6 @@ public void flingCapturedView(int minLeft, int minTop, int maxLeft, int maxTop) 
 
     {% endhighlight %}
 
+这两个方法里一开始都会判断mReleaseInProgress为false，如果为false就会抛一个IllegalStateException异常，
+而mReleaseInProgress唯一为true的时候就是在dispatchViewReleased()里调用onViewReleased()的时候。
+
