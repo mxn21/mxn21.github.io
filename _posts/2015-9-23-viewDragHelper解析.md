@@ -749,3 +749,29 @@ public void processTouchEvent(MotionEvent ev) {
 如果刚才在ACTION_DOWN里捕获到要拖动的View，那么就执行if部分的代码，这个稍后解析，先考虑没有捕获到的情况。没有捕获到的话，mDragState依然是STATE_IDLE，然后会执行else部分的代码。这里主要就是检查有没有哪个手指触摸到了要拖动的View上，触摸上了就尝试捕获它，然后让mDragState变为STATE_DRAGGING，之后就会执行if部分的代码了。这里还有两个方法涉及到了Callback里的方法，需要来解析一下，
 分别是reportNewEdgeDrags()和checkTouchSlop()，先看reportNewEdgeDrags()：
 
+    {% highlight java %}
+private void reportNewEdgeDrags(float dx, float dy, int pointerId) {
+    int dragsStarted = 0;
+    if (checkNewEdgeDrag(dx, dy, pointerId, EDGE_LEFT)) {
+        dragsStarted |= EDGE_LEFT;
+    }
+    if (checkNewEdgeDrag(dy, dx, pointerId, EDGE_TOP)) {
+        dragsStarted |= EDGE_TOP;
+    }
+    if (checkNewEdgeDrag(dx, dy, pointerId, EDGE_RIGHT)) {
+        dragsStarted |= EDGE_RIGHT;
+    }
+    if (checkNewEdgeDrag(dy, dx, pointerId, EDGE_BOTTOM)) {
+        dragsStarted |= EDGE_BOTTOM;
+    }
+
+    if (dragsStarted != 0) {
+        mEdgeDragsInProgress[pointerId] |= dragsStarted;
+        mCallback.onEdgeDragStarted(dragsStarted, pointerId);
+    }
+}
+    {% endhighlight %}
+
+这里对四个边缘都做了一次检查，检查是否在某些边缘产生拖动了，如果有拖动，就将有拖动的边缘记录在mEdgeDragsInProgress中，再调用Callback的onEdgeDragStarted(int edgeFlags, int pointerId)通知某个边缘开始产生拖动了。虽然reportNewEdgeDrags()会被调用很多次（因为processTouchEvent()的ACTION_MOVE部分会执行很多次），
+但mCallback.onEdgeDragStarted(dragsStarted, pointerId)只会调用一次，具体的要看checkNewEdgeDrag()这个方法：
+
