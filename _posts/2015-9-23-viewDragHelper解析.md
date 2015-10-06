@@ -775,3 +775,31 @@ private void reportNewEdgeDrags(float dx, float dy, int pointerId) {
 这里对四个边缘都做了一次检查，检查是否在某些边缘产生拖动了，如果有拖动，就将有拖动的边缘记录在mEdgeDragsInProgress中，再调用Callback的onEdgeDragStarted(int edgeFlags, int pointerId)通知某个边缘开始产生拖动了。虽然reportNewEdgeDrags()会被调用很多次（因为processTouchEvent()的ACTION_MOVE部分会执行很多次），
 但mCallback.onEdgeDragStarted(dragsStarted, pointerId)只会调用一次，具体的要看checkNewEdgeDrag()这个方法：
 
+    {% highlight java %}
+private boolean checkNewEdgeDrag(float delta, float odelta, int pointerId, int edge) {
+    final float absDelta = Math.abs(delta);
+    final float absODelta = Math.abs(odelta);
+
+    if ((mInitialEdgesTouched[pointerId] & edge) != edge  || (mTrackingEdges & edge) == 0 ||
+            (mEdgeDragsLocked[pointerId] & edge) == edge ||
+            (mEdgeDragsInProgress[pointerId] & edge) == edge ||
+            (absDelta <= mTouchSlop && absODelta <= mTouchSlop)) {
+        return false;
+    }
+    if (absDelta < absODelta * 0.5f && mCallback.onEdgeLock(edge)) {
+        mEdgeDragsLocked[pointerId] |= edge;
+        return false;
+    }
+    return (mEdgeDragsInProgress[pointerId] & edge) == 0 && absDelta > mTouchSlop;
+}
+    {% endhighlight %}
+
+* checkNewEdgeDrag()返回true表示在指定的edge（边缘）开始产生拖动了。
+* 方法的两个参数delta和odelta需要解释一下，odelta里的o应该代表opposite，这是什么意思呢，以reportNewEdgeDrags()里调用checkNewEdgeDrag(dx, dy, pointerId, EDGE_LEFT)为例，我们要监测左边缘的触摸情况，所以主要监测的是x轴方向上的变化，这里delta为dx，odelta为dy，也就是说delta是指我们主要监测的方向上的变化，odelta是另外一个方向上的变化，后面要判断假另外一个方向上的变化是否要远大于主要方向上的变化，所以需要另外一个方向上的距离变化的值。
+* mInitialEdgesTouched是在ACTION_DOWN部分的saveInitialMotion()里生成的，ACTION_DOWN发生时触摸到的边缘会被记录在mInitialEdgesTouched中。如果ACTION_DOWN发生时没有触摸到边缘，或者触摸到的边缘不是指定的edge，就直接返回false了。
+* mTrackingEdges是由setEdgeTrackingEnabled(int edgeFlags)设置的，当我们想要追踪监听边缘触摸时才需要调用setEdgeTrackingEnabled(int edgeFlags)，如果我们没有调用过它，这里就直接返回false了。
+* mEdgeDragsLocked它在这个方法里被引用了多次，它在整个ViewDragHelper里唯一被赋值的地方就是这里的第12行，所以默认值是0，第6行mEdgeDragsLocked[pointerId] & edge) == edge执行的结果是false。我们再跳到11到14行看看，absDelta < absODelta * 0.5f的意思是检查在次要方向上移动的距离是否远超过主要方向上移动的距离，如果是再调用Callback的onEdgeLock(edge)检查是否需要锁定某个边缘，如果锁定了某个边缘，那个边缘就算触摸到了也不会被记录在mEdgeDragsInProgress里了，也不会收到Callback的onEdgeDragStarted()通知了。并且将锁定的边缘记录在mEdgeDragsLocked变量里，再次调用本方法时就会在第6行进行判断了，第6行里如果检测到给定的edge被锁定，就直接返回false了。
+* 回到第7行的(mEdgeDragsInProgress[pointerId] & edge) == edge，mEdgeDragsInProgress是保存已发生过拖动事件的边缘的，如果给定的edge已经保存过了，那就没必要再检测其他东西了，直接返回false了。
+* 第8行(absDelta <= mTouchSlop && absODelta <= mTouchSlop)很简单了，就是检查本次移动的距离是不是太小了，太小就不处理了。
+* 最后一句返回的时候再次检查给定的edge有没有记录过，确保了每个边缘只会调用一次reportNewEdgeDrags的mCallback.onEdgeDragStarted(dragsStarted, pointerId)
+
