@@ -872,3 +872,30 @@ private boolean checkTouchSlop(View child, float dx, float dy) {
 
 ACTION_MOVE部分就算告一段落了，接下来应该是用户松手触发ACTION_UP，或者是达到某个条件导致后续的ACTION_MOVE被mParentView的上层View给拦截了而收到ACTION_CANCEL，一起来看这两个部分：
 
+    {% highlight java %}
+public void processTouchEvent(MotionEvent ev) {
+    // 省略
+
+    switch (action) {
+        // 省略其他case
+
+        case MotionEvent.ACTION_UP: {
+            if (mDragState == STATE_DRAGGING) {
+                releaseViewForPointerUp();
+            }
+            cancel();
+            break;
+        }
+
+        case MotionEvent.ACTION_CANCEL: {
+            if (mDragState == STATE_DRAGGING) {
+                dispatchViewReleased(0, 0);
+            }
+            cancel();
+            break;
+        }
+    }
+}
+    {% endhighlight %}
+
+这两个部分都是重置所有的状态记录，并通知View被放开了，再看下releaseViewForPointerUp()和dispatchViewReleased()的源码：
