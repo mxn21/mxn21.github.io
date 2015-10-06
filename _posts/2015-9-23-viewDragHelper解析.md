@@ -899,3 +899,21 @@ public void processTouchEvent(MotionEvent ev) {
     {% endhighlight %}
 
 这两个部分都是重置所有的状态记录，并通知View被放开了，再看下releaseViewForPointerUp()和dispatchViewReleased()的源码：
+
+    {% highlight java %}
+private void releaseViewForPointerUp() {
+    mVelocityTracker.computeCurrentVelocity(1000, mMaxVelocity);
+    final float xvel = clampMag(
+            VelocityTrackerCompat.getXVelocity(mVelocityTracker, mActivePointerId),
+            mMinVelocity, mMaxVelocity);
+    final float yvel = clampMag(
+            VelocityTrackerCompat.getYVelocity(mVelocityTracker, mActivePointerId),
+            mMinVelocity, mMaxVelocity);
+    dispatchViewReleased(xvel, yvel);
+}
+
+    {% endhighlight %}
+
+releaseViewForPointerUp()里也调用了dispatchViewReleased()，只不过传递了速率给它，这个速率就是由processTouchEvent()的mVelocityTracker追踪算出来的。再看dispatchViewReleased()：
+
+
