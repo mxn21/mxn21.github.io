@@ -997,3 +997,32 @@ public void flingCapturedView(int minLeft, int minTop, int maxLeft, int maxTop) 
 
 ViewDragHelper还有一个移动View的方法是smoothSlideViewTo(View child, int finalLeft, int finalTop)，看下它的源码：
 
+    {% highlight java %}
+/**
+ * Animate the view <code>child</code> to the given (left, top) position.
+ * If this method returns true, the caller should invoke {@link #continueSettling(boolean)}
+ * on each subsequent frame to continue the motion until it returns false. If this method
+ * returns false there is no further work to do to complete the movement.
+ *
+ * <p>This operation does not count as a capture event, though {@link #getCapturedView()}
+ * will still report the sliding view while the slide is in progress.</p>
+ *
+ * @param child Child view to capture and animate
+ * @param finalLeft Final left position of child
+ * @param finalTop Final top position of child
+ * @return true if animation should continue through {@link #continueSettling(boolean)} calls
+ */
+public boolean smoothSlideViewTo(View child, int finalLeft, int finalTop) {
+    mCapturedView = child;
+    mActivePointerId = INVALID_POINTER;
+
+    boolean continueSliding = forceSettleCapturedViewAt(finalLeft, finalTop, 0, 0);
+    if (!continueSliding && mDragState == STATE_IDLE && mCapturedView != null) {
+        // If we're in an IDLE state to begin with and aren't moving anywhere, we
+        // end up having a non-null capturedView with an IDLE dragState
+        mCapturedView = null;
+    }
+
+    return continueSliding;
+}
+    {% endhighlight %}
