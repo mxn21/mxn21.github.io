@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-9-23-viewDragHelper解析.md" afterPath="$PROJECT_DIR$/_posts/2015-9-23-viewDragHelper解析.md" />
-    </list>
+    <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="" />
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -30,7 +28,7 @@
           </provider>
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.84210527">
-              <caret line="997" column="0" selection-start-line="997" selection-start-column="0" selection-end-line="997" selection-end-column="0" />
+              <caret line="999" column="0" selection-start-line="999" selection-start-column="0" selection-end-line="999" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -936,7 +934,7 @@
       </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.84210527">
-          <caret line="997" column="0" selection-start-line="997" selection-start-column="0" selection-end-line="997" selection-end-column="0" />
+          <caret line="999" column="0" selection-start-line="999" selection-start-column="0" selection-end-line="999" selection-end-column="0" />
           <folding />
         </state>
       </provider>
