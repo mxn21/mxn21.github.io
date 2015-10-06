@@ -839,4 +839,36 @@ private boolean checkTouchSlop(View child, float dx, float dy) {
 回到processTouchEvent()的ACTION_MOVE部分，假设现在我们的手指已经滑动到可以被捕获到的View上了，也都正常的实现了Callback中的相关方法，让tryCaptureViewForDrag()正常的捕获到触摸到的View了，下一次ACTION_MOVE时就执行if部分的代码了，也就是开始不停的调用dragTo()对mCaptureView进行真正拖动了，看dragTo()方法：
 
     {% highlight java %}
+    private void dragTo(int left, int top, int dx, int dy) {
+        int clampedX = left;
+        int clampedY = top;
+        final int oldLeft = mCapturedView.getLeft();
+        final int oldTop = mCapturedView.getTop();
+        if (dx != 0) {
+            clampedX = mCallback.clampViewPositionHorizontal(mCapturedView, left, dx);
+            mCapturedView.offsetLeftAndRight(clampedX - oldLeft);
+        }
+        if (dy != 0) {
+            clampedY = mCallback.clampViewPositionVertical(mCapturedView, top, dy);
+            mCapturedView.offsetTopAndBottom(clampedY - oldTop);
+        }
+
+        if (dx != 0 || dy != 0) {
+            final int clampedDx = clampedX - oldLeft;
+            final int clampedDy = clampedY - oldTop;
+            mCallback.onViewPositionChanged(mCapturedView, clampedX, clampedY,
+                    clampedDx, clampedDy);
+        }
+    }
     {% endhighlight %}
+
+参数dx和dy是前后两次ACTION_MOVE移动的距离，left和top分别为mCapturedView.getLeft() + dx, mCapturedView.getTop() + dy，也就是期望的移动后的坐标，对View的getLeft()等方法不理解的请参阅Android View坐标getLeft, getRight, getTop, getBottom。
+
+这里通过调用offsetLeftAndRight()和offsetTopAndBottom()来完成对mCapturedView移动，这两个是View中定义的方法，看它们的源码就知道内部是通过改变View的mLeft、mRight、mTop、mBottom，即改变View在父容器中的坐标位置，达到移动View的效果，所以如果调用mCapturedView的layout(int l, int t, int r, int b)方法也可以实现移动View的效果。
+
+具体要移动到哪里，由Callback的clampViewPositionHorizontal()和clampViewPositionVertical()来决定的，如果不想在水平方向上移动，在clampViewPositionHorizontal(View child, int left, int dx)里直接返回child.getLeft()就可以了，这样clampedX - oldLeft的值为0，这里调用mCapturedView.offsetLeftAndRight(clampedX - oldLeft)就不会起作用了。垂直方向上同理。
+
+最后会调用Callback的onViewPositionChanged(mCapturedView, clampedX, clampedY,clampedDx, clampedDy)通知捕获到的View位置改变了，并把最终的坐标（clampedX、clampedY）和最终的移动距离（clampedDx、 clampedDy）传递过去。
+
+ACTION_MOVE部分就算告一段落了，接下来应该是用户松手触发ACTION_UP，或者是达到某个条件导致后续的ACTION_MOVE被mParentView的上层View给拦截了而收到ACTION_CANCEL，一起来看这两个部分：
+
