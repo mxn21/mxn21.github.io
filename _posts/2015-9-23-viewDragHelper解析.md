@@ -917,3 +917,29 @@ private void releaseViewForPointerUp() {
 releaseViewForPointerUp()里也调用了dispatchViewReleased()，只不过传递了速率给它，这个速率就是由processTouchEvent()的mVelocityTracker追踪算出来的。再看dispatchViewReleased()：
 
 
+    {% highlight java %}
+/**
+ * Like all callback events this must happen on the UI thread, but release
+ * involves some extra semantics. During a release (mReleaseInProgress)
+ * is the only time it is valid to call {@link #settleCapturedViewAt(int, int)}
+ * or {@link #flingCapturedView(int, int, int, int)}.
+ */
+private void dispatchViewReleased(float xvel, float yvel) {
+    mReleaseInProgress = true;
+    mCallback.onViewReleased(mCapturedView, xvel, yvel);
+    mReleaseInProgress = false;
+
+    if (mDragState == STATE_DRAGGING) {
+        // onViewReleased didn't call a method that would have changed this. Go idle.
+        setDragState(STATE_IDLE);
+    }
+}
+    {% endhighlight %}
+
+这里调用Callback的onViewReleased(mCapturedView, xvel, yvel)通知外部捕获到的View被释放了，而在onViewReleased()前后有个mReleaseInProgress值得注意，注释里说唯一可以调用ViewDragHelper的settleCapturedViewAt()和flingCapturedView()的地方就是在Callback的onViewReleased()里了。
+
+首先这两个方法是干什么的呢。在现实生活中保龄球的打法是，先做扔的动作让球的速度达到最大，然后突然松手，由于惯性，保龄球就以最后松手前的速度为初速度抛出去了，直至自然停止，或者撞到边界停止，这种效果叫fling。
+flingCapturedView(int minLeft, int minTop, int maxLeft, int maxTop)就是对捕获到的View做出这种fling的效果，用户在屏幕上滑动松手之前也会有一个滑动的速率。fling也引出来的一个问题，就是不知道View最终会滚动到哪个位置，最后位置是在启动fling时根据最后滑动的速度来计算的（flingCapturedView的四个参数int minLeft, int minTop, int maxLeft, int maxTop可以限定最终位置的范围），假如想要让View滚动到指定位置应该怎么办，答案就是使用settleCapturedViewAt(int finalLeft, int finalTop)。
+
+为什么唯一可以调用settleCapturedViewAt()和flingCapturedView()的地方是Callback的onViewReleased()呢？看看它们的源码
+
