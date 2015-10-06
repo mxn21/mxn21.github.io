@@ -803,3 +803,40 @@ private boolean checkNewEdgeDrag(float delta, float odelta, int pointerId, int e
 * 第8行(absDelta <= mTouchSlop && absODelta <= mTouchSlop)很简单了，就是检查本次移动的距离是不是太小了，太小就不处理了。
 * 最后一句返回的时候再次检查给定的edge有没有记录过，确保了每个边缘只会调用一次reportNewEdgeDrags的mCallback.onEdgeDragStarted(dragsStarted, pointerId)
 
+再来看checkTouchSlop()方法：
+
+    {% highlight java %}
+/**
+ * Check if we've crossed a reasonable touch slop for the given child view.
+ * If the child cannot be dragged along the horizontal or vertical axis, motion
+ * along that axis will not count toward the slop check.
+ *
+ * @param child Child to check
+ * @param dx Motion since initial position along X axis
+ * @param dy Motion since initial position along Y axis
+ * @return true if the touch slop has been crossed
+ */
+private boolean checkTouchSlop(View child, float dx, float dy) {
+    if (child == null) {
+        return false;
+    }
+    final boolean checkHorizontal = mCallback.getViewHorizontalDragRange(child) > 0;
+    final boolean checkVertical = mCallback.getViewVerticalDragRange(child) > 0;
+
+    if (checkHorizontal && checkVertical) {
+        return dx * dx + dy * dy > mTouchSlop * mTouchSlop;
+    } else if (checkHorizontal) {
+        return Math.abs(dx) > mTouchSlop;
+    } else if (checkVertical) {
+        return Math.abs(dy) > mTouchSlop;
+    }
+    return false;
+}
+    {% endhighlight %}
+
+这个方法主要就是检查手指移动的距离有没有超过触发处理移动事件的最短距离（mTouchSlop）了，注意dx和dy指的是当前触摸点到ACTION_DOWN触摸到的点的距离。这里先检查Callback的getViewHorizontalDragRange(child)和getViewVerticalDragRange(child)是否大于0，如果想让某个View在某个方向上滑动，就要在那个方向对应的方法里返回大于0的数。否则在processTouchEvent()的ACTION_MOVE部分就不会调用tryCaptureViewForDrag()来捕获当前触摸到的View了，拖动也就没办法进行了。
+
+回到processTouchEvent()的ACTION_MOVE部分，假设现在我们的手指已经滑动到可以被捕获到的View上了，也都正常的实现了Callback中的相关方法，让tryCaptureViewForDrag()正常的捕获到触摸到的View了，下一次ACTION_MOVE时就执行if部分的代码了，也就是开始不停的调用dragTo()对mCaptureView进行真正拖动了，看dragTo()方法：
+
+    {% highlight java %}
+    {% endhighlight %}
