@@ -1113,3 +1113,7 @@ private int computeAxisDuration(int delta, int velocity, int motionRange) {
 }
     {% endhighlight %}
 
+如果给定的速率velocity不为0，就通过距离除以速率来算出时间；如果velocity为0，就通过要滑动的距离（delta）除以总的移动范围（motionRange，就是Callback里getViewHorizontalDragRange()、getViewVerticalDragRange()返回值）来算出时间。最后还会对计算出的时间做过滤，最终时间反正是不会超过MAX_SETTLE_DURATION的，源码里的取值是600毫秒，所以不用担心在Callback里getViewHorizontalDragRange()、getViewVerticalDragRange()返回错误的数而导致自动滚动时间过长了。
+
+在调用settleCapturedViewAt()、flingCapturedView()和smoothSlideViewTo()时，还需要实现mParentView的computeScroll()：
+
