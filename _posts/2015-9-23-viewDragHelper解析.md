@@ -1026,3 +1026,38 @@ public boolean smoothSlideViewTo(View child, int finalLeft, int finalTop) {
     return continueSliding;
 }
     {% endhighlight %}
+
+可以看到它不受mReleaseInProgress的限制，所以可以在任何地方调用，效果和settleCapturedViewAt()类似，因为它们最终都调用了forceSettleCapturedViewAt()来启动自动滚动，区别在于settleCapturedViewAt()会以最后松手前的滑动速率为初速度将View滚动到最终位置，而smoothSlideViewTo()滚动的初速度是0。
+forceSettleCapturedViewAt()里有地方调用了Callback里的方法，所以再来看看这个方法：
+
+    {% highlight java %}
+/**
+ * Settle the captured view at the given (left, top) position.
+ *
+ * @param finalLeft Target left position for the captured view
+ * @param finalTop Target top position for the captured view
+ * @param xvel Horizontal velocity
+ * @param yvel Vertical velocity
+ * @return true if animation should continue through {@link #continueSettling(boolean)} calls
+ */
+private boolean forceSettleCapturedViewAt(int finalLeft, int finalTop, int xvel, int yvel) {
+    final int startLeft = mCapturedView.getLeft();
+    final int startTop = mCapturedView.getTop();
+    final int dx = finalLeft - startLeft;
+    final int dy = finalTop - startTop;
+
+    if (dx == 0 && dy == 0) {
+        // Nothing to do. Send callbacks, be done.
+        mScroller.abortAnimation();
+        setDragState(STATE_IDLE);
+        return false;
+    }
+
+    final int duration = computeSettleDuration(mCapturedView, dx, dy, xvel, yvel);
+    mScroller.startScroll(startLeft, startTop, dx, dy, duration);
+
+    setDragState(STATE_SETTLING);
+    return true;
+}
+    {% endhighlight %}
+
