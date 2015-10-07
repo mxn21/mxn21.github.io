@@ -1199,3 +1199,32 @@ public boolean shouldInterceptTouchEvent(MotionEvent ev) {
 
 回头再看之前在shouldInterceptTouchEvent()的ACTION_DOWN部分留下的坑：
 
+    {% highlight java %}
+public boolean shouldInterceptTouchEvent(MotionEvent ev) {
+	// 省略其他部分...
+
+    switch (action) {
+        // 省略其他case...
+
+        case MotionEvent.ACTION_DOWN: {
+			// 省略其他部分...
+
+            // Catch a settling view if possible.
+            if (toCapture == mCapturedView && mDragState == STATE_SETTLING) {
+                tryCaptureViewForDrag(toCapture, pointerId);
+            }
+
+			// 省略其他部分...
+        }
+
+		// 省略其他case...
+    }
+
+    return mDragState == STATE_DRAGGING;
+}
+    {% endhighlight %}
+
+现在应该明白这部分代码会在什么情况下执行了。当我们松手后捕获的View处于自动滚动的过程中时，用户再次触摸屏幕，就会执行这里的tryCaptureViewForDrag()尝试捕获View，如果捕获成功，mDragState就变为STATE_DRAGGING了，shouldInterceptTouchEvent()就返回true了，然后就是mParentView的onInterceptTouchEvent()返回true，接着执行mParentView的onTouchEvent()，再执行processTouchEvent()的ACTION_DOWN部分。此时（ACTION_DOWN事件发生时）mParentView的onTouchEvent()要返回true，onTouchEvent()才能继续接受到接下来的ACTION_MOVE、ACTION_UP等事件，否则无法完成拖动。
+
+至此整个事件传递流程和ViewDragHelper的重要方法基本都解析完了.
+
