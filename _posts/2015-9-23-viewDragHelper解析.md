@@ -1061,3 +1061,31 @@ private boolean forceSettleCapturedViewAt(int finalLeft, int finalTop, int xvel,
 }
     {% endhighlight %}
 
+可以看到自动滑动是靠Scroll类完成，在这里生成了调用mScroller.startScroll()需要的参数。再来看看计算滚动时间的方法computeSettleDuration()：
+
+    {% highlight java %}
+private int computeSettleDuration(View child, int dx, int dy, int xvel, int yvel) {
+    xvel = clampMag(xvel, (int) mMinVelocity, (int) mMaxVelocity);
+    yvel = clampMag(yvel, (int) mMinVelocity, (int) mMaxVelocity);
+    final int absDx = Math.abs(dx);
+    final int absDy = Math.abs(dy);
+    final int absXVel = Math.abs(xvel);
+    final int absYVel = Math.abs(yvel);
+    final int addedVel = absXVel + absYVel;
+    final int addedDistance = absDx + absDy;
+
+    final float xweight = xvel != 0 ? (float) absXVel / addedVel :
+            (float) absDx / addedDistance;
+    final float yweight = yvel != 0 ? (float) absYVel / addedVel :
+            (float) absDy / addedDistance;
+
+    int xduration = computeAxisDuration(dx, xvel, mCallback.getViewHorizontalDragRange(child));
+    int yduration = computeAxisDuration(dy, yvel, mCallback.getViewVerticalDragRange(child));
+
+    return (int) (xduration * xweight + yduration * yweight);
+}
+    {% endhighlight %}
+
+clampMag()方法确保参数中给定的速率在正常范围之内。最终的滚动时间还要经过computeAxisDuration()算出来，通过它的参数可以看到最终的滚动时间是由dx、
+xvel、mCallback.getViewHorizontalDragRange()共同影响的。看computeAxisDuration()：
+
