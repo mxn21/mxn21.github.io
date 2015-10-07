@@ -1089,3 +1089,27 @@ private int computeSettleDuration(View child, int dx, int dy, int xvel, int yvel
 clampMag()方法确保参数中给定的速率在正常范围之内。最终的滚动时间还要经过computeAxisDuration()算出来，通过它的参数可以看到最终的滚动时间是由dx、
 xvel、mCallback.getViewHorizontalDragRange()共同影响的。看computeAxisDuration()：
 
+    {% highlight java %}
+private int computeAxisDuration(int delta, int velocity, int motionRange) {
+    if (delta == 0) {
+        return 0;
+    }
+
+    final int width = mParentView.getWidth();
+    final int halfWidth = width / 2;
+    final float distanceRatio = Math.min(1f, (float) Math.abs(delta) / width);
+    final float distance = halfWidth + halfWidth *
+            distanceInfluenceForSnapDuration(distanceRatio);
+
+    int duration;
+    velocity = Math.abs(velocity);
+    if (velocity > 0) {
+        duration = 4 * Math.round(1000 * Math.abs(distance / velocity));
+    } else {
+        final float range = (float) Math.abs(delta) / motionRange;
+        duration = (int) ((range + 1) * BASE_SETTLE_DURATION);
+    }
+    return Math.min(duration, MAX_SETTLE_DURATION);
+}
+    {% endhighlight %}
+
