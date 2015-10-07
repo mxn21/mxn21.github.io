@@ -1117,3 +1117,16 @@ private int computeAxisDuration(int delta, int velocity, int motionRange) {
 
 在调用settleCapturedViewAt()、flingCapturedView()和smoothSlideViewTo()时，还需要实现mParentView的computeScroll()：
 
+    {% highlight java %}
+    @Override
+    public void computeScroll() {
+    	if (mDragHelper.continueSettling(true)) {
+    		ViewCompat.postInvalidateOnAnimation(this);
+    	}
+    }
+    {% endhighlight %}
+
+至此，整个触摸流程和ViewDragHelper的重要的方法都过了一遍。之前在讨论shouldInterceptTouchEvent()的ACTION_DOWN部分执行完后应该再执行什么的时候，还有一种情况没有展开详解，就是有子View消费了本次ACTION_DOWN事件的情况，现在来看看这种情况。
+
+假设现在shouldInterceptTouchEvent()的ACTION_DOWN部分执行完了，也有子View消费了这次的ACTION_DOWN事件，那么接下来就会调用mParentView的onInterceptTouchEvent()的ACTION_MOVE部分，接着调用ViewDragHelper的shouldInterceptTouchEvent()的ACTION_MOVE部分：
+
