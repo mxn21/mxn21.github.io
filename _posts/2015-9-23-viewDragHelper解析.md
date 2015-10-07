@@ -1130,3 +1130,72 @@ private int computeAxisDuration(int delta, int velocity, int motionRange) {
 
 假设现在shouldInterceptTouchEvent()的ACTION_DOWN部分执行完了，也有子View消费了这次的ACTION_DOWN事件，那么接下来就会调用mParentView的onInterceptTouchEvent()的ACTION_MOVE部分，接着调用ViewDragHelper的shouldInterceptTouchEvent()的ACTION_MOVE部分：
 
+    {% highlight java %}
+public boolean shouldInterceptTouchEvent(MotionEvent ev) {
+	// 省略...
+
+    switch (action) {
+        // 省略其他case...
+
+        case MotionEvent.ACTION_MOVE: {
+            // First to cross a touch slop over a draggable view wins. Also report edge drags.
+            final int pointerCount = MotionEventCompat.getPointerCount(ev);
+            for (int i = 0; i < pointerCount; i++) {
+                final int pointerId = MotionEventCompat.getPointerId(ev, i);
+                final float x = MotionEventCompat.getX(ev, i);
+                final float y = MotionEventCompat.getY(ev, i);
+                final float dx = x - mInitialMotionX[pointerId];
+                final float dy = y - mInitialMotionY[pointerId];
+
+                final View toCapture = findTopChildUnder((int) x, (int) y);
+                final boolean pastSlop = toCapture != null && checkTouchSlop(toCapture, dx, dy);
+                if (pastSlop) {
+                    // check the callback's
+                    // getView[Horizontal|Vertical]DragRange methods to know
+                    // if you can move at all along an axis, then see if it
+                    // would clamp to the same value. If you can't move at
+                    // all in every dimension with a nonzero range, bail.
+                    final int oldLeft = toCapture.getLeft();
+                    final int targetLeft = oldLeft + (int) dx;
+                    final int newLeft = mCallback.clampViewPositionHorizontal(toCapture,
+                            targetLeft, (int) dx);
+                    final int oldTop = toCapture.getTop();
+                    final int targetTop = oldTop + (int) dy;
+                    final int newTop = mCallback.clampViewPositionVertical(toCapture, targetTop,
+                            (int) dy);
+                    final int horizontalDragRange = mCallback.getViewHorizontalDragRange(
+                            toCapture);
+                    final int verticalDragRange = mCallback.getViewVerticalDragRange(toCapture);
+                    if ((horizontalDragRange == 0 || horizontalDragRange > 0
+                            && newLeft == oldLeft) && (verticalDragRange == 0
+                            || verticalDragRange > 0 && newTop == oldTop)) {
+                        break;
+                    }
+                }
+                reportNewEdgeDrags(dx, dy, pointerId);
+                if (mDragState == STATE_DRAGGING) {
+                    // Callback might have started an edge drag
+                    break;
+                }
+
+                if (pastSlop && tryCaptureViewForDrag(toCapture, pointerId)) {
+                    break;
+                }
+            }
+            saveLastMotion(ev);
+            break;
+        }
+
+		// 省略其他case...
+    }
+
+    return mDragState == STATE_DRAGGING;
+}
+    {% endhighlight %}
+
+如果有多个手指触摸到屏幕上了，对每个触摸点都检查一下，看当前触摸的地方是否需要捕获某个View。这里先用findTopChildUnder(int x, int y)寻找触摸点处的子View，再用checkTouchSlop(View child, float dx, float dy)检查当前触摸点到ACTION_DOWN触摸点的距离是否达到了mTouchSlop，达到了才会去捕获View。
+接着看19~41行if (pastSlop){...}部分，这里检查在某个方向上是否可以进行拖动，检查过程涉及到getView[Horizontal|Vertical]DragRange和clampViewPosition[Horizontal|Vertical]四个方法。如果getView[Horizontal|Vertical]DragRange返回都是0，就会认作是不会产生拖动。clampViewPosition[Horizontal|Vertical]返回的是被捕获的View的最终位置，如果和原来的位置相同，说明我们没有期望它移动，也就会认作是不会产生拖动的。不会产生拖动就会在39行直接break，不会执行后续的代码，而后续代码里有调用tryCaptureViewForDrag()，所以不会产生拖动也就不会去捕获View了，拖动也不会进行了。
+如果检查到可以在某个方向上进行拖动，就会调用后面的tryCaptureViewForDrag()捕获子View，如果捕获成功，mDragState就会变成STATE_DRAGGING，shouldInterceptTouchEvent()返回true，mParentView的onInterceptTouchEvent()返回true，后续的移动事件就会在mParentView的onTouchEvent()执行了，最后执行的就是mParentView的processTouchEvent()的ACTION_MOVE部分，拖动正常进行。
+
+回头再看之前在shouldInterceptTouchEvent()的ACTION_DOWN部分留下的坑：
+
