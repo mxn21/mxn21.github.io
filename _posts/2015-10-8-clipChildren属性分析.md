@@ -10,4 +10,4 @@ tag: android
 
 2. clipToPadding用来定义ViewGroup是否允许在padding中绘制。默认情况下，cliptopadding被设置为ture， 也就是把padding中的值都进行裁切了。
 
-待续。
+待续。。
