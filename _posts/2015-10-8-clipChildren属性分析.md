@@ -16,7 +16,20 @@ ClipChildren属性对需要做动画的View非常有用，特别是对ScaleAnima
 需要注意的是ClipChildren ＝ false只是告诉他的子View可以超出他本身的大小，并不是说他自己可以超出他的父View的大小，
 所以如果你想允许某个View超过其父View的边界，你需要一直找到最顶层的父View并设置ClipChildren = false。
 
-先看看最后的效果吧， 点击第三个机器人就会播放一个变大的效果（类似于心变大的效果）
+下面需要提一下的是一个关于ClipChildren的坑，在4.2的系统上(4.3未测试，4.4及5.0版本没有这个 BUG)，在启用了hardware accelerated的情况下，
+ScaleAnimation会出现撕裂等不流畅的现象，处理方法如下：
+
+    {% highlight java %}
+if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+    parentView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+ }
+    {% endhighlight %}
+
+这里的parentView一定要是你启用了ClipChildren = false的那个ViewGroup，否则没有效果，最佳实践是只在需要做ScaleAnimation的时候才关闭硬件加速，做完动画后应该重新开启。
+
+看看最后的效果吧， 点击第三个机器人就会播放一个变大的效果（类似于心变大的效果）
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img114.png)
+
+
 
