@@ -22,7 +22,7 @@ tag: [android]
 
 设置listview距离上面的控件的padding,并且允许在padding中滑动。
 普遍的情况下,对于任何具有这个属性的view,例如listview,clipToPadding就是说控件的绘制区域是否在padding里面的，true的情况下如果你设置了padding
-那么绘制的区域就往里缩.如果为false，则绘制的区域不会变小，会绘制在padding上。
+那么绘制的区域就往里缩.如果为false，则绘制的区域不会变小，会绘制在padding上。默认情况下，cliptopadding被设置为ture， 也就是把padding中的值都进行裁切了。
 android:paddingTop="10dp"
 android:clipToPadding  = "false"
 
