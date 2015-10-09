@@ -31,5 +31,125 @@ if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img114.png)
 
+布局代码
+
+主要看设的两个关键属性android:clipChildren和android:clipToPadding均为false。
+这就让点击第三个小人时，可以跨边界进行绘制，并且允许其在padding区域内绘制。
+
+    {% highlight xml %}
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <ImageView
+        android:id="@+id/img1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/img2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/img3"
+        android:onClick="AA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@android:color/black"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/img4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/img5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/img6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_launcher" />
+
+</LinearLayout>
+    {% endhighlight %}
+
+其他辅助代码，如动画和act等内容
+
+    {% highlight xml %}
+<?xml version="1.0" encoding="utf-8"?>
+<scale
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fromXScale="1.0"
+    android:fromYScale="1.0"
+    android:toXScale="3.0"
+    android:toYScale="3.0"
+    android:duration="2000"
+       android:pivotX="50%"
+       android:pivotY="50%"
+    >
+</scale>
+
+     {% endhighlight %}
+
+    {% highlight java %}
+import android.os.Bundle;
+import android.app.Activity;
+import android.view.Menu;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+
+    //只对第三个小人做放大动作
+    ImageView image3 =null;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        image3 = (ImageView) findViewById(R.id.img3);
+    }
 
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    public void AA(View view) {
+        Toast.makeText(this, "aa", Toast.LENGTH_SHORT).show();
+        Animation an = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.anims);
+        image3.startAnimation(an);
+    }
+
+}
+
+     {% endhighlight %}
