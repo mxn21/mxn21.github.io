@@ -6,6 +6,8 @@ category: 技术博文
 tag: android
 ---
 
+clipChild属性和clipToPadding属性类似，先比较一个两个属性。
+
 1.clipChild用来定义他的子控件是否要在他应有的边界内进行绘制。 默认情况下，clipChild被设置为true。 也就是不允许进行扩展绘制。
 
 2.clipToPadding用来定义ViewGroup是否允许在padding中绘制。默认情况下，cliptopadding被设置为ture， 也就是把padding中的值都进行裁切了。
@@ -26,6 +28,8 @@ if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
     {% endhighlight %}
 
 这里的parentView一定要是你启用了ClipChildren = false的那个ViewGroup，否则没有效果，最佳实践是只在需要做ScaleAnimation的时候才关闭硬件加速，做完动画后应该重新开启。
+
+<!-- more -->
 
 看看最后的效果吧， 点击第三个机器人就会播放一个变大的效果（类似于心变大的效果）
 
