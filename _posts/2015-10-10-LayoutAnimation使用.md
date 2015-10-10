@@ -39,6 +39,7 @@ android:layoutAnimation="@anim/list_anim_layout"
 
 这样在加载布局的时候就会自动播放layout-animtion。
 
+<!-- more -->
 
 #### 代码配置
 
