@@ -42,3 +42,14 @@ android:layoutAnimation="@anim/list_anim_layout"
 
 #### 代码配置
 
+如果在xml中文件已经写好LayoutAnimation，可以使用AnimationUtils直接加载：
+
+
+    {% highlight java %}
+
+ AnimationUtils.loadLayoutAnimation(context, id)
+
+    {% endhighlight %}
+
+另外还可以手动java代码编写，如：
+
