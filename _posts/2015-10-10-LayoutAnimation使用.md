@@ -53,3 +53,24 @@ android:layoutAnimation="@anim/list_anim_layout"
 
 另外还可以手动java代码编写，如：
 
+    {% highlight java %}
+
+ //通过加载XML动画设置文件来创建一个Animation对象；
+   Animation animation=AnimationUtils.loadAnimation(this, R.anim.slide_right);
+
+   //得到一个LayoutAnimationController对象；
+   LayoutAnimationController controller = new LayoutAnimationController(animation);
+
+   //设置控件显示的顺序；
+   controller.setOrder(LayoutAnimationController.ORDER_REVERSE);
+
+   //设置控件显示间隔时间；
+   controller.setDelay(0.3);
+
+   //为ListView设置LayoutAnimationController属性；
+   listView.setLayoutAnimation(controller);
+   listView.startLayoutAnimation();
+
+       {% endhighlight %}
+
+通过代码设置可以达到同样效果。
