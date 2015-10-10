@@ -31,3 +31,14 @@ layout-animation可由xml和代码两种方式配置：
 * android:animation指向了子控件所要播放的动画。
 
 上述步骤完成之后，就可以将layout-animation应用到ViewGroup中，xml布局添加下面一行就ok：
+
+    {% highlight xml %}
+android:layoutAnimation="@anim/list_anim_layout"
+
+    {% endhighlight %}
+
+这样在加载布局的时候就会自动播放layout-animtion。
+
+
+#### 代码配置
+
