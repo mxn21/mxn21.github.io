@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-10-13-java的四种引用.md" afterPath="$PROJECT_DIR$/_posts/2015-10-13-java的四种引用.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-10-14-PathMeasure使用方法.md" afterPath="$PROJECT_DIR$/_posts/2015-10-14-PathMeasure使用方法.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
@@ -23,14 +24,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="2015-10-14-PathMeasure使用方法.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="2015-10-14-PathMeasure使用方法.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2015-10-14-PathMeasure使用方法.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-18.62069">
+              <caret line="94" column="3" selection-start-line="94" selection-start-column="3" selection-end-line="94" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2015-10-13-java的四种引用.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_posts/2015-10-13-java的四种引用.md">
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.84779704">
-              <caret line="86" column="22" selection-start-line="86" selection-start-column="22" selection-end-line="86" selection-end-column="22" />
+              <caret line="43" column="2" selection-start-line="43" selection-start-column="2" selection-end-line="43" selection-end-column="2" />
               <folding />
             </state>
           </provider>
@@ -112,9 +126,9 @@
         <option value="$PROJECT_DIR$/_posts/2015-10-10-LayoutAnimation使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-5-21-android事件传递分析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-5-13-android 内存泄漏分析.md" />
-        <option value="$PROJECT_DIR$/_posts/2015-10-13-java的四种引用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-10-14-mea.md" />
         <option value="$PROJECT_DIR$/_posts/2015-10-14-PathMeasure使用方法.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-10-13-java的四种引用.md" />
       </list>
     </option>
   </component>
@@ -895,17 +909,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-10-13-java的四种引用.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.793103">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-5-13-android 内存泄漏分析.md">
       <provider editor-type-id="MarkdownPreviewEditor">
         <state />
@@ -933,8 +936,19 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-18.62069">
+          <caret line="94" column="3" selection-start-line="94" selection-start-column="3" selection-end-line="94" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-10-13-java的四种引用.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.84779704">
-          <caret line="86" column="22" selection-start-line="86" selection-start-column="22" selection-end-line="86" selection-end-column="22" />
+          <caret line="43" column="2" selection-start-line="43" selection-start-column="2" selection-end-line="43" selection-end-column="2" />
           <folding />
         </state>
       </provider>

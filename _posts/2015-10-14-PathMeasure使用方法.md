@@ -86,10 +86,13 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 
     {% endhighlight %}
 
+这里的speed直接决定了动画的速度。调整这个值，你可以到达你想要的速度。
+就像一条线一样，你也可以使用曲线，贝赛尔曲线，弧线，和这些的组合等等。
+
 
 PathMeasure主要是配合Path，来计算Path里面点的坐标的，或者是给一个范围，来截取Path其中的一部分的。
 
-
+待续。
 
 
 
