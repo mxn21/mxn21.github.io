@@ -55,13 +55,36 @@ tan=new float[2];
 后面的图像移动的概念很简单：从（0,0）开始，在每一个更新周期，很小的一段时间内，我们找到沿path的坐标点。
 现在在刷新画面时，我们做下面的事：
 
+    {% highlight java %}
 
+public void update()
+ {
+ while(distance < measure.getLength())
+ {
 
+    // getPosTan pins the distance along the Path and
+ // computes the position and the tangent.
+ measure.getPosTan(distance, pos, tan);
 
+     distance += speed;   // Traversal
+ }
+ }
 
+    {% endhighlight %}
 
+现在来渲染图片：
 
+    {% highlight java %}
+public void render(Canvas canvas)
+{
 
+   //Draw the bitmap on the canvas, passing in the
+//Bitmap object, the x and y co-ordinate and a
+// Paint object.
+canvas.render(bmpImage, pos[0], pos[1], null);
+}
+
+    {% endhighlight %}
 
 
 PathMeasure主要是配合Path，来计算Path里面点的坐标的，或者是给一个范围，来截取Path其中的一部分的。
