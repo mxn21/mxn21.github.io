@@ -22,7 +22,8 @@ float[] pos, tan;
 float speed, distance;
 
     {% endhighlight %}
-    
+
+初始化path对象和其他变量，我们将在后面使用。如果使用SurfaceView，你可以在你的surfaceCreated()回调中执行这些。
 
 PathMeasure主要是配合Path，来计算Path里面点的坐标的，或者是给一个范围，来截取Path其中的一部分的。
 
