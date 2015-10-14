@@ -48,7 +48,7 @@ float speed, distance;
 
 
 pos=new float[2];
- tan=new float[2];
+tan=new float[2];
 
     {% endhighlight %}
 
