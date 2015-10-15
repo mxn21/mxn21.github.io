@@ -11,11 +11,13 @@ tag: android
 
 重点看下pathmeasure常用方法：
 
-* float getLength() 返回当前contour(解释为轮廓不太恰当，我觉得更像是笔画)的长度，也就是这一个Path有多长
-* boolean getPosTan(float distance, float[] pos, float[] tan) 传入一个距离distance(0<=distance<=getLength())，然后会计算当前距离的坐标点和切线，注意，pos会自动填充上坐标，这个方法很重要
-* boolean getSegment(float startD, float stopD, Path dst, boolean startWithMoveTo) 传入一个开始和结束距离，然后会返回介于这之间的Path，在这里就是dst，他会被填充上内容，这个方法很重要
-* boolean nextContour() 移动到下一个笔画，如果你的Path是由多个笔画组成的话，那么就可以使用这个方法
-* void setPath(Path path, boolean forceClosed)这个方法也比较重要，用来设置新的Path对象的，算是对第一个构造函数的一个补充
+* float getLength() 返回当前contour的长度，也就是这一个Path有多长.
+* boolean getPosTan(float distance, float[] pos, float[] tan) 传入一个距离distance(0<=distance<=getLength())，
+然后会计算当前距离的坐标点和切线，注意，pos会自动填充上坐标，这个方法很重要.
+* boolean getSegment(float startD, float stopD, Path dst, boolean startWithMoveTo) 传入一个开始和结束距离，
+然后会返回介于这之间的Path，在这里就是dst，他会被填充上内容，这个方法很重要.
+* boolean nextContour() 移动到下一个笔画，如果你的Path是由多个笔画组成的话，那么就可以使用这个方法.
+* void setPath(Path path, boolean forceClosed)这个方法也比较重要，用来设置新的Path对象的，算是对第一个构造函数的一个补充.
 
 假设，我想在一条直线上移动图像，从（0,0）到（100，100）。
 
