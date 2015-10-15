@@ -49,8 +49,8 @@ float speed, distance;
  path.lineTo(100,100);
 
 // Create a PathMeasure object, passing in the Path object
- // we created and a boolean that specifies if the Path should
- // be forced to a closed path.
+// we created and a boolean that specifies if the Path should
+// be forced to a closed path.
  measure = new PathMeasure(path, false);
 
 // Here, we're dividing the whole length of the path by 30.
@@ -72,7 +72,7 @@ public void update()
  while(distance < measure.getLength())
  {
 
-    // getPosTan pins the distance along the Path and
+ // getPosTan pins the distance along the Path and
  // computes the position and the tangent.
  measure.getPosTan(distance, pos, tan);
 
@@ -88,7 +88,7 @@ public void update()
 public void render(Canvas canvas)
 {
 
-   //Draw the bitmap on the canvas, passing in the
+//Draw the bitmap on the canvas, passing in the
 //Bitmap object, the x and y co-ordinate and a
 // Paint object.
 canvas.render(bmpImage, pos[0], pos[1], null);
