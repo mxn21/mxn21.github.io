@@ -75,8 +75,10 @@ public void update()
  // getPosTan pins the distance along the Path and
  // computes the position and the tangent.
  measure.getPosTan(distance, pos, tan);
-
-     distance += speed;   // Traversal
+ pointArray[counter] = new FlaotPoint(pos[0],
+                    pos[1]);
+  counter++;
+  distance += speed;   // Traversal
  }
  }
 
