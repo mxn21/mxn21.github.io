@@ -122,7 +122,13 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 第一个参数是一个矩形，第二个参数为0时的位置是矩形右边1/2高度的点，90为矩形底部1/2宽的位置，正数为顺时针旋转，负数是逆时针旋转。
 第三个参数是图形绘制角度，下图第三个参数为180，如果是-180，那么图形倒过来。
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img116.png)
 
+2.addCircle(float x, float y, float radius, Path.Direction dir) 画圆
+
+第一、二参数是圆心坐标，第三参数是半径，第四参数是顺时针画还是逆时针画.
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img117.png)
 
 
 
