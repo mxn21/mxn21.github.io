@@ -164,3 +164,12 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 11.moveTo(float x, float y)
 设置下一个图形的开始点。
 
+12.setLastPoint(float dx, float dy)
+设置图形的最后一个点位置。如果画的是个封闭图形，而这个点不在图形线上，那么这个点与最后一个图形连上线完成封闭。
+如图，本来画了个圆角矩形，最后setLastPoint了一下。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img120.png)
+
+13.close()
+关闭当前图形，如果最后一点不是开始的那点，那么从最后一点画线到开始点。简而言之，画三角型只需要画俩条线，再调此方法能三角型就完成了。
+
