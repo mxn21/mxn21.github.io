@@ -105,6 +105,23 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 
 已知图中的中心圆点在屏幕上的坐标为(x, y)，分别求出点1、2、3、4的坐标值。
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img115.png)
+
+解决方法：
+可以利用 android.graphics.Path和android.graphics.PathMeasure，
+1.以圆点坐标（x，y）为中心画一个矩形RectF，
+2.再通过Path类画一个90度（180—270）的内切圆弧路径，
+3.然后将该路径平分成3段，
+4.再利用PathMeasure分别测量出各个点的坐标值
+
+
+先简单介绍一下Path类的一些方法的使用和说明
+
+1.addArc(RectF oval, float startAngle, float sweepAngle) 画扇形（弧线）
+
+第一个参数是一个矩形，第二个参数为0时的位置是矩形右边1/2高度的点，90为矩形底部1/2宽的位置，正数为顺时针旋转，负数是逆时针旋转。
+第三个参数是图形绘制角度，下图第三个参数为180，如果是-180，那么图形倒过来。
+
 
 
 
