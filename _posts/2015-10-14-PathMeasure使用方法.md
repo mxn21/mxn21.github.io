@@ -158,5 +158,9 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 9.arcTo(RectF oval, float startAngle, float sweepAngle, boolean forceMoveTo)
 如果最后一个参数为true，那么等同于addArc(RectF oval, float startAngle, float sweepAngle)。
 
+10.cubicTo(float x1, float y1, float x2, float y2, float x3, float y3)
+画贝塞尔曲线。前四个参数是两个控制点，最后俩个参数是终止点。起始点通过moveTo(float x, float y)或者setLastPoint(float dx, float dy)方法设置。关于贝塞尔曲线，可以去网上找找资料。某人的博客，关于此曲线。
 
+11.moveTo(float x, float y)
+设置下一个图形的开始点。
 
