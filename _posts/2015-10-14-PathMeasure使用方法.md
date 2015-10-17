@@ -151,5 +151,12 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 画圆角矩形。第二、三个参数为0时就是个矩形，为360时，就是个椭圆。第二个参数指X轴方向的角度，决定了与参考矩形的横线交点位置，
 0-360决定交点范围为 角点与线中点之间的某点。
 
+8.arcTo(RectF oval, float startAngle, float sweepAngle)
+等同于arcTo(RectF oval, float startAngle, float sweepAngle, boolean false)。
+从之前的最后一点开始画线到画椭圆的开始点，接着画个椭圆。
+
+9.arcTo(RectF oval, float startAngle, float sweepAngle, boolean forceMoveTo)
+如果最后一个参数为true，那么等同于addArc(RectF oval, float startAngle, float sweepAngle)。
+
 
 
