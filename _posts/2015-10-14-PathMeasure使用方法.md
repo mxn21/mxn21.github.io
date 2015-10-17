@@ -144,5 +144,12 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 6.addRect(float left, float top, float right, float bottom, Path.Direction dir)
 画个矩形、四个参数对应与原点的相对距离的四个点。
 
+7.addRoundRect(RectF rect, float rx, float ry, Path.Direction dir)
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img119.png)
+
+画圆角矩形。第二、三个参数为0时就是个矩形，为360时，就是个椭圆。第二个参数指X轴方向的角度，决定了与参考矩形的横线交点位置，
+0-360决定交点范围为 角点与线中点之间的某点。
+
 
 
