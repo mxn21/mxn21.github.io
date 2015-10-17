@@ -173,3 +173,44 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 13.close()
 关闭当前图形，如果最后一点不是开始的那点，那么从最后一点画线到开始点。简而言之，画三角型只需要画俩条线，再调此方法能三角型就完成了。
 
+下面实现前面的需求，求3个点的坐标代码如下：
+
+    {% highlight java %}
+
+private void calculateItemPositions() {
+        // Create an arc that starts from startAngle and ends at endAngle
+        // in an area that is as large as 4*radius^2
+        //获取中心圆点的坐标值
+        Point center = getActionViewCenter();
+        //内切弧形路径
+        //以圆点坐标（x，y）为中心画一个矩形RectF
+        RectF area = new RectF(center.x - radius, center.y - radius, center.x + radius, center.y + radius);
+        Path orbit = new Path();
+        //通过Path类画一个90度（180—270）的内切圆弧路径
+        orbit.addArc(area, startAngle, endAngle - startAngle);
+
+        PathMeasure measure = new PathMeasure(orbit, false);
+
+        // Prevent overlapping when it is a full circle
+        //然后将该路径平分成3段，这里的size为4
+        int divisor;
+        if(Math.abs(endAngle - startAngle) >= 360 || subActionItems.size() <= 1) {
+            divisor = subActionItems.size();
+        }
+        else {
+            divisor = subActionItems.size() -1;
+        }
+
+        // Measure this path, in order to find points that have the same distance between each other
+        for(int i=0; i<subActionItems.size(); i++) {
+            float[] coords = new float[] {0f, 0f};
+            //利用PathMeasure分别测量出各个点的坐标值coords
+            measure.getPosTan((i) * measure.getLength() / divisor, coords, null);
+            // get the x and y values of these points and set them to each of sub action items.
+            subActionItems.get(i).x = (int) coords[0] - subActionItems.get(i).width / 2;
+            subActionItems.get(i).y = (int) coords[1] - subActionItems.get(i).height / 2;
+        }
+    }
+
+    {% endhighlight %}
+
