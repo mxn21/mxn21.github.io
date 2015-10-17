@@ -134,5 +134,15 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img118.png)
 
+4.addPath(Path src, float dx, float dy)
+
+复制一份Path，包含被复制的src的一切，并向X与Y轴方向移动第二、三参数的距离。
+
+5.addRect(RectF rect, Path.Direction dir)
+画个矩形
+
+6.addRect(float left, float top, float right, float bottom, Path.Direction dir)
+画个矩形、四个参数对应与原点的相对距离的四个点。
+
 
 
