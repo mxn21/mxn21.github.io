@@ -130,6 +130,9 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img117.png)
 
+3.addOval(RectF oval, Path.Direction dir) 画椭圆.
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img118.png)
 
 
 
