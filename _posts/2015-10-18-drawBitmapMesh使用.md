@@ -19,10 +19,14 @@ drawBitmapMesh(Bitmap bitmap, int meshWidth, int meshHeight, float[] verts, int 
 
 Mesh代表的是网格，这个东西的原理就是按照网格来重新拉伸你的图像,假想在一张图片上有很多网格，如下图。
 
-![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img121.png)
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img121.jpg)
 
 在这张图上，每一条横线和纵线有一个焦点，我们可以控制这些焦点的位置来重新改变图片的形状和画面，也就是网格怎么扭动，
 图像就会怎么动。比如把焦点位置改变成下面这样，图像就跟着扭曲了。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img122.jpg)
+
+在DrawBitmapMesh中，只需要定义好这个顶点将要扭曲到哪个坐标点上，然后将顶点扭曲后的坐标告诉DrawBitmapMesh，便会自动计算出周边的线条扭曲形式，并根据结果扭曲图像。
 
 
 待续
