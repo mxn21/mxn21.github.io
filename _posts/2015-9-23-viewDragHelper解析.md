@@ -1249,26 +1249,37 @@ public boolean shouldInterceptTouchEvent(MotionEvent ev) {
 1.tryCaptureViewForDrag()成功捕获到子View时
 
 1.1 shouldInterceptTouchEvent()的ACTION_DOWN部分捕获到
+
 1.2 shouldInterceptTouchEvent()的ACTION_MOVE部分捕获到
+
 1.3 processTouchEvent()的ACTION_MOVE部分捕获到
+
 2.调用settleCapturedViewAt()、smoothSlideViewTo()、flingCapturedView()时
+
 3.拖动View松手时（processTouchEvent()的ACTION_UP、ACTION_CANCEL）
+
 4.自动滚动停止时（continueSettling()里检测到滚动结束时）
+
 5.外部调用abort()时
 
 * void onViewPositionChanged(View changedView, int left, int top, int dx, int dy)
 正在被拖动的View或者自动滚动的View的位置改变时会调用此方法。
 
 1.在dragTo()里被调用（正在被拖动时）
+
 2.在continueSettling()里被调用（自动滚动时）
+
 3.外部调用abort()时被调用
 
 * void onViewCaptured(View capturedChild, int activePointerId)
 tryCaptureViewForDrag()成功捕获到子View时会调用此方法。
 
 1.在shouldInterceptTouchEvent()的ACTION_DOWN里成功捕获
+
 2.在shouldInterceptTouchEvent()的ACTION_MOVE里成功捕获
+
 3.在processTouchEvent()的ACTION_MOVE里成功捕获
+
 4.手动调用captureChildView()
 
 * void onViewReleased(View releasedChild, float xvel, float yvel)
@@ -1291,5 +1302,15 @@ ACTION_MOVE事件发生时，检测到开始在某些边缘有拖动的手势，
 
 * int getViewHorizontalDragRange(View child)、int getViewVerticalDragRange(View child)
 返回给定的child在相应的方向上可以被拖动的最远距离，默认返回0。ACTION_DOWN发生时，若触摸点处的child
+
+
+参考原文：
+
+[ANDROID VIEWDRAGHELPER源码解析](http://www.cnphp6.com/archives/87727)
+
+[Android ViewDragHelper完全解析 自定义ViewGroup神器](http://blog.csdn.net/lmj623565791/article/details/46858663)
+
+[ViewDragHelper详解](http://blog.csdn.net/jianghejie123/article/details/39315319)
+
 
 
