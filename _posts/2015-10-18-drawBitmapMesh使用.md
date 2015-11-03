@@ -11,10 +11,16 @@ drawBitmapMesh(Bitmap bitmap, int meshWidth, int meshHeight, float[] verts, int 
 
 这个方法可以对bitmap进行扭曲
 参数说明如下:
+
 1.bitmap　　　　　需要扭曲的源位图
+
 2.meshWidth 　　控制在横向上把该源位图划成成多少格
+
 3.meshHeight 　　控制在纵向上把该源位图划成成多少格
-4.verts 　　　　　长度为(meshWidth + 1) * (meshHeight + 1) * 2的数组，它记录了扭曲后的位图各顶点位置
+
+4.verts 　　　　　verts是个一维数组，保存所有顶点坐标信息。偶数项保存x坐标，奇数项保存y坐标。比如有有meshWidth*meshHeight个网格，
+如果vertOffset为0，那么算上两端就有(meshWidth+1)*(meshHeight+1)个顶点，verts数组就应该至少长度为(meshWidth+1)*(meshHeight+1)。
+
 5.vertOffset         控制verts数组中从第几个数组元素开始才对bitmap进行扭曲
 
 Mesh代表的是网格，这个东西的原理就是按照网格来重新拉伸你的图像,假想在一张图片上有很多网格，如下图。
@@ -27,6 +33,11 @@ Mesh代表的是网格，这个东西的原理就是按照网格来重新拉伸�
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img122.jpg)
 
 在DrawBitmapMesh中，只需要定义好这个顶点将要扭曲到哪个坐标点上，然后将顶点扭曲后的坐标告诉DrawBitmapMesh，便会自动计算出周边的线条扭曲形式，并根据结果扭曲图像。
+
+总结上面的，需要做的就是三步：
+1、根据图片，生成原始的、四四方方的网格
+2、根据上面生成的网格，算出将要扭曲的网格
+3、将网格传入drawBitmapMesh
 
 
 待续
