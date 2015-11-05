@@ -101,3 +101,15 @@ acqure的时候屏幕会暗下来，release之后屏幕会亮。其值是32（in
 如果value是true的话将启用该特性，如果一个WakeLock acquire了多次也必须release多次才能释放掉。但是如果释放次数比acquire
 多则会抛出RuntimeException("WakeLock under-locked " + mTag)异常。默认是开启了引用计数的。
 
+
+### PowerManager的几个实用方法
+
+1.boolean isScreenOn() 判断屏幕是否亮着（不管是暗的dimed还是正常亮度），在API20被弃用，推荐boolean isInteractive ()
+
+2.void goToSleep(long time)time是时间戳，一般是System.currentTimeMillis()
++timeDelay。强制系统立刻休眠，需要Manifest中添加权限"android.permission.DEVICE_POWER"。按下电源键锁屏时调用的就是这个方法。
+
+3.void wakeUp(long time)与上面对应。参数含义，所需权限与上同。按下电源键解锁屏幕时调用的就是这个方法。
+
+4.void reboot(String reason)重启手机，reason是要传给linux内核的参数，比如“recovery”重启进recovery模式，“fastboot
+”重启进fastboot模式。需要权限"android.permission.REBOOT"。
