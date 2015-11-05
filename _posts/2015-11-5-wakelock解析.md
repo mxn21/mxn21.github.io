@@ -86,6 +86,15 @@ acqure的时候屏幕会暗下来，release之后屏幕会亮。其值是32（in
 不过newWakeLock的时候flag直接用32代替是可以创建这个等级的WakeLock的，但是因为是非开放API，不能保证第三方OEM修改这个代码实现.
 因此使用起来并不安全。
 
+#### 总结
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img124.png)
+
+除了这四个Level之外，PowerMager还提供了两个Flag，可以配合Level使用。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img125.png)
+
+注意: 这两个Flag和PARTIAL_WAKE_LOCK组合是没有作用的。
 
 ### WakeLock常用方法
 
@@ -113,3 +122,7 @@ acqure的时候屏幕会暗下来，release之后屏幕会亮。其值是32（in
 
 4.void reboot(String reason)重启手机，reason是要传给linux内核的参数，比如“recovery”重启进recovery模式，“fastboot
 ”重启进fastboot模式。需要权限"android.permission.REBOOT"。
+
+
+### 源码分析
+
