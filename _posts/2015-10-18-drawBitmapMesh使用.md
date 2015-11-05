@@ -29,6 +29,8 @@ drawBitmapMesh(Bitmap bitmap, int meshWidth, int meshHeight, float[] verts, int 
 
 8.paint   可以为空
 
+<!-- more -->
+
 Mesh代表的是网格，这个东西的原理就是按照网格来重新拉伸你的图像,假想在一张图片上有很多网格，如下图。
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img121.jpg)
