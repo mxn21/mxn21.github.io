@@ -63,7 +63,7 @@ newWakeLock((int flags, String tag)的第一个参数是WakeLock levelAndFlag，
 
 3.ON_AFTER_RELEASE：如果释放WakeLock的时候屏幕处于亮着的状态，则在释放WakeLock之后让屏幕再保持亮一小会。如果释放WakeLock的时候屏幕本身就没亮，则不会有动作。
 
-被弃用的WakeLock：
+#### 被弃用的WakeLock：
 
 1.SCREEN_DIM_WAKE_LOCK：保证屏幕亮起，但是亮度可能比较低。同时键盘背光也可以不亮。
 
@@ -77,6 +77,13 @@ newWakeLock((int flags, String tag)的第一个参数是WakeLock levelAndFlag，
 甚至可以在布局中添加这个属性：android:keepScreenOn="true"
 
 
+#### 被隐藏的WakeLock：
 
+android中的部分api并不对用户应用开放，他们通过在注释中加入{@hide}来注明。但是在SDK提供的源代码中是可以看到的。
+
+WAIT_FOR_PROXIMITY_NEGATIVE：用于和接近传感器配合使用，来实现电话应用中打电话时可以使屏幕黑掉，手机离开时又能使屏幕亮起来的功能。
+acqure的时候屏幕会暗下来，release之后屏幕会亮。其值是32（int）。虽然被hide起来，但是在API21开放了.经试验，
+不过newWakeLock的时候flag直接用32代替是可以创建这个等级的WakeLock的，但是因为是非开放API，不能保证第三方OEM修改这个代码实现.
+因此使用起来并不安全。
 
 待续.
