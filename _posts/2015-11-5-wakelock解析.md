@@ -281,3 +281,18 @@ mService.acquireWakeLock(mToken, mFlags, mTag, mPackageName, mWorkSource);
 final IPowerManager mService;
      {% endhighlight %}
 
+mService实例化类为/frameworks/base/services/java/com/android/server/power/PowerManagerService.java，
+而到这里类里，你最终发现acquireWakeLock是由JNI层的native方法实现的。
+
+    {% highlight java %}
+private static native void nativeAcquireSuspendBlocker(String name);
+     {% endhighlight %}
+
+而这个方法的实现是在/frameworks/base/services/jni/com_android_server_power_PowerManagerService.cpp代码中：
+
+    {% highlight java %}
+static void nativeAcquireSuspendBlocker(JNIEnv *env, jclass clazz, jstring nameStr) {
+    ScopedUtfChars name(env, nameStr);
+    acquire_wake_lock(PARTIAL_WAKE_LOCK, name.c_str());
+}
+     {% endhighlight %}
