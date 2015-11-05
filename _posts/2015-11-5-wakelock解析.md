@@ -269,3 +269,15 @@ newWakeLock方法首先检测LevelAndFlags和Tag的合法性：tag不能为空�
     }
         {% endhighlight %}
 
+以acquire方法为例，通过对源码的分析，我们发现获取WakeLock的实现是通过mService进行的：
+
+    {% highlight java %}
+mService.acquireWakeLock(mToken, mFlags, mTag, mPackageName, mWorkSource);
+     {% endhighlight %}
+
+而mService是在PowerManager类里实例化的：
+
+    {% highlight java %}
+final IPowerManager mService;
+     {% endhighlight %}
+
