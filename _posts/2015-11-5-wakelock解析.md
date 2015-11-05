@@ -21,7 +21,6 @@ tag: android
 WakeLock的设置是 Activiy 级别的，不是针对整个Application应用的。
 
 
-
     {% highlight java %}
 private void acquireWakeLock() {
          if (wakeLock ==null) {
@@ -125,4 +124,148 @@ acqure的时候屏幕会暗下来，release之后屏幕会亮。其值是32（in
 
 
 ### 源码分析
+
+看一下WakeLock的源码实现:
+
+    {% highlight java %}
+ public WakeLock newWakeLock(int levelAndFlags, String tag) {
+        validateWakeLockParameters(levelAndFlags, tag);
+        return new WakeLock(levelAndFlags, tag, mContext.getOpPackageName());
+    }
+
+    public static void validateWakeLockParameters(int levelAndFlags, String tag) {
+        switch (levelAndFlags & WAKE_LOCK_LEVEL_MASK) {
+            case PARTIAL_WAKE_LOCK:
+            case SCREEN_DIM_WAKE_LOCK:
+            case SCREEN_BRIGHT_WAKE_LOCK:
+            case FULL_WAKE_LOCK:
+            case PROXIMITY_SCREEN_OFF_WAKE_LOCK:
+                break;
+            default:
+                throw new IllegalArgumentException("Must specify a valid wake lock level.");
+        }
+        if (tag == null) {
+            throw new IllegalArgumentException("The tag must not be null.");
+        }
+    }
+    {% endhighlight %}
+
+newWakeLock方法首先检测LevelAndFlags和Tag的合法性：tag不能为空，Level必须用PowerManager提供的几个Level。
+接下来，就进入到WakeLock的构造函数了。WakeLock是PowerManager的内部类。
+
+    {% highlight java %}
+    public final class WakeLock {
+        private final int mFlags;
+        private final String mTag;
+        private final String mPackageName;
+        private final IBinder mToken;
+        private int mCount;
+        private boolean mRefCounted = true;
+        private boolean mHeld;
+
+        private final Runnable mReleaser = new Runnable() {
+            public void run() {
+                release();
+            }
+        };
+
+        WakeLock(int flags, String tag, String packageName) {
+            mFlags = flags;
+            mTag = tag;
+            mPackageName = packageName;
+            mToken = new Binder();
+        }
+
+        /**
+         * Acquires the wake lock.
+         * <p>
+         * Ensures that the device is on at the level requested when the wake
+         * lock was created.
+         * </p>
+         */
+        public void acquire() {
+            synchronized (mToken) {
+                acquireLocked();
+            }
+        }
+
+        private void acquireLocked() {
+            if (!mRefCounted || mCount++ == 0) {
+                // Do this even if the wake lock is already thought to be held
+                // (mHeld == true)
+                // because non-reference counted wake locks are not always
+                // properly released.
+                // For example, the keyguard's wake lock might be forcibly
+                // released by the
+                // power manager without the keyguard knowing. A subsequent call
+                // to acquire
+                // should immediately acquire the wake lock once again despite
+                // never having
+                // been explicitly released by the keyguard.
+                mHandler.removeCallbacks(mReleaser);
+                try {
+                    mService.acquireWakeLock(mToken, mFlags, mTag, mPackageName, mWorkSource);
+                } catch (RemoteException e) {
+                }
+                mHeld = true;
+            }
+        }
+
+        /**
+         * Releases the wake lock.
+         * <p>
+         * This method releases your claim to the CPU or screen being on. The
+         * screen may turn off shortly after you release the wake lock, or it
+         * may not if there are other wake locks still held.
+         * </p>
+         */
+        public void release() {
+            release(0);
+        }
+
+        /**
+         * Releases the wake lock with flags to modify the release behavior.
+         * <p>
+         * This method releases your claim to the CPU or screen being on. The
+         * screen may turn off shortly after you release the wake lock, or it
+         * may not if there are other wake locks still held.
+         * </p>
+         *
+         * @param flags
+         *            Combination of flag values to modify the release behavior.
+         *            Currently only {@link #WAIT_FOR_PROXIMITY_NEGATIVE} is
+         *            supported.
+         *
+         *            {@hide}
+         */
+        public void release(int flags) {
+            synchronized (mToken) {
+                if (!mRefCounted || --mCount == 0) {
+                    mHandler.removeCallbacks(mReleaser);
+                    if (mHeld) {
+                        try {
+                            mService.releaseWakeLock(mToken, flags);
+                        } catch (RemoteException e) {
+                        }
+                        mHeld = false;
+                    }
+                }
+                if (mCount < 0) {
+                    throw new RuntimeException("WakeLock under-locked " + mTag);
+                }
+            }
+        }
+
+        /**
+         * Returns true if the wake lock has been acquired but not yet released.
+         *
+         * @return True if the wake lock is held.
+         */
+        public boolean isHeld() {
+            synchronized (mToken) {
+                return mHeld;
+            }
+        }
+    }
+        {% endhighlight %}
 
