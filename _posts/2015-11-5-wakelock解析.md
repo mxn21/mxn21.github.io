@@ -86,4 +86,18 @@ acqure的时候屏幕会暗下来，release之后屏幕会亮。其值是32（in
 不过newWakeLock的时候flag直接用32代替是可以创建这个等级的WakeLock的，但是因为是非开放API，不能保证第三方OEM修改这个代码实现.
 因此使用起来并不安全。
 
-待续.
+
+### WakeLock常用方法
+
+1.void acquire()：获取WakeLock
+
+2.void acquire(long timeOut):获得WakeLock timeOut时长，当超过timeOut之后系统自动释放WakeLock。
+
+3.release()：释放WakeLock
+
+4.boolean isHeld()：判断是否已经获取WakeLock
+
+5.void setReferenceCounted(boolean value)：是否使用引用计数。类似于垃圾回收策略，只是把垃圾回收改成了WakeLock回收。
+如果value是true的话将启用该特性，如果一个WakeLock acquire了多次也必须release多次才能释放掉。但是如果释放次数比acquire
+多则会抛出RuntimeException("WakeLock under-locked " + mTag)异常。默认是开启了引用计数的。
+
