@@ -8,7 +8,9 @@ tag: android
 
 在Android中,申请WakeLock可以让你的进程持续执行即使手机进入睡眠模式,比较实用的是比如:后台有网络功能,可以保证操作持续进行.
 
-使用方法：在需要的地方开启WakeLock，需要结束的时候调用结束方法。
+### 使用方法
+
+在需要的地方开启WakeLock，需要结束的时候调用结束方法。
 
 另外如果要使用WakeLock需要在Manifest中添加如下权限
 <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -40,7 +42,7 @@ private void releaseWakeLock() {
 <!-- more -->
 
 
-PowerManager和WakeLock的操作步骤
+### PowerManager和WakeLock的操作步骤
 
 1.PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);通过 Context.getSystemService()
 方法获取PowerManager实例。
@@ -50,6 +52,16 @@ PowerManager和WakeLock的操作步骤
 
 3.获取WakeLock实例后通过acquire()获取相应的锁，然后进行其他业务逻辑的操作，最后使用release()释放（释放是必须的）。
 
+
+### WakeLock的等级
+
+newWakeLock((int flags, String tag)的第一个参数是WakeLock levelAndFlag，分别代表了一种WakeLock等级，并且可以通过「或」位操作组合使用。他们是：
+
+1.PARTIAL_WAKE_LOCK：保证CPU保持高性能运行，而屏幕和键盘背光（也可能是触摸按键的背光）关闭。一般情况下都会使用这个WakeLock。
+
+2.ACQUIRE_CAUSES_WAKEUP：这个WakeLock除了会使CPU高性能运行外还会导致屏幕亮起，即使屏幕原先处于关闭的状态下。
+
+3.ON_AFTER_RELEASE：如果释放WakeLock的时候屏幕处于亮着的状态，则在释放WakeLock之后让屏幕再保持亮一小会。如果释放WakeLock的时候屏幕本身就没亮，则不会有动作。
 
 
 
