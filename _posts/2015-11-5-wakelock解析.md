@@ -290,9 +290,82 @@ private static native void nativeAcquireSuspendBlocker(String name);
 
 而这个方法的实现是在/frameworks/base/services/jni/com_android_server_power_PowerManagerService.cpp代码中：
 
-    {% highlight java %}
+    {% highlight c %}
 static void nativeAcquireSuspendBlocker(JNIEnv *env, jclass clazz, jstring nameStr) {
     ScopedUtfChars name(env, nameStr);
     acquire_wake_lock(PARTIAL_WAKE_LOCK, name.c_str());
 }
      {% endhighlight %}
+
+这个acquire_wake_lock是在/hardware/libhardware_legacy/power/power.c里定义的
+
+
+    {% highlight c %}
+acquire_wake_lock(int lock, const char* id)
+{
+    initialize_fds();
+
+//    ALOGI("acquire_wake_lock lock=%d id='%s'\n", lock, id);
+
+    if (g_error) return g_error;
+
+    int fd;
+
+    if (lock == PARTIAL_WAKE_LOCK) {
+        fd = g_fds[ACQUIRE_PARTIAL_WAKE_LOCK];
+    }
+    else {
+        return EINVAL;
+    }
+
+    return write(fd, id, strlen(id));
+}
+     {% endhighlight %}
+
+可以看到，acquire wake lock真正的实现是在fd所指向的文件中写了一串字符即可。
+fd所指向的文件定义如下：
+
+    {% highlight c %}
+const char * const NEW_PATHS[] = {
+    "/sys/power/wake_lock",
+    "/sys/power/wake_unlock",
+};
+     {% endhighlight %}
+
+
+### 其他用法扩展
+
+#### 保持屏幕点亮
+
+某些应用程序需要保持屏幕打开，如游戏或电影应用程序。最好的办法是在你的activity中使用flag_keep_screen_on（必须只有一个activity，
+不能是service或其他组件）。例如：
+
+    {% highlight java %}
+
+public class MainActivity extends Activity {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_main);
+    getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+  }
+
+    {% endhighlight %}
+
+这种方法的优点是，不像akeLock，它不需要特殊的权限，由系统正确地管理用户在应用程序之间切换，不需要担心你的应用程序需要释放未使用的资源。
+
+另一种方式来实现这是在你的应用程序的XML布局文件，用android:keepScreenOn属性：
+
+    {% highlight xml %}
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
+    ...
+</RelativeLayout>
+
+    {% endhighlight %}
+
+使用Android的keepscreenon=“true”相当于使用flag_keep_screen_on。你可以使用两者中适合自己的方法。设置flag的方式好处是，
+它给你一个机会在稍后可以清除flag，从而使屏幕关闭。
+
