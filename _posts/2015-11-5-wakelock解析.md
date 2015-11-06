@@ -417,9 +417,20 @@ wakeLock.acquire();
 <receiver android:name=".MyWakefulReceiver"></receiver>
     {% endhighlight %}
 
-下面的代码通过startwakefulservice()方法开启MyIntentService。这种方法是比较startservice()
-，除了那wakefulbroadcastreceiver举行唤醒锁在服务启动时。目的是通过startwakefulservice()持有额外的识别后锁：
+下面的代码通过startwakefulservice()方法开启MyIntentService。这种方法和startservice()类似，
+除了WakefulBroadcastReceiver在service启动时维持了一个wake lock。通过startWakefulService()携带的intent也包含了一个额外的
+WakeLock的识别标志。
 
- The following code starts MyIntentService with the method startWakefulService().
-This method is comparable to startService(), except that the WakefulBroadcastReceiver is holding a wake lock
-when the service starts. The intent that is passed with startWakefulService() holds an extra identifying the wake lock:
+    {% highlight java %}
+public class MyWakefulReceiver extends WakefulBroadcastReceiver {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        // Start the service, keeping the device awake while the service is
+        // launching. This is the Intent to deliver to the service.
+        Intent service = new Intent(context, MyIntentService.class);
+        startWakefulService(context, service);
+    }
+}
+    {% endhighlight %}
