@@ -392,4 +392,7 @@ getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON).
 <uses-permission android:name="android.permission.WAKE_LOCK" />
     {% endhighlight %}
 
-    
+如果你的应用程序包括一个broadcast receiver，使用一个service做了一些工作，你可以通过WakefulBroadcastReceiver管理你的wake lock
+(可以参考下面对WakefulBroadcastReceiver的讲解),这是首选方法。如果你的app没有遵循这个模式，这里是如何设置一个wake lock ：
+
+
