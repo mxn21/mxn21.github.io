@@ -372,4 +372,12 @@ public class MainActivity extends Activity {
 注意：你不需要清除FLAG_KEEP_SCREEN_ON，除非你不再想让屏幕点亮（例如，一段闲置时间后设置超时）。window manager负责确保当应用程序进入后台或返回到前台时，
 能够正确运行。但如果你想清除flag，从而让屏幕关闭，使用clearflags():
 
-    {% highlight xml %}
+    {% highlight java %}
+getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON).
+    {% endhighlight %}
+
+
+#### 保持CPU运行
+
+如果你需要保存CPU运转，在设备进入睡眠之前完成一些工作，你可以使用PowerManager系统服务功能：WakeLock。WakeLock允许您的应用程序来控制设备的电源状态。
+
