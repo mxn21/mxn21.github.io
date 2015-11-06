@@ -383,3 +383,13 @@ getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON).
 创建和保持WakeLock会对设备的电池时间产生巨大的影响。因此，你应该只有在必要的时候使用WakeLock，并使用尽可能短的时间。
 例如，你不应该在Activity的整个生命周期中使用WakeLock。上面提到过，如果你想在activity中保持屏幕点亮，用flag_keep_screen_on。
 
+使用WakeLock的一个合法的案例可能是一个后台service，需要用WakeLock使屏幕关闭时保持CPU进行工作。虽然，这种做法应尽量减少，
+因为其对电池寿命的影响。
+
+使用WakeLock，第一步是在manifest中添加wake_lock权限：
+
+    {% highlight xml %}
+<uses-permission android:name="android.permission.WAKE_LOCK" />
+    {% endhighlight %}
+
+    
