@@ -395,4 +395,14 @@ getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON).
 如果你的应用程序包括一个broadcast receiver，使用一个service做了一些工作，你可以通过WakefulBroadcastReceiver管理你的wake lock
 (可以参考下面对WakefulBroadcastReceiver的讲解),这是首选方法。如果你的app没有遵循这个模式，这里是如何设置一个wake lock ：
 
+    {% highlight java %}
+PowerManager powerManager = (PowerManager) getSystemService(POWER_SERVICE);
+WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+        "MyWakelockTag");
+wakeLock.acquire();
+    {% endhighlight %}
+
+释放WakeLock，调用wakelock.release()。这可以释放你对CPU的控制。当你的应用程序完成后，释放一个WakeLock是很重要的，避免浪费电量。
+
+
 
