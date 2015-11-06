@@ -369,3 +369,7 @@ public class MainActivity extends Activity {
 使用Android的keepscreenon=“true”相当于使用flag_keep_screen_on。你可以使用两者中适合自己的方法。设置flag的方式好处是，
 它给你一个机会在稍后可以清除flag，从而使屏幕关闭。
 
+注意：你不需要清除FLAG_KEEP_SCREEN_ON，除非你不再想让屏幕点亮（例如，一段闲置时间后设置超时）。window manager负责确保当应用程序进入后台或返回到前台时，
+能够正确运行。但如果你想清除flag，从而让屏幕关闭，使用clearflags():
+
+    {% highlight xml %}
