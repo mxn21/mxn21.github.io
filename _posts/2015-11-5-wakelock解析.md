@@ -404,5 +404,15 @@ wakeLock.acquire();
 
 释放WakeLock，调用wakelock.release()。这可以释放你对CPU的控制。当你的应用程序完成后，释放一个WakeLock是很重要的，避免浪费电量。
 
+#### 使用WakefulBroadcastReceiver
 
+使用broadcast receiver与一个service相结合，可以让你管理一个后台任务的生命周期。WakefulBroadcastReceiver是一种特殊类型的广播接收器，
+负责创建和管理你的应用程序的PARTIAL_WAKE_LOCK。
 
+在使用wakefulbroadcastreceiver的第一步是添加到manifest，与任何其他广播接收器一样：
+
+    {% highlight xml %}
+<receiver android:name=".MyWakefulReceiver"></receiver>
+    {% endhighlight %}
+
+ 
