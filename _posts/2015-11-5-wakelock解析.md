@@ -434,3 +434,25 @@ public class MyWakefulReceiver extends WakefulBroadcastReceiver {
     }
 }
     {% endhighlight %}
+
+当service结束时,调用MyWakefulReceiver.completeWakefulIntent()来释放wake lock. completeWakefulIntent()方法的参数是从
+MyWakefulReceiver传递过来的那个Intent。
+
+    {% highlight java %}
+public class MyIntentService extends IntentService {
+    public static final int NOTIFICATION_ID = 1;
+    private NotificationManager mNotificationManager;
+    NotificationCompat.Builder builder;
+    public MyIntentService() {
+        super("MyIntentService");
+    }
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        Bundle extras = intent.getExtras();
+        // Do the work that requires your app to keep the CPU running.
+        // ...
+        // Release the wake lock provided by the WakefulBroadcastReceiver.
+        MyWakefulReceiver.completeWakefulIntent(intent);
+    }
+}
+    {% endhighlight %}
