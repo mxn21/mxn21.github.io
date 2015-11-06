@@ -333,7 +333,7 @@ const char * const NEW_PATHS[] = {
      {% endhighlight %}
 
 
-### 其他用法扩展
+### 其他用法扩展(官方API [Keeping the Device Awake](http://developer.android.com/intl/zh-cn/training/scheduling/wakelock.html#cpu) )
 
 #### 保持屏幕点亮
 
@@ -380,4 +380,6 @@ getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON).
 #### 保持CPU运行
 
 如果你需要保存CPU运转，在设备进入睡眠之前完成一些工作，你可以使用PowerManager系统服务功能：WakeLock。WakeLock允许您的应用程序来控制设备的电源状态。
+创建和保持WakeLock会对设备的电池时间产生巨大的影响。因此，你应该只有在必要的时候使用WakeLock，并使用尽可能短的时间。
+例如，你不应该在Activity的整个生命周期中使用WakeLock。上面提到过，如果你想在activity中保持屏幕点亮，用flag_keep_screen_on。
 
