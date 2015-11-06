@@ -407,7 +407,9 @@ wakeLock.acquire();
 #### 使用WakefulBroadcastReceiver
 
 使用broadcast receiver与一个service相结合，可以让你管理一个后台任务的生命周期。WakefulBroadcastReceiver是一种特殊类型的广播接收器，
-负责创建和管理你的应用程序的PARTIAL_WAKE_LOCK。
+负责创建和管理你的应用程序的PARTIAL_WAKE_LOCK。WakefulBroadcastReceiver把任务转移给Service(通常是IntentService),并且确保系统在转换
+过程中不会休眠.如果在任务迁移到service的过程中，你没有维持一个wake lock，设备就被允许在任务完成前进入休眠。最终的结果是，
+应用程序可能无法完成这一工作，这是不是你想要的。
 
 在使用wakefulbroadcastreceiver的第一步是添加到manifest，与任何其他广播接收器一样：
 
@@ -415,4 +417,9 @@ wakeLock.acquire();
 <receiver android:name=".MyWakefulReceiver"></receiver>
     {% endhighlight %}
 
- 
+下面的代码通过startwakefulservice()方法开启MyIntentService。这种方法是比较startservice()
+，除了那wakefulbroadcastreceiver举行唤醒锁在服务启动时。目的是通过startwakefulservice()持有额外的识别后锁：
+
+ The following code starts MyIntentService with the method startWakefulService().
+This method is comparable to startService(), except that the WakefulBroadcastReceiver is holding a wake lock
+when the service starts. The intent that is passed with startWakefulService() holds an extra identifying the wake lock:
