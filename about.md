@@ -4,8 +4,10 @@ title: About
 ---
 
 
-### 关于我
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img126.jpg)
 
+
+### 关于我
 
 android开发工程师，我的博客作为我学习的记录，只为备忘，以后找起来方便。
 联系请用gmail,评论基本不看。
@@ -18,7 +20,6 @@ android开发工程师，我的博客作为我学习的记录，只为备忘，�
 [FlowingDrawer](https://github.com/mxn21/FlowingDrawer)
 
 [SlidingCard](https://github.com/mxn21/SlidingCard)
-
 
 
 ### 联系方式
