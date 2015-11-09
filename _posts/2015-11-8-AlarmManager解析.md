@@ -1,10 +1,12 @@
 ---
 layout: post
 author: mxn
-titile: AlarmManager解析
+titile: alarmManager解析
 category: 技术博文
 tag: android
 ---
 
-待续...
+### AlarmManager的特点
+
+
 
