@@ -24,6 +24,7 @@ tag: android
 
 8.AlarmManager 与Timer，TimerTask不同，后者都执行在应用程序生命周期。
 
+<!-- more -->
 
 ### 设置定时任务
 
@@ -244,6 +245,20 @@ public class DeviceBootReceiver extends BroadcastReceiver {
 }
     {% endhighlight %}
 
+android系统在Manifest.permission中有这样一条RECEIVE_BOOT_COMPLETED的定义，当你自己的程序加入这个权限后，
+就可以在系统启动完毕后收到一条系统的广播，这个广播的标志为ACTION_BOOT_COMPLETED，因此我们只要定义一个BroadcastReceiver
+用来接收这个广播，然后加入自定义的动作即可。
+
+接收不到BOOT_COMPLETED广播可能的原因:
+
+1.BOOT_COMPLETED对应的action和uses-permission没有一起添加
+
+2.应用安装到了sd卡内，安装在sd卡内的应用是收不到BOOT_COMPLETED广播的
+
+3.系统开启了Fast Boot模式，这种模式下系统启动并不会发送BOOT_COMPLETED广播
+
+4.应用程序安装后重来没有启动过，这种情况下应用程序接收不到任何广播，包括BOOT_COMPLETED、ACTION_PACKAGE_ADDED、
+CONNECTIVITY_ACTION等等。
 
 ### 声明Application Manifest
 
