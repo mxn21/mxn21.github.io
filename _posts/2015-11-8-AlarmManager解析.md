@@ -243,3 +243,50 @@ public class DeviceBootReceiver extends BroadcastReceiver {
     }
 }
     {% endhighlight %}
+
+
+### 声明Application Manifest
+
+为了在设备重启时启动闹钟服务，必须在application manifest中注册前面定义的DeviceBootReciever。同时还需要加入权限：
+android.permission.RECEIVE_BOOT_COMPLETED。
+
+    {% highlight xml %}
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.xxx.alarmservice" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- Permission to start Alarm on device reboot -->
+        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+        <activity
+            android:name=".MyActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <receiver android:name=".AlarmReceiver">
+	      <intent-filter>
+	           <action android:name="android.intent.action.BOOT_COMPLETED"/>
+	      </intent-filter>
+        </receiver>
+
+        <!-- Will not be called unless the application explicitly enables it -->
+        <receiver android:name=".DeviceBootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>
+    {% endhighlight %}
