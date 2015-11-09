@@ -42,7 +42,7 @@ type:闹钟类型，有四个可选值
 
 下面看一下布局文件：
 
-    {% highlight xml  %}
+    {% highlight xml %}
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -92,3 +92,32 @@ type:闹钟类型，有四个可选值
 
     {% endhighlight %}
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img127.png)
+
+
+### 定义定时BroadcastReceiver
+
+在这个例子中，我们将与broadcast receiver关联。定时服务将在预定时间调用这个接收器。为了简单起见，每一次的任务我们只是向用户
+展示了一个toast。您可以编写您的逻辑来启动服务或下载任务。
+
+如果你的闹钟有执行网络任务，可用在broadcast的onRecieve()方法中start下载service。
+
+    {% highlight java %}
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
+
+public class AlarmReceiver extends BroadcastReceiver {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+        // For our recurring task, we'll just display a message
+        Toast.makeText(context, "I'm running", Toast.LENGTH_SHORT).show();
+    }
+}
+
+    {% endhighlight %}
+
+### 在activity中开始和停止任务
