@@ -305,3 +305,6 @@ android.permission.RECEIVE_BOOT_COMPLETED。
     </application>
 </manifest>
     {% endhighlight %}
+
+
+### AlarmManager常用方法总结
