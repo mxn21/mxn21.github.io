@@ -204,3 +204,42 @@ public class MyActivity extends Activity {
 
 }
     {% endhighlight %}
+
+
+### 开机自动启动服务
+
+如前所述，一旦闹钟服务开始执行，它会一直执行知道它被停止或设备重启。这意味着，如果你的设备被重新启动，那么你的闹钟就停止了。
+为了避免这种现状，你必须在设备启动完成后尽快重新启动闹钟服务。下面的代码将设置开启闹钟，一旦设备重启：
+
+    {% highlight java %}
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
+
+/**
+ * @author Nilanchala
+ *         <p/>
+ *         Broadcast reciever, starts when the device gets starts.
+ *         Start your repeating alarm here.
+ */
+public class DeviceBootReceiver extends BroadcastReceiver {
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+            /* Setting the alarm here */
+            Intent alarmIntent = new Intent(context, AlarmReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
+
+            AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            int interval = 8000;
+            manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
+
+            Toast.makeText(context, "Alarm Set", Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+    {% endhighlight %}
