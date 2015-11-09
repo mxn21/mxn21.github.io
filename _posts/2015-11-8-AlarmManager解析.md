@@ -40,6 +40,55 @@ type:闹钟类型，有四个可选值
 下面写一个例子，使用RTC类型。该应用程序使用一个activity，包含三个按钮。一个按钮是为启动定时服务，另一个是取消预定服务。
 第三个按钮是在指定的日历时间开始闹钟。例如，如果你设置为你的生日提醒。它将调用在10:30，并将在每30分钟后重复。
 
+下面看一下布局文件：
+
+    {% highlight xml  %}
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MyActivity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/hint"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/startAlarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView"
+        android:layout_marginBottom="20dp"
+        android:text="Start Alarm Service" />
+
+    <Button
+        android:id="@+id/stopAlarm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startAlarm"
+        android:layout_marginBottom="20dp"
+        android:text="Stop Alarm" />
 
 
+    <Button
+        android:id="@+id/stopAlarmAt10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stopAlarm"
+        android:text="Stop Alarm at 10:30" />
+
+</RelativeLayout>
+
+    {% endhighlight %}
 
