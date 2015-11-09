@@ -25,3 +25,16 @@ tag: android
 8.AlarmManager 与Timer，TimerTask不同，后者都执行在应用程序生命周期。
 
 
+### 设置定时任务
+
+type:闹钟类型，有四个可选值
+
+1.ELAPSED_REALTIME：以手机开机的时间为基准
+
+2.ELAPSED_REALTIME_WAKEUP：以手机开机的时间为基准，并且可以在休眠时发出广播
+
+3.RTC：以UTC标准时间为基准
+
+4.RTC_WAKEUP：以UTC标准时间为基准，并且可以在休眠时发出广播
+
+
