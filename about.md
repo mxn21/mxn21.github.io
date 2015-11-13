@@ -28,5 +28,7 @@ github : [mxn21](https://github.com/mxn21)
 
 mail : mxny21@gmail.com
 
+RSS: [订阅](http://souly.cn/feed.xml)
+
 
 
