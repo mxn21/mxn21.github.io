@@ -44,3 +44,5 @@ setContentView(R.layout.ID)底层同样是使用inflate导入视图，这需要�
 因此，view持有一个activty实例，用static声明view会让view无法被回收，那么view持有的activiy实例也就不能回收，从而导致内存泄漏.
 
 
+
+
