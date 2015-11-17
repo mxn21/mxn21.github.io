@@ -1,7 +1,7 @@
 ---
 layout: post
 author: mxn
-titile: ViewTreeObserver解析
+titile: viewTreeObserver解析
 category: 技术博文
 tag: android
 ---
