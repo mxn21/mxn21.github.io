@@ -22,6 +22,7 @@ ViewTreeObserver提供了view的很多种监听，每一种监听在ViewTreeObse
 
 下面介绍其中常用的几个内部类：
 
+    {% highlight java %}
 interface  ViewTreeObserver.OnGlobalFocusChangeListener        
 //当在一个视图树中的焦点状态发生改变时，所要调用的回调函数的接口类
  
@@ -36,9 +37,11 @@ interface  ViewTreeObserver.OnScrollChangedListener
  
 interface  ViewTreeObserver.OnTouchModeChangeListener
 //当一个视图树的触摸模式发生改变时，所要调用的回调函数的接口类
-
+    {% endhighlight %}
+    
 他们对应的add方法如下
 
+    {% highlight java %}
 /**注册一个回调函数，当在一个视图树中的焦点状态发生改变时调用这个回调函数。
 　 * 参数 listener    将要被添加的回调函数
 　 *异常 IllegalStateException       如果isAlive() 返回false
@@ -74,4 +77,5 @@ interface  ViewTreeObserver.OnTouchModeChangeListener
 　 */
 　public void addOnTouchModeChangeListener (ViewTreeObserver.OnTouchModeChangeListener listener)
 
+    {% endhighlight %}
 
