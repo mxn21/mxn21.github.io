@@ -293,4 +293,31 @@ MainActivity中的代码:
 所以只触发了一次。
 
 
+### Activity跳转动画
 
+ViewTreeObserver还可以用来监听根布局，用来实现Activity跳转动画，核心代码如下：
+
+    {% highlight java %}
+
+@Override
+public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    setContentView(R.layout.activity_second);
+    rootView = findViewById(R.id.root);
+    if (savedInstanceState == null) {
+        rootView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                rootView.getViewTreeObserver().removeOnPreDrawListener(this);
+                startRootAnimation();
+                return true;
+            }
+        });
+    }
+}
+ 
+     {% endhighlight %} 
+     
+可以加入自己喜欢的动画，实现不同的效果，下面是其中一种实现效果：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img133.gif)
