@@ -208,7 +208,7 @@ MainActivity中的代码:
 
 一般有三种方法可以在onCreate中计算控件宽高：
 
-第一种方法：
+1.第一种方法：
 
     {% highlight java %}
  @Override
@@ -231,4 +231,35 @@ MainActivity中的代码:
 
 可以看到在onCreate手动调用了onMeasure，这样就可以通过getMeasuredHeight()取得宽度和高度了。
 
+2.第二种方法：
+
+    {% highlight java %}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        final MyImageView myImageView = (MyImageView) findViewById(R.id.imageview);
+        int height = 0;
+        int width =  0 ;
+        ViewTreeObserver vto = myImageView.getViewTreeObserver();
+        vto.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            public boolean onPreDraw() {
+                int height = myImageView.getMeasuredHeight();
+                int width = myImageView.getMeasuredWidth();
+                Log.d("===PreDrawListener", "PreDrawListener..myImageView " +
+                        "height:" + height + "  ,width:" + width);
+                return true;
+            }
+        });
+        Log.d("===MainActivity", "onCreate执行完毕..myImageView " +
+                "height:" + height + "  ,width:" + width);
+    }
+    {% endhighlight %}  
+    
+输出结果如下：
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img131.png)
+
+通过设置OnPreDrawListener监听,在view绘制之前调用在onPreDraw方法里，在onPreDraw方法里获得view的宽高。
+
+3.第三种方法：
 
