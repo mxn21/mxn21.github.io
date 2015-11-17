@@ -140,3 +140,40 @@ interface  ViewTreeObserver.OnTouchModeChangeListener
     
 ### 用法举例
 
+#### 用于测量view的宽高
+
+先写一个自定义view如下：
+
+    {% highlight java %}
+public class MyImageView extends ImageView {
+    public MyImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+    public MyImageView(Context context) {
+        super(context);
+    }
+    @Override
+    protected void onMeasure(int widthMeasureSpec,int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        Log.d("===MyImageView","onMeasure 我被调用了"+System.currentTimeMillis());
+    }
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        Log.d("===MyImageView", "onDraw 我被调用了"+System.currentTimeMillis());
+    }
+}
+
+    {% endhighlight %}
+    
+MainActivity布局文件如下：
+
+<?xml version="1.0" encoding="utf-8"?>
+    <com.mxn.soul.demo.MyImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/test" />
+
+    
