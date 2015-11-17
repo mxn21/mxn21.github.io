@@ -193,6 +193,10 @@ MainActivity中的代码:
     
     {% endhighlight %}  
     
+输入结果如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img129.png)
+    
 首先应该知道的是在MainActivity的onCreate中调用myImageView.getHeight()的值是为0的，因为在onCreate中还没有调用onLayout()，
 具体原因参考，我在之前的日志：[深入了解android view绘制机制](http://souly.cn/技术博文/2015/07/14/深入了解android%20view绘制机制/)  .
 
@@ -222,4 +226,9 @@ MainActivity中的代码:
     {% endhighlight %}  
 
 输出结果如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img130.png)
+
+可以看到在onCreate手动调用了onMeasure，这样就可以通过getMeasuredHeight()取得宽度和高度了。
+
 
