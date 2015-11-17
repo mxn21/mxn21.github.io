@@ -260,6 +260,8 @@ MainActivity中的代码:
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img131.png)
 
 通过设置OnPreDrawListener监听,在view绘制之前调用在onPreDraw方法里，在onPreDraw方法里获得view的宽高。
+注意这里 onPreDraw调用了多次，是因为没有调用myImageView.getViewTreeObserver().removeOnPreDrawListener(this);
+加上remove方法就可以让onPreDraw只调用一次。
 
 3.第三种方法：
 
@@ -287,5 +289,8 @@ MainActivity中的代码:
 输出结果如下：
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img132.png)
 
-和方法二类似，只是换成了OnGlobalLayoutListener。这个OnGlobalLayoutListener在使用前先要removeGlobalOnLayoutListener。
+和方法二类似，只是换成了OnGlobalLayoutListener。这个OnGlobalLayoutListener在使用前调用了removeGlobalOnLayoutListener，
+所以只触发了一次。
+
+
 
