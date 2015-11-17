@@ -11,5 +11,13 @@ ViewTreeObserver是view事件的观察者。这个观察者用来监听视图树
 
 ViewTreeObserver是不能被应用程序实例化的，因为它是由视图提供的，通过view.getViewTreeObserver()获取。
 
+ViewTreeObserver提供了view的很多种监听，每一种监听在ViewTreeObserver中都有一个内部类接口来定义。查看源码可以看到
+一共有11个内部类，全部保存在CopyOnWriteArrayList数组中，通过ViewTreeObserver.addXXXListener()来添加这些监听，
+所以这11个接口对应了11个add方法，但是有一些方法是还没有开放的，用@hide隐藏了。我目前测试的源码在compileSdkVersion 22的基础上。
+
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img128.png)
+
+
 
 
