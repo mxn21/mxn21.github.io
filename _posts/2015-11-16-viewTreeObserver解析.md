@@ -39,7 +39,8 @@ interface  ViewTreeObserver.OnTouchModeChangeListener
 //当一个视图树的触摸模式发生改变时，所要调用的回调函数的接口类
     {% endhighlight %}
     
-他们对应的add方法如下
+    
+他们对应的add方法如下：
 
     {% highlight java %}
 /**注册一个回调函数，当在一个视图树中的焦点状态发生改变时调用这个回调函数。
@@ -79,3 +80,43 @@ interface  ViewTreeObserver.OnTouchModeChangeListener
 
     {% endhighlight %}
 
+
+还可以调用remove方法删除监听
+
+他们对应的add方法如下
+
+    {% highlight java %}
+    
+/**移除之前已经注册的全局布局回调函数。
+　 *参数 victim 将要被移除的回调函数
+　 *异常 IllegalStateException       如果isAlive() 返回false   
+　 */
+　public void removeGlobalOnLayoutListener (ViewTreeObserver.OnGlobalLayoutListener victim)
+　　
+　/**移除之前已经注册的焦点改变回调函数。
+　 *参数 victim 将要被移除的回调函数
+　　*异常 IllegalStateException       如果isAlive() 返回false 
+　 */
+　public void removeOnGlobalFocusChangeListener (ViewTreeObserver.OnGlobalFocusChangeListener victim)
+　　
+　/**移除之前已经注册的预绘制回调函数。
+　　*参数 victim 将要被移除的回调函数
+　 *异常 IllegalStateException       如果isAlive() 返回false  
+　 */
+　public void removeOnPreDrawListener (ViewTreeObserver.OnPreDrawListener victim)
+　　
+　/**移除之前已经注册的滚动改变回调函数。
+　 *参数 victim 将要被移除的回调函数
+　　*异常 IllegalStateException       如果isAlive() 返回false 
+　　*/
+　public void removeOnScrollChangedListener (ViewTreeObserver.OnScrollChangedListener victim)
+　
+　/**移除之前已经注册的触摸模式改变回调函数
+　　*参数 victim 将要被移除的回调函数
+　　*异常 　IllegalStateException       如果isAlive() 返回false
+　 */
+　public void removeOnTouchModeChangeListener (ViewTreeObserver.OnTouchModeChangeListener victim)
+    {% endhighlight %}
+    
+    
+其他的常用方法：
