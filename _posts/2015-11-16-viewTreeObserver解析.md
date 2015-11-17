@@ -179,7 +179,17 @@ MainActivity布局文件如下：
 
     {% endhighlight %}    
     
-首先应该知道的是在MainActivity中调用myImageView.getHeight()的值是为0的，
-在onLayout()过程结束后，我们就可以调用getWidth()方法和getHeight()方法来获取视图的宽高了。说到这里，我相信很多朋友长久以来都会有一个疑问，getWidth()方法和getMeasureWidth()方法到底有什么区别呢？它们的值好像永远都是相同的。其实它们的值之所以会相同基本都是因为布局设计者的编码习惯非常好，实际上它们之间的差别还是挺大的。
+首先应该知道的是在MainActivity的onCreate中调用myImageView.getHeight()的值是为0的，因为在onCreate中还没有调用onLayout()，
+具体原因参考，我在之前的日志：[深入了解android view绘制机制](http://souly.cn/技术博文/2015/07/14/深入了解android%20view绘制机制/)  .
 
-首先getMeasureWidth()方法在measure()过程结束后就可以获取到了，而getWidth()方法要在layout()过程结束后才能获取到。另外，getMeasureWidth()方法中的值是通过setMeasuredDimension()方法来进行设置的，而getWidth()方法中的值则是通过视图右边的坐标减去左边的坐标计算出来的。
+简单的说就是，在onLayout()过程结束后，我们就可以调用getWidth()方法和getHeight()方法来获取视图的宽高了，getWidth()方法和getMeasureWidth()
+方法到底有什么区别呢？它们的值好像永远都是相同的。其实它们的值之所以会相同基本都是因为布局设计者的编码习惯非常好，
+实际上它们之间的差别还是挺大的。首先getMeasureWidth()方法在measure()过程结束后就可以获取到了，而getWidth()方法要在layout()
+过程结束后才能获取到。另外，getMeasureWidth()方法中的值是通过setMeasuredDimension()方法来进行设置的，
+而getWidth()方法中的值则是通过视图右边的坐标减去左边的坐标计算出来的。
+
+一般有三种方法可以在onCreate中计算控件宽高：
+
+第一种方法：
+
+
