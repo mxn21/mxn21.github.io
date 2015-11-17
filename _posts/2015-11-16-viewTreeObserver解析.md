@@ -263,3 +263,29 @@ MainActivity中的代码:
 
 3.第三种方法：
 
+
+    {% highlight java %}
+   @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        final MyImageView myImageView = (MyImageView) findViewById(R.id.imageview);
+        ViewTreeObserver vto = myImageView.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                myImageView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                Log.d("===OnGlobalLayout", "OnGlobalLayoutListener..myImageView " +
+                        "height:" + myImageView.getHeight() + "  ,width:" + myImageView.getWidth());
+            }
+        });
+        Log.d("===MainActivity", "onCreate执行完毕..myImageView " +
+                "height:" + myImageView.getHeight() + "  ,width:" + myImageView.getWidth());
+    }
+        {% endhighlight %} 
+        
+输出结果如下：
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img132.png)
+
+和方法二类似，只是换成了OnGlobalLayoutListener。这个OnGlobalLayoutListener在使用前先要removeGlobalOnLayoutListener。
+
