@@ -168,6 +168,7 @@ public class MyImageView extends ImageView {
     
 MainActivity布局文件如下：
 
+    {% highlight xml %}
 <?xml version="1.0" encoding="utf-8"?>
     <com.mxn.soul.demo.MyImageView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -176,4 +177,9 @@ MainActivity布局文件如下：
         android:layout_height="wrap_content"
         android:src="@drawable/test" />
 
+    {% endhighlight %}    
     
+首先应该知道的是在MainActivity中调用myImageView.getHeight()的值是为0的，
+在onLayout()过程结束后，我们就可以调用getWidth()方法和getHeight()方法来获取视图的宽高了。说到这里，我相信很多朋友长久以来都会有一个疑问，getWidth()方法和getMeasureWidth()方法到底有什么区别呢？它们的值好像永远都是相同的。其实它们的值之所以会相同基本都是因为布局设计者的编码习惯非常好，实际上它们之间的差别还是挺大的。
+
+首先getMeasureWidth()方法在measure()过程结束后就可以获取到了，而getWidth()方法要在layout()过程结束后才能获取到。另外，getMeasureWidth()方法中的值是通过setMeasuredDimension()方法来进行设置的，而getWidth()方法中的值则是通过视图右边的坐标减去左边的坐标计算出来的。
