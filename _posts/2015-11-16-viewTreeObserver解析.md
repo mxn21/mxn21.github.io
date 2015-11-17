@@ -15,9 +15,63 @@ ViewTreeObserver提供了view的很多种监听，每一种监听在ViewTreeObse
 一共有11个内部类，全部保存在CopyOnWriteArrayList数组中，通过ViewTreeObserver.addXXXListener()来添加这些监听，
 所以这11个接口对应了11个add方法，但是有一些方法是还没有开放的，用@hide隐藏了。我目前测试的源码在compileSdkVersion 22的基础上。
 
-
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img128.png)
 
+<!-- more -->
 
+
+下面介绍其中常用的几个内部类：
+
+interface  ViewTreeObserver.OnGlobalFocusChangeListener        
+//当在一个视图树中的焦点状态发生改变时，所要调用的回调函数的接口类
+ 
+interface  ViewTreeObserver.OnGlobalLayoutListener
+//当在一个视图树中全局布局发生改变或者视图树中的某个视图的可视状态发生改变时，所要调用的回调函数的接口类
+ 
+interface  ViewTreeObserver.OnPreDrawListener
+//当一个视图树将要绘制时，所要调用的回调函数的接口类
+ 
+interface  ViewTreeObserver.OnScrollChangedListener
+//当一个视图树中的一些组件发生滚动时，所要调用的回调函数的接口类
+ 
+interface  ViewTreeObserver.OnTouchModeChangeListener
+//当一个视图树的触摸模式发生改变时，所要调用的回调函数的接口类
+
+他们对应的add方法如下
+
+/**注册一个回调函数，当在一个视图树中的焦点状态发生改变时调用这个回调函数。
+　 * 参数 listener    将要被添加的回调函数
+　 *异常 IllegalStateException       如果isAlive() 返回false
+　 */
+　public void addOnGlobalFocusChangeListener (ViewTreeObserver.OnGlobalFocusChangeListener listener)
+     
+ 
+　/**注册一个回调函数，当在一个视图树中全局布局发生改变或者视图树中的某个视图的可视状态发生改变时调用这个回调函数。
+　 *参数 listener    将要被添加的回调函数
+　 *异常 IllegalStateException       如果isAlive() 返回false
+　 */
+　public void addOnGlobalLayoutListener (ViewTreeObserver.OnGlobalLayoutListener listener)
+　　
+ 
+　　
+　/**注册一个回调函数，当一个视图树将要绘制时调用这个回调函数。
+　 *参数 listener    将要被添加的回调函数
+　 *异常 IllegalStateException       如果isAlive() 返回false
+　　*/
+　public void addOnPreDrawListener (ViewTreeObserver.OnPreDrawListener listener)
+ 
+　   
+　/**注册一个回调函数，当一个视图发生滚动时调用这个回调函数。
+　 *参数 listener    将要被添加的回调函数
+　 *异常 IllegalStateException       如果isAlive() 返回false
+　　*/
+　public void addOnScrollChangedListener (ViewTreeObserver.OnScrollChangedListener listener)  
+ 
+　
+　/**注册一个回调函数，当一个触摸模式发生改变时调用这个回调函数。
+　 *参数 listener    将要被添加的回调函数
+　 *异常 IllegalStateException       如果isAlive() 返回false
+　 */
+　public void addOnTouchModeChangeListener (ViewTreeObserver.OnTouchModeChangeListener listener)
 
 
