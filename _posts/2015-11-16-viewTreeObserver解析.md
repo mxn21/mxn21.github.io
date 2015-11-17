@@ -179,6 +179,20 @@ MainActivity布局文件如下：
 
     {% endhighlight %}    
     
+MainActivity中的代码:
+   
+       {% highlight java %}
+     @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            final MyImageView myImageView = (MyImageView) findViewById(R.id.imageview);
+            Log.d("===MainActivity", "onCreate执行完毕..myImageView " +
+                    "height:" + myImageView.getMeasuredHeight() + "  ,width:" + myImageView.getMeasuredWidth());
+        }
+    
+    {% endhighlight %}  
+    
 首先应该知道的是在MainActivity的onCreate中调用myImageView.getHeight()的值是为0的，因为在onCreate中还没有调用onLayout()，
 具体原因参考，我在之前的日志：[深入了解android view绘制机制](http://souly.cn/技术博文/2015/07/14/深入了解android%20view绘制机制/)  .
 
@@ -192,4 +206,20 @@ MainActivity布局文件如下：
 
 第一种方法：
 
+    {% highlight java %}
+ @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        final MyImageView myImageView = (MyImageView) findViewById(R.id.imageview);
+        int w = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+        int h = View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
+        myImageView.measure(w, h);
+        Log.d("===MainActivity", "onCreate执行完毕..myImageView " +
+                "height:" + myImageView.getMeasuredHeight() + "  ,width:" + myImageView.getMeasuredWidth());
+    }
+
+    {% endhighlight %}  
+
+输出结果如下：
 
