@@ -155,5 +155,4 @@ public class MainActivity extends Activity {
     }
 
 }
-
      {% endhighlight %}
