@@ -156,3 +156,25 @@ daoSession.insert(newOrder);
 orders.add(newOrder);
      {% endhighlight  %} 
      
+注意，getOrders在insert之前调用，确保list被缓存。如果getOrders在insert之后，如果万一list没有在之前被缓存，那么新的对象
+会在list中出现两次。
+
+同样，您可以删除关联实体：
+
+    {% highlight java %}
+List orders = customer.getOrders();
+daoSession.delete(newOrder);
+orders.remove(newOrder);
+     {% endhighlight  %} 
+     
+有时，在关联实体添加或删除后手动更新所有To-Many关系可能是繁琐的，甚至是不可能的。为了补救，greendao有reset方法来清除缓存列表。
+如果to-many关系可能发生潜在变化，你可以重载关联实体的list：
+
+    {% highlight java %}
+customer.resetOrders();
+List orders2 = customer.getOrders();
+     {% endhighlight  %} 
+     
+     
+#### 双向1:N关系
+
