@@ -178,4 +178,7 @@ List orders2 = customer.getOrders();
      
 #### 双向1:N关系
 
-有时你想实现双向1:n关系，在greendao中，你要添加to-one和to-many关系来实现这个。
+有时你想实现双向1:n关系，在greendao中，你要添加to-one和to-many关系来实现这个。下面的例子使用我们之前例子的客户和订单，
+显示了完整的建模实体的过程。这次我们使用customerId属性创建两种关系。
+
+

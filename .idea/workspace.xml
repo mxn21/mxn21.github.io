@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-5-21-greenDAO开源框架更新和多表关联.md" afterPath="$PROJECT_DIR$/_posts/2015-5-21-greenDAO开源框架更新和多表关联.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="2015-5-21-greenDAO开源框架更新和多表关联.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2015-5-21-greenDAO开源框架更新和多表关联.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.87583447">
-              <caret line="180" column="46" selection-start-line="180" selection-start-column="46" selection-end-line="180" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.8224299">
+              <caret line="183" column="0" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -843,8 +842,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-5-21-greenDAO开源框架更新和多表关联.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.87583447">
-          <caret line="180" column="46" selection-start-line="180" selection-start-column="46" selection-end-line="180" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.8224299">
+          <caret line="183" column="0" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
           <folding />
         </state>
       </provider>
