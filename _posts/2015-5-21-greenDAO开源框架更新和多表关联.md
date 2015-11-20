@@ -76,3 +76,9 @@ Property pictureIdProperty = user.addLongProperty("pictureId").getProperty();
 user.addToOne(picture, pictureIdProperty);
      {% endhighlight  %}   
 
+这样就使user有一个Picture属性，并且可以直接操作Picture对象，user类具有Picture属性的getPicture/setPicture方法。
+to-one关系中的getter方法在第一次加载目标实体的时候是懒汉式加载，之后的访问将返回先前已解析的对象。
+
+注意外键属性（“pictureid”）和实体对象的属性（“picture”）绑在一起。如果你改变了pictureid，下一次调用getPicture()的时候就
+会用更新之后的id重新解析Picture实体。同样，如果设置了一个新的picture实体，pictureId属性也会被更新。
+
