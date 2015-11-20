@@ -82,3 +82,21 @@ to-one关系中的getter方法在第一次加载目标实体的时候是懒汉�
 注意外键属性（“pictureid”）和实体对象的属性（“picture”）绑在一起。如果你改变了pictureid，下一次调用getPicture()的时候就
 会用更新之后的id重新解析Picture实体。同样，如果设置了一个新的picture实体，pictureId属性也会被更新。
 
+greenDAO同样支持在to-one中的饿汉式加载，这会在一次数据库查询中解析一个类的所有to-one关系，这会在你关联实体类时有不错的表现，
+目前你可以使用loadDeep和queryDeep方法，以后可能会改变。
+
+#### 关系名称和多种关系
+
+每一关系都有一个名字，它被用于实体的相应的属性中。默认名称是目标实体的名称。这个名字可以用setName方法重写。
+如果一个实体与同一个目标实体有多个关系，默认名称不是唯一的。在这种情况下，必须显式地指定关系名。
+
+让我们扩展前面的例子，让user还拥有一个缩略图(thumbnail picture)。因为图片和缩略图都是指同一个实体(picture)，所以会有一个名称冲突。
+因此，我们将第二个关系重新命名为“缩略图”：
+
+    {% highlight java %}
+Property pictureIdProperty = user.addLongProperty("pictureId").getProperty();
+Property thumbnailIdProperty = user.addLongProperty("thumbnailId").getProperty();
+user.addToOne(picture, pictureIdProperty);
+user.addToOne(picture, thumbnailIdProperty, "thumbnail");
+     {% endhighlight  %} 
+     
