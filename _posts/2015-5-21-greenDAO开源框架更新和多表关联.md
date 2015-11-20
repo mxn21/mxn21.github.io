@@ -139,3 +139,20 @@ Listorders2 = customer.getOrders();
 // orders1 == orders2; // SAME list object
      {% endhighlight  %} 
 
+因为缓存，您应该手动添加新的关系实体到To-Many关系资源实体的list。这就涉及到如何插入新的关系实体。
+
+1.取得to-many list集合(必须在新实体建立前执行，因为我们不知道我们是否从最新的结果中取得缓存，这样执行后我们就知道了已经缓存了)
+2.创造一个实体对象(作为many)
+3.在新的实体中设置外键
+4.使用insert插入新对象
+5.添加新的对象到list
+
+代码如下：
+
+    {% highlight java %}
+List orders = customer.getOrders();
+newOrder.setCustomerId(customer.getId());
+daoSession.insert(newOrder);
+orders.add(newOrder);
+     {% endhighlight  %} 
+     
