@@ -100,3 +100,24 @@ user.addToOne(picture, pictureIdProperty);
 user.addToOne(picture, thumbnailIdProperty, "thumbnail");
      {% endhighlight  %} 
      
+#### To-Many关系模型
+
+To-many关系和To-One关系类似，除了外键是放置在目标表中。让我们看看客户/订单的例子，客户可以有多个订单，所以我们用To-Many关系模型，
+在数据库中，在订单表中创建customer ID列，来创建1:N关系。这样的话，就可以使用客户的id查询客户的所有的订单。
+
+在greenDAO中建立to-many模型的方法和数据库中的操作类似，首先需要在目标实体中增加一个属性，用于关联To-many关系中的资源实体，然后使用
+这个属性，添加到资源实体的To-many关系。
+
+假设我们有一个客户和一个订单实体，我们想把订单连接到一个客户。以下代码将添加到客户实体的To-Many关系：
+
+    {% highlight java %}
+Property customerId = order.addLongProperty("customerId").notNull().getProperty();
+ToMany customerToOrders = customer.addToMany(order, customerId);
+customerToOrders.setName("orders"); // Optional
+customerToOrders.orderAsc(orderDate); // Optional
+     {% endhighlight  %} 
+     
+这样，我们可以在客户类中简单的调用生成的getOrders()方法获取订单。
+
+#### To-Many关系的解析和更新
+
