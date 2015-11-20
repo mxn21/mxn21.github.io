@@ -121,3 +121,21 @@ customerToOrders.orderAsc(orderDate); // Optional
 
 #### To-Many关系的解析和更新
 
+To-Many关系在第一次请求时懒汉式解析，之后，关联的实体被缓存在资源实体的List中。以后再调用get方法不查询数据库。
+
+注意更新To-Many关系模型需要一些额外的工作。因为To-Many的列表已经被缓存，当将关联实体添加到数据库中时，它们不被更新。
+下面的代码说明了这种行为：
+
+    {% highlight java %}
+List orders1 = customer.getOrders();
+int size1 = orders1.size();
+
+Order order = new Order();
+order.setCustomerId(customer.getId());
+daoSession.insert(order);
+
+Listorders2 = customer.getOrders();
+// size1 == orders2.size(); // NOT updated
+// orders1 == orders2; // SAME list object
+     {% endhighlight  %} 
+
