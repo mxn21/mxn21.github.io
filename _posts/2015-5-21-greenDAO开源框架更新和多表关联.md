@@ -178,3 +178,4 @@ List orders2 = customer.getOrders();
      
 #### 双向1:N关系
 
+有时你想实现双向1:n关系，在greendao中，你要添加to-one和to-many关系来实现这个。
