@@ -212,3 +212,6 @@ List allOrdersOfCustomer = order.getCustomer().getOrders();
 greendao可能会支持N：M关系。
 
 
+#### 树形关系
+
+你可以通过建立一个具有指向自己的to-one和to-many关系的实体来建立一个树形关系模型，
