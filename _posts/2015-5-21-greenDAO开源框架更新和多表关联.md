@@ -204,3 +204,11 @@ customerToOrders.orderAsc(orderDate);
 List allOrdersOfCustomer = order.getCustomer().getOrders();
      {% endhighlight  %} 
      
+     
+#### Many-to-Many关系(n:m)
+
+在数据库关系模型中M，N是利用连接表。该表的实体具有一系列外键，这些外键关联到每一个关联表。目前greendao不直接支持Many-to-Many关系，
+你可以用单独的实体来建模连接表。在实践中，你通常有一个具有额外属性的关系实体，你可能想这样做。在未来的版本，
+greendao可能会支持N：M关系。
+
+
