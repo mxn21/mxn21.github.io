@@ -40,5 +40,39 @@ http://blog.csdn.net/h3c4lenovo/article/details/43566169
 
 #### To-One关系模型
 
+在greenDAO generator中建模时，必须使一个属性作为外键，使用这个属性，你可以用Entity.addToOne方法增加to-one关系。
+addToOne方法的参数是另一个实体，和本实体的外键属性。
 
+    {% highlight java %}
+/**
+     * Adds a to-one relationship to the given target entity using the given given foreign key property (which belongs
+     * to this entity).
+     */
+    public ToOne addToOne(Entity target, Property fkProperty) {
+        if(protobuf) {
+            throw new IllegalStateException("Protobuf entities do not support realtions, currently");
+        }
+
+        Property[] fkProperties = { fkProperty };
+        ToOne toOne = new ToOne(schema, this, target, fkProperties, true);
+        toOneRelations.add(toOne);
+        return toOne;
+    }
+
+    /** Convenience for {@link #addToOne(Entity, Property)} with a subsequent call to {@link ToOne#setName(String)}. */
+    public ToOne addToOne(Entity target, Property fkProperty, String name) {
+        ToOne toOne = addToOne(target, fkProperty);
+        toOne.setName(name);
+        return toOne;
+    }
+     {% endhighlight  %}   
+     
+     
+例如：user有一个picture属性，user和picture都是普通实体
+
+    {% highlight java %}
+// The variables "user" and "picture" are just regular entities
+Property pictureIdProperty = user.addLongProperty("pictureId").getProperty();
+user.addToOne(picture, pictureIdProperty);
+     {% endhighlight  %}   
 
