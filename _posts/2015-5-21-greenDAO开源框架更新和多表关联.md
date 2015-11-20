@@ -214,4 +214,19 @@ greendao可能会支持N：M关系。
 
 #### 树形关系
 
-你可以通过建立一个具有指向自己的to-one和to-many关系的实体来建立一个树形关系模型，
+你可以通过建立一个具有指向自己的to-one和to-many关系的实体来建立一个树形关系模型：
+
+ {% highlight java %}
+Entity treeEntity = schema.addEntity("TreeEntity");
+treeEntity.addIdProperty();
+Property parentIdProperty = treeEntity.addLongProperty("parentId").getProperty();
+treeEntity.addToOne(treeEntity, parentIdProperty).setName("parent");
+treeEntity.addToMany(treeEntity, parentIdProperty).setName("children");
+{% endhighlight  %} 
+
+生成的实体允许你访问它的父节点和子节点：
+
+ {% highlight java %}
+ TreeEntity parent = child.getParent();
+ List grandChildren = child.getChildren();
+{% endhighlight  %} 
