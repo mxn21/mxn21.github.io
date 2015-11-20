@@ -181,4 +181,26 @@ List orders2 = customer.getOrders();
 有时你想实现双向1:n关系，在greendao中，你要添加to-one和to-many关系来实现这个。下面的例子使用我们之前例子的客户和订单，
 显示了完整的建模实体的过程。这次我们使用customerId属性创建两种关系。
 
+ {% highlight java %}
+Entity customer = schema.addEntity("Customer");
+customer.addIdProperty();
+customer.addStringProperty("name").notNull();
 
+Entity order = schema.addEntity("Order");
+order.setTableName("ORDERS"); // "ORDER" is a reserved keyword
+order.addIdProperty();
+Property orderDate = order.addDateProperty("date").getProperty();
+Property customerId = order.addLongProperty("customerId").notNull().getProperty();
+order.addToOne(customer, customerId);
+
+ToMany customerToOrders = customer.addToMany(order, customerId);
+customerToOrders.setName("orders");
+customerToOrders.orderAsc(orderDate);
+{% endhighlight  %} 
+
+让我们假设有一个订单的实体。利用这两个关系，我们可以得到客户的信息和客户的所有订单。
+
+    {% highlight java %}
+List allOrdersOfCustomer = order.getCustomer().getOrders();
+     {% endhighlight  %} 
+     
