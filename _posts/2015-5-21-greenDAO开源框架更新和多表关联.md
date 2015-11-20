@@ -30,5 +30,8 @@ http://blog.csdn.net/h3c4lenovo/article/details/43566169
 
 ####多表关联操作
 
-http://greendao-orm.com/documentation/relations/
+数据库的表可能涉及到一对一和一对多关系，在greenDAO中涉及到to-one和to-many关系。例如，你想在greenDAO中建立一个对多关系模型，你就
+需要使用to-one和to-many关系。但是，请注意，to-one和to-many关系是不相关的，所以你必须同时更新。
+
+
 
