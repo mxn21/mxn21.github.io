@@ -8,7 +8,6 @@ tag: [android]
 
 ### 更新操作
 
-
 使用greenDao当android应用升级数据库新增表或者修改表，如何只是修改版本号数据会被清空。
 需要自己修改SQLiteOpenHelper：
 
@@ -26,7 +25,6 @@ tag: [android]
      {% endhighlight  %}   
         
 通过oldVersion newVersion 来判断需要创建表或alter表
-
 
 http://blog.csdn.net/h3c4lenovo/article/details/43566169
 
