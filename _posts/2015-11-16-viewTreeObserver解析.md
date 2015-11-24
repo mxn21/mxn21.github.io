@@ -338,3 +338,4 @@ public void onCreate(Bundle savedInstanceState) {
   root.getViewTreeObserver().addOnGlobalLayoutListener(mListener);
      {% endhighlight %} 
      
+在根布局加入GlobalLayoutListener监听，通过getWindowVisibleDisplayFrame方法可以观察可见区域的变化，
