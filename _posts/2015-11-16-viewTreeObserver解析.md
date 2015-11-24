@@ -325,16 +325,16 @@ public void onCreate(Bundle savedInstanceState) {
 
 ### 测量软键盘状态和高度
 
+    {% highlight java %}
  ViewTreeObserver.OnGlobalLayoutListener mListener = new ViewTreeObserver
                 .OnGlobalLayoutListener() {
             public void onGlobalLayout() {
                 Rect r1 = new Rect();
                 root.getWindowVisibleDisplayFrame(r1);
-                int location[] = new int[2];
-                mBtn_submit.getLocationOnScreen(location);
-                int height = location[1] + mBtn_submit.getMeasuredHeight();
-               
+                Log.e("TAG",r1.bottom+"") ; 
             }
         };
 
   root.getViewTreeObserver().addOnGlobalLayoutListener(mListener);
+     {% endhighlight %} 
+     
