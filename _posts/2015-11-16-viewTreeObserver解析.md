@@ -340,3 +340,4 @@ public void onCreate(Bundle savedInstanceState) {
      
 在根布局加入GlobalLayoutListener监听，通过getWindowVisibleDisplayFrame方法可以观察可见区域的变化，键盘打开后
 会影响可见区域的大小，导致Rect的底部r1.bottom变小.
+

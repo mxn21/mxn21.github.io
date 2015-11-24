@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-11-16-viewTreeObserver解析.md" afterPath="$PROJECT_DIR$/_posts/2015-11-16-viewTreeObserver解析.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,8 +55,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.84210527">
-              <caret line="341" column="14" selection-start-line="341" selection-start-column="14" selection-end-line="341" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.57894737">
+              <caret line="333" column="44" selection-start-line="333" selection-start-column="44" selection-end-line="333" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -877,8 +876,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84210527">
-          <caret line="341" column="14" selection-start-line="341" selection-start-column="14" selection-end-line="341" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.57894737">
+          <caret line="333" column="44" selection-start-line="333" selection-start-column="44" selection-end-line="333" selection-end-column="44" />
           <folding />
         </state>
       </provider>
