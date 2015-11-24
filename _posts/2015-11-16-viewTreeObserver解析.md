@@ -321,3 +321,10 @@ public void onCreate(Bundle savedInstanceState) {
 可以加入自己喜欢的动画，实现不同的效果，下面是其中一种实现效果：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img133.gif)
+
+
+### 测量软键盘状态和高度
+
+
+
+
