@@ -160,14 +160,21 @@ SecondActivity代码类似，不再贴出来。运行app，输出如下
 
 可以用ActivityLifecycleCallbacks和LinkedList来管理所有的Activity，可以实现完全退出一个应用。
 
-
+    {% highlight java %}
+    
 public class BaseApplication extends Application  implements Application.ActivityLifecycleCallbacks {
 
     private LinkedList<ActivityInfo> mExistedActivitys = new LinkedList<>();
+    private static BaseApplication mInstance;
 
+    public static  synchronized BaseApplication getInstance() {
+        return mInstance;
+    }
+    
     public void onCreate() {
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
+         mInstance = this;
     }
 
     @Override
@@ -273,5 +280,13 @@ public class BaseApplication extends Application  implements Application.Activit
     }
 }
 
+    {% endhighlight %}
 
+结束程序时调用：
 
+    {% highlight java %}
+BaseApplication.getInstance().exitAllActivity() ;
+   {% endhighlight %}
+   
+但是如果应用内有多个进程，每创建一个进程就会跑一次Application的onCreate方法，每个进程内存都是独立的，
+所以通过这种方式无法实现将应用的Activity放在同一个LinkedList中，不能实现完全退出一个应用。
