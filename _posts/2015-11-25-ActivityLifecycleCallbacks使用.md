@@ -128,3 +128,17 @@ SecondActivity代码类似，不再贴出来。运行app，输出如下
     11-25 16:45:37.321 2829-2829/com.mxn.soul.demo E/====: com.mxn.soul.demo.MainActivity@2300e06conActivityStopped
     {% endhighlight %}
     
+可以看到ActivityLifecycleCallbacks的回调在activity生命周期方法之前，这是因为我的log信息写在super之后：
+
+    {% highlight c %}
+     @Override
+    protected void onResume() {
+        super.onResume();
+         Log.e("====", "MainActivity  onResume");
+    }
+    
+    @Override
+    protected void onResume() {
+        Log.e("====", "MainActivity  onResume");
+        super.onResume();
+    }
