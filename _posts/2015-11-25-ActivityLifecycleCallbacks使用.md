@@ -18,6 +18,48 @@ ActivityLifecycleCallbacks使用要求API 14+ （Android 4.0+）。
 <!-- more -->
 
     {% highlight java %}
+public class BaseApplication extends Application {
 
+    public void onCreate() {
+        super.onCreate();
+        this.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+
+            @Override
+            public void onActivityStopped(Activity activity) {
+                Log.e("====", activity+"onActivityStopped");
+            }
+
+            @Override
+            public void onActivityStarted(Activity activity) {
+                Log.e("====", activity+"onActivityStarted");
+            }
+
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                Log.e("====", activity + "onActivitySaveInstanceState");
+            }
+
+            @Override
+            public void onActivityResumed(Activity activity) {
+                Log.e("====", activity + "onActivityResumed");
+            }
+
+            @Override
+            public void onActivityPaused(Activity activity) {
+                Log.e("====", activity + "onActivityPaused");
+            }
+
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                Log.e("====", activity + "onActivityDestroyed");
+            }
+
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                Log.e("====", activity + "onActivityCreated");
+            }
+        });
+    };
+}
 
     {% endhighlight %}
