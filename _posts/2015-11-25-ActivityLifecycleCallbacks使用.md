@@ -130,15 +130,37 @@ SecondActivity代码类似，不再贴出来。运行app，输出如下
     
 可以看到ActivityLifecycleCallbacks的回调在activity生命周期方法之前，这是因为我的log信息写在super之后：
 
-    {% highlight c %}
+    {% highlight java %}
      @Override
     protected void onResume() {
         super.onResume();
          Log.e("====", "MainActivity  onResume");
     }
+    {% endhighlight %}
     
+如果把log写在super之前，那么结果就是相反的了。
+    
+    {% highlight java %}
     @Override
     protected void onResume() {
         Log.e("====", "MainActivity  onResume");
         super.onResume();
     }
+    {% endhighlight %}
+    
+输出如下：
+
+    {% highlight c %}
+    11-25 17:28:15.652 27469-27469/? E/====: MainActivity  onResume
+    11-25 17:28:15.653 27469-27469/? E/====: com.mxn.soul.demo.MainActivity@2300e06conActivityResumed
+    {% endhighlight %}
+    
+    
+### 用ActivityLifecycleCallbacks管理Activity堆栈
+
+可以用ActivityLifecycleCallbacks和LinkedList来管理所有的Activity，可以实现完全退出一个应用。
+
+
+
+
+
