@@ -63,3 +63,68 @@ public class BaseApplication extends Application {
 }
 
     {% endhighlight %}
+
+为了测试，再新建两个activity：MainActivity和SecondActivity，点击MainActivity里面的按钮可以跳转到SecondActivity。
+MainActivity代码如下：
+
+    {% highlight java %}
+    public class MainActivity extends ActionBarActivity {
+        private Button btn = null;
+    
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            btn = (Button) findViewById(R.id.btn);
+            btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(MainActivity.this,SecondActivity.class);
+                    startActivity(i);
+                }
+            });
+            Log.e("====", "MainActivity  onCreate");
+        }
+    
+    
+        @Override
+        protected void onResume() {
+            super.onResume();
+            Log.e("====", "MainActivity  onResume");
+        }
+    
+        @Override
+        protected void onPause() {
+            super.onPause();
+            Log.e("====", "MainActivity  onPause");
+        }
+    
+        @Override
+        protected void onStart() {
+            super.onStart();
+            Log.e("====", "MainActivity  onStart");
+        }
+    }
+    {% endhighlight %}
+    
+SecondActivity代码类似，不再贴出来。运行app，输出如下
+
+    {% highlight c %}
+    11-25 16:45:24.043 2829-2829/com.mxn.soul.demo E/====: com.mxn.soul.demo.MainActivity@2300e06conActivityCreated
+    11-25 16:45:24.179 2829-2829/com.mxn.soul.demo E/====: MainActivity  onCreate
+    11-25 16:45:24.238 2829-2829/com.mxn.soul.demo E/====: com.mxn.soul.demo.MainActivity@2300e06conActivityStarted
+    11-25 16:45:24.240 2829-2829/com.mxn.soul.demo E/====: MainActivity  onStart
+    11-25 16:45:24.242 2829-2829/com.mxn.soul.demo E/====: com.mxn.soul.demo.MainActivity@2300e06conActivityResumed
+    11-25 16:45:24.242 2829-2829/com.mxn.soul.demo E/====: MainActivity  onResume
+    11-25 16:45:36.768 2829-2829/com.mxn.soul.demo E/====: com.mxn.soul.demo.MainActivity@2300e06conActivityPaused
+    11-25 16:45:36.768 2829-2829/com.mxn.soul.demo E/====: MainActivity  onPause
+    11-25 16:45:36.820 2829-2829/com.mxn.soul.demo E/====: com.mxn.soul.demo.SecondActivity@13adc62aonActivityCreated
+    11-25 16:45:36.856 2829-2829/com.mxn.soul.demo E/====: SecondActivity  onCreate
+    11-25 16:45:36.858 2829-2829/com.mxn.soul.demo E/====: com.mxn.soul.demo.SecondActivity@13adc62aonActivityStarted
+    11-25 16:45:36.858 2829-2829/com.mxn.soul.demo E/====: SecondActivity onStart
+    11-25 16:45:36.859 2829-2829/com.mxn.soul.demo E/====: com.mxn.soul.demo.SecondActivity@13adc62aonActivityResumed
+    11-25 16:45:36.859 2829-2829/com.mxn.soul.demo E/====: SecondActivity onResume
+    11-25 16:45:37.321 2829-2829/com.mxn.soul.demo E/====: com.mxn.soul.demo.MainActivity@2300e06conActivitySaveInstanceState
+    11-25 16:45:37.321 2829-2829/com.mxn.soul.demo E/====: com.mxn.soul.demo.MainActivity@2300e06conActivityStopped
+    {% endhighlight %}
+    
