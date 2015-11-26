@@ -177,3 +177,6 @@ NAVIGATION_TRACKBALL（轨迹球导航）、NAVIGATION_WHEEL（滚轮导航）
 *touchscreen：获取系统触摸屏的触摸方式。该属性的返回值：TOUCHSCREEN_NOTOUCH（无触摸屏）、TOUCHSCREEN_STYLUS（触摸笔式触摸屏）、
 
 *TOUCHSCREEN_FINGER（接收手指的触摸屏）
+
+下面写一个监听屏幕旋转的demo：
+
