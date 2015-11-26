@@ -6,6 +6,8 @@ category: 技术博文
 tag: android
 ---
 
+### ViewConfiguration类
+
 ViewConfiguration是系统中关于视图的各种特性的常量记录对象。其中包含各种基础数据,在编写自定义控件时会用经常用到。
 
 下面介绍几个常用的方法：
@@ -139,6 +141,13 @@ ViewConfiguration的常量总结：
            
  }
       {% endhighlight %}
+   
       
-      
+### Configuration类
+
+Configuration类虽然和ViewConfiguration类名字之差一个“view”,但是二者并无继承关系，也没有共同的父类。
+Configuration类是专门用来描述手机设备上的配置信息。这些配置信息包括用户特定的配置项，也包括系统的动态设备配置。
+
+
+
 

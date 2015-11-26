@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-11-26-c使用.md" afterPath="$PROJECT_DIR$/_posts/2015-11-26-c使用.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/_posts/2015-11-26-c使用.md" afterPath="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration使用.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,7 +40,7 @@
       <file leaf-file-name="2015-11-25-ActivityLifecycleCallbacks使用.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2015-11-25-ActivityLifecycleCallbacks使用.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.655172">
+            <state vertical-scroll-proportion="0.0">
               <caret line="283" column="0" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
               <folding />
             </state>
@@ -49,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2015-11-26-c使用.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/_posts/2015-11-26-c使用.md">
+      <file leaf-file-name="2015-11-26-ViewConfiguration使用.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration使用.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8224299">
-              <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.7716956">
+              <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -90,7 +91,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/_posts/2015-7-21-android中的MotionEvent及其它事件处理.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-8-自定义view的三种构造方法浅析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-15-自定义view的三种构造方法浅析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-15-windowSoftInputMode属性使用.md" />
@@ -141,6 +141,7 @@
         <option value="$PROJECT_DIR$/_posts/2015-11-25-啊啊啊.md" />
         <option value="$PROJECT_DIR$/_posts/2015-11-25-ActivityLifecycleCallbacks使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-11-26-c使用.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration使用.md" />
       </list>
     </option>
   </component>
@@ -187,6 +188,7 @@
       <pane id="Scratches" />
       <pane id="AndroidView" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -249,7 +251,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -478,13 +479,13 @@
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3287841" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -869,7 +870,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-11-25-ActivityLifecycleCallbacks使用.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.655172">
+        <state vertical-scroll-proportion="0.0">
           <caret line="283" column="0" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
           <folding />
         </state>
@@ -878,10 +879,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-11-26-c使用.md">
+    <entry file="file://$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration使用.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8224299">
-          <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.7716956">
+          <caret line="150" column="0" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
           <folding />
         </state>
       </provider>
