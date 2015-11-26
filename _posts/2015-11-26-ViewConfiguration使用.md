@@ -148,6 +148,10 @@ ViewConfiguration的常量总结：
 Configuration类虽然和ViewConfiguration类名字之差一个“view”,但是二者并无继承关系，也没有共同的父类。
 Configuration类是专门用来描述手机设备上的配置信息。这些配置信息包括用户特定的配置项，也包括系统的动态设备配置。
 
+程序中可调用Activity的如下方法来获取Configuration对象
 
-
+    {% highlight java %}
+//获取系统的Configuration对象
+Configuration cfg = getResources().getConfiguration();
+      {% endhighlight %}
 
