@@ -326,3 +326,19 @@ AndroidManifest.xml如下:
 建议设置为：android:configChanges="keyboardHidden|orientation|screenSize" ，表示当前Activity可以对屏幕是否旋转进行监听
 (当然也可对其他系统信息进行监听) 配置后屏幕旋转时会调用onConfigurationChanged()方法. 
 
+3.若不配置,那么每次屏幕旋转的时候都会调用Activity的onCreate()方法 而不会调用onConfigurationChanged()。取消在2中的设置
+.此时每次旋转屏幕都会调用onCreate(),并在屏幕旋转前调用onSaveInstanceState()保存现场状态,在选中后调用onRestoreInstanceState()
+恢复现场. 所以此时调用顺序为: onSaveInstanceState->onCreate()->onRestoreInstanceState()。除此以外:
+当系统内存紧张时可暂时杀死该Activity,内存允许时重启该Activity.在这样情况下也是该调用顺序,原理亦类似. 
+
+输出如下：
+
+    {% highlight c %}
+11-27 12:04:07.508 13914-13914/com.mxn.soul.demo I/System.out: ---> onCreate()
+11-27 12:04:11.400 13914-13914/com.mxn.soul.demo I/System.out: ---> onSaveInstanceState()
+11-27 12:04:11.464 13914-13914/com.mxn.soul.demo I/System.out: ---> onCreate()
+11-27 12:04:11.465 13914-13914/com.mxn.soul.demo I/System.out: ---> onRestoreInstanceState()
+11-27 12:04:11.465 13914-13914/com.mxn.soul.demo I/System.out: 名字=mxn,编号=21
+    {% highlight xml %}
+    
+
