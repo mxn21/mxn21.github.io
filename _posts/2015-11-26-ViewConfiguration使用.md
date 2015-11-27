@@ -306,21 +306,21 @@ AndroidManifest.xml如下:
     </application>
 
 </manifest>
-    {% highlight xml %}
+    {% endhighlight %}
     
 1.点击Button利用Configuration查看手机上的配置信息 
 
     {% highlight c %}
 11-27 11:56:41.763 4093-4093/com.mxn.soul.demo I/System.out: 现在是横屏
 11-27 11:56:41.763 4093-4093/com.mxn.soul.demo I/System.out: 国家码=0,网络码=0
-    {% highlight xml %}
+    {% endhighlight %}
     
 2.在manifest为Activity配置configChanges时，旋转屏幕，输出如下：
 
     {% highlight c %}
 11-27 11:59:26.827 8684-8684/com.mxn.soul.demo I/System.out: ---> onCreate()
 11-27 11:59:31.110 8684-8684/com.mxn.soul.demo I/System.out: ---> onConfigurationChanged()
-    {% highlight xml %}
+    {% endhighlight %}
     
 由于设备和系统版本的差异,少数情况下设置android:configChanges="orientation" 无效,
 建议设置为：android:configChanges="keyboardHidden|orientation|screenSize" ，表示当前Activity可以对屏幕是否旋转进行监听
@@ -339,6 +339,13 @@ AndroidManifest.xml如下:
 11-27 12:04:11.464 13914-13914/com.mxn.soul.demo I/System.out: ---> onCreate()
 11-27 12:04:11.465 13914-13914/com.mxn.soul.demo I/System.out: ---> onRestoreInstanceState()
 11-27 12:04:11.465 13914-13914/com.mxn.soul.demo I/System.out: 名字=mxn,编号=21
-    {% highlight xml %}
+    {% endhighlight %}
     
+另外还有一个判断是否是平板的方法如下（官方用法）：
 
+    {% highlight java %}
+  public static boolean isTablet(Context context) {
+        return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+    {% endhighlight %}
+    
