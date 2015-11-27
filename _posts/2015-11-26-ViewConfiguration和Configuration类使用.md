@@ -1,7 +1,7 @@
 ---
 layout: post
 author: mxn
-titile: ViewConfiguration使用
+titile: ViewConfiguration和Configuration类使用
 category: 技术博文
 tag: android
 ---
@@ -43,6 +43,7 @@ mOverflingDistance = configuration.getScaledOverflingDistance();
 mDeceleration = computeDeceleration(ViewConfiguration.getScrollFriction());
    {% endhighlight %}
    
+<!-- more -->
 
 ViewConfiguration的常量总结：
 

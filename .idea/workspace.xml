@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fad18149-4e7d-4d2b-8abd-e90eff6be59d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration使用.md" afterPath="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration使用.md" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration使用.md" afterPath="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration和Configuration类使用.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,21 +42,21 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-16.655172">
-              <caret line="283" column="0" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
+            <state vertical-scroll-proportion="-5.303571">
+              <caret line="20" column="50" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2015-11-26-ViewConfiguration使用.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration使用.md">
+      <file leaf-file-name="2015-11-26-ViewConfiguration和Configuration类使用.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration和Configuration类使用.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6315789">
-              <caret line="213" column="16" selection-start-line="213" selection-start-column="16" selection-end-line="213" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.92105263">
+              <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -90,7 +90,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/_posts/2015-8-8-自定义view的三种构造方法浅析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-15-自定义view的三种构造方法浅析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-15-windowSoftInputMode属性使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md" />
@@ -141,6 +140,7 @@
         <option value="$PROJECT_DIR$/_posts/2015-11-25-ActivityLifecycleCallbacks使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-11-26-c使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration使用.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration和Configuration类使用.md" />
       </list>
     </option>
   </component>
@@ -872,19 +872,19 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-16.655172">
-          <caret line="283" column="0" selection-start-line="283" selection-start-column="0" selection-end-line="283" selection-end-column="0" />
+        <state vertical-scroll-proportion="-5.303571">
+          <caret line="20" column="50" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration使用.md">
+    <entry file="file://$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration和Configuration类使用.md">
       <provider editor-type-id="MarkdownPreviewEditor">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6315789">
-          <caret line="213" column="16" selection-start-line="213" selection-start-column="16" selection-end-line="213" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.92105263">
+          <caret line="35" column="24" selection-start-line="35" selection-start-column="24" selection-end-line="35" selection-end-column="24" />
           <folding />
         </state>
       </provider>
