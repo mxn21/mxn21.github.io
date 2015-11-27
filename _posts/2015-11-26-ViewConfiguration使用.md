@@ -296,7 +296,7 @@ AndroidManifest.xml如下:
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -307,3 +307,22 @@ AndroidManifest.xml如下:
 
 </manifest>
     {% highlight xml %}
+    
+1.点击Button利用Configuration查看手机上的配置信息 
+
+    {% highlight c %}
+11-27 11:56:41.763 4093-4093/com.mxn.soul.demo I/System.out: 现在是横屏
+11-27 11:56:41.763 4093-4093/com.mxn.soul.demo I/System.out: 国家码=0,网络码=0
+    {% highlight xml %}
+    
+2.在manifest为Activity配置configChanges时，旋转屏幕，输出如下：
+
+    {% highlight c %}
+11-27 11:59:26.827 8684-8684/com.mxn.soul.demo I/System.out: ---> onCreate()
+11-27 11:59:31.110 8684-8684/com.mxn.soul.demo I/System.out: ---> onConfigurationChanged()
+    {% highlight xml %}
+    
+由于设备和系统版本的差异,少数情况下设置android:configChanges="orientation" 无效,
+建议设置为：android:configChanges="keyboardHidden|orientation|screenSize" ，表示当前Activity可以对屏幕是否旋转进行监听
+(当然也可对其他系统信息进行监听) 配置后屏幕旋转时会调用onConfigurationChanged()方法. 
+
