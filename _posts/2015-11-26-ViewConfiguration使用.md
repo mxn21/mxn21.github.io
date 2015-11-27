@@ -348,7 +348,8 @@ Android通过终止、重启应用程序来重新加载资源文件，以做到�
 override onConfigurationChanged这个方法去捕获配置变化，通过传入的Configuration 对象的值进行合适的处理。
 需要提醒的是需要调用父类的方法super.onConfigurationChanged(newConfig);并且要重新加载Activity使用的资源，以防有变更。
 
-
+当onConfigurationChanged 被调用时，Activity的资源变量都已经用新的值进行了更新，所以它们是安全的。任何你没有显式指明的配置变化事件，
+都将由应用程序捕获，而且仍然会引起应用程序的重启，而不会调用onConfigurationChanged 方法。
 
 3.若不配置android:configChanges,那么每次屏幕旋转的时候都会调用Activity的onCreate()方法 而不会调用onConfigurationChanged()。取消在2中的设置
 .此时每次旋转屏幕都会调用onCreate(),并在屏幕旋转前调用onSaveInstanceState()保存现场状态,在选中后调用onRestoreInstanceState()
