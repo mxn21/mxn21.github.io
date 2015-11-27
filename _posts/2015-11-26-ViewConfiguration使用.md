@@ -143,10 +143,51 @@ ViewConfiguration的常量总结：
       {% endhighlight %}
    
 API:14以后提供了方法判断是否有物理按键：ViewConfiguration.hasPermanentMenuKey().
-一般来说物理按键和虚拟按键只会有一种。可以用这个方法来判断是否有导航栏NavigationBar和NavigationBar的高度。
+一般来说物理按键和虚拟按键只会有一种。可以用这个方法来判断是否有导航栏NavigationBar和计算NavigationBar的高度。
 
+判断是否有导航栏NavigationBar：
 
-      
+    {% highlight java %}
+  public static boolean checkDeviceHasNavigationBar(Context activity) {  
+        //通过判断设备是否有返回键、菜单键(不是虚拟键,是手机屏幕外的按键)来确定是否有navigation bar  
+        boolean hasMenuKey = ViewConfiguration.get(activity)  
+                .hasPermanentMenuKey();  
+        boolean hasBackKey = KeyCharacterMap  
+                .deviceHasKey(KeyEvent.KEYCODE_BACK);  
+  
+        if (!hasMenuKey && !hasBackKey) {  
+            // 做任何你需要做的,这个设备有一个导航栏  
+            return true;  
+        }  
+        return false;  
+    }  
+         {% endhighlight %}
+            
+计算NavigationBar的高度：
+
+    {% highlight java %}
+            public int getNavigationBarHeight(Context c) {
+                    int result = 0;
+                    boolean hasMenuKey = ViewConfiguration.get(c).hasPermanentMenuKey();
+                    boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+            
+                    if (!hasMenuKey && !hasBackKey) {
+                        //The device has a navigation bar
+                        Resources resources = c.getResources();
+                        int orientation = getResources().getConfiguration().orientation;
+                        int resourceId;
+                        if (isTablet(c)) {
+                            resourceId = resources.getIdentifier(orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_height_landscape", "dimen", "android");
+                        } else {
+                            resourceId = resources.getIdentifier(orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_width", "dimen", "android");
+                        }
+                        if (resourceId > 0) {
+                            return getResources().getDimensionPixelSize(resourceId);
+                        }
+                    }
+                    return result;
+                }
+    {% endhighlight %}
       
 ### Configuration类
 
