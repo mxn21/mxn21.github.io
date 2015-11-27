@@ -142,6 +142,11 @@ ViewConfiguration的常量总结：
  }
       {% endhighlight %}
    
+API:14以后提供了方法判断是否有物理按键：ViewConfiguration.hasPermanentMenuKey().
+一般来说物理按键和虚拟按键只会有一种。可以用这个方法来判断是否有导航栏NavigationBar和NavigationBar的高度。
+
+
+      
       
 ### Configuration类
 
