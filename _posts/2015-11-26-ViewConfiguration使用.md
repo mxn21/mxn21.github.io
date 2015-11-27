@@ -180,3 +180,74 @@ NAVIGATION_TRACKBALL（轨迹球导航）、NAVIGATION_WHEEL（滚轮导航）
 
 下面写一个监听屏幕旋转的demo：
 
+MainActivity如下:
+
+    {% highlight java %}
+    public class MainActivity extends Activity {
+        private Button mButton;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            System.out.println("---> onCreate()");
+            init();
+        }
+    
+        private void init(){
+            mButton=(Button) findViewById(R.id.button);
+            mButton.setOnClickListener(new ClickListenerImpl());
+        }
+    
+        private class ClickListenerImpl implements View.OnClickListener {
+            @Override
+            public void onClick(View v) {
+                getConfigurationInfo();
+            }
+    
+        }
+    
+        private void getConfigurationInfo(){
+            Configuration configuration=getResources().getConfiguration();
+            //获取屏幕方向
+            int l=configuration.ORIENTATION_LANDSCAPE;
+            int p=configuration.ORIENTATION_PORTRAIT;
+            if (configuration.orientation==l) {
+                System.out.println("现在是横屏");
+            }
+            if (configuration.orientation==p) {
+                System.out.println("现在是竖屏");
+            }
+    
+            //获取国家码和网络码
+            int countryNum=configuration.mcc;
+            int netNum=configuration.mnc;
+            System.out.println("国家码="+countryNum+",网络码="+netNum);
+        }
+    
+        @Override
+        public void onConfigurationChanged(Configuration newConfig) {
+            super.onConfigurationChanged(newConfig);
+            System.out.println("---> onConfigurationChanged()");
+        }
+    
+        @Override
+        protected void onSaveInstanceState(Bundle outState) {
+            super.onSaveInstanceState(outState);
+            outState.putString("name", "mxn");
+            outState.putInt("id", 21);
+            System.out.println("---> onSaveInstanceState()");
+        }
+    
+        @Override
+        protected void onRestoreInstanceState(Bundle savedInstanceState) {
+            super.onRestoreInstanceState(savedInstanceState);
+            String name=savedInstanceState.getString("name");
+            int id=savedInstanceState.getInt("id");
+            System.out.println("---> onRestoreInstanceState()");
+            System.out.println("名字="+name+",编号="+id);
+        }
+    }
+    {% endhighlight %}
+
+main.xml如下:
+
