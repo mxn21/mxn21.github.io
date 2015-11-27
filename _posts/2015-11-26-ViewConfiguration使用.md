@@ -326,7 +326,11 @@ AndroidManifest.xml如下:
 建议设置为：android:configChanges="keyboardHidden|orientation|screenSize" ，表示当前Activity可以对屏幕是否旋转进行监听
 (当然也可对其他系统信息进行监听) 配置后屏幕旋转时会调用onConfigurationChanged()方法. 
 
-3.若不配置,那么每次屏幕旋转的时候都会调用Activity的onCreate()方法 而不会调用onConfigurationChanged()。取消在2中的设置
+注意：当onConfigurationChanged发生之后，并不会对activiyt的生命周期有影响的，也就是说当横竖修改之后，android
+并不会有任何生命周期的变化。同理还有（键盘显示或者隐藏、用户的语言设置、用户字体修改、对键盘类型修改、键盘导航修改）
+这些都可以触发相关的activity的事件产生。
+
+3.若不配置android:configChanges,那么每次屏幕旋转的时候都会调用Activity的onCreate()方法 而不会调用onConfigurationChanged()。取消在2中的设置
 .此时每次旋转屏幕都会调用onCreate(),并在屏幕旋转前调用onSaveInstanceState()保存现场状态,在选中后调用onRestoreInstanceState()
 恢复现场. 所以此时调用顺序为: onSaveInstanceState->onCreate()->onRestoreInstanceState()。除此以外:
 当系统内存紧张时可暂时杀死该Activity,内存允许时重启该Activity.在这样情况下也是该调用顺序,原理亦类似. 
