@@ -334,23 +334,19 @@ android:configChanges配置说明：
 
 Android通过终止、重启应用程序来重新加载资源文件，以做到对语言、区域和硬件实时变化的支持。它的默认的行为不是总是方便和令人满意的，
 尤其当配置变化（如屏幕方向和键盘可视）、用户旋转设备或划出键盘等。你可以通过监测和响应定制你的应用程序来对这些变化作出响应。
-为了能让Activity能监听实时的配置变化，需要在manifest节点里添加“android:configChanges”特性，指定你要处理的配置变化事件。接下来的列表给出了你可以指定的配置变化的事件值：
+为了能让Activity能监听实时的配置变化，需要在manifest节点里添加“android:configChanges”特性，指定你要处理的配置变化事件。
+接下来的列表给出了你可以指定的配置变化的事件值：
 
-❑ orientation 屏幕在纵向和横向间旋转。
+*orientation 屏幕在纵向和横向间旋转。
+*keyboardHidden 键盘显示或隐藏。
+*fontScale 用户变更了首选的字体大小。
+*locale 用户选择了不同的语言设定。
+*keyboard 键盘类型变更，例如手机从12键盘切换到全键盘
+*ouchscreen或navigation 键盘或导航方式变化，一般不会发生这样的事件。
 
-❑ keyboardHidden 键盘显示或隐藏。
-
-❑ fontScale 用户变更了首选的字体大小。
-
-❑ locale 用户选择了不同的语言设定。
-
-❑ keyboard 键盘类型变更，例如手机从12键盘切换到全键盘
-
-❑ touchscreen或navigation 键盘或导航方式变化，一般不会发生这样的事件。
-
-你可以选择捕获多个事件，通过在各事件值间使用“|”。接下来的代码片段显示了Activity要捕获屏幕方向和键盘可视的事件：增加这个特性就会强制应用程序在指定的配置变化时不用再重新启动，而是触发Activity中的onConfigurationChanged方法。
-
-如下面的代码片段所示，override这个方法去捕获配置变化，通过传入的Configuration 对象的值进行合适的处理。需要提醒的是需要调用父类的方法，并且要重新加载Activity使用的资源，以防有变更。
+你可以选择捕获多个事件，通过在各事件值间使用“|”。
+override onConfigurationChanged这个方法去捕获配置变化，通过传入的Configuration 对象的值进行合适的处理。
+需要提醒的是需要调用父类的方法super.onConfigurationChanged(newConfig);并且要重新加载Activity使用的资源，以防有变更。
 
 
 
