@@ -507,9 +507,19 @@ Activity生命周期还有其他方法例如：onPostCreate
 在activity中加入如下代码测试：
 
 	{% highlight java  %}
-
+public void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        Log.d(TAG, "onPostCreate");
+    }
+    
+ public void onPostResume() {
+        super.onPostResume();
+        Log.d(TAG, "onPostResume");
+    }    
 	 {% endhighlight %}
-	    
+	
+	       
+	       
 activity和fragment完整生命周期图如下：
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img26.jpg)
 
