@@ -518,6 +518,10 @@ public void onPostCreate(Bundle savedInstanceState) {
     }    
 	 {% endhighlight %}
 	
+程序启动运行并结束上述生命周期的方法执行顺序是这样的：
+
+onCreate --> onContentChanged --> onStart --> onPostCreate --> onResume --> onPostResume --> onPause --> onStop --> onDestroy
+	       
 	       
 	       
 activity和fragment完整生命周期图如下：
