@@ -522,7 +522,8 @@ public void onPostCreate(Bundle savedInstanceState) {
 
 onCreate --> onContentChanged --> onStart --> onPostCreate --> onResume --> onPostResume --> onPause --> onStop --> onDestroy
 
-onPostCreate方法是指onCreate方法彻底执行完毕的回调，onPostResume类似，这两个方法官方说法是一般不会重写，
+onPostCreate方法是指onCreate方法彻底执行完毕的回调，在Activity.OnStart和Activity.OnRestoreInstanceState(Bundle)之后调用。
+onPostResume类似，这两个方法官方说法是一般不会重写，
 现在知道的做法也就只有在使用ActionBarDrawerToggle的使用在onPostCreate需要在屏幕旋转时候等同步下状态，
 Google官方提供的一些实例就是如下做法：
 
