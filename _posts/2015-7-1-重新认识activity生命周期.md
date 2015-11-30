@@ -501,6 +501,8 @@ DecorView的LayoutParams是在ActivityThread的handleResumeActivity中设置的�
 与onAttachedToWindow 相反的则是这个方法：nDetachedFromWindow()，我们销毁View的时候。我们写的这个View不再显示。
 这时我们就在这个方法做一些收尾工作，如：取消广播注册等等。
 
+
+
 activity和fragment完整生命周期图如下：
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img26.jpg)
 
