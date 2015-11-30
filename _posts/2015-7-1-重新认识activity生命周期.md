@@ -521,9 +521,20 @@ public void onPostCreate(Bundle savedInstanceState) {
 程序启动运行并结束上述生命周期的方法执行顺序是这样的：
 
 onCreate --> onContentChanged --> onStart --> onPostCreate --> onResume --> onPostResume --> onPause --> onStop --> onDestroy
-	       
-	       
-	       
+
+onPostCreate方法是指onCreate方法彻底执行完毕的回调，onPostResume类似，这两个方法官方说法是一般不会重写，
+现在知道的做法也就只有在使用ActionBarDrawerToggle的使用在onPostCreate需要在屏幕旋转时候等同步下状态，
+Google官方提供的一些实例就是如下做法：
+
+	{% highlight java  %}
+@Override
+protected void onPostCreate(Bundle savedInstanceState) {
+    super.onPostCreate(savedInstanceState);
+    // Sync the toggle state after onRestoreInstanceState has occurred.
+    mDrawerToggle.syncState();
+}
+	{% endhighlight %}
+		        
 activity和fragment完整生命周期图如下：
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img26.jpg)
 
