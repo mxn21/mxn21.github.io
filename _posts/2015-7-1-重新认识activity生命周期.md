@@ -536,7 +536,8 @@ protected void onPostCreate(Bundle savedInstanceState) {
 }
 	{% endhighlight %}
 	
-另外onPostCreate可以在自己实现的基类中用到，可以把onPostCreate作为基类的onCreate执行完毕后的回调函数。
+另外onPostCreate可以在自己实现的基类中用到，可以把onPostCreate作为基类的onCreate执行完毕后的回调函数，用来表示所有初始化已经完成。
+例如，如果所有继承基类的activities具有相同的layout，那么可以在onPostCreate中添加监听(onClickListeners)。
 	  	  	        
 activity和fragment完整生命周期图如下：
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img26.jpg)
