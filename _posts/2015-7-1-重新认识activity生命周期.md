@@ -535,7 +535,9 @@ protected void onPostCreate(Bundle savedInstanceState) {
     mDrawerToggle.syncState();
 }
 	{% endhighlight %}
-		        
+	
+另外onPostCreate可以在自己实现的基类中用到，可以把onPostCreate作为基类的onCreate执行完毕后的回调函数。
+	  	  	        
 activity和fragment完整生命周期图如下：
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img26.jpg)
 
