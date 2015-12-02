@@ -15,6 +15,8 @@ tag: android
 onLowMemory()是在内存过低的情况下调用的。那onTerminate()是干什么用的呢？网上介绍说是在程序终结的时候调用，从下面的实例中也是这样用的。
 不过在Google的开发文档以及很多书籍对这个类的用法很少提及，但实际开发情况是如何的呢。
 
+<!-- more -->
+
 ### onTerminate的使用
 
 onTerminate()会在app关闭的时候调用,但是就像onDestroy()一样，不能保证一定会被调用。所以最好不要依赖这个方法做重要的处理，
@@ -39,7 +41,7 @@ onTerminate()会在app关闭的时候调用,但是就像onDestroy()一样，不�
     }
      {% endhighlight %}
      
-清除缓存和地图
+清除缓存、日志和地图
 
 	{% highlight java  %}
  public void onTerminate()
@@ -54,10 +56,20 @@ onTerminate()会在app关闭的时候调用,但是就像onDestroy()一样，不�
     {
       public void run()
       {
-        App.delete(new File(Environment.getExternalStorageDirectory() + "/douguo/yummyDiary/"));
+        App.delete(new File(Environment.getExternalStorageDirectory() + "/xxx/Diary/"));
       }
     }.start();
   }
   
        {% endhighlight %}
-       
+    
+清除ActivityLifecycleCallbacks的注册
+   
+       	{% highlight java  %}
+    @Override
+    public void onTerminate() {
+        unregisterActivityLifecycleCallbacks(mActivityWatcher);
+        super.onTerminate();
+    }
+          {% endhighlight %}
+          
