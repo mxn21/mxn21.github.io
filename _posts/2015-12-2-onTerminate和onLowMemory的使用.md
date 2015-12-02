@@ -20,3 +20,19 @@ onLowMemory()是在内存过低的情况下调用的。那onTerminate()是干什
 onTerminate()会在app关闭的时候调用,但是就像onDestroy()一样，不能保证一定会被调用。所以最好不要依赖这个方法做重要的处理，
 这个方法最多可以用来销毁一写对象，清除一下缓存，但是也并不能保证一定会清除掉，其他操作，例如想在程序结束保存数据，用这个方法明显是错误的。
 
+使用方法如下：
+
+	{% highlight java  %}
+ public void onTerminate()
+  {
+    super.onTerminate();
+    shutdownHttpClient();
+  }
+  
+   private void shutdownHttpClient()
+    {
+      if ((this.httpClient != null) && (this.httpClient.getConnectionManager() != null)) {
+        this.httpClient.getConnectionManager().shutdown();
+      }
+    }
+     {% endhighlight %}
