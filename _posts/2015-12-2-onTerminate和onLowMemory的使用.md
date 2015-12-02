@@ -22,6 +22,8 @@ onTerminate()会在app关闭的时候调用,但是就像onDestroy()一样，不�
 
 使用方法如下：
 
+清除http连接：
+
 	{% highlight java  %}
  public void onTerminate()
   {
@@ -36,3 +38,26 @@ onTerminate()会在app关闭的时候调用,但是就像onDestroy()一样，不�
       }
     }
      {% endhighlight %}
+     
+清除缓存和地图
+
+	{% highlight java  %}
+ public void onTerminate()
+  {
+    if (this.mBMapMan != null)
+    {
+      this.mBMapMan.destroy();
+      this.mBMapMan = null;
+    }
+    super.onTerminate();
+    new Thread()
+    {
+      public void run()
+      {
+        App.delete(new File(Environment.getExternalStorageDirectory() + "/douguo/yummyDiary/"));
+      }
+    }.start();
+  }
+  
+       {% endhighlight %}
+       
