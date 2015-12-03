@@ -142,10 +142,13 @@ OnTrimMemory:Android系统从4.0开始还提供了onTrimMemory()的回调，当�
 请注意：当系统开始清除LRU缓存中的进程时，虽然它首先按照LRU的顺序来执行操作，但是它同样会考虑进程的内存使用量以及其他因素。占用越少的进程越容易被留下来。
 
 OnLowMemory()和OnTrimMemory()的比较
-1，OnLowMemory被回调时，已经没有后台进程；而onTrimMemory被回调时，还有后台进程。
-2，OnLowMemory是在最后一个后台进程被杀时调用，一般情况是low memory killer 杀进程后触发；而OnTrimMemory的触发更频繁，
+
+1.OnLowMemory被回调时，已经没有后台进程；而onTrimMemory被回调时，还有后台进程。
+
+2.OnLowMemory是在最后一个后台进程被杀时调用，一般情况是low memory killer 杀进程后触发；而OnTrimMemory的触发更频繁，
 每次计算进程优先级时，只要满足条件，都会触发。
-3，通过一键清理后，OnLowMemory不会被触发，而OnTrimMemory会被触发一次。
+
+3.通过一键清理后，OnLowMemory不会被触发，而OnTrimMemory会被触发一次。
 
 使用举例：
 
