@@ -131,13 +131,11 @@ OnTrimMemory:Android系统从4.0开始还提供了onTrimMemory()的回调，当�
 * TRIM_MEMORY_BACKGROUND
 系统正运行于低内存状态并且你的进程正处于LRU缓存名单中最不容易杀掉的位置。尽管你的应用进程并不是处于被杀掉的高危险状态，系统可能已经开始杀掉LRU缓存中的其他进程了。你应该释放那些容易恢复的资源，以便于你的进程可以保留下来，这样当用户回退到你的应用的时候才能够迅速恢复。
 
-* TRIM_MEMORY_MODERATE: 系统正运行于低内存状态并且你的进程已经已经接近LRU名单的中部位置。如果系统开始变得更加内存紧张，你的进程是有可能被杀死的。
+* TRIM_MEMORY_MODERATE
+系统正运行于低内存状态并且你的进程已经已经接近LRU名单的中部位置。如果系统开始变得更加内存紧张，你的进程是有可能被杀死的。
 
-* TRIM_MEMORY_COMPLETE: 系统正运行于低内存的状态并且你的进程正处于LRU名单中最容易被杀掉的位置。你应该释放任何不影响你的应用恢复状态的资源。
-
-
-
-
+* TRIM_MEMORY_COMPLETE
+系统正运行于低内存的状态并且你的进程正处于LRU名单中最容易被杀掉的位置。你应该释放任何不影响你的应用恢复状态的资源。
 
 因为onTrimMemory()的回调是在API 14才被加进来的，对于老的版本，你可以使用onLowMemory)回调来进行兼容。onLowMemory相当与TRIM_MEMORY_COMPLETE。
 
@@ -148,3 +146,19 @@ OnLowMemory()和OnTrimMemory()的比较
 2，OnLowMemory是在最后一个后台进程被杀时调用，一般情况是low memory killer 杀进程后触发；而OnTrimMemory的触发更频繁，
 每次计算进程优先级时，只要满足条件，都会触发。
 3，通过一键清理后，OnLowMemory不会被触发，而OnTrimMemory会被触发一次。
+
+使用举例：
+
+       	{% highlight java  %}
+@Override
+public void onTrimMemory(int level) {
+    Log.e(TAG, " onTrimMemory ... level:" + level);     
+}
+
+@Override
+public void onLowMemory() {     
+    Log.e(TAG, " onLowMemory ... ");     
+}
+          {% endhighlight %}
+          
+  
