@@ -126,12 +126,15 @@ TRIM_MEMORY_BACKGROUND:
 
 当程序正在前台运行的时候，可能会接收到从onTrimMemory()中返回的下面的值之一：
 
-TRIM_MEMORY_RUNNING_CRITICAL
-    应用处于运行状态但是系统已经把大多数缓存应用杀掉了, 你必须释放掉不是非常关键的资源, 如果系统不能回收足够的运行内存, 系统会清除所有缓存应用并且会把正在活动的应用杀掉.
-TRIM_MEMORY_RUNNING_LOW
-    应用处于运行状态并且不会被杀掉, 设备可以使用的内存非常低, 可以把不用的资源释放一些提高性能(会直接影响程序的性能)
-TRIM_MEMORY_RUNNING_MODERATE
-   应用处于运行状态并且不会被杀掉, 设备使用的内存比较低, 系统级会杀掉一些其它的缓存应用.
+* TRIM_MEMORY_RUNNING_CRITICAL
+你的应用仍在运行，但是系统已经把LRU Cache中的大多数进程都已经杀死，因此你应该立即释放所有非必须的资源。如果系统不能回收到足够的RAM数量，
+系统将会清除所有的LRU缓存中的进程，并且开始杀死那些之前被认为不应该杀死的进程，例如那个包含了一个运行态Service的进程。
+
+* TRIM_MEMORY_RUNNING_LOW
+你的应用正在运行且没有被列为可杀死的。但是设备正运行于更低内存的状态下，你应该释放不用的资源用来提升系统性能。
+
+* TRIM_MEMORY_RUNNING_MODERATE
+你的应用正在运行并且不会被列为可杀死的。但是设备此时正运行于低内存状态下，系统开始触发杀死LRU Cache中的Process的机制。
 
 因为onTrimMemory()的回调是在API 14才被加进来的，对于老的版本，你可以使用onLowMemory)回调来进行兼容。onLowMemory相当与TRIM_MEMORY_COMPLETE。
 
