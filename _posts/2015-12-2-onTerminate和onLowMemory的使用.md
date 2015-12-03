@@ -78,3 +78,12 @@ onTerminate()会在app关闭的时候调用,但是就像onDestroy()一样，不�
 
 onLowMemory()在内存比较紧张时,根据优先级把后台程序杀死时,系统回调他,它用在14之前,14之后就出现了onTrimMemory()
 
+源码如下：
+
+       	{% highlight java  %}
+    @Override
+    public void onTerminate() {
+        unregisterActivityLifecycleCallbacks(mActivityWatcher);
+        super.onTerminate();
+    }
+          {% endhighlight %}
