@@ -102,7 +102,11 @@ onLowMemory()在内存比较紧张时,根据优先级把后台程序杀死时,�
         }
     }
           {% endhighlight %}
+          
+onLowMemory 当后台程序已经终止资源还匮乏时会调用这个方法。好的应用程序一般会在这个方法里面释放一些不必要的资源来应付当后台程序已经终止，
+前台应用程序内存还不够时的情况。
 
+OnTrimMemory是Android 4.0之后提供的API，系统会根据不同的内存状态来回调。OnTrimMemory的参数是一个int数值，代表不同的内存状态.
 onTrimMemory(int level)是根据级别不同做不同的操作:
 
 TRIM_MEMORY_COMPLETE:
