@@ -81,9 +81,32 @@ onLowMemory()在内存比较紧张时,根据优先级把后台程序杀死时,�
 源码如下：
 
        	{% highlight java  %}
-    @Override
-    public void onTerminate() {
-        unregisterActivityLifecycleCallbacks(mActivityWatcher);
-        super.onTerminate();
+    public void onLowMemory() {
+        Object[] callbacks = collectComponentCallbacks();
+        if (callbacks != null) {
+            for (int i=0; i<callbacks.length; i++) {
+                ((ComponentCallbacks)callbacks[i]).onLowMemory();
+            }
+        }
+    }
+
+    public void onTrimMemory(int level) {
+        Object[] callbacks = collectComponentCallbacks();
+        if (callbacks != null) {
+            for (int i=0; i<callbacks.length; i++) {
+                Object c = callbacks[i];
+                if (c instanceof ComponentCallbacks2) {
+                    ((ComponentCallbacks2)c).onTrimMemory(level);
+                }
+            }
+        }
     }
           {% endhighlight %}
+
+onTrimMemory(int level)是根据级别不同做不同的操作:
+
+
+OnLowMemory()和OnTrimMemory()的比较
+1，OnLowMemory被回调时，已经没有后台进程；而onTrimMemory被回调时，还有后台进程。
+2，OnLowMemory是在最后一个后台进程被杀时调用，一般情况是low memory killer 杀进程后触发；而OnTrimMemory的触发更频繁，每次计算进程优先级时，只要满足条件，都会触发。
+3，通过一键清理后，OnLowMemory不会被触发，而OnTrimMemory会被触发一次。
