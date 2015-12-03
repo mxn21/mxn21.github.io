@@ -119,8 +119,13 @@ TRIM_MEMORY_MODERATE
 系统处于低内存的运行状态中并且你的应用处于缓存应用列表的中级阶段. 如果系运行内存收到限制, 你的应用有被杀掉的风险.
 TRIM_MEMORY_BACKGROUND:
     系统处于低内存的运行状态中并且你的应用处于缓存应用列表的初级阶段.  虽然你的应用不会处于被杀的高风险中, 但是系统已经开始清除缓存列表中的其它应用, 所以你必须释放资源使你的应用继续存留在列表中以便用户再次回到你的应用时能快速恢复进行使用.
-TRIM_MEMORY_UI_HIDDEN
-     这个过程显示到用户界面,提示占用内存比较大的应用和ui即将被释放,ui不可见
+
+* TRIM_MEMORY_UI_HIDDEN 
+你的应用程序的所有UI界面被隐藏了，即用户点击了Home键或者Back键退出应用，导致应用的UI界面完全不可见。
+这个时候应该释放一些不可见的时候非必须的资源.
+
+当程序正在前台运行的时候，可能会接收到从onTrimMemory()中返回的下面的值之一：
+
 TRIM_MEMORY_RUNNING_CRITICAL
     应用处于运行状态但是系统已经把大多数缓存应用杀掉了, 你必须释放掉不是非常关键的资源, 如果系统不能回收足够的运行内存, 系统会清除所有缓存应用并且会把正在活动的应用杀掉.
 TRIM_MEMORY_RUNNING_LOW
@@ -128,8 +133,12 @@ TRIM_MEMORY_RUNNING_LOW
 TRIM_MEMORY_RUNNING_MODERATE
    应用处于运行状态并且不会被杀掉, 设备使用的内存比较低, 系统级会杀掉一些其它的缓存应用.
 
+因为onTrimMemory()的回调是在API 14才被加进来的，对于老的版本，你可以使用onLowMemory)回调来进行兼容。onLowMemory相当与TRIM_MEMORY_COMPLETE。
+
+请注意：当系统开始清除LRU缓存中的进程时，虽然它首先按照LRU的顺序来执行操作，但是它同样会考虑进程的内存使用量以及其他因素。占用越少的进程越容易被留下来。
 
 OnLowMemory()和OnTrimMemory()的比较
 1，OnLowMemory被回调时，已经没有后台进程；而onTrimMemory被回调时，还有后台进程。
-2，OnLowMemory是在最后一个后台进程被杀时调用，一般情况是low memory killer 杀进程后触发；而OnTrimMemory的触发更频繁，每次计算进程优先级时，只要满足条件，都会触发。
+2，OnLowMemory是在最后一个后台进程被杀时调用，一般情况是low memory killer 杀进程后触发；而OnTrimMemory的触发更频繁，
+每次计算进程优先级时，只要满足条件，都会触发。
 3，通过一键清理后，OnLowMemory不会被触发，而OnTrimMemory会被触发一次。
