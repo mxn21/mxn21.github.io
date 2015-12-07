@@ -9,6 +9,8 @@ tag: android
 StrictMode通常用于抓取在应用程序的主线程中来操作磁盘或者网络访问的问题，比如界面操作和动画，在非UI线程中处理磁盘文件和网络
 操作使得程序更快、响应更及时，在保证你的程序足够流程的同时，你还需要阻止ANR事件的发生。 ANR窗口产生的原因是多种多样的。
 程序的主线程因为IO读写或网络阻塞而导致被阻塞了，外部存储设备被独占了或系统负荷过高都可能导致ANR。
+从Android 2.3开始提供了一个新的类StrictMode，可以帮助开发者改进他们的Android应用，StrictMode可以用于捕捉发生在应用程序
+主线程中耗时的磁盘、网络访问或函数调用，使主线程处理UI和动画在磁盘读写和网络操作时变得更平滑，避免主线程被阻塞，导致ANR窗口的发生。
 
 下面是启用StrictMode的实例，可以在Application的OnCreate中添加，这样就能在程序启动的最初一刻进行监控了。
 
@@ -18,7 +20,7 @@ StrictMode通常用于抓取在应用程序的主线程中来操作磁盘或者�
             Log.d(LOG_TAG, "Enabling StrictMode policy over Sample application");
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                     .detectAll()
-                    .penaltyLog()
+                    .penaltyLog()   //打印logcat，当然也可以定位到dropbox，通过文件保存相应的log
                     .penaltyDeath()
                     .build());
             StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
