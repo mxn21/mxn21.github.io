@@ -73,3 +73,29 @@ penaltyLog()表示将警告输出到LogCat，你也可以使用其他或增加�
 当启用了Strictmode模式时，会监视所有的程序运行情况，当发现出现重大问题或违背策略规则时，会提示用户。
 下面是当运行启用了strictmode模式的应用时，当发现违背规则时，显示给用户的信息。
 
+      {% highlight c  %}
+09-04 16:15:34.592: DEBUG/StrictMode(15883): StrictMode policy violation; ~duration=319 ms: android.os.StrictMode$StrictModeDiskWriteViolation: policy=31 violation=1 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.os.StrictMode$AndroidBlockGuardPolicy.onWriteToDisk(StrictMode.java:1041) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.database.sqlite.SQLiteStatement.acquireAndLock(SQLiteStatement.java:219) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.database.sqlite.SQLiteStatement.executeUpdateDelete(SQLiteStatement.java:83) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.database.sqlite.SQLiteDatabase.updateWithOnConflict(SQLiteDatabase.java:1829) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.database.sqlite.SQLiteDatabase.update(SQLiteDatabase.java:1780) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at com.mamlambo.tutorial.tutlist.data.TutListProvider.update(TutListProvider.java:188) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.content.ContentProvider$Transport.update(ContentProvider.java:233) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.content.ContentResolver.update(ContentResolver.java:847) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at com.mamlambo.tutorial.tutlist.data.TutListProvider.markItemRead(TutListProvider.java:229) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at com.mamlambo.tutorial.tutlist.TutListFragment.onListItemClick(TutListFragment.java:99) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.support.v4.app.ListFragment$2.onItemClick(ListFragment.java:53) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.widget.AdapterView.performItemClick(AdapterView.java:282) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.widget.AbsListView.performItemClick(AbsListView.java:1037) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.widget.AbsListView$PerformClick.run(AbsListView.java:2449) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.widget.AbsListView$1.run(AbsListView.java:3073) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.os.Handler.handleCallback(Handler.java:587) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.os.Handler.dispatchMessage(Handler.java:92) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.os.Looper.loop(Looper.java:132) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at android.app.ActivityThread.main(ActivityThread.java:4123) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at java.lang.reflect.Method.invokeNative(Native Method)
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at java.lang.reflect.Method.invoke(Method.java:491) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:841) 
+09-04 16:15:34.592: DEBUG/StrictMode(15883):     at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:599)
+     {% endhighlight %}
