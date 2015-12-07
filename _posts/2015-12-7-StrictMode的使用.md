@@ -19,7 +19,8 @@ StrictMode通常用于抓取在应用程序的主线程中来操作磁盘或者�
         if (Integer.valueOf(Build.VERSION.SDK) > 3) {
             Log.d(LOG_TAG, "Enabling StrictMode policy over Sample application");
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
-                    .detectAll()
+                    .detectAll()    // 这里可以替换为.detectDiskReads().detectDiskWrites().detectNetwork()。
+                                    // detectAll() 包括了磁盘读写和网络I/O
                     .penaltyLog()   //打印logcat，当然也可以定位到dropbox，通过文件保存相应的log
                     .penaltyDeath()
                     .build());
