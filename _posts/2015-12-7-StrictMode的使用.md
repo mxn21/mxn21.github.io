@@ -47,6 +47,17 @@ StrictMode 共有两种策略(policy)：
 
 你可以决定当一个异常发生时该发生什么样的事情，比如，使用StrictMode的penaltyLog()方法你可以在应用发生异常时查看adb logcat的输出。
 penaltyLog()表示将警告输出到LogCat，你也可以使用其他或增加新的惩罚（penalty）函数，例如使用penaltyDeath()的话，一旦StrictMode消息被
-写到LogCat后应用就会崩溃。当你发现一个比较严重的异常时，Android提供了一系列的工具来解决它：线程、Handler、AsyncTask、IntentService等等。但并不是StrictMode
+写到LogCat后应用就会崩溃。和ThreadPolicy不同的是，VmPolicy不能通过一个对话框提供警告。
+
+因为设置发生在线程中，严苛模式（StrictMode）甚至能在从一个对象到另一个对象的控制流中找到违例事件。当违例发生，
+你会惊奇地注意到代码正运行于主线程，而栈trace将帮助你发现它如何发生。于是你能单步调试解决问题，或是将代码移到它自己的后台线程，
+或是就保持原来的处理方式。这都取决与你。当然，你可能希望适时关闭严苛模式（StrictMode），当你的程序作为产品发布时，
+你可不希望它仅为了一个警告在你的用户手里崩溃。有两个方法可以关闭严苛模式（StrictMode），最直接的就是移除相应代码，
+但这样做不利于持续开发的产品。你通常可以定义一个应用级别布尔变量来测试是否需要调用严苛模式（StrictMode）代码。
+在发布产品前将这个值定义为FALSE。更优雅的方式是利用调试模式（debug mode）的特点，在AndroidManifest.xml中定义这个布尔变量。
+<application>字段的属性之一是android:debuggable，其义自明。
+    
+    
+当你发现一个比较严重的异常时，Android提供了一系列的工具来解决它：线程、Handler、AsyncTask、IntentService等等。但并不是StrictMode
 报的所有问题都需要修复，特别是很多必须要在窗口生命周期回调中访问磁盘的时候。使用严苛模式可以帮你解决很多问题，比如在UI线程中访问网络始终
 是一个问题。
