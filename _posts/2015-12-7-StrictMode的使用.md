@@ -35,11 +35,18 @@ StrictMode通常用于抓取在应用程序的主线程中来操作磁盘或者�
 StrictMode 共有两种策略(policy)：
 
 1.ThreadPolicy: 线程相关策略，包括主线程访问网络、磁盘(现在手机中使用闪存)读写、慢代码的检测。我们能够分别检测(detect)
-这些操作或允许(permit)这些操作。一旦出现了违规(violation)，就会有相应的提示（比如 Log 显示）。
+这些操作或允许(permit)这些操作。一旦出现了违规(violation)，就会有相应的提示（比如 Log 显示）。我们可以使用 detectNetwork()
+检测主线程网络访问，detectDiskReads() 和 detectDiskWrites() 检测主线程磁盘读写，detectCustomSlowCalls()
+检测主线程自定义的慢代码。当然也可以使用 permitXXX() 允许这些操作。
 
 2.VMPolicy: 虚拟机相关的策略，包括 SQLite 或 SQLiteCursor 没关闭、实现 Closable 接口的类使用后没关闭 等。
-     
+我们可以使用detectLeakedSqliteObjects() 检测 SQLite 和 SQLiteCursor 内存泄漏(没关闭)，detectLeakedClosableObjects()
+检测实现 Closable 接口的对象内存泄漏。
+
+我们能通过 StrictMode.getThreadPolicy() 和 StrictMode.getVMPolicy() 获得当前采取的 ThreadPolicy 和 VMPolicy。
+
 你可以决定当一个异常发生时该发生什么样的事情，比如，使用StrictMode的penaltyLog()方法你可以在应用发生异常时查看adb logcat的输出。
-当你发现一个比较严重的异常时，Android提供了一系列的工具来解决它：线程、Handler、AsyncTask、IntentService等等。但并不是StrictMode
+penaltyLog()表示将警告输出到LogCat，你也可以使用其他或增加新的惩罚（penalty）函数，例如使用penaltyDeath()的话，一旦StrictMode消息被
+写到LogCat后应用就会崩溃。当你发现一个比较严重的异常时，Android提供了一系列的工具来解决它：线程、Handler、AsyncTask、IntentService等等。但并不是StrictMode
 报的所有问题都需要修复，特别是很多必须要在窗口生命周期回调中访问磁盘的时候。使用严苛模式可以帮你解决很多问题，比如在UI线程中访问网络始终
 是一个问题。
