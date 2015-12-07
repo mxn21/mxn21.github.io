@@ -101,3 +101,4 @@ penaltyLog()表示将警告输出到LogCat，你也可以使用其他或增加�
 09-04 16:15:34.592: DEBUG/StrictMode(15883):     at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:841) 
 09-04 16:15:34.592: DEBUG/StrictMode(15883):     at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:599)
      {% endhighlight %}
+     
