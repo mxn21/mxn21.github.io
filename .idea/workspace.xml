@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-12-7-StrictMode的使用.md" afterPath="$PROJECT_DIR$/_posts/2015-12-7-StrictMode的使用.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-5-26-android开发错误解决方法汇总.md" afterPath="$PROJECT_DIR$/_posts/2015-5-26-android开发错误解决方法汇总.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,27 +36,27 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2015-12-7-StrictMode的使用.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="2015-12-7-StrictMode的使用.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2015-12-7-StrictMode的使用.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.7180555">
-              <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+            <state vertical-scroll-proportion="-7.413793">
+              <caret line="82" column="38" selection-start-line="82" selection-start-column="38" selection-end-line="82" selection-end-column="38" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2015-5-26-android开发错误解决方法汇总.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="2015-5-26-android开发错误解决方法汇总.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2015-5-26-android开发错误解决方法汇总.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.206897">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.8982597">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -79,6 +78,7 @@
         <option value="$PROJECT_DIR$/_posts/2015-12-7-oy的使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-12-2-onTerminate和onLowMemory的使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-12-7-StrictMode的使用.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-5-26-android开发错误解决方法汇总.md" />
       </list>
     </option>
   </component>
@@ -536,17 +536,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-5-26-android开发错误解决方法汇总.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.206897">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-12-2-onTerminate和onLowMemory的使用.md">
       <provider editor-type-id="MarkdownPreviewEditor">
         <state />
@@ -563,8 +552,19 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.7180555">
-          <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+        <state vertical-scroll-proportion="-7.413793">
+          <caret line="82" column="38" selection-start-line="82" selection-start-column="38" selection-end-line="82" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-5-26-android开发错误解决方法汇总.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8982597">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding />
         </state>
       </provider>
