@@ -57,7 +57,9 @@ penaltyLog()表示将警告输出到LogCat，你也可以使用其他或增加�
 在发布产品前将这个值定义为FALSE。更优雅的方式是利用调试模式（debug mode）的特点，在AndroidManifest.xml中定义这个布尔变量。
 <application>字段的属性之一是android:debuggable，其义自明。
     
-    
+某些时候你不希望报告所有违例。那在主线程之外的其他线程中设置严苛模式（StrictMode）很不错。譬如，你需要在正在监视的线程中进行磁盘读取。
+此时，你要么不去调用detectDiskReads()，要么在调用detectAll()之后跟一个permitDiskReads()。类似允许函数也适用于其他操作。
+  
 当你发现一个比较严重的异常时，Android提供了一系列的工具来解决它：线程、Handler、AsyncTask、IntentService等等。但并不是StrictMode
 报的所有问题都需要修复，特别是很多必须要在窗口生命周期回调中访问磁盘的时候。使用严苛模式可以帮你解决很多问题，比如在UI线程中访问网络始终
 是一个问题。
