@@ -39,6 +39,11 @@ StrictMode 共有两种策略(policy)：
 检测主线程网络访问，detectDiskReads() 和 detectDiskWrites() 检测主线程磁盘读写，detectCustomSlowCalls()
 检测主线程自定义的慢代码。当然也可以使用 permitXXX() 允许这些操作。
 
+自定义慢代码分析，是仅当访问调用类的时后才触发的，可以通过这种方法去监视运行缓慢的代码。当在主线程中调用时，
+这些验证规则就会起作用去检查你的代码。比如，当你的应用在下载或者解析大量的数据时，你可以触发自定义运行速度慢代码的查询分析，
+作用很大。StrictMode可以用于捕捉发生在应用程序主线程中耗时的磁盘、网络访问或函数调用，可以帮助开发者使其改进程序，
+使主线程处理UI和动画在磁盘读写和网络操作时变得更平滑，避免主线程被阻塞的发生。
+
 2.VMPolicy: 虚拟机相关的策略，包括 SQLite 或 SQLiteCursor 没关闭、实现 Closable 接口的类使用后没关闭 等。
 我们可以使用detectLeakedSqliteObjects() 检测 SQLite 和 SQLiteCursor 内存泄漏(没关闭)，detectLeakedClosableObjects()
 检测实现 Closable 接口的对象内存泄漏。
