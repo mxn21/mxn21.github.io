@@ -32,6 +32,8 @@ StrictMode通常用于抓取在应用程序的主线程中来操作磁盘或者�
     }
      {% endhighlight %}
      
+<!-- more -->
+     
 StrictMode 共有两种策略(policy)：
 
 1.ThreadPolicy: 线程相关策略，包括主线程访问网络、磁盘(现在手机中使用闪存)读写、慢代码的检测。我们能够分别检测(detect)
