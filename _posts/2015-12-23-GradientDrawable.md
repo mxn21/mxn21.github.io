@@ -6,6 +6,7 @@ category: 技术博文
 tag: android
 ---
 
+<shape>标签
 
       {% highlight java  %}
 <?xml version="1.0" encoding="utf-8"?>  
@@ -24,3 +25,4 @@ tag: android
      {% endhighlight %}
      
 <!-- more -->
+
