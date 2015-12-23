@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-12-16-android开发小技巧积累.md" afterPath="$PROJECT_DIR$/_posts/2015-12-16-android开发小技巧积累.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-12-23-GradientDrawable.md" afterPath="$PROJECT_DIR$/_posts/2015-12-23-GradientDrawable.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
@@ -26,8 +27,8 @@
       <file leaf-file-name="2015-12-16-android开发小技巧积累.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2015-12-16-android开发小技巧积累.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.285714">
-              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="13" />
+            <state vertical-scroll-proportion="-3.0535715">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -39,8 +40,8 @@
       <file leaf-file-name="2015-12-23-GradientDrawable.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2015-12-23-GradientDrawable.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8219545">
-              <caret line="41" column="3" selection-start-line="41" selection-start-column="3" selection-end-line="41" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.6947791">
+              <caret line="36" column="26" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -66,9 +67,9 @@
         <option value="$PROJECT_DIR$/_posts/2015-12-2-onTerminate和onLowMemory的使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-12-7-StrictMode的使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-5-26-android开发错误解决方法汇总.md" />
-        <option value="$PROJECT_DIR$/_posts/2015-12-16-android开发小技巧积累.md" />
         <option value="$PROJECT_DIR$/_posts/2015-12-23-andrd开发小技巧积累.md" />
         <option value="$PROJECT_DIR$/_posts/2015-12-23-GradientDrawable.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-12-16-android开发小技巧积累.md" />
       </list>
     </option>
   </component>
@@ -839,8 +840,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-12-16-android开发小技巧积累.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.285714">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="13" />
+        <state vertical-scroll-proportion="-3.0535715">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -850,8 +851,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-12-23-GradientDrawable.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8219545">
-          <caret line="41" column="3" selection-start-line="41" selection-start-column="3" selection-end-line="41" selection-end-column="3" />
+        <state vertical-scroll-proportion="0.6947791">
+          <caret line="36" column="26" selection-start-line="36" selection-start-column="26" selection-end-line="36" selection-end-column="26" />
           <folding />
         </state>
       </provider>

@@ -41,3 +41,5 @@ TextView textView=(TextView)findViewById(R.id.textView);
 ShapeDrawable gradientDrawable=(ShapeDrawable)textView.getBackground();  
    
         {% endhighlight %}
+不能将GradientDrawable转换为ShapeDrawable。
+可见，使用<shape>标签定义的是GradientDrawable。
