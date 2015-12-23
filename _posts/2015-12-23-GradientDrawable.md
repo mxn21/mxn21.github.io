@@ -8,7 +8,7 @@ tag: android
 
 <shape>标签
 
-      {% highlight java  %}
+      {% highlight xml  %}
 <?xml version="1.0" encoding="utf-8"?>  
 <shape xmlns:android="http://schemas.android.com/apk/res/android"  
     android:shape="rectangle">  
@@ -26,7 +26,7 @@ tag: android
      
 <!-- more -->
 
-      {% highlight java  %}
+      {% highlight xml  %}
 <TextView  
         android:id="@+id/textView"  
         android:layout_width="wrap_content"  
@@ -34,4 +34,10 @@ tag: android
         android:background="@drawable/gradient_box"  
         android:text="测试" />  
         
+        {% endhighlight %}
+   
+         {% highlight java  %}
+TextView textView=(TextView)findViewById(R.id.textView);  
+ShapeDrawable gradientDrawable=(ShapeDrawable)textView.getBackground();  
+   
         {% endhighlight %}
