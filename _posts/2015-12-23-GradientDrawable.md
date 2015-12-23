@@ -22,3 +22,5 @@ tag: android
     <corners android:radius="8dp" />  
 </shape>
      {% endhighlight %}
+     
+<!-- more -->
