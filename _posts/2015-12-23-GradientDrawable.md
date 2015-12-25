@@ -47,6 +47,8 @@ ShapeDrawable gradientDrawable=(ShapeDrawable)textView.getBackground();
 。
 
 设置背景色可以通过在res/drawable里定义一个xml,如下：
+
+     {% highlight xml  %}
 <?xml version="1.0" encoding="utf-8"?>  
 <shape xmlns:android="http://schemas.android.com/apk/res/android">  
     <gradient   
@@ -55,3 +57,5 @@ ShapeDrawable gradientDrawable=(ShapeDrawable)textView.getBackground();
         android:angle="45"  
     />  
 </shape>  
+     {% endhighlight %}
+     
