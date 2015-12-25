@@ -68,6 +68,14 @@ android:centerX：（Float）X轴渐变中心点的位置（0 到1 的一个值�
 
 android:centerY：（Float）Y轴渐变中心点的位置 （0 到1 的一个值）
 
+android:centerColor ： （Color）中间点的色值
+
+android:endColor ： （Color）结束的色值
+
+android:startColor：（Color）开始的色值。
+
+
+
 
      
      
