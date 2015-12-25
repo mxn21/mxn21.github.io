@@ -74,6 +74,8 @@ android:endColor ： （Color）结束的色值
 
 android:startColor：（Color）开始的色值。
 
+android:gradientRadius：（Float）只有在android:type="radial"的时候有效。
+
 
 
 
