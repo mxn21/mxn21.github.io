@@ -62,7 +62,7 @@ ShapeDrawable gradientDrawable=(ShapeDrawable)textView.getBackground();
 </shape>  
      {% endhighlight %}
      
-android:angle：（Integer） 0是从左到右渐变，90是从下到上渐变。要45的整数倍，说明是可以斜着渐变的。
+android:angle：（Integer） 渐变的角度，线性渐变时才有效，必须是45的倍数，0表示从左到右，90表示从下到上
 
 android:centerX：（Float）X轴渐变中心点的位置（0 到1 的一个值）
 
@@ -80,10 +80,17 @@ android:type ：有三种类型
               Keyword.
               The type of gradient pattern to apply. Valid values are:
               
-              "linear" A linear gradient. This is the default.
-              "radial" A radial gradient. The start color is the center color.
-              "sweep" A sweeping line gradient.
-              
+              "linear" A linear gradient. This is the default.  线性渐变，
+              "radial" A radial gradient. The start color is the center color.  放射渐变，设置该项时，android:gradientRadius也必须设置
+              "sweep" A sweeping line gradient.   扫描性渐变
+ 
+
+android:useLevel
+    Boolean.
+    "true" if this is used as a LevelListDrawable.
+    如果为true，将被当成LevelListDrawable使用。
+    
+          
 
 
 
