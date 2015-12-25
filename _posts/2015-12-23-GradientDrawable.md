@@ -45,3 +45,13 @@ ShapeDrawable gradientDrawable=(ShapeDrawable)textView.getBackground();
 不能将GradientDrawable转换为ShapeDrawable。
 可见，使用<shape>标签定义的是GradientDrawable
 。
+
+设置背景色可以通过在res/drawable里定义一个xml,如下：
+<?xml version="1.0" encoding="utf-8"?>  
+<shape xmlns:android="http://schemas.android.com/apk/res/android">  
+    <gradient   
+        android:startColor="#FFF"  
+        android:endColor="#000"  
+        android:angle="45"  
+    />  
+</shape>  
