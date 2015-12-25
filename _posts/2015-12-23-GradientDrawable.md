@@ -76,6 +76,16 @@ android:startColor：（Color）开始的色值。
 
 android:gradientRadius：（Float）只有在android:type="radial"的时候有效。
 
+android:type ：有三种类型
+              Keyword.
+              The type of gradient pattern to apply. Valid values are:
+              
+              "linear" A linear gradient. This is the default.
+              "radial" A radial gradient. The start color is the center color.
+              "sweep" A sweeping line gradient.
+              
+
+
 
 
 
