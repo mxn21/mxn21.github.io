@@ -51,11 +51,14 @@ ShapeDrawable gradientDrawable=(ShapeDrawable)textView.getBackground();
      {% highlight xml  %}
 <?xml version="1.0" encoding="utf-8"?>  
 <shape xmlns:android="http://schemas.android.com/apk/res/android">  
-    <gradient   
-        android:startColor="#FFF"  
-        android:endColor="#000"  
-        android:angle="45"  
-    />  
+      <gradient
+            android:angle="90"
+            android:centerColor="#FF3f3f3f"
+            android:centerY="0.5"
+            android:endColor="#FF2c2c2c"
+            android:startColor="#FF2c2c2c"
+            android:type="linear"
+            android:useLevel="false" /> 
 </shape>  
      {% endhighlight %}
      
