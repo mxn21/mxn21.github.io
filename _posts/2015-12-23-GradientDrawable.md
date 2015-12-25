@@ -62,3 +62,9 @@ ShapeDrawable gradientDrawable=(ShapeDrawable)textView.getBackground();
 </shape>  
      {% endhighlight %}
      
+android:angle：0是从左到右渐变，90是从下到上渐变。要45的整数倍，说明是可以斜着渐变的。
+
+
+     
+     
+     
