@@ -64,9 +64,9 @@ ShapeDrawable gradientDrawable=(ShapeDrawable)textView.getBackground();
      
 android:angle：（Integer） 渐变的角度，线性渐变时才有效，必须是45的倍数，0表示从左到右，90表示从下到上
 
-android:centerX：（Float）X轴渐变中心点的位置（0 到1 的一个值）
+android:centerX：（Float）渐变中心的相对X坐标，放射渐变时才有效，在0.0到1.0之间，默认为0.5，表示在正中间
 
-android:centerY：（Float）Y轴渐变中心点的位置 （0 到1 的一个值）
+android:centerY：（Float）渐变中心的相对X坐标，放射渐变时才有效，在0.0到1.0之间，默认为0.5，表示在正中间
 
 android:centerColor ： （Color）中间点的色值
 
@@ -74,7 +74,7 @@ android:endColor ： （Color）结束的色值
 
 android:startColor：（Color）开始的色值。
 
-android:gradientRadius：（Float）只有在android:type="radial"的时候有效。
+android:gradientRadius：（Float）渐变的半径，只有在android:type="radial"的时候有效。
 
 android:type ：有三种类型
               Keyword.
@@ -90,6 +90,7 @@ android:useLevel
     "true" if this is used as a LevelListDrawable.
     如果为true，将被当成LevelListDrawable使用。
     
+    wwww
           
 
 
