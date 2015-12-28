@@ -90,6 +90,7 @@ android:useLevel ： 如果为true，将被当成LevelListDrawable使用。
 除了用xml设置，还可以在编码中设置，<gradient>标签对应的类是GradientDrawable，GradientDrawable是Drawable的子类。
 代码如下：
 
+      {% highlight java  %}
 public class TestActivity extends Activity {
 
     @Override
@@ -158,11 +159,19 @@ public class TestActivity extends Activity {
     }
 }
 
+        {% endhighlight %}
+
+效果如下图：
 
 
+可以看到，代码设置和xml设置大同小异，注意实例化的操作：
 
+      {% highlight java  %}
+ public GradientDrawable(Orientation orientation, int[] colors) {
+        this(new GradientState(orientation, colors));
+    }
           
-
+        {% endhighlight %}
 
 
 
