@@ -170,12 +170,11 @@ public class TestActivity extends Activity {
  public GradientDrawable(Orientation orientation, int[] colors) {
         this(new GradientState(orientation, colors));
     }
-          
         {% endhighlight %}
 
-第一个参数是一个枚举，表示渐变方向，这个用来相当于xml里面的
+第一个参数是一个枚举，表示渐变方向，这个用来相当于xml里面的angle，只不过angle是用45的倍数表示方向，而枚举看上去更清楚了。
 
-
+      {% highlight java  %}
   public enum Orientation {
         /** draw the gradient from the top to the bottom */
         TOP_BOTTOM,
@@ -194,7 +193,9 @@ public class TestActivity extends Activity {
         /** draw the gradient from the top-left to the bottom-right */
         TL_BR,
     }
-
+        {% endhighlight %}
+        
+第二个参数是一个
 
      
      
