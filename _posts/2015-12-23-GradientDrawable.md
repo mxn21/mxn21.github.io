@@ -195,7 +195,7 @@ public class TestActivity extends Activity {
     }
         {% endhighlight %}
         
-第二个参数是一个
+第二个参数是一个color数组，相当于startColor，endColor，centerColor，其中centerColor可以省略。
 
      
      
