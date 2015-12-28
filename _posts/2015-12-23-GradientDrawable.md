@@ -13,58 +13,52 @@ tag: android
 例如gradlient_background.xml文件如下：
 
       {% highlight xml  %}
-<?xml version="1.0" encoding="utf-8"?>  
-<shape xmlns:android="http://schemas.android.com/apk/res/android"  
-    android:shape="rectangle">  
-    <gradient  
-        android:startColor="#FFFF0000"  
-        android:endColor="#80FF00FF"  
-        android:angle="45"/>  
-    <padding android:left="7dp"  
-        android:top="7dp"  
-        android:right="7dp"  
-        android:bottom="7dp" />  
-    <corners android:radius="8dp" />  
-</shape>
+      
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <gradient android:startColor="#aa000000"
+                      android:endColor="@android:color/transparent"
+                      android:angle="90"
+                />
+        </shape>
+    </item>
+</selector>
+
      {% endhighlight %}
      
-<!-- more -->
+设置方法如下：
 
       {% highlight xml  %}
-<TextView  
-        android:id="@+id/textView"  
-        android:layout_width="wrap_content"  
-        android:layout_height="wrap_content"  
-        android:background="@drawable/gradient_box"  
-        android:text="测试" />  
+      
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:background="@drawable/gradlient_background"-->
+        <!--/>-->
+
+    <LinearLayout
+        android:id="@+id/layout_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/gradlient_background"
+        android:orientation="horizontal"
+        />
+
+</RelativeLayout>  
         
         {% endhighlight %}
    
-         {% highlight java  %}
-TextView textView=(TextView)findViewById(R.id.textView);  
-ShapeDrawable gradientDrawable=(ShapeDrawable)textView.getBackground();  
-   
-        {% endhighlight %}
-        
-不能将GradientDrawable转换为ShapeDrawable。
-可见，使用<shape>标签定义的是GradientDrawable
-。
 
-设置背景色可以通过在res/drawable里定义一个xml,如下：
-
-     {% highlight xml  %}
-<?xml version="1.0" encoding="utf-8"?>  
-<shape xmlns:android="http://schemas.android.com/apk/res/android">  
-      <gradient
-            android:angle="90"
-            android:centerColor="#FF3f3f3f"
-            android:centerY="0.5"
-            android:endColor="#FF2c2c2c"
-            android:startColor="#FF2c2c2c"
-            android:type="linear"
-            android:useLevel="false" /> 
-</shape>  
-     {% endhighlight %}
      
 android:angle：（Integer） 渐变的角度，线性渐变时才有效，必须是45的倍数，0表示从左到右，90表示从下到上
 
