@@ -71,7 +71,7 @@ android:centerX：（Float）渐变中心的相对X坐标，放射渐变时才�
 
 android:centerY：（Float）渐变中心的相对X坐标，放射渐变时才有效，在0.0到1.0之间，默认为0.5，表示在正中间
 
-android:centerColor ： （Color）中间点的色值
+android:centerColor ：（Color）中间点的色值
 
 android:endColor ： （Color）结束的色值
 
@@ -80,22 +80,13 @@ android:startColor：（Color）开始的色值。
 android:gradientRadius：（Float）渐变的半径，只有在android:type="radial"的时候有效。
 
 android:type ：有三种类型
-              Keyword.
-              The type of gradient pattern to apply. Valid values are:
-              
-              "linear" A linear gradient. This is the default.  线性渐变，
-              "radial" A radial gradient. The start color is the center color.  放射渐变，设置该项时，android:gradientRadius也必须设置
-              "sweep" A sweeping line gradient.   扫描性渐变
+              "linear" 线性渐变，
+              "radial" 放射渐变，设置该项时，android:gradientRadius也必须设置
+              "sweep"  扫描性渐变
  
+android:useLevel ： 如果为true，将被当成LevelListDrawable使用。
+    
 
-android:useLevel
-    Boolean.
-    "true" if this is used as a LevelListDrawable.
-    如果为true，将被当成LevelListDrawable使用。
-    
-    wwww
-    
-    389389
           
 
 
