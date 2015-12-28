@@ -6,6 +6,10 @@ category: 技术博文
 tag: android
 ---
 
+### GradientDrawable
+
+用GradientDrawable实现渐变可以通过xml或者代码实现，xml实现需要在
+
 <shape>标签
 
       {% highlight xml  %}
