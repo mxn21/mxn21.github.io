@@ -39,12 +39,6 @@ tag: android
     android:layout_height="match_parent"
     >
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:background="@drawable/gradlient_background"-->
-        <!--/>-->
-
     <LinearLayout
         android:id="@+id/layout_bottom"
         android:layout_width="match_parent"
@@ -196,6 +190,11 @@ public class TestActivity extends Activity {
         {% endhighlight %}
         
 第二个参数是一个color数组，相当于startColor，endColor，centerColor，其中centerColor可以省略,但是至少要设置两个颜色。
+mDrawable.setGradientType可以设置三种type同xml一样，分别是GradientDrawable.LINEAR_GRADIENT，GradientDrawable
+.RADIAL_GRADIENT，GradientDrawable.SWEEP_GRADIENT。
+
+
+### 自定义渐变
 
 
      
