@@ -58,7 +58,12 @@ tag: android
         
         {% endhighlight %}
    
+效果图如下：
 
+
+
+上面的例子中我们在gradient标签中设置了startColor，endColor，angle用来表示开始结束的颜色和变化方向。
+gradient标签的所有属性说明如下：
      
 android:angle：（Integer） 渐变的角度，线性渐变时才有效，必须是45的倍数，0表示从左到右，90表示从下到上
 
