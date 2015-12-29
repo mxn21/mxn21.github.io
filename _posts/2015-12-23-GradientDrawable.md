@@ -262,7 +262,13 @@ LinearGradient、RadialGradient和 SweepGradient. 看名字就知道这三种和
         
 效果如下：
      
-上面的例子使用了三种Shader TileModes        
+上面的例子使用了三种Shader TileModes，如果Shader画刷所定义的区域比要填充的区域小，那么TileMode将会决定如何处理剩余的区域：
+
+MIRROR  在水平和垂直方向上拉伸Shader图像，这样每一个图像就都能与上一个缝合了。
+
+CLAMP  使用Shader的边界颜色来填充剩余的空间。
+
+REPEAT  在水平和垂直方向上重复Shader图像，但不拉伸它。  
         
         
 ### 自定义渐变
