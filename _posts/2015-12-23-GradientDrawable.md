@@ -152,6 +152,7 @@ public class TestActivity extends Activity {
 
 效果如下图：
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img138.png)
 
 可以看到，代码设置和xml设置大同小异，注意实例化的操作：
 
