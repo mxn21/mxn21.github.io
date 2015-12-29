@@ -262,6 +262,8 @@ LinearGradient、RadialGradient和 SweepGradient. 看名字就知道这三种和
         {% endhighlight %}      
         
 效果如下：
+
+
      
 上面的例子使用了三种Shader TileModes，如果Shader画刷所定义的区域比要填充的区域小，那么TileMode将会决定如何处理剩余的区域：
 
