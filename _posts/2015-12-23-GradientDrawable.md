@@ -54,7 +54,7 @@ tag: android
    
 效果图如下：
 
-
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img137.png)
 
 上面的例子中我们在gradient标签中设置了startColor，endColor，angle用来表示开始结束的颜色和变化方向。
 gradient标签的所有属性说明如下：
