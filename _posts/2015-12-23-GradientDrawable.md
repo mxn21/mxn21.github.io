@@ -203,7 +203,7 @@ LinearGradient、RadialGradient和 SweepGradient. 看名字就知道这三种和
         {% endhighlight %}
  
 使用这个Paint所绘制的任何东西都将使用你指定的Shader进行填充，而不是使用Paint本身的颜色进行填充。        
-下面使用LinearGradient实现渐变：
+下面使用LinearGradient实现渐变，对于RadialGradient和 SweepGradient使用很类似。
       
         {% highlight java  %}    
         public class TestActivity extends Activity {
@@ -269,6 +269,13 @@ MIRROR  在水平和垂直方向上拉伸Shader图像，这样每一个图像就
 CLAMP  使用Shader的边界颜色来填充剩余的空间。
 
 REPEAT  在水平和垂直方向上重复Shader图像，但不拉伸它。  
+      
+               {% highlight java  %} 
+LinearGradient(float x0, float y0, float x1, float y1, int[] colors, float[] positions, Shader.TileMode tile)
+LinearGradient(float x0, float y0, float x1, float y1, int color0, int color1, Shader.TileMode tile)
+               {% endhighlight %}  
+                
+                
         
         
 ### 自定义渐变
