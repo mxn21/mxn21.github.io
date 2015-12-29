@@ -196,8 +196,13 @@ LinearGradient、RadialGradient和 SweepGradient.
 
 要在绘图的时候使用一个Shader，可以使用setShader方法将其应用到一个Paint中，如下面的代码所示：
 
-
-
+      {% highlight java  %}
+    Paint shaderPaint = new Paint();  
+    shaderPaint.setShader(myLinearGradient); 
+        {% endhighlight %}
+ 
+使用这个Paint所绘制的任何东西都将使用你指定的Shader进行填充，而不是使用Paint本身的颜色进行填充。        
+        
 ### 自定义渐变
 
 
