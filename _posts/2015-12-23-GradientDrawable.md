@@ -262,7 +262,7 @@ LinearGradient、RadialGradient和 SweepGradient. 看名字就知道这三种和
         
 效果如下：
      
-        
+上面的例子使用了三种Shader TileModes        
         
         
 ### 自定义渐变
