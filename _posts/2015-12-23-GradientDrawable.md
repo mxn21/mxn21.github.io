@@ -269,13 +269,16 @@ MIRROR  在水平和垂直方向上拉伸Shader图像，这样每一个图像就
 CLAMP  使用Shader的边界颜色来填充剩余的空间。
 
 REPEAT  在水平和垂直方向上重复Shader图像，但不拉伸它。  
+
+LinearGradient有两种方式实例化：
       
                {% highlight java  %} 
 LinearGradient(float x0, float y0, float x1, float y1, int[] colors, float[] positions, Shader.TileMode tile)
 LinearGradient(float x0, float y0, float x1, float y1, int color0, int color1, Shader.TileMode tile)
                {% endhighlight %}  
                 
-                
+他们的不同之处为参数中第一种方法可以用颜色数组，和位置来实现更细腻的过渡效果，
+比如颜色采样int[] colors数组中存放20种颜色，则渐变将会逐一处理。而第二种方法参数仅为起初颜色color0和最终颜色color1。               
         
         
 ### 自定义渐变
