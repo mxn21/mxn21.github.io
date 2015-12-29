@@ -203,6 +203,67 @@ LinearGradient、RadialGradient和 SweepGradient. 看名字就知道这三种和
         {% endhighlight %}
  
 使用这个Paint所绘制的任何东西都将使用你指定的Shader进行填充，而不是使用Paint本身的颜色进行填充。        
+下面使用LinearGradient实现渐变：
+      
+        {% highlight java  %}    
+        public class TestActivity extends Activity {
+        
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                setContentView(new SampleView(this));
+            }
+        
+            private static class SampleView extends View {
+                private Paint mPaint;
+                private Rect mRect;
+                LinearGradient lg1 ;
+                LinearGradient lg2 ;
+                LinearGradient lg3 ;
+        
+                public SampleView(Context context) {
+                    super(context);
+                    setFocusable(true);
+        
+                    mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                    mRect = new Rect(0, 0, 300, 300);
+        
+                     lg1 = new LinearGradient(0,0,150,150, Color.TRANSPARENT,Color.BLACK,
+                            Shader.TileMode.MIRROR);
+                     lg2 = new LinearGradient(0,0,150,150, Color.TRANSPARENT,Color.BLACK,
+                            Shader.TileMode.CLAMP);
+                     lg3 = new LinearGradient(0,0,150,150, Color.TRANSPARENT,Color.BLACK,
+                            Shader.TileMode.REPEAT);
+        
+                }
+        
+                @Override protected void onDraw(Canvas canvas) {
+                    canvas.save();
+                    canvas.translate(10, 10);
+                    mPaint.setShader(lg1) ;
+                    canvas.drawRect(mRect,mPaint);
+                    canvas.restore();
+        
+                    canvas.save();
+                    canvas.translate(10 + mRect.width() + 10, 10);
+                    mPaint.setShader(lg2) ;
+                    canvas.drawRect(mRect,mPaint);
+                    canvas.restore();
+        
+                    canvas.save();
+                    canvas.translate(10,10 + mRect.height() + 10);
+                    mPaint.setShader(lg3) ;
+                    canvas.drawRect(mRect,mPaint);
+                    canvas.restore();
+                }
+            }
+        }
+        {% endhighlight %}      
+        
+效果如下：
+     
+        
+        
         
 ### 自定义渐变
 
