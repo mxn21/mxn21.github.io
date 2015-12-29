@@ -283,7 +283,26 @@ LinearGradient(float x0, float y0, float x1, float y1, int color0, int color1, S
         
 ### 自定义渐变
 
+可以利用工具类重新计算LinearGradient的颜色参数，从而实现更柔和的渐变，仍然使用最开始的LinearLayout布局测试：
 
+       {% highlight java  %} 
      
+     public class TestActivity extends Activity  {
      
+         @Override
+         protected void onCreate(Bundle savedInstanceState) {
+             super.onCreate(savedInstanceState);
+             setContentView(R.layout.activity_test);
      
+             if(Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                 View bottom = findViewById(R.id.layout_bottom);
+                 bottom.setBackground(
+                         ScrimUtil.makeCubicGradientScrimDrawable(
+                                 0xaa000000, //颜色
+                                 8, //渐变层数
+                                 Gravity.BOTTOM)); //起始方向
+             }
+         }
+     
+     }
+       {% endhighlight %}    
