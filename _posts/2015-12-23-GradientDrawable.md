@@ -306,3 +306,74 @@ LinearGradient(float x0, float y0, float x1, float y1, int color0, int color1, S
      
      }
        {% endhighlight %}    
+
+ScrimUtil代码如下：
+
+       {% highlight java  %} 
+public class ScrimUtil {
+
+    private ScrimUtil() {
+    }
+
+    /**
+     * Creates an approximated cubic gradient using a multi-stop linear gradient. See
+     * <a href="https://plus.google.com/+RomanNurik/posts/2QvHVFWrHZf">this post</a> for more
+     * details.
+     */
+    public static Drawable makeCubicGradientScrimDrawable(int baseColor, int numStops, int gravity) {
+        numStops = Math.max(numStops, 2);
+
+        PaintDrawable paintDrawable = new PaintDrawable();
+        paintDrawable.setShape(new RectShape());
+
+        final int[] stopColors = new int[numStops];
+
+        int red = Color.red(baseColor);
+        int green = Color.green(baseColor);
+        int blue = Color.blue(baseColor);
+        int alpha = Color.alpha(baseColor);
+
+        for (int i = 0; i < numStops; i++) {
+            float x = i * 1f / (numStops - 1);
+            float opacity = constrain(0, 1, (float) Math.pow(x, 3));
+            stopColors[i] = Color.argb((int) (alpha * opacity), red, green, blue);
+        }
+
+        final float x0, x1, y0, y1;
+        switch (gravity & Gravity.HORIZONTAL_GRAVITY_MASK) {
+            case Gravity.LEFT:  x0 = 1; x1 = 0; break;
+            case Gravity.RIGHT: x0 = 0; x1 = 1; break;
+            default:            x0 = 0; x1 = 0; break;
+        }
+        switch (gravity & Gravity.VERTICAL_GRAVITY_MASK) {
+            case Gravity.TOP:    y0 = 1; y1 = 0; break;
+            case Gravity.BOTTOM: y0 = 0; y1 = 1; break;
+            default:             y0 = 0; y1 = 0; break;
+        }
+
+        paintDrawable.setShaderFactory(new ShapeDrawable.ShaderFactory() {
+            @Override
+            public Shader resize(int width, int height) {
+                LinearGradient linearGradient = new LinearGradient(
+                        width * x0,
+                        height * y0,
+                        width * x1,
+                        height * y1,
+                        stopColors, null,
+                        Shader.TileMode.CLAMP);
+                return linearGradient;
+            }
+        });
+
+        return paintDrawable;
+    }
+
+    private  static float constrain(float min, float max, float v) {
+        return Math.max(min, Math.min(max, v));
+    }
+}
+       {% endhighlight %}  
+       
+最终效果：
+
+
