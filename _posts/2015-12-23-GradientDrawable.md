@@ -189,7 +189,12 @@ mDrawable.setGradientType可以设置三种type同xml一样，分别是GradientD
 .RADIAL_GRADIENT，GradientDrawable.SWEEP_GRADIENT。
 
 
+### Shader类的子类
 
+Shader类的子类创建允许使用多种固体颜色填充绘图对象的Paint，功能不只是实现渐变填充。有三Shader是用来做渐变的：
+LinearGradient、RadialGradient和 SweepGradient.
+
+要在绘图的时候使用一个Shader，可以使用setShader方法将其应用到一个Paint中，如下面的代码所示：
 
 
 
