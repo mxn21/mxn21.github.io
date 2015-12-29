@@ -94,8 +94,6 @@ public class TestActivity extends Activity {
     }
 
     private static class SampleView extends View {
-        private Path mPath;
-        private Paint mPaint;
         private Rect mRect;
         private GradientDrawable mDrawable;
 
@@ -103,10 +101,7 @@ public class TestActivity extends Activity {
             super(context);
             setFocusable(true);
 
-            mPath = new Path();
-            mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mRect = new Rect(0, 0, 300, 300);
-
             mDrawable = new GradientDrawable(GradientDrawable.Orientation.TL_BR,
                     new int[] { 0xaa000000,
                             0xFFFFFFFF });
@@ -192,6 +187,10 @@ public class TestActivity extends Activity {
 第二个参数是一个color数组，相当于startColor，endColor，centerColor，其中centerColor可以省略,但是至少要设置两个颜色。
 mDrawable.setGradientType可以设置三种type同xml一样，分别是GradientDrawable.LINEAR_GRADIENT，GradientDrawable
 .RADIAL_GRADIENT，GradientDrawable.SWEEP_GRADIENT。
+
+
+
+
 
 
 ### 自定义渐变
