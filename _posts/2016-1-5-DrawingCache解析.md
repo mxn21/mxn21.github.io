@@ -61,3 +61,30 @@ view.buildDrawingCache();
 Bitmap drawingCache = view.getDrawingCache();
     {% endhighlight %} 
     
+buildDrawingCache建立drawingCache的同时，会将上次的DrawingCache回收掉，在源码中buildDrawingCache
+会调用destroyDrawingCache方法对之前的DrawingCache回收，源码如下：
+
+    {% highlight java  %}  
+/**
+     * <p>Frees the resources used by the drawing cache. If you call
+     * {@link #buildDrawingCache()} manually without calling
+     * {@link #setDrawingCacheEnabled(boolean) setDrawingCacheEnabled(true)}, you
+     * should cleanup the cache with this method afterwards.</p>
+     *
+     * @see #setDrawingCacheEnabled(boolean)
+     * @see #buildDrawingCache()
+     * @see #getDrawingCache()
+     */
+    public void destroyDrawingCache() {
+        if (mDrawingCache != null) {
+            mDrawingCache.recycle();
+            mDrawingCache = null;
+        }
+        if (mUnscaledDrawingCache != null) {
+            mUnscaledDrawingCache.recycle();
+            mUnscaledDrawingCache = null;
+        }
+    }
+    
+     {% endhighlight %} 
+     
