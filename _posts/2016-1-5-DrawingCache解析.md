@@ -88,3 +88,8 @@ buildDrawingCache建立drawingCache的同时，会将上次的DrawingCache回收
     
      {% endhighlight %} 
      
+因此不必在buildDrawingCache方法之前，或者DrawingCache启用状态下调用getDrawingCache方法之前，自己手动调用destroyDrawingCache。
+会导致RumtimeException:java.lang.RuntimeException: Canvas: trying to use a recycled bitmap android.graphics.Bitmap@4b8eb8
+
+下面的写法是错误写法：
+
