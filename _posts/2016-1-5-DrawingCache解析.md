@@ -37,3 +37,5 @@ getDrawingCache源码如下：
     
 可以看出getDrawingCache在设置了DrawingCache的情况下自动调用buildDrawingCache。
 
+照刚才所说的，那么要获得最新的DrawingCache有两种方式：
+
