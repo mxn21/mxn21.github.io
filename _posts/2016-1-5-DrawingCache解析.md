@@ -39,3 +39,25 @@ getDrawingCache源码如下：
 
 照刚才所说的，那么要获得最新的DrawingCache有两种方式：
 
+方式一：
+
+    {% highlight java  %} 
+view.setDrawingCacheEnabled(true);
+Bitmap drawingCache = view.getDrawingCache();
+    {% endhighlight %} 
+    
+方式二：
+    
+    {% highlight java  %}     
+view.buildDrawingCache();
+Bitmap drawingCache = view.getDrawingCache();
+    {% endhighlight %} 
+    
+在调用setDrawingCacheEnabled(true);以后就不要再调用buildDrawingCache方法了，以下写法应该避免，会两次建立DrawingCache：
+
+    {% highlight java  %}  
+view.setDrawingCacheEnabled(true);
+view.buildDrawingCache();
+Bitmap drawingCache = view.getDrawingCache();
+    {% endhighlight %} 
+    
