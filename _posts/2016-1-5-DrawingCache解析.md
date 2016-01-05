@@ -19,3 +19,21 @@ tag: android
 
 getDrawingCache源码如下：
 
+    {% highlight java  %} 
+  public Bitmap getDrawingCache() {
+        return getDrawingCache(false);
+    }
+  
+  public Bitmap getDrawingCache(boolean autoScale) {
+          if ((mViewFlags & WILL_NOT_CACHE_DRAWING) == WILL_NOT_CACHE_DRAWING) {
+              return null;
+          }
+          if ((mViewFlags & DRAWING_CACHE_ENABLED) == DRAWING_CACHE_ENABLED) {
+              buildDrawingCache(autoScale);
+          }
+          return autoScale ? mDrawingCache : mUnscaledDrawingCache;
+      }
+    {% endhighlight %} 
+    
+可以看出getDrawingCache在设置了DrawingCache的情况下自动调用buildDrawingCache。
+
