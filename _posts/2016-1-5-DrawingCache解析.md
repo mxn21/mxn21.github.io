@@ -130,8 +130,9 @@ Bitmap.Config.RGB_565；
       }
     {% endhighlight %} 
 
-随着Android API越来越高，DrawingCache的质量也越来越，在絕大部分的情況下都是使用最佔用記憶體且運算速度最慢的ARGB_8888，
-過去View所提供的setDrawingCacheQuality方法已經沒有實質作用了，不管設定哪種品質，都還是會使用ARGB_8888。
+随着Android API越来越高，DrawingCache的质量也越来越，在大部分的情况下都是使用体积最大且运算速度最慢的ARGB_8888，
+过去View所提供的setDrawingCacheQuality方法已經沒有实际作用了，不管设定哪种质量，都还是会使用ARGB_8888。
+
 
 
 
