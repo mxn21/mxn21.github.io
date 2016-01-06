@@ -138,8 +138,35 @@ Bitmap.Config.RGB_565；
 一种可能是view没有初始化完成，onCreate中view还没有初始化自己的宽高，所以getDrawingCache();返回空。可以参考[viewTreeObserver解析](http://souly.cn/技术博文/2015/11/16/viewTreeObserver解析/)
 这篇来获取view宽高。
 
+下面给出两种方法：
 
+    {% highlight java  %}  
+  public static Bitmap convertViewToBitmap(View view){
+        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        view.buildDrawingCache();
+        Bitmap bitmap = view.getDrawingCache();
+        return bitmap;
+    }
+    {% endhighlight %} 
+    
+第二种方法利用ViewTreeObserver
 
+    {% highlight java  %}  
+        ViewTreeObserver vto = view.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                Bitmap cac = view.getDrawingCache();
+                if(cac != null) {
+                    Bitmap.Config cfg = cac.getConfig();
+                    Log.e("====", "not null"+cfg);
+                    mImageView2.setImageBitmap(cac);
+                } else {
+                    Log.e("====", "null");
+                }
+            }
+        });
 
-
-
+   {% endhighlight %} 
