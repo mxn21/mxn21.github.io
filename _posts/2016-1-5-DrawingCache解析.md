@@ -133,6 +133,11 @@ Bitmap.Config.RGB_565；
 随着Android API越来越高，DrawingCache的质量也越来越，在大部分的情况下都是使用体积最大且运算速度最慢的ARGB_8888，
 过去View所提供的setDrawingCacheQuality方法已經沒有实际作用了，不管设定哪种质量，都还是会使用ARGB_8888。
 
+### getDrawingCache返回空
+
+一种可能是view没有初始化完成，onCreate中view还没有初始化自己的宽高，所以getDrawingCache();返回空。可以参考[viewTreeObserver解析](http://souly.cn/技术博文/2015/11/16/viewTreeObserver解析/)
+这篇来获取view宽高。
+
 
 
 
