@@ -170,3 +170,13 @@ Bitmap.Config.RGB_565；
         });
 
    {% endhighlight %} 
+
+如果很确定View已经有过measure和layout且也调用buildDrawingCache(无论自动或者手动)方法了，但是getDrawingCache还是返回null，
+那就是因为要绘制的DrawingCache太大了，超过Android系统设定的drawingCacheSize，这时，就只能放弃使用DrawingCache了。
+
+Android系统设定的DrawingCache大小上限，在不同的裝置上有不同的设定，甚至有可能差了好几倍，如果要查看数值的話可以使用以下方式來取得drawingCacheSize：
+
+    {% highlight java  %}  
+ViewConfiguration.get(context).getScaledMaximumDrawingCacheSize();
+   {% endhighlight %} 
+   
