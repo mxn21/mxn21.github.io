@@ -6,7 +6,8 @@ category: 技术博文
 tag: android
 ---
 
-在Android的View的设计中有一个cache的概念，这个cache就是一个bitmap对象。利用这个功能可以对整个屏幕视图进行截屏并生成Bitmap，也可以
+android为了提高滚动等各方面的绘制速度，可以为每一个view建立一个缓存，使用 View.buildDrawingCache为自己的view建立相应的缓存，
+这个cache就是一个bitmap对象。利用这个功能可以对整个屏幕视图进行截屏并生成Bitmap，也可以
 获得指定的view的Bitmap对象。在有的时候还会影响性能，例如如果自己实现一个Gallery效果,可能就会使用到view缓存。
 
 要获得一个view的bitmap对象涉及到三个方法：setDrawingCacheEnabled、buildDrawingCache和getDrawingCache。所有的View都有这三种方法。
@@ -92,4 +93,15 @@ buildDrawingCache建立drawingCache的同时，会将上次的DrawingCache回收
 会导致RumtimeException:java.lang.RuntimeException: Canvas: trying to use a recycled bitmap android.graphics.Bitmap@4b8eb8
 
 下面的写法是错误写法：
+
+    {% highlight java  %}  
+    if(view.getDrawingCache() != null){
+    	view.getDrawingCache().recycle();;
+    }
+    view.buildDrawingCache();
+    Bitmap drawingCache = view.getDrawingCache();
+    {% endhighlight %} 
+    
+    
+### 图片质量控制
 
