@@ -180,3 +180,63 @@ Android系统设定的DrawingCache大小上限，在不同的裝置上有不同�
 ViewConfiguration.get(context).getScaledMaximumDrawingCacheSize();
    {% endhighlight %} 
    
+   
+### getDrawingCache的替代方法
+
+如果不用getDrawingCache想自己建立出Bitmap也是可以的，代码如下：
+
+    {% highlight java  %}
+     
+    public Bitmap getMagicDrawingCache(View view) {
+        Bitmap bitmap = (Bitmap) view.getTag(R.id.cacheBitmapKey);
+        Boolean dirty = (Boolean) view.getTag(R.id.cacheBitmapDirtyKey);
+        int viewWidth = view.getWidth();
+        int viewHeight = view.getHeight();
+        if (bitmap == null || bitmap.getWidth() != viewWidth || bitmap.getHeight() != viewHeight) {
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
+            bitmap = Bitmap.createBitmap(viewWidth, viewHeight, bitmap_quality);
+            view.setTag(R.id.cacheBitmapKey, bitmap);
+            dirty = true;
+        }
+        if (dirty == true || !quick_cache) {
+            bitmap.eraseColor(getResources().getColor(android.R.color.transparent));
+            Canvas canvas = new Canvas(bitmap);
+            view.draw(canvas);
+            view.setTag(R.id.cacheBitmapDirtyKey, false);
+        }
+        return bitmap;
+    }
+    {% endhighlight %} 
+    
+如果要加入View不在Activity或是Fragment的RootView中的判断的话，代码如下：
+
+    {% highlight java  %}
+public Bitmap getMagicDrawingCache2(View view) {
+        Bitmap bitmap = (Bitmap) view.getTag(R.id.cacheBitmapKey);
+        Boolean dirty = (Boolean) view.getTag(R.id.cacheBitmapDirtyKey);
+        if (view.getWidth() + view.getHeight() == 0) {
+            view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        }
+        int viewWidth = view.getWidth();
+        int viewHeight = view.getHeight();
+        if (bitmap == null || bitmap.getWidth() != viewWidth || bitmap.getHeight() != viewHeight) {
+            if (bitmap != null && !bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
+            bitmap = Bitmap.createBitmap(viewWidth, viewHeight, bitmap_quality);
+            view.setTag(R.id.cacheBitmapKey, bitmap);
+            dirty = true;
+        }
+        if (dirty == true || !quick_cache) {
+            bitmap.eraseColor(getResources().getColor(android.R.color.transparent));
+            Canvas canvas = new Canvas(bitmap);
+            view.draw(canvas);
+            view.setTag(R.id.cacheBitmapDirtyKey, false);
+        }
+        return bitmap;
+    }
+        {% endhighlight %} 
+        
