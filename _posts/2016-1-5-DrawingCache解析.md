@@ -105,3 +105,23 @@ buildDrawingCache建立drawingCache的同时，会将上次的DrawingCache回收
     
 ### 图片质量控制
 
+对于Bitmap对象可以有多种格式，如：
+
+Bitmap.Config.ARGB_8888;
+
+Bitmap.Config.ARGB_4444;
+
+Bitmap.Config.ARGB_8888;
+                   
+Bitmap.Config.ARGB_8888;
+                   
+Bitmap.Config.RGB_565；
+
+默认的格式是Bitmap.Config.ARGB_8888，但大多数嵌入式设备使用的显示格式都是Bitmap.Config.RGB_565. RGB_565并没有alpha值，
+所以绘制的时候不需要计算alpha合成，速度快些。其次，RGB_565可以直接使用优化了的memcopy函数，效率相对高出许多。
+
+
+
+
+
+
