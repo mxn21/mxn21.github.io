@@ -122,13 +122,16 @@ Bitmap.Config.RGB_565；
 
 可以用以下方法查看bitmap格式：
 
- final Bitmap cache = mContent.getDrawingCache();
+    {% highlight java  %}  
+    final Bitmap cache = mContent.getDrawingCache();
      if (cache != null) {
             Config cfg = cache.getConfig();
             Log.d(TAG, "----------------------- cache.getConfig() = " + cfg);
       }
+    {% endhighlight %} 
 
-
+随着Android API越来越高，DrawingCache的质量也越来越，在絕大部分的情況下都是使用最佔用記憶體且運算速度最慢的ARGB_8888，
+過去View所提供的setDrawingCacheQuality方法已經沒有實質作用了，不管設定哪種品質，都還是會使用ARGB_8888。
 
 
 
