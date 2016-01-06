@@ -120,6 +120,15 @@ Bitmap.Config.RGB_565；
 默认的格式是Bitmap.Config.ARGB_8888，但大多数嵌入式设备使用的显示格式都是Bitmap.Config.RGB_565. RGB_565并没有alpha值，
 所以绘制的时候不需要计算alpha合成，速度快些。其次，RGB_565可以直接使用优化了的memcopy函数，效率相对高出许多。
 
+可以用以下方法查看bitmap格式：
+
+ final Bitmap cache = mContent.getDrawingCache();
+     if (cache != null) {
+            Config cfg = cache.getConfig();
+            Log.d(TAG, "----------------------- cache.getConfig() = " + cfg);
+      }
+
+
 
 
 
