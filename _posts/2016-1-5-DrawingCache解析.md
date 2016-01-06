@@ -240,3 +240,26 @@ public Bitmap getMagicDrawingCache2(View view) {
     }
         {% endhighlight %} 
         
+其中，cacheBitmapKey和cacheBitmapDirtyKey是不同的整数，分别用来指定View的Tag ID。cacheBitmapKey的位置会存放使用
+这个方法建立出来的DrawingCache；cacheBitmapDirtyKey的位置会存放这个View的DrawingCache是否已经是脏数据(dirty)而需要使用
+View的draw方法重新绘制。DrawingCache所用的Bitmap只在没有Bitmap或是Bitmap的大小和View的大小不合的时候才重新建立，
+在建立新的Bitmap前会先將先前的Bitmap进行recycle，新的Bitmap的参考会再被存入至View的Tag中。他们的定义如下：
+
+    {% highlight xml  %}
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="cacheBitmapKey"></item>
+    <item type="id" name="cacheBitmapDirtyKey"></item>
+</resources>
+    {% endhighlight %} 
+    
+另外需要设置bitmap_quality和quick_cache：
+    
+      {% highlight java  %}  
+    Bitmap.Config bitmap_quality = Bitmap.Config.ARGB_8888 ;
+    boolean quick_cache = false ;
+        {% endhighlight %} 
+        
+quick_cache若設定為false，
+則不論DrawingCache是否dirty，都進行重繪，只有在View常常變化的時候才需要這樣做。bitmap_quality可以設定為Bitmap.Config.RGB_565
+或是Bitmap.Config.ARGB_8888，Bitmap.Config.ARGB_4444已經隨著Android API層級愈來愈高而慢慢被禁用了
