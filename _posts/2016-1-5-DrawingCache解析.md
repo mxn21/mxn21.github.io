@@ -260,6 +260,7 @@ View的draw方法重新绘制。DrawingCache所用的Bitmap只在没有Bitmap或
     boolean quick_cache = false ;
         {% endhighlight %} 
         
-quick_cache若設定為false，
-則不論DrawingCache是否dirty，都進行重繪，只有在View常常變化的時候才需要這樣做。bitmap_quality可以設定為Bitmap.Config.RGB_565
-或是Bitmap.Config.ARGB_8888，Bitmap.Config.ARGB_4444已經隨著Android API層級愈來愈高而慢慢被禁用了
+quick_cache若设置为false，则不论DrawingCache是否dirty，都进行重绘，只有在View常常变化的时候才需要这样做。
+bitmap_quality可以设置为Bitmap.Config.RGB_565或是Bitmap.Config.ARGB_8888，Bitmap.Config.ARGB_4444已经随
+着Android API升级家而慢慢被禁用了。
+
