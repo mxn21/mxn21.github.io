@@ -373,7 +373,59 @@ scrollingCache属性和animateCache相似,源码如下：
     </application>
 
 </manifest>
-      {% highlight xml  %} 
+        {% endhighlight %}
       
 在一个LinearLayout中放16个imageview，让这个LinearLayout执行缩小动画，imageview执行旋转动画
+
+      {% highlight java  %} 
+public class Test5Activity extends Activity  {
+
+    private ImageView[] mImageViews = new ImageView[16];
+    private int[] mImageViewIDs = {R.id.img1,R.id.img2,R.id.img3,R.id.img4,R.id.img5,R.id.img6,R
+            .id.img7,R.id.img8,R.id.img9,R.id.img10,R.id.img11,R.id.img12,R.id.img13,R.id.img14,R
+            .id.img15,R.id.img16} ;
+    private LinearLayout mylayout ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test5);
+        mylayout = (LinearLayout) findViewById(R.id.mylayout);
+        for(int n = 0 ; n < mImageViews.length ; n ++ ){
+            mImageViews[n] = (ImageView) findViewById(mImageViewIDs[n]);
+        }
+
+        mylayout.setAnimationCacheEnabled(true);
+        mylayout.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                doAnimation() ;
+            }
+        });
+    }
+
+
+    public void doAnimation() {
+        AnimationSet animationSet=new AnimationSet(true);
+        ScaleAnimation scaleAnimation=new ScaleAnimation(
+                1, 0.1f, 1, 0.1f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(2000);
+        animationSet.addAnimation(scaleAnimation);
+        mylayout.startAnimation(scaleAnimation) ;
+
+        RotateAnimation rotateAnimation =new RotateAnimation(0f,360, Animation.RELATIVE_TO_SELF,
+                0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+        rotateAnimation.setDuration(2000);
+        animationSet.addAnimation(rotateAnimation);
+
+        for(int n = 0 ; n < mImageViews.length ; n ++ ){
+            mImageViews[n].startAnimation(rotateAnimation) ;
+        }
+
+    }
+}
+   {% endhighlight %}
+   
+最终效果如下：
 
