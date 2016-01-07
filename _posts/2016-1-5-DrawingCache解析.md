@@ -8,7 +8,8 @@ tag: android
 
 android为了提高滚动等各方面的绘制速度，可以为每一个view建立一个缓存，使用 View.buildDrawingCache为自己的view建立相应的缓存，
 这个cache就是一个bitmap对象。利用这个功能可以对整个屏幕视图进行截屏并生成Bitmap，也可以
-获得指定的view的Bitmap对象。在有的时候还会影响性能，例如如果自己实现一个Gallery效果,可能就会使用到view缓存。
+获得指定的view的Bitmap对象。在有的时候还会影响性能，例如如果自己实现一个Gallery效果,可能就会使用到view缓存。animateCache和scrollingCache
+用于动画和滚动的缓存，使用不当也会造成性能下降。
 
 要获得一个view的bitmap对象涉及到三个方法：setDrawingCacheEnabled、buildDrawingCache和getDrawingCache。所有的View都有这三种方法。
 大部分view如果没有设置setDrawingCacheEnabled(true);来启用View的DrawingCache功能的话，那默认是不启用。
@@ -263,4 +264,6 @@ View的draw方法重新绘制。DrawingCache所用的Bitmap只在没有Bitmap或
 quick_cache若设置为false，则不论DrawingCache是否dirty，都进行重绘，只有在View常常变化的时候才需要这样做。
 bitmap_quality可以设置为Bitmap.Config.RGB_565或是Bitmap.Config.ARGB_8888，Bitmap.Config.ARGB_4444已经随
 着Android API升级家而慢慢被禁用了。
+
+
 
