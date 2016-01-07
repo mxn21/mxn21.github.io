@@ -269,5 +269,28 @@ bitmap_quality可以设置为Bitmap.Config.RGB_565或是Bitmap.Config.ARGB_8888�
 ### scrollingCache和animateCache
 
 scrollingCache是listview这种滚动布局的一个属性，animateCache是viewgroup的一个属性。他们的作用都是控制DrawingCache。
+他们都可以在xml布局中控制，也可以用代码调用：
 
+      {% highlight java  %}  
+ mylayout.setAnimationCacheEnabled(false);
+      {% endhighlight %} 
+      
+setAnimationCacheEnabled源码如下：
 
+      {% highlight java  %} 
+ /**
+     * Enables or disables the children's drawing cache during a layout animation.
+     * By default, the drawing cache is enabled but this will prevent nested
+     * layout animations from working. To nest animations, you must disable the
+     * cache.
+     *
+     * @param enabled true to enable the animation cache, false otherwise
+     *
+     * @see #isAnimationCacheEnabled()
+     * @see View#setDrawingCacheEnabled(boolean)
+     */
+    public void setAnimationCacheEnabled(boolean enabled) {
+        setBooleanFlag(FLAG_ANIMATION_CACHE, enabled);
+    }
+    
+   {% endhighlight %} 
