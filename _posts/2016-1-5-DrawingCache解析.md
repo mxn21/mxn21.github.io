@@ -327,6 +327,12 @@ scrollingCache属性和animateCache相似,源码如下：
     }
    {% endhighlight %} 
    
+对于listview当滚动的时候，实际上是可见的item布局的执行了动画，使用缓存可以加速动画。但是他的缺点就是它消耗的内存。
+所以可以手动设置关闭，对于流畅性目前并没有发现有什么影响。
+
+优化后的listview：
+
+
 
 
 
