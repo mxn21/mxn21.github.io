@@ -437,3 +437,12 @@ public class Test5Activity extends Activity  {
 观察内存使用情况，设置mylayout.setAnimationCacheEnabled(false);时如下：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img144.png)
+
+可以看出不管动画如何变化，内存没有变化。
+
+设置mylayout.setAnimationCacheEnabled(true);时如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img145.png)
+
+可以看出不管动画变化是，内存在不断增加，之后被回收，因为缓存不断地产生了新的bitmap。
+
