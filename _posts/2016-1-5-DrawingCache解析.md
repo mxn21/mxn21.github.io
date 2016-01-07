@@ -375,7 +375,10 @@ scrollingCache属性和animateCache相似,源码如下：
 </manifest>
         {% endhighlight %}
       
+      
 在一个LinearLayout中放16个imageview，让这个LinearLayout执行缩小动画，imageview执行旋转动画
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img142.png)
 
       {% highlight java  %} 
 public class Test5Activity extends Activity  {
