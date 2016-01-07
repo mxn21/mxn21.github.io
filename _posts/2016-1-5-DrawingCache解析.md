@@ -300,7 +300,33 @@ setAnimationCacheEnabled源码如下：
 但是需要消耗更多内存和更长的初始化时间。这个属性默认是true。
 
 为什么设置了缓存，动画会更加平滑，是因为避免了在每一帧的重绘。设置了缓存的动画还可以被硬件加速，因为在硬件层，渲染系统
-可以把bitmap交给GPU处理，并对其进行快速的矩阵操作（如改变透明度，平移、旋转）。而不使用缓存的情况写，则是在每一帧进行
+可以把bitmap交给GPU处理，并对其进行快速的矩阵操作（如改变透明度，平移、旋转）。而不使用缓存的情况下，则是在每一帧进行
 重绘，即调用onDraw()方法。
+
+scrollingCache属性和animateCache相似,源码如下：
+
+      {% highlight java  %} 
+/**
+     * Enables or disables the children's drawing cache during a scroll.
+     * By default, the drawing cache is enabled but this will use more memory.
+     *
+     * When the scrolling cache is enabled, the caches are kept after the
+     * first scrolling. You can manually clear the cache by calling
+     * {@link android.view.ViewGroup#setChildrenDrawingCacheEnabled(boolean)}.
+     *
+     * @param enabled true to enable the scroll cache, false otherwise
+     *
+     * @see #isScrollingCacheEnabled()
+     * @see View#setDrawingCacheEnabled(boolean)
+     */
+    public void setScrollingCacheEnabled(boolean enabled) {
+        if (mScrollingCacheEnabled && !enabled) {
+            clearScrollingCache();
+        }
+        mScrollingCacheEnabled = enabled;
+    }
+   {% endhighlight %} 
+   
+
 
 
