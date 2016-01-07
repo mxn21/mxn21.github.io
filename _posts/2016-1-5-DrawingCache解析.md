@@ -265,7 +265,9 @@ quick_cache若设置为false，则不论DrawingCache是否dirty，都进行重�
 bitmap_quality可以设置为Bitmap.Config.RGB_565或是Bitmap.Config.ARGB_8888，Bitmap.Config.ARGB_4444已经随
 着Android API升级家而慢慢被禁用了。
 
+
 ### scrollingCache和animateCache
 
+scrollingCache是listview这种滚动布局的一个属性，animateCache是viewgroup的一个属性。他们的作用都是控制DrawingCache。
 
 
