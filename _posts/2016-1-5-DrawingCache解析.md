@@ -347,3 +347,31 @@ scrollingCache属性和animateCache相似,源码如下：
    {% endhighlight %}
     
  
+下面写一个demo验证chche对内存的影响
+首先关闭硬件加速
+
+      {% highlight xml  %} 
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mxn.soul.demo" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:name=".BaseApplication"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".Test5Activity"
+            android:hardwareAccelerated="true"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
+      {% highlight xml  %} 
+      
