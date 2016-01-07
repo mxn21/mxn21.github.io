@@ -363,7 +363,7 @@ scrollingCache属性和animateCache相似,源码如下：
         android:theme="@style/AppTheme" >
         <activity
             android:name=".Test5Activity"
-            android:hardwareAccelerated="true"
+            android:hardwareAccelerated="false"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -375,3 +375,5 @@ scrollingCache属性和animateCache相似,源码如下：
 </manifest>
       {% highlight xml  %} 
       
+在一个LinearLayout中放16个imageview，让这个LinearLayout执行缩小动画，imageview执行旋转动画
+
