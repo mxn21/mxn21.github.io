@@ -432,3 +432,8 @@ public class Test5Activity extends Activity  {
    
 最终效果如下：
 
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img143.gif)
+
+观察内存使用情况，设置mylayout.setAnimationCacheEnabled(false);时如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img144.png)
