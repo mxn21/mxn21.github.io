@@ -332,7 +332,18 @@ scrollingCache属性和animateCache相似,源码如下：
 
 优化后的listview：
 
+      {% highlight xml  %} 
+<ListView
+    android:id="@android:id/list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="@color/list_background_color"
+    android:dividerHeight="0dp"
+    android:listSelector="#00000000"
+    android:smoothScrollbar="true"
+    android:scrollingCache="false"
+    android:animationCache="false" />
 
-
-
-
+   {% endhighlight %}
+    
+ 
