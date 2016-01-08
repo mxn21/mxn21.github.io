@@ -511,5 +511,21 @@ public class MyImageView extends ImageView {
 
 平均是 (488-260)/16 = 14.25 次.
 
-这说明了设置了缓存后onDraw调用次数会减少，同时会增加内存。
+这说明了设置了缓存后onDraw调用次数会减少，但同时会增加内存。
+那么为什么onDraw调用次数会减少呢，在源码中可以找到答案，
 
+/**
+     * This is where the invalidate() work actually happens. A full invalidate()
+     * causes the drawing cache to be invalidated, but this function can be
+     * called with invalidateCache set to false to skip that invalidation step
+     * for cases that do not need it (for example, a component that remains at
+     * the same dimensions with the same content).
+     *
+     * @param invalidateCache Whether the drawing cache for this view should be
+     *            invalidated as well. This is usually true for a full
+     *            invalidate, but may be set to false if the View's contents or
+     *            dimensions have not changed.
+     */
+    void invalidate(boolean invalidateCache) {
+        invalidateInternal(0, 0, mRight - mLeft, mBottom - mTop, invalidateCache, true);
+    }
