@@ -489,3 +489,10 @@ public class MyImageView extends ImageView {
 第二次点击开始动画后效果如下：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img148.png)
+
+从第801次开始，到1552次结束，平均每一个view调用的onDraw次数为 (1552-800)/16 = 47 次.
+
+可以看出在不设置缓存的情况的onDraw调用次数均大于40.
+
+现在把setAnimationCacheEnabled改为true进行测试。
+
