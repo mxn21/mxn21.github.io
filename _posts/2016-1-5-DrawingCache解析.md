@@ -482,4 +482,10 @@ public class MyImageView extends ImageView {
 这个很容易理解，因为有16个view所以调用了16次onDraw。
 第一次点击开始动画后效果如下：
 
-img147.png
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img147.png)
+
+从第17次开始，到800次结束，平均每一个view调用的onDraw次数为 (800-16)/16 = 49 次.
+
+第二次点击开始动画后效果如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img148.png)
