@@ -475,3 +475,6 @@ public class MyImageView extends ImageView {
    
 使用一个静态变量count记录onDraw调用的次数。
 
+设置mylayout.setAnimationCacheEnabled(false);时第一次启动如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img146.png)
