@@ -478,3 +478,8 @@ public class MyImageView extends ImageView {
 设置mylayout.setAnimationCacheEnabled(false);时第一次启动如下：
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img146.png)
+
+这个很容易理解，因为有16个view所以调用了16次onDraw。
+第一次点击开始动画后效果如下：
+
+img147.png
