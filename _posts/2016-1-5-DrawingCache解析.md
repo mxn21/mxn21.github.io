@@ -512,8 +512,9 @@ public class MyImageView extends ImageView {
 平均是 (488-260)/16 = 14.25 次.
 
 这说明了设置了缓存后onDraw调用次数会减少，但同时会增加内存。
-那么为什么onDraw调用次数会减少呢，在源码中可以找到答案，
+那么为什么onDraw调用次数会减少呢，在源码中可以找到答案。
 
+      {% highlight java  %} 
 /**
      * This is where the invalidate() work actually happens. A full invalidate()
      * causes the drawing cache to be invalidated, but this function can be
@@ -529,3 +530,10 @@ public class MyImageView extends ImageView {
     void invalidate(boolean invalidateCache) {
         invalidateInternal(0, 0, mRight - mLeft, mBottom - mTop, invalidateCache, true);
     }
+    {% endhighlight %}
+    
+onDraw是通过invalidate()触发的，从注释中可以看到如果设置了缓存，同时View的内容和大小没有变化，那么invalidate可以设置false。
+这个标志位的改变，导致后面的onDraw没有必要执行，因为有了缓存就直接显示缓存就好了，不用重新执行onDraw。等到了动画的下一帧如果图片
+的内容、大小还没变，就继续使用缓存，直到内容或大小改变，就重新生成缓存。同理如果没有设置缓存，那么就不能减少onDraw的次数了，因为每一次
+不管图片内容和大小有没有改变，都要调用onDraw。
+
