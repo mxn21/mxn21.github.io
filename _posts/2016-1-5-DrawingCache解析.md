@@ -449,3 +449,29 @@ public class Test5Activity extends Activity  {
 
 为了更清楚的观察设置了缓存后onDraw方法的调用情况，我们用自定义的view代替ImageView.
 
+      {% highlight java  %} 
+public class MyImageView extends ImageView {
+    static int count  = 0 ;
+    public MyImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+    public MyImageView(Context context) {
+        super(context);
+    }
+    @Override
+    protected void onMeasure(int widthMeasureSpec,int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (BuildConfig.DEBUG) Log.d("===MyImageView","onMeasure 我被调用了"+System.currentTimeMillis());
+    }
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        count++ ;
+        if (BuildConfig.DEBUG) Log.d("===MyImageView", "onDraw 我被调用了"+System.currentTimeMillis()
+                +"==="+count);
+    }
+}
+   {% endhighlight %}
+   
+使用一个静态变量count记录onDraw调用的次数。
+
