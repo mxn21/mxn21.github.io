@@ -495,4 +495,21 @@ public class MyImageView extends ImageView {
 可以看出在不设置缓存的情况的onDraw调用次数均大于40.
 
 现在把setAnimationCacheEnabled改为true进行测试。
+第一次启动和刚才结果一样。
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img149.png)
+
+第一次点击开始动画后效果如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img150.png)
+
+可以看出onDraw调用次数大大减少，平均是 (260-16)/16 = 15.25 次.
+
+第二次点击开始动画后效果如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img151.png)
+
+平均是 (488-260)/16 = 14.25 次.
+
+这说明了设置了缓存后onDraw调用次数会减少，同时会增加内存。
 
