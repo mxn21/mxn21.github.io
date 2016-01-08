@@ -447,3 +447,5 @@ public class Test5Activity extends Activity  {
 可以看出不管动画变化是，内存在不断增加，之后被回收，因为缓存不断地产生了新的bitmap。对于动画地流畅性来说几乎
 看出有什么不同。
 
+为了更清楚的观察设置了缓存后onDraw方法的调用情况，我们用自定义的view代替ImageView.
+
