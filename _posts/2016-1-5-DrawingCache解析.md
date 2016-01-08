@@ -15,8 +15,8 @@ android为了提高滚动等各方面的绘制速度，可以为每一个view建
 大部分view如果没有设置setDrawingCacheEnabled(true);来启用View的DrawingCache功能的话，那默认是不启用。
 
 启用DrawingCache的话，使用getDrawingCache方法时，会先自动去调用buildDrawingCache方法建立DrawingCache，再将结果返回；
-不启用DrawingCache的話，使用getDrawingCache方法時，会返回上一次使用buildDrawingCache方法所产生的结果。
-如果在此之前都沒有使用过buildDrawingCache來建立DrawingCache的话，那么getDrawingCache就会返回null。
+不启用DrawingCache的话，使用getDrawingCache方法时，会返回上一次使用buildDrawingCache方法所产生的结果。
+如果在此之前都沒有使用过buildDrawingCache来建立DrawingCache的话，那么getDrawingCache就会返回null。
 如果一开始没有启用DrawingCache，也是可以事先使用buildDrawingCache来建立DrawingCache，避免getDrawingCache返回null。
 
 getDrawingCache源码如下：
@@ -177,7 +177,7 @@ Bitmap.Config.RGB_565；
 如果很确定View已经有过measure和layout且也调用buildDrawingCache(无论自动或者手动)方法了，但是getDrawingCache还是返回null，
 那就是因为要绘制的DrawingCache太大了，超过Android系统设定的drawingCacheSize，这时，就只能放弃使用DrawingCache了。
 
-Android系统设定的DrawingCache大小上限，在不同的裝置上有不同的设定，甚至有可能差了好几倍，如果要查看数值的話可以使用以下方式來取得drawingCacheSize：
+Android系统设定的DrawingCache大小上限，在不同的裝置上有不同的设定，甚至有可能差了好几倍，如果要查看数值的話可以使用以下方式来取得drawingCacheSize：
 
     {% highlight java  %}  
 ViewConfiguration.get(context).getScaledMaximumDrawingCacheSize();
