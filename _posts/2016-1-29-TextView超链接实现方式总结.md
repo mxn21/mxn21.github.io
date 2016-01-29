@@ -7,4 +7,6 @@ tag: android
 ---
 
 TextView中的超链接可以通过几种方式实现：1.Html.fromHtml，2.Linkify.addLinks，3.Spannable。下面分别进行测试，包括
-修改字体样式，下划线
+修改字体样式，下划线样式，点击事件等。
+
+
