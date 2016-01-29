@@ -34,3 +34,12 @@ public class Test10Activity extends Activity {
 
       {% endhighlight %}
       
+效果如下：
+
+//======================
+
+这时候点击超链接并没有跳转效果，需要加上 textView.setMovementMethod(LinkMovementMethod.getInstance());之后才会跳转。
+
+
+
+
