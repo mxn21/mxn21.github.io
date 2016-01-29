@@ -12,3 +12,7 @@ TextView中的超链接可以通过几种方式实现：1.Html.fromHtml，2.Link
 
 ### Html.fromHtml方式
 
+TextView，本身就支持部分的Html格式标签。这其中包括常用的字体大小颜色设置，文本链接等。使用起来也比较方便，只需要使用Html类转换一下即可：
+textView.setText(Html.fromHtml(str));
+
+
