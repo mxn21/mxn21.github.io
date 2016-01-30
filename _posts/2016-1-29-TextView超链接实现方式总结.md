@@ -39,13 +39,25 @@ public class Test10Activity extends Activity {
 //======================
 
 这时候点击超链接并没有跳转效果，需要加上 
+
+      {% highlight java  %} 
 textView.setMovementMethod(LinkMovementMethod.getInstance());
+      {% endhighlight %}
+      
 之后才会跳转。
 这样点击之后会用默认浏览器打开url。
 
 现在字体颜色和下划线是默认样式，修改字体颜色比较简单，可以直接用<font>标签：
 
+      {% highlight java  %} 
+ String webLinkText =
+          "<font color='#333333'><a href='https://souly.cn' style='text-decoration:none; color:#0000FF'> 
+          html超链接测试</a>" ;
+      {% endhighlight %}
 
+但是想不借助其他类去掉下划线就没有办法了。
+
+还有
 
 
 
