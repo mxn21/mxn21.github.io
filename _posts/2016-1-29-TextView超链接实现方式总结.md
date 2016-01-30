@@ -72,3 +72,4 @@ textView.setMovementMethod(LinkMovementMethod.getInstance());
            
       {% endhighlight %}
 
+### Spannable方式
