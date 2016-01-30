@@ -38,8 +38,12 @@ public class Test10Activity extends Activity {
 
 //======================
 
-这时候点击超链接并没有跳转效果，需要加上 textView.setMovementMethod(LinkMovementMethod.getInstance());之后才会跳转。
+这时候点击超链接并没有跳转效果，需要加上 
+textView.setMovementMethod(LinkMovementMethod.getInstance());
+之后才会跳转。
 这样点击之后会用默认浏览器打开url。
+
+现在字体颜色和下划线是默认样式，修改字体颜色比较简单，可以直接用<font>标签：
 
 
 
