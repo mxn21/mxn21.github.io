@@ -57,7 +57,18 @@ textView.setMovementMethod(LinkMovementMethod.getInstance());
 
 但是想不借助其他类去掉下划线就没有办法了。
 
-还有
+还有一种更简单的方法就是在TextView的xml布局中加入autoLink自动识别，这样做操作最简单，但是也不能修改样式：
 
-
+      {% highlight xml  %} 
+      
+     <TextView
+           android:id="@+id/text"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:textSize="20sp"
+           android:text="souly.cn"
+           android:autoLink="email|phone|web"
+           />
+           
+      {% endhighlight %}
 
