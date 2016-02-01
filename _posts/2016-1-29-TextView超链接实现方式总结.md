@@ -73,3 +73,5 @@ textView.setMovementMethod(LinkMovementMethod.getInstance());
       {% endhighlight %}
 
 ### Spannable方式
+
+在xml中设置了android:autoLink="email|phone|web"后
