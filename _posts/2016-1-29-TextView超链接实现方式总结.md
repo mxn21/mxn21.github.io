@@ -184,3 +184,6 @@ public class Test10Activity extends Activity {
 
 //======================
 
+### Linkify.addLinks方式
+
+
