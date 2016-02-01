@@ -6,7 +6,7 @@ category: 技术博文
 tag: android
 ---
 
-TextView中的超链接可以通过几种方式实现：1.Html.fromHtml，2.Linkify.addLinks，3.Spannable。下面分别进行测试，包括
+TextView中的超链接可以通过几种方式实现：1.Html.fromHtml，2.Spannable，3.Linkify.addLinks。下面分别进行测试，包括
 修改字体样式，下划线样式，点击事件等。
 
 
@@ -142,5 +142,41 @@ public class Test10Activity extends Activity {
 这个超链接是默认颜色，如果需要改变颜色可以在xml中设置android:textColorLink="#1e84fb"，
 或者在java代码中设置tv.setLinkTextColor(color);
 
+上面的例子是在autoLink设置的情况下自动识别超链接的，如果不需要自动识别，而是自己手动设置需要跳转的网址，
+可以使用以下方法，首先删除xml中的android:autoLink="email|phone|web"
+
+      {% highlight java %} 
+public class Test10Activity extends Activity {
+
+    TextView textView ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test10);
+        textView = (TextView) findViewById(R.id.text);
+
+        String webLinkText = "我的博客" ;
+        SpannableString text = new SpannableString(webLinkText);
+        NoUnderlineSpan mNoUnderlineSpan = new NoUnderlineSpan("https://souly.cn") ;
+        text.setSpan(mNoUnderlineSpan,0,text.length(),Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(text);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    public static class NoUnderlineSpan extends URLSpan {
+        public NoUnderlineSpan(String url) {
+            super(url);
+        }
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setUnderlineText(false);
+        }
+    }
+
+}
+       {% endhighlight %}
+       
 
 
