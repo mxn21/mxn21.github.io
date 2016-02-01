@@ -74,4 +74,25 @@ textView.setMovementMethod(LinkMovementMethod.getInstance());
 
 ### Spannable方式
 
-在xml中设置了android:autoLink="email|phone|web"后
+在xml中设置了android:autoLink="email|phone|web"后，url文字下面会有一条下划线,我们可以看URLSpan所继承的类ClickableSpan
+类的源码，如下：
+
+      {% highlight java %} 
+      public abstract class ClickableSpan extends CharacterStyle implements UpdateAppearance {  
+        
+          /** 
+           * Performs the click action associated with this span. 
+           */  
+          public abstract void onClick(View widget);  
+           
+          /** 
+           * Makes the text underlined and in the link color. 
+           */  
+          @Override  
+          public void updateDrawState(TextPaint ds) {  
+              ds.setColor(ds.linkColor);  
+              ds.setUnderlineText(true);  
+          }  
+      }  
+       {% endhighlight %}
+       
