@@ -178,5 +178,9 @@ public class Test10Activity extends Activity {
 }
        {% endhighlight %}
        
+这里的NoUnderlineSpan继承了URLSpan而不是UnderlineSpan，URLSpan是ClickableSpan的子类。
 
+效果图如下：
+
+//======================
 
