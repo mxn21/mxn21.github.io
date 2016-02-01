@@ -96,3 +96,6 @@ textView.setMovementMethod(LinkMovementMethod.getInstance());
       }  
        {% endhighlight %}
        
+它调用ds.setUnderlineText(true); 设置了下划线。我们再设置一个没有下划线的Spannable对象就可以了。
+我们重写一个类继承UnderlineSpan，和ClickableSpan一样，都是CharacterStyle的子类。
+
