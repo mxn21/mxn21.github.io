@@ -99,3 +99,42 @@ textView.setMovementMethod(LinkMovementMethod.getInstance());
 它调用ds.setUnderlineText(true); 设置了下划线。我们再设置一个没有下划线的Spannable对象就可以了。
 我们重写一个类继承UnderlineSpan，和ClickableSpan一样，都是CharacterStyle的子类。
 
+使用方法如下：
+
+      {% highlight java %} 
+public class Test10Activity extends Activity {
+    
+    TextView textView ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test10);
+        textView = (TextView) findViewById(R.id.text);
+
+        String webLinkText = "我的博客-->https://souly.cn" ;
+        textView.setText(webLinkText);
+        NoUnderlineSpan mNoUnderlineSpan = new NoUnderlineSpan();
+        if (textView.getText() instanceof Spannable) {
+            Spannable s = (Spannable) textView.getText();
+            s.setSpan(mNoUnderlineSpan, 0, s.length(), Spanned.SPAN_MARK_MARK);
+        }
+    }
+
+    public static class NoUnderlineSpan extends UnderlineSpan {
+        public NoUnderlineSpan() {}
+        public NoUnderlineSpan(Parcel src) {}
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setUnderlineText(false);
+        }
+    }
+
+}
+       {% endhighlight %}
+       
+效果如下：
+
+//======================
+
