@@ -139,4 +139,8 @@ public class Test10Activity extends Activity {
 //======================
 
 这样textview在界面上就不会有下划线了，但却保留着autolink的功能。
+这个超链接是默认颜色，如果需要改变颜色可以在xml中设置android:textColorLink="#1e84fb"，
+或者在java代码中设置tv.setLinkTextColor(color);
+
+
 
