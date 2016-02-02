@@ -242,3 +242,20 @@ Android系统都不会传递intent给组件。然而，因为一个组件可以�
 对于一个intent要通过种类检测，intent对象中的每个种类必须匹配过滤器中的一个。即过滤器能够列出额外的种类，但是intent对象中的种类都必须能够在过滤器中找到，
 只要一个种类在过滤器列表中没有，就算种类检测失败！
 
+因此，原则上如果一个intent对象中没有种类（即种类字段为空）应该总是通过种类测试，而不管过滤器中有什么种类。但是有个例外，
+Android对待所有传递给Context.startActivity()的隐式intent好像它们至少包含"android.intent.category.DEFAULT"
+（对应CATEGORY_DEFAULT常量）。因此，activity想要接收隐式intent必须要在intent过滤器中包含"android.intent.category.DEFAULT"。
+
+注意："android.intent.action.MAIN" 和 "android.intent.category.LAUNCHER"设置，它们分别标记活动开始新的任务和带到启动列表界面。
+它们可以包含"android.intent.category.DEFAULT"到种类列表，也可以不包含。
+
+*数据检测
+
+类似的，清单文件中的<intent-filter>元素以<data>子元素列出数据，例如：
+
+<intent-filter>
+    <data android:mimeType="video/mpeg" android:scheme="http" . . . /> 
+    <data android:mimeType="audio/mpeg" android:scheme="http" . . . />
+    . . .
+</intent-filter>
+
