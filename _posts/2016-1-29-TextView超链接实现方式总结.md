@@ -186,4 +186,7 @@ public class Test10Activity extends Activity {
 
 ### Linkify.addLinks方式
 
+除了使用默认的web等模式之外，我们还可以通过Linkify类的addLinks方法来添加自定义模式。Linkify.addLinks也是功能最
+强大的一种方式。
+
 
