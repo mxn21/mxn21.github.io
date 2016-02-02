@@ -254,8 +254,32 @@ Android对待所有传递给Context.startActivity()的隐式intent好像它们�
 类似的，清单文件中的<intent-filter>元素以<data>子元素列出数据，例如：
 
 <intent-filter>
-    <data android:mimeType="video/mpeg" android:scheme="http" . . . /> 
-    <data android:mimeType="audio/mpeg" android:scheme="http" . . . />
+    <data android:mimeType="video/mpeg" android:scheme="http" /> 
+    <data android:mimeType="audio/mpeg" android:scheme="http" />
     . . .
 </intent-filter>
+
+每个<data>元素指定一个URI和数据类型（MIME类型）。它有几个属性scheme、host、port、path、query、fragment对应于URI的每个部分： 
+scheme://host:port/path?query#fragment或者scheme://userInfo@host:port/path?query#fragment。
+
+scheme是content，host是"com.example.project"，port是200，path是"folder/subfolder/etc"。host和port一起构成URI的凭据
+（authority），如果host没有指定，port也被忽略。 这几个属性都是可选的，但它们之间并不都是完全独立的。要让authority有意义，
+scheme必须也要指定。要让path有意义，scheme和authority也都必须要指定。
+
+当比较intent对象和过滤器的URI时，仅仅比较过滤器中出现的URI属性。例如，如果一个过滤器仅指定了scheme，所有有此scheme的URIs都匹配过滤器；
+如果一个过滤器指定了scheme和authority，但没有指定path，所有匹配scheme和authority的URIs都通过检测，而不管它们的path；
+如果几个属性都指定了，要都匹配才能算是匹配。然而，过滤器中的path可以包含通配符来要求匹配path中的一部分。
+
+<data>元素的type属性指定数据的MIME类型。Intent对象和过滤器都可以用"*"通配符匹配子类型字段，例如"text/*"，"audio/*"表示任何子类型。
+
+数据检测既要检测URI，也要检测数据类型。规则如下：
+
+1.一个Intent对象既不包含URI，也不包含数据类型：仅当过滤器也不指定任何URIs和数据类型时，才不能通过检测；否则都能通过。
+2.一个Intent对象包含URI，但不包含数据类型：仅当过滤器也不指定数据类型，同时它们的URI匹配，才能通过检测。例如，mailto:和tel:都不指定实际数据。
+3.一个Intent对象包含数据类型，但不包含URI：仅当过滤也只包含数据类型且与Intent相同，才通过检测。
+4.一个Intent对象既包含URI，也包含数据类型（或数据类型能够从URI推断出）：数据类型部分，只有与过滤器中之一匹配才算通过；URI部分，它的URI要出现在过滤器中，或者它有content
+:或file: URI，又或者过滤器没有指定URI。换句话说，如果它的过滤器仅列出了数据类型，组件假定支持content:和file: 。
+如果一个Intent能够通过不止一个活动或服务的过滤器，用户可能会被问那个组件被激活。如果没有目标找到，会产生一个异常。
+
+
 
