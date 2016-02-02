@@ -225,3 +225,17 @@ Android系统都不会传递intent给组件。然而，因为一个组件可以�
 如果Intent对象没有指定动作，将自动通过检查（只要过滤器至少有一个<action>子元素，否则就是上面的情况了）
 
 
+*种类检测
+
+类似的，清单文件中的<intent-filter>元素以<category>子元素列出种类，例如：
+
+      {% highlight xml %} 
+      
+<intent-filter>
+    <category android:name="android.intent.category.DEFAULT" />
+    <category android:name="android.intent.category.BROWSABLE" />
+    . . .
+</intent-filter>
+
+     {% endhighlight %}
+     
