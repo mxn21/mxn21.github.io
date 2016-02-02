@@ -203,5 +203,25 @@ android中的activity,service,Broadcast Receivers都可以设置intent过滤器�
 Android系统都不会传递intent给组件。然而，因为一个组件可以有多个intent过滤器，一个intent通不过组件的过滤器检测，
 其它的过滤器可能通过检测。
 
+*动作检测
+
+清单文件中的<intent-filter>元素以<action>子元素列出动作，例如：
+
+      {% highlight xml %} 
+<intent-filter>
+    <action android:name="com.example.project.SHOW_CURRENT" />
+    <action android:name="com.example.project.SHOW_RECENT" />
+    <action android:name="com.example.project.SHOW_PENDING" />
+    . . .
+</intent-filter>
+     {% endhighlight %}
+     
+像例子所展示，虽然一个Intent对象仅是单个动作，但是一个过滤器可以列出不止一个。这个列表不能够为空，一个过滤器必须至少包含一个
+<action>子元素，否则它将阻塞所有的intents。
+
+要通过检测，Intent对象中指定的动作必须匹配过滤器的动作列表中的一个。如果对象或过滤器没有指定一个动作，结果将如下：
+
+如果过滤器没有指定动作，没有一个Intent将匹配，所有的intent将检测失败，即没有intent能够通过过滤器。
+如果Intent对象没有指定动作，将自动通过检查（只要过滤器至少有一个<action>子元素，否则就是上面的情况了）
 
 
