@@ -297,11 +297,32 @@ scheme必须也要指定。要让path有意义，scheme和authority也都必须�
       {% endhighlight %}
       
 这样即指定了接收Uri的Scheme为“mxn”,host为“profile” 且 Action为View的Intent。
-可以利用如下Intent调用Activity：startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("sh://123123123")));  
+可以利用如下Intent调用Activity：  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("mxn://profile?uid=1"))); 
+传递一个参数uid=1. 
 
+在设置了filter的activity中接受参数：
 
       {% highlight java %} 
-this.getIntent().getScheme();//获得Scheme名称  
-this.getIntent().getDataString();//获得Uri全部路径  
+public class Test9Activity extends Activity {
 
+    private String uid;
+
+    private static final Uri PROFILE_URI = Uri.parse("mxn://profile");
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test8);
+        extractUidFromUri();
+
+    }
+    private void extractUidFromUri() {
+        Uri uri = getIntent().getData();
+        if (uri != null && PROFILE_URI.getScheme().equals(uri.getScheme())) {
+            uid = uri.getQueryParameter("uid");
+            Log.d("=====", "uid from url: " + uid);
+        }
+    }
+}
       {% endhighlight %}
+      
