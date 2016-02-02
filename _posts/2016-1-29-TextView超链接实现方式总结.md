@@ -191,4 +191,17 @@ public class Test10Activity extends Activity {
 
 在讲这种方式之前先科普一下Intent Filters的知识。
 
+android中的activity,service,Broadcast Receivers都可以设置intent过滤器，它们可以有一个或多个intent过滤器。
+每个过滤器描述组件的一种能力，即告知系统能够处理哪些隐式intent。个显式intent总是能够传递到它的目标组件，不管它包含什么；
+不考虑过滤器。但是一个隐式intent，仅当它能够通过组件的过滤器之一才能够传递给它。
+
+一个intent过滤器是一个IntentFilter类的实例。因为Android系统在启动一个组件之前必须知道它的能力，但是intent过滤器通常不在java
+代码中设置，而是在应用程序的清单文件（AndroidManifest.xml）中以<intent-filter>元素设置。但有一个例外，
+广播接收者的过滤器通过调用Context.registerReceiver()动态地注册，它直接创建一个IntentFilter对象。
+
+一个过滤器有对应于Intent对象的动作、数据、种类的字段。过滤器要检测隐式intent的所有这三个字段，其中任何一个失败，
+Android系统都不会传递intent给组件。然而，因为一个组件可以有多个intent过滤器，一个intent通不过组件的过滤器检测，
+其它的过滤器可能通过检测。
+
+
 
