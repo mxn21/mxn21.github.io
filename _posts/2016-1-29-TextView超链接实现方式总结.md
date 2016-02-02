@@ -253,11 +253,13 @@ Android对待所有传递给Context.startActivity()的隐式intent好像它们�
 
 类似的，清单文件中的<intent-filter>元素以<data>子元素列出数据，例如：
 
+      {% highlight xml %} 
 <intent-filter>
     <data android:mimeType="video/mpeg" android:scheme="http" /> 
     <data android:mimeType="audio/mpeg" android:scheme="http" />
     . . .
 </intent-filter>
+     {% endhighlight %}
 
 每个<data>元素指定一个URI和数据类型（MIME类型）。它有几个属性scheme、host、port、path、query、fragment对应于URI的每个部分： 
 scheme://host:port/path?query#fragment或者scheme://userInfo@host:port/path?query#fragment。
@@ -282,4 +284,24 @@ scheme必须也要指定。要让path有意义，scheme和authority也都必须�
 如果一个Intent能够通过不止一个活动或服务的过滤器，用户可能会被问那个组件被激活。如果没有目标找到，会产生一个异常。
 
 
+下面写一个例子来通过定义Scheme接收特定URI开启Activity
 
+首先在AndroidManifast.xml要给被指定Scheme的Activity下设置如下参数
+
+      {% highlight xml %} 
+        <intent-filter>  
+                <category android:name="android.intent.category.DEFAULT"></category>  
+                <action android:name="android.intent.action.VIEW"></action>  
+                <data android:host="profile" android:scheme="mxn"/>
+        </intent-filter>  
+      {% endhighlight %}
+      
+这样即指定了接收Uri的Scheme为“mxn”,host为“profile” 且 Action为View的Intent。
+可以利用如下Intent调用Activity：startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("sh://123123123")));  
+
+
+      {% highlight java %} 
+this.getIntent().getScheme();//获得Scheme名称  
+this.getIntent().getDataString();//获得Uri全部路径  
+
+      {% endhighlight %}
