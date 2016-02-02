@@ -326,3 +326,27 @@ public class Test9Activity extends Activity {
 }
       {% endhighlight %}
       
+下面借助Linkify实现超链接，实现微博中@的超链接功能，布局文件如下：
+
+      {% highlight xml %} 
+      <RelativeLayout
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center"
+          >    
+             <TextView
+                 android:id="@+id/text"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textSize="20sp"
+                 android:text="【谷歌母公司Alphabet市值超苹果：全球第一】据外媒报道，@谷歌 母公司 @Alphabet 
+                 通过公司分拆以及搜索广告业务的持续强势，股价继续攀升。美国时间周一，Alphabet的公司市值已超过了 @苹果 ，
+                 成为全世界市值最大的公司."
+                 />
+      </RelativeLayout>
+      {% endhighlight %}
+      
+当需要使自定义模式和内置模式web，phone等一起被识别时，一定要先声明内置模式，然后再声明自定义模式，而且不能在xml中通过autoLink属性声明，
+否则自定义模式不起作用。因为在设置内置模式时，会先删除已有模式。
