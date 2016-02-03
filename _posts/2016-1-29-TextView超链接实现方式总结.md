@@ -36,7 +36,7 @@ public class Test10Activity extends Activity {
       
 效果如下：
 
-//======================
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img152.png)
 
 这时候点击超链接并没有跳转效果，需要加上 
 
