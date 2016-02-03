@@ -429,4 +429,50 @@ public class Test10Activity extends Activity {
 同样的，这个超链接是默认颜色，如果需要改变颜色可以在xml中设置android:textColorLink="#1e84fb"，或者在java代码中
 设置tv.setLinkTextColor(color);
 
-这时超链接还是
+这时超链接还是带下划线的，如果想去掉，还是使用上面的思路，重写URLSpan，
+
+
+      {% highlight java %} 
+public class Test10Activity extends Activity {
+
+    TextView textView ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test10);
+        textView = (TextView) findViewById(R.id.text);
+        Pattern mentionsPattern = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
+        String mentionsScheme = String.format("%s/?%s=", "mxn://profile", "uid");
+        Linkify.addLinks(textView, mentionsPattern, mentionsScheme)  ;
+        stripUnderlines(textView)  ;
+    }
+
+    private class URLSpanNoUnderline extends URLSpan {
+        public URLSpanNoUnderline(String url) {
+            super(url);
+        }
+        @Override public void updateDrawState(TextPaint ds) {
+            super.updateDrawState(ds);
+            ds.setUnderlineText(false);
+        }
+    }
+
+    private void stripUnderlines(TextView textView) {
+        Spannable s = (Spannable)textView.getText();
+        URLSpan[] spans = s.getSpans(0, s.length(), URLSpan.class);
+        for (URLSpan span: spans) {
+            int start = s.getSpanStart(span);
+            int end = s.getSpanEnd(span);
+            s.removeSpan(span);
+            span = new URLSpanNoUnderline(span.getURL());
+            s.setSpan(span, start, end, 0);
+        }
+        textView.setText(s);
+    }
+}
+
+      {% endhighlight %}
+      
+
+//==================
