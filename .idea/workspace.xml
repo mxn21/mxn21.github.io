@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img155.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img156.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img157.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md" afterPath="$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
@@ -45,8 +43,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5777778">
-              <caret line="465" column="53" selection-start-line="465" selection-start-column="7" selection-end-line="465" selection-end-column="53" />
+            <state vertical-scroll-proportion="0.81527776">
+              <caret line="527" column="0" selection-start-line="527" selection-start-column="0" selection-end-line="527" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -58,8 +56,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.034483">
-              <caret line="501" column="0" selection-start-line="501" selection-start-column="0" selection-end-line="501" selection-end-column="89" />
+            <state vertical-scroll-proportion="-8.724138">
+              <caret line="499" column="13" selection-start-line="499" selection-start-column="13" selection-end-line="499" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -982,8 +980,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.034483">
-          <caret line="501" column="0" selection-start-line="501" selection-start-column="0" selection-end-line="501" selection-end-column="89" />
+        <state vertical-scroll-proportion="-8.724138">
+          <caret line="499" column="13" selection-start-line="499" selection-start-column="13" selection-end-line="499" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -993,8 +991,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5777778">
-          <caret line="465" column="53" selection-start-line="465" selection-start-column="7" selection-end-line="465" selection-end-column="53" />
+        <state vertical-scroll-proportion="0.81527776">
+          <caret line="527" column="0" selection-start-line="527" selection-start-column="0" selection-end-line="527" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -491,6 +491,7 @@ public class Test10Activity extends Activity {
         textView = (TextView) findViewById(R.id.text);
         Pattern mentionsPattern = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
         String mentionsScheme = String.format("%s/?%s=", "mxn://profile", "uid");
+        Linkify.addLinks(textView, Linkify.WEB_URLS);
         Linkify.addLinks(textView, mentionsPattern, mentionsScheme)  ;
         stripUnderlines(textView)  ;
     }
@@ -522,4 +523,6 @@ public class Test10Activity extends Activity {
       {% endhighlight %}
       
 
-//==================
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img157.png)
+
+
