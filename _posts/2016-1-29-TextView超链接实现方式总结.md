@@ -444,7 +444,7 @@ public class Test9Activity extends Activity {
       
 效果如下：
 
-//==================
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img155.png)
 
 其实在上面的图上可以看到，www.google.com并没有被识别为链接（因为我们没有设置web模式）。需要注意的是，当需要使自定义
 模式和内置模式web，phone等一起被识别时，一定要先声明内置模式，然后再声明自定义模式，而且不能在xml中通过autoLink属性声明，
@@ -471,7 +471,7 @@ public class Test10Activity extends Activity {
 
 现在就可以同时识别web以及自定义模式了。
 
-//==================
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img156.png)
 
 同样的，这个超链接是默认颜色，如果需要改变颜色可以在xml中设置android:textColorLink="#1e84fb"，或者在java代码中
 设置tv.setLinkTextColor(color);
