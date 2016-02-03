@@ -424,3 +424,9 @@ public class Test10Activity extends Activity {
 
 现在就可以同时识别web以及自定义模式了。
 
+//==================
+
+同样的，这个超链接是默认颜色，如果需要改变颜色可以在xml中设置android:textColorLink="#1e84fb"，或者在java代码中
+设置tv.setLinkTextColor(color);
+
+这时超链接还是
