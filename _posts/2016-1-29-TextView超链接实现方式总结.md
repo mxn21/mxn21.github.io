@@ -352,5 +352,46 @@ public class Test9Activity extends Activity {
 否则自定义模式不起作用。因为在设置内置模式时，会先删除已有模式。
 下面使用正则匹配带“@”的用户名，然后作为uid传递到下一个页面：
 
+      {% highlight java %} 
+public class Test10Activity extends Activity {
 
+    TextView textView ;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test10);
+        textView = (TextView) findViewById(R.id.text);
+        Pattern p = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
+        Linkify.addLinks(textView, p, "mxn://profile?uid=");
+    }
+}
+      {% endhighlight %}
+
+接收的时候跟上面一样：
+
+      {% highlight java %} 
+public class Test9Activity extends Activity {
+
+    private String uid;
+
+    private static final Uri PROFILE_URI = Uri.parse("mxn://profile");
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test8);
+        extractUidFromUri();
+
+    }
+    private void extractUidFromUri() {
+        Uri uri = getIntent().getData();
+        if (uri != null && PROFILE_URI.getScheme().equals(uri.getScheme())) {
+            uid = uri.getQueryParameter("uid");
+            Log.d("=====", "uid from url: " + uid);
+        }
+    }
+}
+
+      {% endhighlight %}
+      
