@@ -405,5 +405,22 @@ public class Test9Activity extends Activity {
 
 将上面的Java代码改为：
 
+      {% highlight java %} 
+public class Test10Activity extends Activity {
 
-      
+    TextView textView ;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test10);
+        textView = (TextView) findViewById(R.id.text);
+        Pattern p = Pattern.compile("@(\\w+?)(?=\\W|$)(.)");
+        Linkify.addLinks(textView, Linkify.WEB_URLS);
+        Linkify.addLinks(textView, p, "mxn://profile?uid=");
+    }
+}     
+      {% endhighlight %}
+
+现在就可以同时识别web以及自定义模式了。
+
