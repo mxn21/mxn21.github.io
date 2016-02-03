@@ -343,7 +343,7 @@ public class Test9Activity extends Activity {
                  android:textSize="20sp"
                  android:text="【谷歌母公司Alphabet市值超苹果：全球第一】据外媒报道，@谷歌 母公司 @Alphabet 
                  通过公司分拆以及搜索广告业务的持续强势，股价继续攀升。美国时间周一，Alphabet的公司市值已超过了 @苹果 ，
-                 成为全世界市值最大的公司."
+                 成为全世界市值最大的公司. www.google.com"
                  />
       </RelativeLayout>
       {% endhighlight %}
@@ -394,4 +394,16 @@ public class Test9Activity extends Activity {
 }
 
       {% endhighlight %}
+      
+效果如下：
+
+//==================
+
+其实在上面的图上可以看到，www.google.com并没有被识别为链接（因为我们没有设置web模式）。需要注意的是，当需要使自定义
+模式和内置模式web，phone等一起被识别时，一定要先声明内置模式，然后再声明自定义模式，而且不能在xml中通过autoLink属性声明，
+否则自定义模式不起作用。因为在设置内置模式时，会先删除已有模式。
+
+将上面的Java代码改为：
+
+
       
