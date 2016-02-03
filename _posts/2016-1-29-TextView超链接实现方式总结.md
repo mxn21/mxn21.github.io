@@ -136,7 +136,7 @@ public class Test10Activity extends Activity {
        
 效果如下：
 
-//======================
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img153.png)
 
 这样textview在界面上就不会有下划线了，但却保留着autolink的功能。
 这个超链接是默认颜色，如果需要改变颜色可以在xml中设置android:textColorLink="#1e84fb"，
