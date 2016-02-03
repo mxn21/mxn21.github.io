@@ -184,6 +184,53 @@ public class Test10Activity extends Activity {
 
 //======================
 
+有的时候我们需要自定义超链接点击事件，例如弹一个Toast，那么重写ClickableSpan：
+
+      {% highlight java %} 
+
+public class Test10Activity extends Activity {
+
+    TextView textView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test10);
+        textView = (TextView) findViewById(R.id.text);
+
+        String webLinkText = "我的博客";
+        SpannableString spStr = new SpannableString(webLinkText);
+        ClickableSpan clickSpan = new NoLineClickSpan(spStr.toString()); //设置超链接
+        spStr.setSpan(clickSpan, 0, spStr.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        textView.append(spStr);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    private class NoLineClickSpan extends ClickableSpan {
+        String text;
+
+        public NoLineClickSpan(String text) {
+            super();
+            this.text = text;
+        }
+        @Override
+        public void updateDrawState(TextPaint ds) {
+            ds.setColor(ds.linkColor);
+            ds.setUnderlineText(false); //去掉下划线
+        }
+        @Override
+        public void onClick(View widget) {
+            processHyperLinkClick(text); //点击超链接时调用
+        }
+    }
+
+    private void processHyperLinkClick(String text){
+        Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
+    }
+
+}
+       {% endhighlight %}
+
 ### Linkify.addLinks方式
 
 除了使用默认的web等模式之外，我们还可以通过Linkify类的addLinks方法来添加自定义模式。Linkify.addLinks也是功能最
