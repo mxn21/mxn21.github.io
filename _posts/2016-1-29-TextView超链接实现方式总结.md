@@ -182,7 +182,7 @@ public class Test10Activity extends Activity {
 
 效果图如下：
 
-//======================
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img154.png)
 
 有的时候我们需要自定义超链接点击事件，例如弹一个Toast，那么重写ClickableSpan：
 
