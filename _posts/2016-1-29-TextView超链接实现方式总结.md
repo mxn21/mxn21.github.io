@@ -17,7 +17,7 @@ textView.setText(Html.fromHtml(str));
 
 代码如下：
 
-    {% highlight java  %}       
+    {% highlight java %}       
 public class Test10Activity extends Activity {
 
     TextView textView ;
