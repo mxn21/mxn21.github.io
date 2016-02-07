@@ -59,7 +59,6 @@ textView.setMovementMethod(LinkMovementMethod.getInstance());
 还有一种更简单的方法就是在TextView的xml布局中加入autoLink自动识别，这样做操作最简单，但是也不能修改样式：
 
       {% highlight xml  %} 
-      
      <TextView
            android:id="@+id/text"
            android:layout_width="wrap_content"
@@ -77,12 +76,10 @@ textView.setMovementMethod(LinkMovementMethod.getInstance());
 
       {% highlight java %} 
       public abstract class ClickableSpan extends CharacterStyle implements UpdateAppearance {  
-        
           /** 
            * Performs the click action associated with this span. 
            */  
           public abstract void onClick(View widget);  
-           
           /** 
            * Makes the text underlined and in the link color. 
            */  
@@ -101,15 +98,12 @@ textView.setMovementMethod(LinkMovementMethod.getInstance());
 
       {% highlight java %} 
 public class Test10Activity extends Activity {
-    
     TextView textView ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test10);
         textView = (TextView) findViewById(R.id.text);
-
         String webLinkText = "我的博客-->https://souly.cn" ;
         textView.setText(webLinkText);
         NoUnderlineSpan mNoUnderlineSpan = new NoUnderlineSpan();
@@ -118,7 +112,6 @@ public class Test10Activity extends Activity {
             s.setSpan(mNoUnderlineSpan, 0, s.length(), Spanned.SPAN_MARK_MARK);
         }
     }
-
     public static class NoUnderlineSpan extends UnderlineSpan {
         public NoUnderlineSpan() {}
         public NoUnderlineSpan(Parcel src) {}
@@ -128,7 +121,6 @@ public class Test10Activity extends Activity {
             ds.setUnderlineText(false);
         }
     }
-
 }
        {% endhighlight %}
        
@@ -145,15 +137,12 @@ public class Test10Activity extends Activity {
 
       {% highlight java %} 
 public class Test10Activity extends Activity {
-
     TextView textView ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test10);
         textView = (TextView) findViewById(R.id.text);
-
         String webLinkText = "我的博客" ;
         SpannableString text = new SpannableString(webLinkText);
         NoUnderlineSpan mNoUnderlineSpan = new NoUnderlineSpan("https://souly.cn") ;
@@ -161,7 +150,6 @@ public class Test10Activity extends Activity {
         textView.setText(text);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
-
     public static class NoUnderlineSpan extends URLSpan {
         public NoUnderlineSpan(String url) {
             super(url);
@@ -172,7 +160,6 @@ public class Test10Activity extends Activity {
             ds.setUnderlineText(false);
         }
     }
-
 }
        {% endhighlight %}
        
@@ -185,17 +172,13 @@ public class Test10Activity extends Activity {
 有的时候我们需要自定义超链接点击事件，例如弹一个Toast，那么重写ClickableSpan：
 
       {% highlight java %} 
-
 public class Test10Activity extends Activity {
-
     TextView textView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test10);
         textView = (TextView) findViewById(R.id.text);
-
         String webLinkText = "我的博客";
         SpannableString spStr = new SpannableString(webLinkText);
         ClickableSpan clickSpan = new NoLineClickSpan(spStr.toString()); //设置超链接
@@ -203,10 +186,8 @@ public class Test10Activity extends Activity {
         textView.append(spStr);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
-
     private class NoLineClickSpan extends ClickableSpan {
         String text;
-
         public NoLineClickSpan(String text) {
             super();
             this.text = text;
@@ -221,11 +202,9 @@ public class Test10Activity extends Activity {
             processHyperLinkClick(text); //点击超链接时调用
         }
     }
-
     private void processHyperLinkClick(String text){
         Toast.makeText(this,text,Toast.LENGTH_SHORT).show();
     }
-
 }
        {% endhighlight %}
 
@@ -275,7 +254,6 @@ Android系统都不会传递intent给组件。然而，因为一个组件可以�
 类似的，清单文件中的<intent-filter>元素以<category>子元素列出种类，例如：
 
       {% highlight xml %} 
-      
 <intent-filter>
     <category android:name="android.intent.category.DEFAULT" />
     <category android:name="android.intent.category.BROWSABLE" />
@@ -348,17 +326,13 @@ scheme必须也要指定。要让path有意义，scheme和authority也都必须�
 
       {% highlight java %} 
 public class Test9Activity extends Activity {
-
     private String uid;
-
     private static final Uri PROFILE_URI = Uri.parse("mxn://profile");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test8);
         extractUidFromUri();
-
     }
     private void extractUidFromUri() {
         Uri uri = getIntent().getData();
@@ -398,9 +372,7 @@ public class Test9Activity extends Activity {
 
       {% highlight java %} 
 public class Test10Activity extends Activity {
-
     TextView textView ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -416,17 +388,13 @@ public class Test10Activity extends Activity {
 
       {% highlight java %} 
 public class Test9Activity extends Activity {
-
     private String uid;
-
     private static final Uri PROFILE_URI = Uri.parse("mxn://profile");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test8);
         extractUidFromUri();
-
     }
     private void extractUidFromUri() {
         Uri uri = getIntent().getData();
@@ -450,9 +418,7 @@ public class Test9Activity extends Activity {
 
       {% highlight java %} 
 public class Test10Activity extends Activity {
-
     TextView textView ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -477,9 +443,7 @@ public class Test10Activity extends Activity {
 
       {% highlight java %} 
 public class Test10Activity extends Activity {
-
     TextView textView ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -491,7 +455,6 @@ public class Test10Activity extends Activity {
         Linkify.addLinks(textView, mentionsPattern, mentionsScheme)  ;
         stripUnderlines(textView)  ;
     }
-
     private class URLSpanNoUnderline extends URLSpan {
         public URLSpanNoUnderline(String url) {
             super(url);
@@ -501,7 +464,6 @@ public class Test10Activity extends Activity {
             ds.setUnderlineText(false);
         }
     }
-
     private void stripUnderlines(TextView textView) {
         Spannable s = (Spannable)textView.getText();
         URLSpan[] spans = s.getSpans(0, s.length(), URLSpan.class);
@@ -540,7 +502,6 @@ Linkify.addLinks(myTextView, pattern, prefixWith, new MyMatchFilter(), new MyTra
     
 #### 使用Transform Filter
 
-      {% highlight java %} 
 Transform Filter为格式化文本字符串提供了更大的自由度，允许你修改由链接文本自动生成的隐式URI。
 减少链接文本和目标URI的耦合能更加自由地决定如何显示数据字符串给用户。
 
@@ -550,6 +511,7 @@ Transform Filter为格式化文本字符串提供了更大的自由度，允许�
 
 下面的TransformFilter实现将匹配的文本转换成小写的URI：
 
+   {% highlight java %} 
 class MyTransformFilter implements TransformFilter {
         public String transformUrl(Matcher match, String url) {
             return url.toLowerCase();
@@ -561,9 +523,7 @@ class MyTransformFilter implements TransformFilter {
 
       {% highlight java %} 
 public class Test10Activity extends Activity {
-
     TextView textView ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -578,7 +538,6 @@ public class Test10Activity extends Activity {
             public boolean acceptMatch(CharSequence s, int start, int end) {
                 return s.charAt(end-1) != '.';
             }
-
         }, new Linkify.TransformFilter() {
             @Override
             public String transformUrl(Matcher match, String url) {
@@ -587,7 +546,6 @@ public class Test10Activity extends Activity {
         });
         stripUnderlines(textView)  ;
     }
-
     private class URLSpanNoUnderline extends URLSpan {
         public URLSpanNoUnderline(String url) {
             super(url);
@@ -597,7 +555,6 @@ public class Test10Activity extends Activity {
             ds.setUnderlineText(false);
         }
     }
-
     private void stripUnderlines(TextView textView) {
         Spannable s = (Spannable)textView.getText();
         URLSpan[] spans = s.getSpans(0, s.length(), URLSpan.class);
