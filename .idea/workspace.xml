@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-7-16-android view状态及重绘流程分析.md" afterPath="$PROJECT_DIR$/_posts/2015-7-16-android view状态及重绘流程分析.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md" afterPath="$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="2016-1-29-TextView超链接实现方式总结.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="2016-1-29-TextView超链接实现方式总结.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.3392857">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.68421054">
+              <caret line="609" column="35" selection-start-line="609" selection-start-column="35" selection-end-line="609" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -36,11 +36,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2015-7-16-android view状态及重绘流程分析.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="2015-7-16-android view状态及重绘流程分析.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2015-7-16-android view状态及重绘流程分析.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5692521">
-              <caret line="107" column="24" selection-start-line="107" selection-start-column="24" selection-end-line="107" selection-end-column="24" />
+            <state vertical-scroll-proportion="3.517857">
+              <caret line="110" column="5" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -90,8 +90,8 @@
         <option value="$PROJECT_DIR$/_posts/2014-12-12-jekyll搭建博客中遇到的问题总结.md" />
         <option value="$PROJECT_DIR$/_posts/2016-1-5-DrawingCache解析.md" />
         <option value="$PROJECT_DIR$/_config.yml" />
-        <option value="$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md" />
         <option value="$PROJECT_DIR$/_posts/2015-7-16-android view状态及重绘流程分析.md" />
+        <option value="$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md" />
       </list>
     </option>
   </component>
@@ -971,10 +971,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md">
+    <entry file="file://$PROJECT_DIR$/_posts/2015-7-16-android view状态及重绘流程分析.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.3392857">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+        <state vertical-scroll-proportion="3.517857">
+          <caret line="110" column="5" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -982,10 +982,10 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-7-16-android view状态及重绘流程分析.md">
+    <entry file="file://$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5692521">
-          <caret line="107" column="24" selection-start-line="107" selection-start-column="24" selection-end-line="107" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.68421054">
+          <caret line="609" column="35" selection-start-line="609" selection-start-column="35" selection-end-line="609" selection-end-column="35" />
           <folding />
         </state>
       </provider>

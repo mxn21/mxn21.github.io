@@ -31,7 +31,6 @@ public class Test10Activity extends Activity {
         textView.setText(Html.fromHtml(webLinkText));
     }
 }
-
     {% endhighlight %} 
 
 <!-- more -->  
@@ -70,8 +69,7 @@ textView.setMovementMethod(LinkMovementMethod.getInstance());
            android:textSize="20sp"
            android:text="souly.cn"
            android:autoLink="email|phone|web"
-           />
-           
+           />         
       {% endhighlight %}
 
 ### Spannable方式
@@ -285,7 +283,6 @@ Android系统都不会传递intent给组件。然而，因为一个组件可以�
     <category android:name="android.intent.category.BROWSABLE" />
     . . .
 </intent-filter>
-
      {% endhighlight %}
      
 对于一个intent要通过种类检测，intent对象中的每个种类必须匹配过滤器中的一个。即过滤器能够列出额外的种类，但是intent对象中的种类都必须能够在过滤器中找到，
@@ -441,7 +438,6 @@ public class Test9Activity extends Activity {
         }
     }
 }
-
       {% endhighlight %}
       
 效果如下：
@@ -521,7 +517,6 @@ public class Test10Activity extends Activity {
         textView.setText(s);
     }
 }
-
       {% endhighlight %}
       
 
