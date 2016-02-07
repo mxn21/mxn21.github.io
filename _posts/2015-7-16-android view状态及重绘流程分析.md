@@ -110,8 +110,7 @@ public boolean setState(final int[] stateSet) {
         return super.onStateChange(stateSet);
     }
 
-         {% endhighlight %}
-
+    {% endhighlight %}
 
 可以看到，这里会先调用indexOfStateSet()方法来找到当前视图状态所对应的Drawable资源下标，然后在第9行调用selectDrawable()方法并将下标传入，在这个方法中就会将视图的背景图设置为当前视图状态所对应的那张图片了。
 
