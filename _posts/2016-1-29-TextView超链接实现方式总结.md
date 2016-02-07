@@ -551,12 +551,16 @@ Transform Filter为格式化文本字符串提供了更大的自由度，允许�
 
 使用Transform Filter，在你定义的TransformFilter中实现transformUrl方法。当Linkify找到正确的匹配后，它会调用transformUrl，
 传入使用的RegEx样式和它创建的默认URI字符串。你可以修改匹配的字符串，然后返回一个适合给其它Android应用程序的URI。
+利用Transform Filter的修改功能可以实现点击用户名，传递的是用户id的功能，在transformUrl中返回你需要传递的内容
 
 下面的TransformFilter实现将匹配的文本转换成小写的URI：
 
 class MyTransformFilter implements TransformFilter {
         public String transformUrl(Matcher match, String url) {
-        return url.toLowerCase();
+            return url.toLowerCase();
     }
 }
     {% endhighlight %}
+    
+现在我们加上Match Filter和Transform Filter，上面的代码可以修改成如下的样子：
+
