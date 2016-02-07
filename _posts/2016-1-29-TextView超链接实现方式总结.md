@@ -18,17 +18,17 @@ textView.setText(Html.fromHtml(str));
 代码如下：
 
     {% highlight java %}       
-public class Test10Activity extends Activity {
-    TextView textView ;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test10);
-        textView = (TextView) findViewById(R.id.text);
-        String webLinkText = "<a href='https://souly.cn'> html超链接测试</a>" ;
-        textView.setText(Html.fromHtml(webLinkText));
+    public class Test10Activity extends Activity {
+        TextView textView ;
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_test10);
+            textView = (TextView) findViewById(R.id.text);
+            String webLinkText = "<a href='https://souly.cn'> html超链接测试</a>" ;
+            textView.setText(Html.fromHtml(webLinkText));
+        }
     }
-}
     {% endhighlight %} 
 
 <!-- more -->  
