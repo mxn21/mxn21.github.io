@@ -531,3 +531,6 @@ Linkify.addLinks(myTextView, pattern, prefixWith, new MyMatchFilter(), new MyTra
 
 #### 使用Match Filter
 
+在你定义的MatchFilter中实现acceptMatch方法，来为RegEx样式匹配添加额外的条件。当一个潜在的匹配发现时，acceptMatch被触发，
+匹配的开始点和结束点（包括被查找的整个文本）以参数的形式传入。接下来的代码显示了一个MatchFilter的实现，它取消任何之前已“.”结尾的匹配。
+
