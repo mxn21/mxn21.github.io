@@ -31,6 +31,7 @@ public class Test10Activity extends Activity {
         textView.setText(Html.fromHtml(webLinkText));
     }
 }
+
     {% endhighlight %} 
 
 <!-- more -->  
