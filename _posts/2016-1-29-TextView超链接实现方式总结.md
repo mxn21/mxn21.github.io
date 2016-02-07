@@ -548,10 +548,13 @@ Linkify.addLinks(myTextView, pattern, prefixWith, new MyMatchFilter(), new MyTra
 Transform Filter为格式化文本字符串提供了更大的自由度，允许你修改由链接文本自动生成的隐式URI。
 减少链接文本和目标URI的耦合能更加自由地决定如何显示数据字符串给用户。
 
-使用Transform Filter，在你定义的TransformFilter中实现transformUrl方法。当Linkify找到正确的匹配后，它会调用transformUrl，传入使用的RegEx样式和它创建的默认URI字符串。你可以修改匹配的字符串，然后返回一个适合给其它Android应用程序“看”的URI。
+使用Transform Filter，在你定义的TransformFilter中实现transformUrl方法。当Linkify找到正确的匹配后，它会调用transformUrl，
+传入使用的RegEx样式和它创建的默认URI字符串。你可以修改匹配的字符串，然后返回一个适合给其它Android应用程序的URI。
+
 下面的TransformFilter实现将匹配的文本转换成小写的URI：
+
 class MyTransformFilter implements TransformFilter {
-public String transformUrl(Matcher match, String url) {
-return url.toLowerCase();
-}
+        public String transformUrl(Matcher match, String url) {
+        return url.toLowerCase();
+    }
 }
