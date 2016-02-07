@@ -545,6 +545,7 @@ Linkify.addLinks(myTextView, pattern, prefixWith, new MyMatchFilter(), new MyTra
     
 #### 使用Transform Filter
 
+      {% highlight java %} 
 Transform Filter为格式化文本字符串提供了更大的自由度，允许你修改由链接文本自动生成的隐式URI。
 减少链接文本和目标URI的耦合能更加自由地决定如何显示数据字符串给用户。
 
@@ -558,3 +559,4 @@ class MyTransformFilter implements TransformFilter {
         return url.toLowerCase();
     }
 }
+    {% endhighlight %}
