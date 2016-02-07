@@ -29,8 +29,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+            <state vertical-scroll-proportion="-4.625">
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -42,8 +42,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8473896">
-              <caret line="618" column="11" selection-start-line="618" selection-start-column="11" selection-end-line="618" selection-end-column="11" />
+            <state vertical-scroll-proportion="0.5541667">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -55,8 +55,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.6551724">
-              <caret line="499" column="13" selection-start-line="499" selection-start-column="13" selection-end-line="499" selection-end-column="13" />
+            <state vertical-scroll-proportion="-4.625">
+              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -87,8 +87,8 @@
         <option value="$PROJECT_DIR$/_posts/2015-12-16-android开发小技巧积累.md" />
         <option value="$PROJECT_DIR$/_posts/2016-1-5-andro.md" />
         <option value="$PROJECT_DIR$/_posts/2016-1-5-DrawingCache解析.md" />
-        <option value="$PROJECT_DIR$/_posts/2014-12-12-jekyll搭建博客中遇到的问题总结.md" />
         <option value="$PROJECT_DIR$/_posts/2015-9-8-okhttp缓存浅析.md" />
+        <option value="$PROJECT_DIR$/_posts/2014-12-12-jekyll搭建博客中遇到的问题总结.md" />
         <option value="$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md" />
       </list>
     </option>
@@ -968,8 +968,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
+        <state vertical-scroll-proportion="-4.625">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -979,8 +979,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.6551724">
-          <caret line="499" column="13" selection-start-line="499" selection-start-column="13" selection-end-line="499" selection-end-column="13" />
+        <state vertical-scroll-proportion="-4.625">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -990,8 +990,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8473896">
-          <caret line="618" column="11" selection-start-line="618" selection-start-column="11" selection-end-line="618" selection-end-column="11" />
+        <state vertical-scroll-proportion="0.5541667">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding />
         </state>
       </provider>

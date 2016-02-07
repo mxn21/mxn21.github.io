@@ -33,6 +33,8 @@ public class Test10Activity extends Activity {
 }
 
       {% endhighlight %}
+
+<!-- more -->  
       
 效果如下：
 
