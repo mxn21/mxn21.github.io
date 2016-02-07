@@ -19,9 +19,7 @@ textView.setText(Html.fromHtml(str));
 
     {% highlight java %}       
 public class Test10Activity extends Activity {
-
     TextView textView ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
