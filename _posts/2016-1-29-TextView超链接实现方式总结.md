@@ -526,3 +526,8 @@ public class Test10Activity extends Activity {
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img157.png)
 
 
+Linkify还支持TranformFilter和MatchFilter接口。它们提供一些对目标URI的额外控制和定义匹配字符串，它们的使用如下的框架代码所示：
+Linkify.addLinks(myTextView, pattern, prefixWith, new MyMatchFilter(), new MyTransformFilter());
+
+#### 使用Match Filter
+
