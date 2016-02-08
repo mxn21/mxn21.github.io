@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-9-7-Closeable和Flushable接口.md" afterPath="$PROJECT_DIR$/_posts/2015-9-7-Closeable和Flushable接口.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-9-1-Decorator模式分析.md" afterPath="$PROJECT_DIR$/_posts/2015-9-1-Decorator模式分析.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,8 +42,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.54339117">
+              <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -111,6 +111,7 @@
         <option value="$PROJECT_DIR$/_posts/2015-9-15-PagerAdapter视图更新问题.md" />
         <option value="$PROJECT_DIR$/_posts/2015-9-11-FragmentTransactions和ActivityStateLoss.md" />
         <option value="$PROJECT_DIR$/_posts/2015-9-7-Closeable和Flushable接口.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-9-1-Decorator模式分析.md" />
       </list>
     </option>
   </component>
@@ -1019,8 +1020,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.54339117">
+          <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
           <folding />
         </state>
       </provider>

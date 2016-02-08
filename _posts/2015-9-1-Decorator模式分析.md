@@ -37,9 +37,7 @@ tag: android
 
     {% highlight java  %}
 public interface Component {
-
     void show();
-
 }
      {% endhighlight %}
 
@@ -63,7 +61,6 @@ public class Person implements Component{
         System.out.println("装扮的" + name);
     }
 }
-
      {% endhighlight %}
 
 
@@ -89,7 +86,6 @@ public class Decorator implements Component{
     {% highlight java  %}
 /** 牛仔裤 */
 public class Jeans extends Decorator {
-
     @Override
     public void show(){
         System.out.println("穿牛仔裤");
@@ -109,22 +105,17 @@ public class Jeans extends Decorator {
  *
  */
 public class DecoratorClient {
-
     public static void main(String[] args) {
         System.out.println("Welcome to Andy.Chen Blog!" +"\n"
                    +"Decorator Patterns." +"\n");
-
         Person mPerson = new Person("Andy");
-
         Sandal mSandal = new Sandal();
         Jeans mJeans = new Jeans();
         TShirt mShirt = new TShirt();
-
         mShirt.decoratorObj(mPerson);
         mJeans.decoratorObj(mShirt);
         mSandal.decoratorObj(mJeans);
         mSandal.show();
-
     }
 }
      {% endhighlight %}
@@ -137,7 +128,6 @@ public class DecoratorClient {
         穿T-Shirt
         装扮的Andy
      {% endhighlight %}
-
 
 ## 装饰模式的优势
 
