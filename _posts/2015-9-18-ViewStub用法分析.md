@@ -35,73 +35,55 @@ ViewStub是一个看不见的，轻量级的View。它没有尺寸，也不会�
 res/layout/main.xml实现：
 
     {% highlight xml  %}
-
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
     android:orientation = "vertical"
     android:layout_width = "fill_parent"
     android:layout_height = "fill_parent"
     >
-
     <Button
         android:id = "@+id/show"
         android:text = "ButtonOne"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         />
-
     <ViewStub
         android:id = "@+id/viewStub"
         android:layout = "@layout/green_layout"
         android:layout_width = "300dip"
         android:layout_height = "300dip"
         />
-
     <Button
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:text = "ButtonTwo"
         />
-
 </LinearLayout>
-
     {% endhighlight %}
 
 main.xml中ViewStub组件里的布局实现：
 
     {% highlight xml  %}
-
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout
     xmlns:android = "http://schemas.android.com/apk/res/android"
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
     android:background = "@color/green">
-
 </LinearLayout>
-
     {% endhighlight %}
 
 
 主Activity实现：
-
     {% highlight java  %}
-
 public class ViewStubActivity extends Activity {
-
     private ViewStub mViewStub;
-
     private Button mShow;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
         mViewStub = (ViewStub) findViewById(R.id.viewStub);
-
         mShow = (Button) findViewById(R.id.show);
         mShow.setOnClickListener(new OnClickListener() {
             public void onClick(View view) {
@@ -112,7 +94,6 @@ public class ViewStubActivity extends Activity {
         });
     }
 }
-
     {% endhighlight %}
 
 你准备inflate ViewStub时，调用inflate()方法即可。你还可以设定ViewStub的Visibility为VISIBLE或INVISIBLE，
@@ -215,7 +196,6 @@ public void setVisibility(int visibility) {
     {% highlight java  %}
 public View inflate() {
         final ViewParent viewParent = getParent();
-
         if (viewParent != null && viewParent instanceof ViewGroup) {
             if (mLayoutResource != 0) {
                 final ViewGroup parent = (ViewGroup) viewParent;
@@ -255,22 +235,16 @@ final View view = factory.inflate(mLayoutResource, parent,
 通过上面的代码,你应该很清楚了,这里的mLayoutResource其实在ViewStub初始化的时候就会被赋值的.看看源码:
 
     {% highlight java  %}
-
     public ViewStub(Context context, AttributeSet attrs, int defStyle) {
         TypedArray a = context.obtainStyledAttributes(attrs, com.android.internal.R.styleable.ViewStub,
                 defStyle, 0);
-
         mInflatedId = a.getResourceId(R.styleable.ViewStub_inflatedId, NO_ID);
         <span style="background-color: rgb(255, 0, 0);">mLayoutResource = a.getResourceId(R.styleable.ViewStub_layout, 0);</span>
-
         a.recycle();
-
         a = context.obtainStyledAttributes(attrs, com.android.internal.R.styleable.View, defStyle, 0);
         mID = a.getResourceId(R.styleable.View_id, NO_ID);
         a.recycle();
-
         initialize(context);
     }
-
     {% endhighlight %}
 

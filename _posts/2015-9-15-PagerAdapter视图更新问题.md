@@ -125,7 +125,6 @@ public Fragment getItem(int position) {
     MyFragment f = new MyFragment();
     return f;
 }
-
 @Override
 public Object instantiateItem(ViewGroup container, int position) {
     MyFragment f = (MyFragment) super.instantiateItem(container, position);
@@ -133,7 +132,6 @@ public Object instantiateItem(ViewGroup container, int position) {
     f.setTitle(title);
     return f;
 }
-
 @Override
 public int getItemPosition(Object object) {
     return PagerAdapter.POSITION_NONE;
@@ -148,14 +146,10 @@ public Fragment getItem(int position) {
     MyFragment f = new MyFragment();
     return f;
 }
-
-
 @Override
 public int getItemPosition(Object object) {
     return PagerAdapter.POSITION_NONE;
 }
-
-
 private void removeALlFragments(){
     FragmentTransaction transaction = fm.beginTransaction();
     for (int i=0; i<fragments.size(); i++){
@@ -165,7 +159,6 @@ private void removeALlFragments(){
     transaction.commit();
     fragments.clear();
 }
-
     {% endhighlight %}
 
 总结：
