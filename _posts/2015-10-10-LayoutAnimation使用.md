@@ -30,7 +30,7 @@ layout-animation可由xml和代码两种方式配置：
 
 上述步骤完成之后，就可以将layout-animation应用到ViewGroup中，xml布局添加下面一行就ok：
 
-    {% highlight xml %}
+    {% highlight c %}
 android:layoutAnimation="@anim/list_anim_layout"
     {% endhighlight %}
 
