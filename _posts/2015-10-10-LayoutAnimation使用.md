@@ -16,12 +16,10 @@ layout-animation可由xml和代码两种方式配置：
 由于layout-animation是对于某一组控件的操作，就需要一个基本的动画来定义单个控件的动画。另外还可以定义动画的显示顺序和延迟：
 
     {% highlight xml %}
-
      <layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
             android:delay="30%"
             android:animationOrder="reverse"
             android:animation="@anim/slide_right" />
-
     {% endhighlight %}
 
 其中
@@ -34,7 +32,6 @@ layout-animation可由xml和代码两种方式配置：
 
     {% highlight xml %}
 android:layoutAnimation="@anim/list_anim_layout"
-
     {% endhighlight %}
 
 这样在加载布局的时候就会自动播放layout-animtion。
@@ -47,31 +44,23 @@ android:layoutAnimation="@anim/list_anim_layout"
 
 
     {% highlight java %}
-
  AnimationUtils.loadLayoutAnimation(context, id)
-
     {% endhighlight %}
 
 另外还可以手动java代码编写，如：
 
     {% highlight java %}
-
  //通过加载XML动画设置文件来创建一个Animation对象；
    Animation animation=AnimationUtils.loadAnimation(this, R.anim.slide_right);
-
    //得到一个LayoutAnimationController对象；
    LayoutAnimationController controller = new LayoutAnimationController(animation);
-
    //设置控件显示的顺序；
    controller.setOrder(LayoutAnimationController.ORDER_REVERSE);
-
    //设置控件显示间隔时间；
    controller.setDelay(0.3);
-
    //为ListView设置LayoutAnimationController属性；
    listView.setLayoutAnimation(controller);
    listView.startLayoutAnimation();
-
        {% endhighlight %}
 
 通过代码设置可以达到同样效果。
