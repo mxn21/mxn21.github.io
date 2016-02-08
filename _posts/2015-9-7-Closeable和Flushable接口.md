@@ -24,13 +24,11 @@ Flushable接口也只包含一个方法flush()。很多输出流继承了这个�
 下面是一下继承了Closeable接口或Flushable接口的类的例子：
 
     {% highlight java  %}
-
     public abstract class InputStream extends Object implements Closeable
     public abstract class OutputStream extends Object implements Closeable, Flushable
     public abstract class Reader extends Object implements Readable, Closeable
     public abstract class Writer extends Object implements Appendable, Closeable, Flushable
     public class PrintStream extends FilterOutputStream implements Appendable, Closeable
-
      {% endhighlight %}
 
 close()和flush()方法都抛出了异常exception IOException，在使用时必须要处理异常。
@@ -48,13 +46,11 @@ Appendable接口的实现类的对象能够被添加 char 序列和值。如果�
 Appendable有三个方法：
 
     {% highlight java  %}
-
     //向此 Appendable 添加指定字符。
     Appendable append(char c) throws IOException;
     //向此 Appendable 添加指定的字符序列。
     Appendable append(CharSequence csq) throws IOException;
     //向此 Appendable 添加指定字符序列的子序列。
     Appendable append(CharSequence csq, int start, int end) throws IOException;
-
      {% endhighlight %}
 
