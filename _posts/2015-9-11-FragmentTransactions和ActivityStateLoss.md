@@ -290,7 +290,6 @@ public class FragmentTestActivity extends Activity {
                     case MSG_SHOW_DIALOG:
                         final FragmentManager fm = activity.getFragmentManager();
                         final TestDialog dialog = new TestDialog(msg.arg2);
-
                         // We are on the UI thread so display the dialog
                         // fragment
                         dialog.show(fm, TestDialog.TAG);
