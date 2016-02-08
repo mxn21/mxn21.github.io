@@ -54,9 +54,7 @@ Mesh代表的是网格，这个东西的原理就是按照网格来重新拉伸�
 view代码如下：
 
     {% highlight java %}
-
 public class MeshView extends View{
-
 	private int WIDTH = 200 ;
 	private int HEIGHT = 200 ;
 	private int count = (WIDTH + 1) * (HEIGHT + 1) ;
@@ -64,23 +62,19 @@ public class MeshView extends View{
 	private float[] orig = new float[count * 2] ;
 	private Bitmap mBitmap;
 	private float K ;
-
 	public MeshView(Context context){
 			super(context);
 			initView() ;
 	}
-
 	public MeshView(Context context,AttributeSet attrs){
 		super(context,attrs);
 		initView() ;
 }
-
 	private void initView(){
 		int index  = 0  ;
 		mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.screenshot);
 		float bmWidth = mBitmap.getWidth() ;
 		float bmHeight = mBitmap.getHeight() ;
-
 		for(int i = 0 ; i < HEIGHT + 1; i++){
 			float fy = bmHeight * i / HEIGHT ;
 			for(int j = 0 ; j < WIDTH + 1 ; j ++ ){
@@ -91,10 +85,8 @@ public class MeshView extends View{
 			}
 		}
 	}
-
 	@Override
 	protected void onDraw(Canvas canvas){
-
 		for(int i = 0 ; i < HEIGHT + 1; i++){
 			for(int j = 0 ; j < WIDTH + 1 ; j ++ ){
 				verts[(i*(WIDTH+1) + j ) * 2 + 0 ] += 0 ;
@@ -108,6 +100,4 @@ public class MeshView extends View{
 		invalidate() ;
 	}
 }
-
-
     {% endhighlight %}
