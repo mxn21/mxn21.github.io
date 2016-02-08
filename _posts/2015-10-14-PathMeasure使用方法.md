@@ -25,12 +25,10 @@ tag: android
 声明我们将使用的变量：
 
     {% highlight java %}
-
 Path path;
 PathMeasure measure;
 float[] pos, tan;
 float speed, distance;
-
     {% endhighlight %}
 
 初始化path对象和其他变量，我们将在后面使用。如果使用SurfaceView，你可以在你的surfaceCreated()回调中执行这些。
@@ -38,40 +36,30 @@ float speed, distance;
 <!-- more -->
 
     {% highlight java %}
-
 // Init the Path.
  path=new Path();
-
 // Set the starting position of the path to (0,0).
  path.moveTo(0,0);
-
 // Add a line to the Path, starting from (0,0), ending at (100, 100).
  path.lineTo(100,100);
-
 // Create a PathMeasure object, passing in the Path object
 // we created and a boolean that specifies if the Path should
 // be forced to a closed path.
  measure = new PathMeasure(path, false);
-
 // Here, we're dividing the whole length of the path by 30.
  speed = measure.getLength() / 30;
-
-
 pos=new float[2];
 tan=new float[2];
-
     {% endhighlight %}
 
 后面的图像移动的概念很简单：从（0,0）开始，在每一个更新周期，很小的一段时间内，我们找到沿path的坐标点。
 现在在刷新画面时，我们做下面的事：
 
     {% highlight java %}
-
 public void update()
  {
  while(distance < measure.getLength())
  {
-
  // getPosTan pins the distance along the Path and
  // computes the position and the tangent.
  measure.getPosTan(distance, pos, tan);
@@ -81,7 +69,6 @@ public void update()
   distance += speed;   // Traversal
  }
  }
-
     {% endhighlight %}
 
 现在来渲染图片：
@@ -89,13 +76,11 @@ public void update()
     {% highlight java %}
 public void render(Canvas canvas)
 {
-
 //Draw the bitmap on the canvas, passing in the
 //Bitmap object, the x and y co-ordinate and a
 // Paint object.
 canvas.render(bmpImage, pos[0], pos[1], null);
 }
-
     {% endhighlight %}
 
 这里的speed直接决定了动画的速度。调整这个值，你可以到达你想要的速度。
@@ -176,7 +161,6 @@ canvas.render(bmpImage, pos[0], pos[1], null);
 下面实现前面的需求，求3个点的坐标代码如下：
 
     {% highlight java %}
-
 private void calculateItemPositions() {
         // Create an arc that starts from startAngle and ends at endAngle
         // in an area that is as large as 4*radius^2
@@ -188,9 +172,7 @@ private void calculateItemPositions() {
         Path orbit = new Path();
         //通过Path类画一个90度（180—270）的内切圆弧路径
         orbit.addArc(area, startAngle, endAngle - startAngle);
-
         PathMeasure measure = new PathMeasure(orbit, false);
-
         // Prevent overlapping when it is a full circle
         //然后将该路径平分成3段，这里的size为4
         int divisor;
@@ -200,7 +182,6 @@ private void calculateItemPositions() {
         else {
             divisor = subActionItems.size() -1;
         }
-
         // Measure this path, in order to find points that have the same distance between each other
         for(int i=0; i<subActionItems.size(); i++) {
             float[] coords = new float[] {0f, 0f};
@@ -211,6 +192,5 @@ private void calculateItemPositions() {
             subActionItems.get(i).y = (int) coords[1] - subActionItems.get(i).height / 2;
         }
     }
-
     {% endhighlight %}
 
