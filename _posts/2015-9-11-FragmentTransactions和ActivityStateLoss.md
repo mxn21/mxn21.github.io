@@ -14,9 +14,7 @@ java.lang.IllegalStateException: Can not perform this action after onSaveInstanc
     at android.support.v4.app.FragmentManagerImpl.enqueueAction(FragmentManager.java:1352)
     at android.support.v4.app.BackStackRecord.commitInternal(BackStackRecord.java:595)
     at android.support.v4.app.BackStackRecord.commit(BackStackRecord.java:574)
-
     {% endhighlight %}
-
 
 ### exception出现原因
 
@@ -94,43 +92,36 @@ commit FragmentTransactions可能会导致ui上的改变，而产生不好的用
 代码如下：
 
     {% highlight java  %}
-
 /**
  * Message Handler class that supports buffering up of messages when the
  * activity is paused i.e. in the background.
  */
 public abstract class PauseHandler extends Handler {
-
     /**
      * Message Queue Buffer
      */
     final Vector<Message> messageQueueBuffer = new Vector<Message>();
-
     /**
      * Flag indicating the pause state
      */
     private boolean paused;
-
     /**
      * Resume the handler
      */
     final public void resume() {
         paused = false;
-
         while (messageQueueBuffer.size() > 0) {
             final Message msg = messageQueueBuffer.elementAt(0);
             messageQueueBuffer.removeElementAt(0);
             sendMessage(msg);
         }
     }
-
     /**
      * Pause the handler
      */
     final public void pause() {
         paused = true;
     }
-
     /**
      * Notification that the message is about to be stored as the activity is
      * paused. If not handled the message will be saved and replayed when the
@@ -141,7 +132,6 @@ public abstract class PauseHandler extends Handler {
      * @return true if the message is to be stored
      */
     protected abstract boolean storeMessage(Message message);
-
     /**
      * Notification message to be processed. This will either be directly from
      * handleMessage or played back from a saved message when the activity was
@@ -151,7 +141,6 @@ public abstract class PauseHandler extends Handler {
      *            the message to be handled
      */
     protected abstract void processMessage(Message message);
-
     /** {@inheritDoc} */
     @Override
     final public void handleMessage(Message msg) {
@@ -166,7 +155,6 @@ public abstract class PauseHandler extends Handler {
         }
     }
 }
-
     {% endhighlight %}
 
 下面是PausedHandler如何使用的范例。点击按钮会发送一个延时的消息给handler，然后handler在ui线程中收到消息，显示一个DialogFragment。
@@ -174,63 +162,49 @@ public abstract class PauseHandler extends Handler {
 
 
     {% highlight java  %}
-
 public class FragmentTestActivity extends Activity {
-
     /**
      * Used for "what" parameter to handler messages
      */
     final static int MSG_WHAT = ('F' << 16) + ('T' << 8) + 'A';
     final static int MSG_SHOW_DIALOG = 1;
-
     int value = 1;
-
     final static class State extends Fragment {
-
         static final String TAG = "State";
         /**
          * Handler for this activity
          */
         public ConcreteTestHandler handler = new ConcreteTestHandler();
-
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setRetainInstance(true);
         }
-
         @Override
         public void onResume() {
             super.onResume();
-
             handler.setActivity(getActivity());
             handler.resume();
         }
-
         @Override
         public void onPause() {
             super.onPause();
-
             handler.pause();
         }
-
         public void onDestroy() {
             super.onDestroy();
             handler.setActivity(null);
         }
     }
-
     /**
      * 2 second delay
      */
     final static int DELAY = 2000;
-
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-
         if (savedInstanceState == null) {
             final Fragment state = new State();
             final FragmentManager fm = getFragmentManager();
@@ -238,13 +212,10 @@ public class FragmentTestActivity extends Activity {
             ft.add(state, State.TAG);
             ft.commit();
         }
-
         final Button button = (Button) findViewById(R.id.popup);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 final FragmentManager fm = getFragmentManager();
                 State fragment = (State) fm.findFragmentByTag(State.TAG);
                 if (fragment != null) {
@@ -256,35 +227,27 @@ public class FragmentTestActivity extends Activity {
             }
         });
     }
-
     public void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
     }
-
     /**
      * Simple test dialog fragment
      */
     public static class TestDialog extends DialogFragment {
-
         int value;
-
         /**
          * Fragment Tag
          */
         final static String TAG = "TestDialog";
-
         public TestDialog() {
         }
-
         public TestDialog(int value) {
             this.value = value;
         }
-
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
         }
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
@@ -294,18 +257,15 @@ public class FragmentTestActivity extends Activity {
             return inflatedView;
         }
     }
-
     /**
      * Message Handler class that supports buffering up of messages when the
      * activity is paused i.e. in the background.
      */
     static class ConcreteTestHandler extends PauseHandler {
-
         /**
          * Activity instance
          */
         protected Activity activity;
-
         /**
          * Set the activity associated with the handler
          *
@@ -315,20 +275,16 @@ public class FragmentTestActivity extends Activity {
         final void setActivity(Activity activity) {
             this.activity = activity;
         }
-
         @Override
         final protected boolean storeMessage(Message message) {
             // All messages are stored by default
             return true;
         };
-
         @Override
         final protected void processMessage(Message msg) {
-
             final Activity activity = this.activity;
             if (activity != null) {
                 switch (msg.what) {
-
                 case MSG_WHAT:
                     switch (msg.arg1) {
                     case MSG_SHOW_DIALOG:
@@ -346,7 +302,6 @@ public class FragmentTestActivity extends Activity {
         }
     }
 }
-
     {% endhighlight %}
 
 这里在PausedHandler中增加了storeMessage()方法，这样即使activity停止了也可以立即处理信息，如果这个方法返回了fasle，那么
