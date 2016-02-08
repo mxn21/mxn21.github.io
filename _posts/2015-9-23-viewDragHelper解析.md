@@ -29,11 +29,9 @@ MyLayout内部有一个子viewmDragView作为成员变量,创建一个带有回�
 第三个参数就是Callback，在用户的触摸过程中会回调相关方法.
 
    {% highlight java  %}
-
 public class  MyLayout extends LinearLayout
 {
     private ViewDragHelper mDragger;
-
     public MyLayout(Context context, AttributeSet attrs)
     {
         super(context, attrs);
@@ -44,13 +42,11 @@ public class  MyLayout extends LinearLayout
             {
                 return true;
             }
-
             @Override
             public int clampViewPositionHorizontal(View child, int left, int dx)
             {
                 return left;
             }
-
             @Override
             public int clampViewPositionVertical(View child, int top, int dy)
             {
@@ -58,14 +54,11 @@ public class  MyLayout extends LinearLayout
             }
         });
     }
-
    @Override
     public boolean onInterceptTouchEvent(MotionEvent event)
     {
-
         return mDragger.shouldInterceptTouchEvent(event);
     }
-
     @Override
     public boolean onTouchEvent(MotionEvent event)
     {
@@ -73,7 +66,6 @@ public class  MyLayout extends LinearLayout
         return true;
     }
 }
-
    {% endhighlight %}
 
 要让ViewDragHelper能够处理拖动需要将触摸事件传递给ViewDragHelper，这点和gesturedetector是一样的.
@@ -91,7 +83,6 @@ left , top 分别为即将移动到的位置，比如横向的情况下，我希
 
 
    {% highlight java  %}
-
    @Override
    public int clampViewPositionHorizontal(View child, int left, int dx)
     {
@@ -107,14 +98,12 @@ left , top 分别为即将移动到的位置，比如横向的情况下，我希
 2.布局文件
 
     {% highlight xml %}
-
   <com.mxn.view.MyLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                 xmlns:tools="http://schemas.android.com/tools"
                                 android:layout_width="match_parent"
                                 android:orientation="vertical"
                                 android:layout_height="match_parent"
       >
-
       <TextView
           android:layout_margin="10dp"
           android:gravity="center"
@@ -123,7 +112,6 @@ left , top 分别为即将移动到的位置，比如横向的情况下，我希
           android:text="I can be dragged !"
           android:layout_width="100dp"
           android:layout_height="100dp"/>
-
       <TextView
           android:layout_margin="10dp"
           android:layout_gravity="center"
@@ -132,7 +120,6 @@ left , top 分别为即将移动到的位置，比如横向的情况下，我希
           android:text="I can be dragged !"
           android:layout_width="100dp"
           android:layout_height="100dp"/>
-
       <TextView
           android:layout_margin="10dp"
           android:layout_gravity="center"
@@ -141,9 +128,7 @@ left , top 分别为即将移动到的位置，比如横向的情况下，我希
           android:text="I can be dragged !"
           android:layout_width="100dp"
           android:layout_height="100dp"/>
-
   </com.mxn.view.MyLayout>
-
     {% endhighlight %}
 
 我们的自定义ViewGroup中有三个TextView。能够去让子View去跟随我们手指移动.
@@ -240,7 +225,6 @@ public void onEdgeDragStarted(int edgeFlags, int pointerId) {
                     invalidate();
                 }
        }
-
       {% endhighlight %}
 
 重写了Callback中的onViewReleased，我们在onViewReleased中判断如果是mAutoBackView则调用settleCapturedViewAt回到初始的位置。
@@ -314,11 +298,9 @@ true的时候会锁住当前的边界，false则unLock。
 
     {% highlight c %}
 shouldInterceptTouchEvent：
-
 DOWN:
     getOrderedChildIndex(findTopChildUnder)
     ->onEdgeTouched
-
 MOVE:
     getOrderedChildIndex(findTopChildUnder)
     ->getViewHorizontalDragRange &
@@ -329,9 +311,7 @@ MOVE:
     ->tryCaptureView
     ->onViewCaptured
     ->onViewDragStateChanged
-
 processTouchEvent:
-
 DOWN:
     getOrderedChildIndex(findTopChildUnder)
     ->tryCaptureView
@@ -348,7 +328,6 @@ MOVE:
         ->tryCaptureView
         ->onViewCaptured
         ->onViewDragStateChanged
-
       {% endhighlight %}
 
 ok，上述是正常情况下大致的流程，当然整个过程可能会存在很多判断不成立的情况。
@@ -377,7 +356,6 @@ ViewDragHelper重载了两个create()静态方法，先看两个参数的create(
 public static ViewDragHelper create(ViewGroup forParent, Callback cb) {
 	return new ViewDragHelper(forParent.getContext(), forParent, cb);
 }
-
     {% endhighlight %}
 
 create()的两个参数很好理解，第一个是我们自定义的ViewGroup，第二个是控制子View拖拽需要的回调对象。create()直接调用了ViewDragHelper构造方法，
@@ -391,20 +369,16 @@ private ViewDragHelper(Context context, ViewGroup forParent, Callback cb) {
         if (cb == null) {
             throw new IllegalArgumentException("Callback may not be null");
         }
-
         mParentView = forParent;
         mCallback = cb;
-
         final ViewConfiguration vc = ViewConfiguration.get(context);
         final float density = context.getResources().getDisplayMetrics().density;
         mEdgeSize = (int) (EDGE_SIZE * density + 0.5f);
-
         mTouchSlop = vc.getScaledTouchSlop();
         mMaxVelocity = vc.getScaledMaximumFlingVelocity();
         mMinVelocity = vc.getScaledMinimumFlingVelocity();
         mScroller = ScrollerCompat.create(context, sInterpolator);
     }
-
     {% endhighlight %}
 
 这个构造函数是私有的，也是仅有的构造函数，所以外部只能通过create()工厂方法来创建ViewDragHelper实例了。
@@ -457,42 +431,34 @@ mEdgeSize时（即触摸点在容器左边界往右20dp内）就算做是左侧�
 public boolean shouldInterceptTouchEvent(MotionEvent ev) {
     final int action = MotionEventCompat.getActionMasked(ev);
     final int actionIndex = MotionEventCompat.getActionIndex(ev);
-
     if (action == MotionEvent.ACTION_DOWN) {
         // Reset things for a new event stream, just in case we didn't get
         // the whole previous stream.
         cancel();
     }
-
     if (mVelocityTracker == null) {
         mVelocityTracker = VelocityTracker.obtain();
     }
     mVelocityTracker.addMovement(ev);
-
     switch (action) {
         case MotionEvent.ACTION_DOWN: {
             final float x = ev.getX();
             final float y = ev.getY();
             final int pointerId = MotionEventCompat.getPointerId(ev, 0);
             saveInitialMotion(x, y, pointerId);
-
             final View toCapture = findTopChildUnder((int) x, (int) y);
-
             // Catch a settling view if possible.
             if (toCapture == mCapturedView && mDragState == STATE_SETTLING) {
                 tryCaptureViewForDrag(toCapture, pointerId);
             }
-
             final int edgesTouched = mInitialEdgesTouched[pointerId];
             if ((edgesTouched & mTrackingEdges) != 0) {
                 mCallback.onEdgeTouched(edgesTouched & mTrackingEdges, pointerId);
             }
             break;
         }
-
 		// 其他case暂且省略
     }
-
     return mDragState == STATE_DRAGGING;
 }
     {% endhighlight %}
@@ -525,7 +491,6 @@ public View findTopChildUnder(int x, int y) {
     }
     return null;
 }
-
     {% endhighlight %}
 
 代码很简单，注释里也说明的很清楚了。如果在同一个位置有两个子View重叠，想要让下层的子View被选中，
@@ -587,32 +552,26 @@ onInterceptTouchEvent()的ACTION_MOVE部分具体做了怎样的处理，稍后�
     public void processTouchEvent(MotionEvent ev) {
         final int action = MotionEventCompat.getActionMasked(ev);
         final int actionIndex = MotionEventCompat.getActionIndex(ev);
-
         if (action == MotionEvent.ACTION_DOWN) {
             // Reset things for a new event stream, just in case we didn't get
             // the whole previous stream.
             cancel();
         }
-
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();
         }
         mVelocityTracker.addMovement(ev);
-
         switch (action) {
             case MotionEvent.ACTION_DOWN: {
                 final float x = ev.getX();
                 final float y = ev.getY();
                 final int pointerId = MotionEventCompat.getPointerId(ev, 0);
                 final View toCapture = findTopChildUnder((int) x, (int) y);
-
                 saveInitialMotion(x, y, pointerId);
-
                 // Since the parent is already directly processing this touch event,
                 // there is no reason to delay for a slop before dragging.
                 // Start immediately if possible.
                 tryCaptureViewForDrag(toCapture, pointerId);
-
                 final int edgesTouched = mInitialEdgesTouched[pointerId];
                 if ((edgesTouched & mTrackingEdges) != 0) {
                     mCallback.onEdgeTouched(edgesTouched & mTrackingEdges, pointerId);
@@ -667,7 +626,6 @@ public void captureChildView(View childView, int activePointerId) {
         throw new IllegalArgumentException("captureChildView: parameter must be a descendant " +
                 "of the ViewDragHelper's tracked parent view (" + mParentView + ")");
     }
-
     mCapturedView = childView;
     mActivePointerId = activePointerId;
     mCallback.onViewCaptured(childView, activePointerId);
@@ -696,10 +654,8 @@ void setDragState(int state) {
 
     {% highlight java %}
 public void processTouchEvent(MotionEvent ev) {
-
     switch (action) {
         // 省略其他case...
-
         case MotionEvent.ACTION_MOVE: {
             if (mDragState == STATE_DRAGGING) {
                 final int index = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
@@ -707,9 +663,7 @@ public void processTouchEvent(MotionEvent ev) {
                 final float y = MotionEventCompat.getY(ev, index);
                 final int idx = (int) (x - mLastMotionX[mActivePointerId]);
                 final int idy = (int) (y - mLastMotionY[mActivePointerId]);
-
                 dragTo(mCapturedView.getLeft() + idx, mCapturedView.getTop() + idy, idx, idy);
-
                 saveLastMotion(ev);
             } else {
                 // Check to see if any pointer is now over a draggable view.
@@ -720,13 +674,11 @@ public void processTouchEvent(MotionEvent ev) {
                     final float y = MotionEventCompat.getY(ev, i);
                     final float dx = x - mInitialMotionX[pointerId];
                     final float dy = y - mInitialMotionY[pointerId];
-
                     reportNewEdgeDrags(dx, dy, pointerId);
                     if (mDragState == STATE_DRAGGING) {
                         // Callback might have started an edge drag.
                         break;
                     }
-
                     final View toCapture = findTopChildUnder((int) x, (int) y);
                     if (checkTouchSlop(toCapture, dx, dy) &&
                             tryCaptureViewForDrag(toCapture, pointerId)) {
@@ -737,7 +689,6 @@ public void processTouchEvent(MotionEvent ev) {
             }
             break;
         }
-
 		// 省略其他case...
     }
 }
@@ -764,7 +715,6 @@ private void reportNewEdgeDrags(float dx, float dy, int pointerId) {
     if (checkNewEdgeDrag(dy, dx, pointerId, EDGE_BOTTOM)) {
         dragsStarted |= EDGE_BOTTOM;
     }
-
     if (dragsStarted != 0) {
         mEdgeDragsInProgress[pointerId] |= dragsStarted;
         mCallback.onEdgeDragStarted(dragsStarted, pointerId);
@@ -779,7 +729,6 @@ private void reportNewEdgeDrags(float dx, float dy, int pointerId) {
 private boolean checkNewEdgeDrag(float delta, float odelta, int pointerId, int edge) {
     final float absDelta = Math.abs(delta);
     final float absODelta = Math.abs(odelta);
-
     if ((mInitialEdgesTouched[pointerId] & edge) != edge  || (mTrackingEdges & edge) == 0 ||
             (mEdgeDragsLocked[pointerId] & edge) == edge ||
             (mEdgeDragsInProgress[pointerId] & edge) == edge ||
@@ -822,7 +771,6 @@ private boolean checkTouchSlop(View child, float dx, float dy) {
     }
     final boolean checkHorizontal = mCallback.getViewHorizontalDragRange(child) > 0;
     final boolean checkVertical = mCallback.getViewVerticalDragRange(child) > 0;
-
     if (checkHorizontal && checkVertical) {
         return dx * dx + dy * dy > mTouchSlop * mTouchSlop;
     } else if (checkHorizontal) {
@@ -852,7 +800,6 @@ private boolean checkTouchSlop(View child, float dx, float dy) {
             clampedY = mCallback.clampViewPositionVertical(mCapturedView, top, dy);
             mCapturedView.offsetTopAndBottom(clampedY - oldTop);
         }
-
         if (dx != 0 || dy != 0) {
             final int clampedDx = clampedX - oldLeft;
             final int clampedDy = clampedY - oldTop;
@@ -875,10 +822,8 @@ ACTION_MOVE部分就算告一段落了，接下来应该是用户松手触发ACT
     {% highlight java %}
 public void processTouchEvent(MotionEvent ev) {
     // 省略
-
     switch (action) {
         // 省略其他case
-
         case MotionEvent.ACTION_UP: {
             if (mDragState == STATE_DRAGGING) {
                 releaseViewForPointerUp();
@@ -886,7 +831,6 @@ public void processTouchEvent(MotionEvent ev) {
             cancel();
             break;
         }
-
         case MotionEvent.ACTION_CANCEL: {
             if (mDragState == STATE_DRAGGING) {
                 dispatchViewReleased(0, 0);
@@ -911,11 +855,9 @@ private void releaseViewForPointerUp() {
             mMinVelocity, mMaxVelocity);
     dispatchViewReleased(xvel, yvel);
 }
-
     {% endhighlight %}
 
 releaseViewForPointerUp()里也调用了dispatchViewReleased()，只不过传递了速率给它，这个速率就是由processTouchEvent()的mVelocityTracker追踪算出来的。再看dispatchViewReleased()：
-
 
     {% highlight java %}
 /**
@@ -928,7 +870,6 @@ private void dispatchViewReleased(float xvel, float yvel) {
     mReleaseInProgress = true;
     mCallback.onViewReleased(mCapturedView, xvel, yvel);
     mReleaseInProgress = false;
-
     if (mDragState == STATE_DRAGGING) {
         // onViewReleased didn't call a method that would have changed this. Go idle.
         setDragState(STATE_IDLE);
@@ -960,12 +901,10 @@ public boolean settleCapturedViewAt(int finalLeft, int finalTop) {
         throw new IllegalStateException("Cannot settleCapturedViewAt outside of a call to " +
                 "Callback#onViewReleased");
     }
-
     return forceSettleCapturedViewAt(finalLeft, finalTop,
             (int) VelocityTrackerCompat.getXVelocity(mVelocityTracker, mActivePointerId),
             (int) VelocityTrackerCompat.getYVelocity(mVelocityTracker, mActivePointerId));
 }
-
 /**
  * Settle the captured view based on standard free-moving fling behavior.
  * The caller should invoke {@link #continueSettling(boolean)} on each subsequent frame
@@ -981,15 +920,12 @@ public void flingCapturedView(int minLeft, int minTop, int maxLeft, int maxTop) 
         throw new IllegalStateException("Cannot flingCapturedView outside of a call to " +
                 "Callback#onViewReleased");
     }
-
     mScroller.fling(mCapturedView.getLeft(), mCapturedView.getTop(),
             (int) VelocityTrackerCompat.getXVelocity(mVelocityTracker, mActivePointerId),
             (int) VelocityTrackerCompat.getYVelocity(mVelocityTracker, mActivePointerId),
             minLeft, maxLeft, minTop, maxTop);
-
     setDragState(STATE_SETTLING);
 }
-
     {% endhighlight %}
 
 这两个方法里一开始都会判断mReleaseInProgress为false，如果为false就会抛一个IllegalStateException异常，
@@ -1015,14 +951,12 @@ ViewDragHelper还有一个移动View的方法是smoothSlideViewTo(View child, in
 public boolean smoothSlideViewTo(View child, int finalLeft, int finalTop) {
     mCapturedView = child;
     mActivePointerId = INVALID_POINTER;
-
     boolean continueSliding = forceSettleCapturedViewAt(finalLeft, finalTop, 0, 0);
     if (!continueSliding && mDragState == STATE_IDLE && mCapturedView != null) {
         // If we're in an IDLE state to begin with and aren't moving anywhere, we
         // end up having a non-null capturedView with an IDLE dragState
         mCapturedView = null;
     }
-
     return continueSliding;
 }
     {% endhighlight %}
@@ -1045,17 +979,14 @@ private boolean forceSettleCapturedViewAt(int finalLeft, int finalTop, int xvel,
     final int startTop = mCapturedView.getTop();
     final int dx = finalLeft - startLeft;
     final int dy = finalTop - startTop;
-
     if (dx == 0 && dy == 0) {
         // Nothing to do. Send callbacks, be done.
         mScroller.abortAnimation();
         setDragState(STATE_IDLE);
         return false;
     }
-
     final int duration = computeSettleDuration(mCapturedView, dx, dy, xvel, yvel);
     mScroller.startScroll(startLeft, startTop, dx, dy, duration);
-
     setDragState(STATE_SETTLING);
     return true;
 }
@@ -1073,15 +1004,12 @@ private int computeSettleDuration(View child, int dx, int dy, int xvel, int yvel
     final int absYVel = Math.abs(yvel);
     final int addedVel = absXVel + absYVel;
     final int addedDistance = absDx + absDy;
-
     final float xweight = xvel != 0 ? (float) absXVel / addedVel :
             (float) absDx / addedDistance;
     final float yweight = yvel != 0 ? (float) absYVel / addedVel :
             (float) absDy / addedDistance;
-
     int xduration = computeAxisDuration(dx, xvel, mCallback.getViewHorizontalDragRange(child));
     int yduration = computeAxisDuration(dy, yvel, mCallback.getViewVerticalDragRange(child));
-
     return (int) (xduration * xweight + yduration * yweight);
 }
     {% endhighlight %}
@@ -1094,13 +1022,11 @@ private int computeAxisDuration(int delta, int velocity, int motionRange) {
     if (delta == 0) {
         return 0;
     }
-
     final int width = mParentView.getWidth();
     final int halfWidth = width / 2;
     final float distanceRatio = Math.min(1f, (float) Math.abs(delta) / width);
     final float distance = halfWidth + halfWidth *
             distanceInfluenceForSnapDuration(distanceRatio);
-
     int duration;
     velocity = Math.abs(velocity);
     if (velocity > 0) {
@@ -1133,10 +1059,8 @@ private int computeAxisDuration(int delta, int velocity, int motionRange) {
     {% highlight java %}
 public boolean shouldInterceptTouchEvent(MotionEvent ev) {
 	// 省略...
-
     switch (action) {
         // 省略其他case...
-
         case MotionEvent.ACTION_MOVE: {
             // First to cross a touch slop over a draggable view wins. Also report edge drags.
             final int pointerCount = MotionEventCompat.getPointerCount(ev);
@@ -1146,7 +1070,6 @@ public boolean shouldInterceptTouchEvent(MotionEvent ev) {
                 final float y = MotionEventCompat.getY(ev, i);
                 final float dx = x - mInitialMotionX[pointerId];
                 final float dy = y - mInitialMotionY[pointerId];
-
                 final View toCapture = findTopChildUnder((int) x, (int) y);
                 final boolean pastSlop = toCapture != null && checkTouchSlop(toCapture, dx, dy);
                 if (pastSlop) {
@@ -1177,7 +1100,6 @@ public boolean shouldInterceptTouchEvent(MotionEvent ev) {
                     // Callback might have started an edge drag
                     break;
                 }
-
                 if (pastSlop && tryCaptureViewForDrag(toCapture, pointerId)) {
                     break;
                 }
@@ -1185,10 +1107,8 @@ public boolean shouldInterceptTouchEvent(MotionEvent ev) {
             saveLastMotion(ev);
             break;
         }
-
 		// 省略其他case...
     }
-
     return mDragState == STATE_DRAGGING;
 }
     {% endhighlight %}
@@ -1202,24 +1122,18 @@ public boolean shouldInterceptTouchEvent(MotionEvent ev) {
     {% highlight java %}
 public boolean shouldInterceptTouchEvent(MotionEvent ev) {
 	// 省略其他部分...
-
     switch (action) {
         // 省略其他case...
-
         case MotionEvent.ACTION_DOWN: {
 			// 省略其他部分...
-
             // Catch a settling view if possible.
             if (toCapture == mCapturedView && mDragState == STATE_SETTLING) {
                 tryCaptureViewForDrag(toCapture, pointerId);
             }
-
 			// 省略其他部分...
         }
-
 		// 省略其他case...
     }
-
     return mDragState == STATE_DRAGGING;
 }
     {% endhighlight %}

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-9-1-Decorator模式分析.md" afterPath="$PROJECT_DIR$/_posts/2015-9-1-Decorator模式分析.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-9-23-viewDragHelper解析.md" afterPath="$PROJECT_DIR$/_posts/2015-9-23-viewDragHelper解析.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,26 +23,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="2015-9-23-viewDragHelper解析.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="2015-9-23-viewDragHelper解析.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2015-9-23-viewDragHelper解析.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-855.0">
-              <caret line="1305" column="0" selection-start-line="1305" selection-start-column="0" selection-end-line="1305" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.56875837">
+              <caret line="1219" column="0" selection-start-line="1219" selection-start-column="0" selection-end-line="1219" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2015-9-1-Decorator模式分析.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="2015-9-1-Decorator模式分析.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2015-9-1-Decorator模式分析.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.54339117">
+            <state vertical-scroll-proportion="-14.034483">
               <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
               <folding />
             </state>
@@ -112,6 +112,7 @@
         <option value="$PROJECT_DIR$/_posts/2015-9-11-FragmentTransactions和ActivityStateLoss.md" />
         <option value="$PROJECT_DIR$/_posts/2015-9-7-Closeable和Flushable接口.md" />
         <option value="$PROJECT_DIR$/_posts/2015-9-1-Decorator模式分析.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-9-23-viewDragHelper解析.md" />
       </list>
     </option>
   </component>
@@ -938,17 +939,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-9-23-viewDragHelper解析.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-855.0">
-          <caret line="1305" column="0" selection-start-line="1305" selection-start-column="0" selection-end-line="1305" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-9-20-理解JVM.md">
       <provider editor-type-id="MarkdownPreviewEditor">
         <state />
@@ -1020,8 +1010,19 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.54339117">
+        <state vertical-scroll-proportion="-14.034483">
           <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-9-23-viewDragHelper解析.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.56875837">
+          <caret line="1219" column="0" selection-start-line="1219" selection-start-column="0" selection-end-line="1219" selection-end-column="0" />
           <folding />
         </state>
       </provider>
