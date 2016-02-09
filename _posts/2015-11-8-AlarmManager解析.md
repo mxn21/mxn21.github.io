@@ -44,7 +44,6 @@ type:闹钟类型，有四个可选值
 下面看一下布局文件：
 
     {% highlight xml %}
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -54,7 +53,6 @@ type:闹钟类型，有四个可选值
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MyActivity">
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -62,7 +60,6 @@ type:闹钟类型，有四个可选值
         android:layout_marginBottom="20dp"
         android:text="@string/hint"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <Button
         android:id="@+id/startAlarm"
         android:layout_width="match_parent"
@@ -72,7 +69,6 @@ type:闹钟类型，有四个可选值
         android:layout_below="@+id/textView"
         android:layout_marginBottom="20dp"
         android:text="Start Alarm Service" />
-
     <Button
         android:id="@+id/stopAlarm"
         android:layout_width="match_parent"
@@ -80,17 +76,13 @@ type:闹钟类型，有四个可选值
         android:layout_below="@+id/startAlarm"
         android:layout_marginBottom="20dp"
         android:text="Stop Alarm" />
-
-
     <Button
         android:id="@+id/stopAlarmAt10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/stopAlarm"
         android:text="Stop Alarm at 10:30" />
-
 </RelativeLayout>
-
     {% endhighlight %}
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img127.png)
@@ -108,17 +100,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
-
 public class AlarmReceiver extends BroadcastReceiver {
-
     @Override
     public void onReceive(Context context, Intent intent) {
-
         // For our recurring task, we'll just display a message
         Toast.makeText(context, "I'm running", Toast.LENGTH_SHORT).show();
     }
 }
-
     {% endhighlight %}
 
 ### 在activity中开始和停止任务
@@ -128,7 +116,6 @@ public class AlarmReceiver extends BroadcastReceiver {
 startAt10()方法将在10:30启动闹钟，并且固定30分钟间隔再次启动。
 
     {% highlight java %}
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -138,34 +125,27 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 import java.util.Calendar;
-
 public class MyActivity extends Activity {
-
     private PendingIntent pendingIntent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-
         /* Retrieve a PendingIntent that will perform a broadcast */
         Intent alarmIntent = new Intent(MyActivity.this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(MyActivity.this, 0, alarmIntent, 0);
-
         findViewById(R.id.startAlarm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 start();
             }
         });
-
         findViewById(R.id.stopAlarm).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 cancel();
             }
         });
-
         findViewById(R.id.stopAlarmAt10).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,39 +153,31 @@ public class MyActivity extends Activity {
             }
         });
     }
-
     public void start() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         int interval = 8000;
-
         manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
         Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
     }
-
     public void cancel() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         manager.cancel(pendingIntent);
         Toast.makeText(this, "Alarm Canceled", Toast.LENGTH_SHORT).show();
     }
-
     public void startAt10() {
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         int interval = 1000 * 60 * 30;
-
         /* Set the alarm to start at 10:30 AM */
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, 10);
         calendar.set(Calendar.MINUTE, 30);
-
         /* Repeating on every 30 minutes interval */
         manager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 interval, pendingIntent);
     }
-
 }
     {% endhighlight %}
-
 
 ### 开机自动启动服务
 
@@ -219,7 +191,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
-
 /**
  * @author Nilanchala
  *         <p/>
@@ -227,18 +198,15 @@ import android.widget.Toast;
  *         Start your repeating alarm here.
  */
 public class DeviceBootReceiver extends BroadcastReceiver {
-
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
             /* Setting the alarm here */
             Intent alarmIntent = new Intent(context, AlarmReceiver.class);
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, alarmIntent, 0);
-
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
             int interval = 8000;
             manager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-
             Toast.makeText(context, "Alarm Set", Toast.LENGTH_SHORT).show();
         }
     }
@@ -269,16 +237,13 @@ android.permission.RECEIVE_BOOT_COMPLETED。
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.xxx.alarmservice" >
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <!-- Permission to start Alarm on device reboot -->
         <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-
         <activity
             android:name=".MyActivity"
             android:label="@string/app_name" >
@@ -287,13 +252,11 @@ android.permission.RECEIVE_BOOT_COMPLETED。
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <receiver android:name=".AlarmReceiver">
 	      <intent-filter>
 	           <action android:name="android.intent.action.BOOT_COMPLETED"/>
 	      </intent-filter>
         </receiver>
-
         <!-- Will not be called unless the application explicitly enables it -->
         <receiver android:name=".DeviceBootReceiver"
             android:enabled="false">
@@ -301,11 +264,9 @@ android.permission.RECEIVE_BOOT_COMPLETED。
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </receiver>
-
     </application>
 </manifest>
     {% endhighlight %}
-
 
 ### AlarmManager常用方法总结
 
