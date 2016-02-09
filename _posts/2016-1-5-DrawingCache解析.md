@@ -68,7 +68,7 @@ buildDrawingCache建立drawingCache的同时，会将上次的DrawingCache回收
 会调用destroyDrawingCache方法对之前的DrawingCache回收，源码如下：
 
     {% highlight java  %}  
-/**
+    /**
      * <p>Frees the resources used by the drawing cache. If you call
      * {@link #buildDrawingCache()} manually without calling
      * {@link #setDrawingCacheEnabled(boolean) setDrawingCacheEnabled(true)}, you
@@ -88,7 +88,6 @@ buildDrawingCache建立drawingCache的同时，会将上次的DrawingCache回收
             mUnscaledDrawingCache = null;
         }
     }
-    
      {% endhighlight %} 
      
 因此不必在buildDrawingCache方法之前，或者DrawingCache启用状态下调用getDrawingCache方法之前，自己手动调用destroyDrawingCache。
@@ -103,7 +102,6 @@ buildDrawingCache建立drawingCache的同时，会将上次的DrawingCache回收
     view.buildDrawingCache();
     Bitmap drawingCache = view.getDrawingCache();
     {% endhighlight %} 
-    
     
 ### 图片质量控制
 
@@ -170,7 +168,6 @@ Bitmap.Config.RGB_565；
                 }
             }
         });
-
    {% endhighlight %} 
 
 如果很确定View已经有过measure和layout且也调用buildDrawingCache(无论自动或者手动)方法了，但是getDrawingCache还是返回null，
@@ -188,7 +185,6 @@ ViewConfiguration.get(context).getScaledMaximumDrawingCacheSize();
 如果不用getDrawingCache想自己建立出Bitmap也是可以的，代码如下：
 
     {% highlight java  %}
-     
     public Bitmap getMagicDrawingCache(View view) {
         Bitmap bitmap = (Bitmap) view.getTag(R.id.cacheBitmapKey);
         Boolean dirty = (Boolean) view.getTag(R.id.cacheBitmapDirtyKey);
@@ -279,7 +275,7 @@ scrollingCache是listview这种滚动布局的一个属性，animateCache是view
 setAnimationCacheEnabled源码如下：
 
       {% highlight java  %} 
- /**
+    /**
      * Enables or disables the children's drawing cache during a layout animation.
      * By default, the drawing cache is enabled but this will prevent nested
      * layout animations from working. To nest animations, you must disable the
@@ -293,7 +289,6 @@ setAnimationCacheEnabled源码如下：
     public void setAnimationCacheEnabled(boolean enabled) {
         setBooleanFlag(FLAG_ANIMATION_CACHE, enabled);
     }
-    
    {% endhighlight %} 
    
 方法的注释说他的功能是在执行一个Layout动画时开启或关闭子控件的绘制缓存。默认情况下，绘制缓存是开启的，但是这将阻止嵌套Layout动画的正常执行。
@@ -307,7 +302,7 @@ setAnimationCacheEnabled源码如下：
 scrollingCache属性和animateCache相似,源码如下：
 
       {% highlight java  %} 
-/**
+    /**
      * Enables or disables the children's drawing cache during a scroll.
      * By default, the drawing cache is enabled but this will use more memory.
      *
@@ -344,9 +339,7 @@ scrollingCache属性和animateCache相似,源码如下：
     android:smoothScrollbar="true"
     android:scrollingCache="false"
     android:animationCache="false" />
-
    {% endhighlight %}
-    
  
 下面写一个demo验证chche对内存的影响
 首先关闭硬件加速
@@ -355,7 +348,6 @@ scrollingCache属性和animateCache相似,源码如下：
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mxn.soul.demo" >
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon"
@@ -372,7 +364,6 @@ scrollingCache属性和animateCache相似,源码如下：
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
         {% endhighlight %}
       
@@ -383,13 +374,11 @@ scrollingCache属性和animateCache相似,源码如下：
 
       {% highlight java  %} 
 public class Test5Activity extends Activity  {
-
     private ImageView[] mImageViews = new ImageView[16];
     private int[] mImageViewIDs = {R.id.img1,R.id.img2,R.id.img3,R.id.img4,R.id.img5,R.id.img6,R
             .id.img7,R.id.img8,R.id.img9,R.id.img10,R.id.img11,R.id.img12,R.id.img13,R.id.img14,R
             .id.img15,R.id.img16} ;
     private LinearLayout mylayout ;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -398,7 +387,6 @@ public class Test5Activity extends Activity  {
         for(int n = 0 ; n < mImageViews.length ; n ++ ){
             mImageViews[n] = (ImageView) findViewById(mImageViewIDs[n]);
         }
-
         mylayout.setAnimationCacheEnabled(true);
         mylayout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -406,8 +394,6 @@ public class Test5Activity extends Activity  {
             }
         });
     }
-
-
     public void doAnimation() {
         AnimationSet animationSet=new AnimationSet(true);
         ScaleAnimation scaleAnimation=new ScaleAnimation(
@@ -417,16 +403,13 @@ public class Test5Activity extends Activity  {
         scaleAnimation.setDuration(2000);
         animationSet.addAnimation(scaleAnimation);
         mylayout.startAnimation(scaleAnimation) ;
-
         RotateAnimation rotateAnimation =new RotateAnimation(0f,360, Animation.RELATIVE_TO_SELF,
                 0.5f,Animation.RELATIVE_TO_SELF,0.5f);
         rotateAnimation.setDuration(2000);
         animationSet.addAnimation(rotateAnimation);
-
         for(int n = 0 ; n < mImageViews.length ; n ++ ){
             mImageViews[n].startAnimation(rotateAnimation) ;
         }
-
     }
 }
    {% endhighlight %}
@@ -516,7 +499,7 @@ public class MyImageView extends ImageView {
 那么为什么onDraw调用次数会减少呢，在源码中可以找到答案。
 
       {% highlight java  %} 
-/**
+    /**
      * This is where the invalidate() work actually happens. A full invalidate()
      * causes the drawing cache to be invalidated, but this function can be
      * called with invalidateCache set to false to skip that invalidation step
