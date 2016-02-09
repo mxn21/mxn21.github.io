@@ -26,16 +26,12 @@ ViewTreeObserver提供了view的很多种监听，每一种监听在ViewTreeObse
     {% highlight java %}
 interface  ViewTreeObserver.OnGlobalFocusChangeListener        
 //当在一个视图树中的焦点状态发生改变时，所要调用的回调函数的接口类
- 
 interface  ViewTreeObserver.OnGlobalLayoutListener
 //当在一个视图树中全局布局发生改变或者视图树中的某个视图的可视状态发生改变时，所要调用的回调函数的接口类
- 
 interface  ViewTreeObserver.OnPreDrawListener
 //当一个视图树将要绘制时，所要调用的回调函数的接口类
- 
 interface  ViewTreeObserver.OnScrollChangedListener
 //当一个视图树中的一些组件发生滚动时，所要调用的回调函数的接口类
- 
 interface  ViewTreeObserver.OnTouchModeChangeListener
 //当一个视图树的触摸模式发生改变时，所要调用的回调函数的接口类
     {% endhighlight %}
@@ -49,69 +45,53 @@ interface  ViewTreeObserver.OnTouchModeChangeListener
 　 *异常 IllegalStateException       如果isAlive() 返回false
 　 */
 　public void addOnGlobalFocusChangeListener (ViewTreeObserver.OnGlobalFocusChangeListener listener)
-     
- 
 　/**注册一个回调函数，当在一个视图树中全局布局发生改变或者视图树中的某个视图的可视状态发生改变时调用这个回调函数。
 　 *参数 listener    将要被添加的回调函数
 　 *异常 IllegalStateException       如果isAlive() 返回false
 　 */
 　public void addOnGlobalLayoutListener (ViewTreeObserver.OnGlobalLayoutListener listener)
-　　
- 
-　　
 　/**注册一个回调函数，当一个视图树将要绘制时调用这个回调函数。
 　 *参数 listener    将要被添加的回调函数
 　 *异常 IllegalStateException       如果isAlive() 返回false
 　　*/
 　public void addOnPreDrawListener (ViewTreeObserver.OnPreDrawListener listener)
- 
-　   
 　/**注册一个回调函数，当一个视图发生滚动时调用这个回调函数。
 　 *参数 listener    将要被添加的回调函数
 　 *异常 IllegalStateException       如果isAlive() 返回false
 　　*/
 　public void addOnScrollChangedListener (ViewTreeObserver.OnScrollChangedListener listener)  
- 
-　
 　/**注册一个回调函数，当一个触摸模式发生改变时调用这个回调函数。
 　 *参数 listener    将要被添加的回调函数
 　 *异常 IllegalStateException       如果isAlive() 返回false
 　 */
 　public void addOnTouchModeChangeListener (ViewTreeObserver.OnTouchModeChangeListener listener)
-
     {% endhighlight %}
-
 
 还可以调用remove方法删除监听
 
 他们对应的add方法如下
 
     {% highlight java %}
-    
 /**移除之前已经注册的全局布局回调函数。
 　 *参数 victim 将要被移除的回调函数
 　 *异常 IllegalStateException       如果isAlive() 返回false   
 　 */
 　public void removeGlobalOnLayoutListener (ViewTreeObserver.OnGlobalLayoutListener victim)
-　　
 　/**移除之前已经注册的焦点改变回调函数。
 　 *参数 victim 将要被移除的回调函数
 　　*异常 IllegalStateException       如果isAlive() 返回false 
 　 */
 　public void removeOnGlobalFocusChangeListener (ViewTreeObserver.OnGlobalFocusChangeListener victim)
-　　
 　/**移除之前已经注册的预绘制回调函数。
 　　*参数 victim 将要被移除的回调函数
 　 *异常 IllegalStateException       如果isAlive() 返回false  
 　 */
 　public void removeOnPreDrawListener (ViewTreeObserver.OnPreDrawListener victim)
-　　
 　/**移除之前已经注册的滚动改变回调函数。
 　 *参数 victim 将要被移除的回调函数
 　　*异常 IllegalStateException       如果isAlive() 返回false 
 　　*/
 　public void removeOnScrollChangedListener (ViewTreeObserver.OnScrollChangedListener victim)
-　
 　/**移除之前已经注册的触摸模式改变回调函数
 　　*参数 victim 将要被移除的回调函数
 　　*异常 　IllegalStateException       如果isAlive() 返回false
@@ -119,23 +99,19 @@ interface  ViewTreeObserver.OnTouchModeChangeListener
 　public void removeOnTouchModeChangeListener (ViewTreeObserver.OnTouchModeChangeListener victim)
     {% endhighlight %}
     
-    
 其他的常用方法：
 
     {% highlight java %}
 　//当整个布局发生改变时通知相应的注册监听器。如果你强制对视图布局或者在一个没有附加到一个窗口的视图的层次结构或者在GONE状态下，它可以被手动的调用
 　public final void dispatchOnGlobalLayout ()
-    
 　/**当一个视图树将要绘制时通知相应的注册监听器。如果这个监听器返回true，则这个绘制将被取消并重新计划。如果你强制对视图布局或者在一个没有附加到一个窗口的视图的层次结构或者在一个GONE状态下，它可以被手动的调用
 　 *返回值  当前绘制能够取消并重新计划则返回true，否则返回false。
 　 */
 　public final boolean dispatchOnPreDraw ()
- 
 　/**指示当前的ViewTreeObserver是否可用(alive)。当observer不可用时，任何方法的调用（除了这个方法）都将抛出一个异常。如果一个应用程序保持和ViewTreeObserver一个历时较长的引用，它应该总是需要在调用别的方法之前去检测这个方法的返回值。
 　　*返回值 但这个对象可用则返回true，否则返回false   
 　 */
 　public boolean isAlive ()
-
     {% endhighlight %}
     
 ### 用法举例
@@ -163,7 +139,6 @@ public class MyImageView extends ImageView {
         Log.d("===MyImageView", "onDraw 我被调用了"+System.currentTimeMillis());
     }
 }
-
     {% endhighlight %}
     
 MainActivity布局文件如下：
@@ -176,7 +151,6 @@ MainActivity布局文件如下：
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/test" />
-
     {% endhighlight %}    
     
 MainActivity中的代码:
@@ -190,7 +164,6 @@ MainActivity中的代码:
             Log.d("===MainActivity", "onCreate执行完毕..myImageView " +
                     "height:" + myImageView.getMeasuredHeight() + "  ,width:" + myImageView.getMeasuredWidth());
         }
-    
     {% endhighlight %}  
     
 输入结果如下：
@@ -222,7 +195,6 @@ MainActivity中的代码:
         Log.d("===MainActivity", "onCreate执行完毕..myImageView " +
                 "height:" + myImageView.getMeasuredHeight() + "  ,width:" + myImageView.getMeasuredWidth());
     }
-
     {% endhighlight %}  
 
 输出结果如下：
@@ -265,7 +237,6 @@ MainActivity中的代码:
 
 3.第三种方法：
 
-
     {% highlight java %}
    @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -298,7 +269,6 @@ MainActivity中的代码:
 ViewTreeObserver还可以用来监听根布局，用来实现Activity跳转动画，核心代码如下：
 
     {% highlight java %}
-
 @Override
 public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -315,7 +285,6 @@ public void onCreate(Bundle savedInstanceState) {
         });
     }
 }
- 
      {% endhighlight %} 
      
 可以加入自己喜欢的动画，实现不同的效果，下面是其中一种实现效果：
@@ -334,7 +303,6 @@ public void onCreate(Bundle savedInstanceState) {
                 Log.e("TAG",r1.bottom+"") ; 
             }
         };
-
   root.getViewTreeObserver().addOnGlobalLayoutListener(mListener);
      {% endhighlight %} 
      
