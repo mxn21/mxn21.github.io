@@ -25,7 +25,6 @@ getDrawingCache源码如下：
   public Bitmap getDrawingCache() {
         return getDrawingCache(false);
     }
-  
   public Bitmap getDrawingCache(boolean autoScale) {
           if ((mViewFlags & WILL_NOT_CACHE_DRAWING) == WILL_NOT_CACHE_DRAWING) {
               return null;
