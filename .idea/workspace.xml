@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration和Configuration类使用.md" afterPath="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration和Configuration类使用.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-11-25-ActivityLifecycleCallbacks使用.md" afterPath="$PROJECT_DIR$/_posts/2015-11-25-ActivityLifecycleCallbacks使用.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,11 +23,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="2015-11-26-ViewConfiguration和Configuration类使用.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="2015-11-26-ViewConfiguration和Configuration类使用.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration和Configuration类使用.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.84779704">
+            <state vertical-scroll-proportion="-21.896551">
               <caret line="385" column="0" selection-start-line="385" selection-start-column="0" selection-end-line="385" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2015-11-25-ActivityLifecycleCallbacks使用.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_posts/2015-11-25-ActivityLifecycleCallbacks使用.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.040053405">
+              <caret line="213" column="0" selection-start-line="213" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -106,6 +119,7 @@
         <option value="$PROJECT_DIR$/_posts/2016-1-5-DrawingCache解析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-12-16-android开发小技巧积累.md" />
         <option value="$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration和Configuration类使用.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-11-25-ActivityLifecycleCallbacks使用.md" />
       </list>
     </option>
   </component>
@@ -504,16 +518,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_posts/2015-12-16-android开发小技巧积累.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-12-7-StrictMode的使用.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1003,8 +1007,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-11-26-ViewConfiguration和Configuration类使用.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84779704">
+        <state vertical-scroll-proportion="-21.896551">
           <caret line="385" column="0" selection-start-line="385" selection-start-column="0" selection-end-line="385" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-11-25-ActivityLifecycleCallbacks使用.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.040053405">
+          <caret line="213" column="0" selection-start-line="213" selection-start-column="0" selection-end-line="213" selection-end-column="0" />
           <folding />
         </state>
       </provider>
