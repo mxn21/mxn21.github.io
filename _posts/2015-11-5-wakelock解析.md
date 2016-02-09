@@ -20,7 +20,6 @@ tag: android
 
 WakeLock的设置是 Activiy 级别的，不是针对整个Application应用的。
 
-
     {% highlight java %}
 private void acquireWakeLock() {
          if (wakeLock ==null) {
@@ -29,7 +28,6 @@ private void acquireWakeLock() {
                 wakeLock.acquire();
             }
     }
-
 private void releaseWakeLock() {
         if (wakeLock !=null&& wakeLock.isHeld()) {
             wakeLock.release();
@@ -132,7 +130,6 @@ acqure的时候屏幕会暗下来，release之后屏幕会亮。其值是32（in
         validateWakeLockParameters(levelAndFlags, tag);
         return new WakeLock(levelAndFlags, tag, mContext.getOpPackageName());
     }
-
     public static void validateWakeLockParameters(int levelAndFlags, String tag) {
         switch (levelAndFlags & WAKE_LOCK_LEVEL_MASK) {
             case PARTIAL_WAKE_LOCK:
@@ -162,20 +159,17 @@ newWakeLock方法首先检测LevelAndFlags和Tag的合法性：tag不能为空�
         private int mCount;
         private boolean mRefCounted = true;
         private boolean mHeld;
-
         private final Runnable mReleaser = new Runnable() {
             public void run() {
                 release();
             }
         };
-
         WakeLock(int flags, String tag, String packageName) {
             mFlags = flags;
             mTag = tag;
             mPackageName = packageName;
             mToken = new Binder();
         }
-
         /**
          * Acquires the wake lock.
          * <p>
@@ -188,7 +182,6 @@ newWakeLock方法首先检测LevelAndFlags和Tag的合法性：tag不能为空�
                 acquireLocked();
             }
         }
-
         private void acquireLocked() {
             if (!mRefCounted || mCount++ == 0) {
                 // Do this even if the wake lock is already thought to be held
@@ -210,7 +203,6 @@ newWakeLock方法首先检测LevelAndFlags和Tag的合法性：tag不能为空�
                 mHeld = true;
             }
         }
-
         /**
          * Releases the wake lock.
          * <p>
@@ -222,7 +214,6 @@ newWakeLock方法首先检测LevelAndFlags和Tag的合法性：tag不能为空�
         public void release() {
             release(0);
         }
-
         /**
          * Releases the wake lock with flags to modify the release behavior.
          * <p>
@@ -255,7 +246,6 @@ newWakeLock方法首先检测LevelAndFlags和Tag的合法性：tag不能为空�
                 }
             }
         }
-
         /**
          * Returns true if the wake lock has been acquired but not yet released.
          *
@@ -304,20 +294,15 @@ static void nativeAcquireSuspendBlocker(JNIEnv *env, jclass clazz, jstring nameS
 acquire_wake_lock(int lock, const char* id)
 {
     initialize_fds();
-
 //    ALOGI("acquire_wake_lock lock=%d id='%s'\n", lock, id);
-
     if (g_error) return g_error;
-
     int fd;
-
     if (lock == PARTIAL_WAKE_LOCK) {
         fd = g_fds[ACQUIRE_PARTIAL_WAKE_LOCK];
     }
     else {
         return EINVAL;
     }
-
     return write(fd, id, strlen(id));
 }
      {% endhighlight %}
@@ -332,7 +317,6 @@ const char * const NEW_PATHS[] = {
 };
      {% endhighlight %}
 
-
 ### 其他用法扩展(官方API [Keeping the Device Awake](http://developer.android.com/intl/zh-cn/training/scheduling/wakelock.html#cpu) )
 
 #### 保持屏幕点亮
@@ -341,7 +325,6 @@ const char * const NEW_PATHS[] = {
 不能是service或其他组件）。例如：
 
     {% highlight java %}
-
 public class MainActivity extends Activity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -349,7 +332,6 @@ public class MainActivity extends Activity {
     setContentView(R.layout.activity_main);
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
   }
-
     {% endhighlight %}
 
 这种方法的优点是，不像akeLock，它不需要特殊的权限，由系统正确地管理用户在应用程序之间切换，不需要担心你的应用程序需要释放未使用的资源。
@@ -363,7 +345,6 @@ public class MainActivity extends Activity {
     android:keepScreenOn="true">
     ...
 </RelativeLayout>
-
     {% endhighlight %}
 
 使用Android的keepscreenon=“true”相当于使用flag_keep_screen_on。你可以使用两者中适合自己的方法。设置flag的方式好处是，
@@ -423,10 +404,8 @@ WakeLock的识别标志。
 
     {% highlight java %}
 public class MyWakefulReceiver extends WakefulBroadcastReceiver {
-
     @Override
     public void onReceive(Context context, Intent intent) {
-
         // Start the service, keeping the device awake while the service is
         // launching. This is the Intent to deliver to the service.
         Intent service = new Intent(context, MyIntentService.class);
