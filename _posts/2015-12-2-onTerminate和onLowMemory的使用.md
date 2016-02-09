@@ -32,7 +32,6 @@ onTerminate()会在app关闭的时候调用,但是就像onDestroy()一样，不�
     super.onTerminate();
     shutdownHttpClient();
   }
-  
    private void shutdownHttpClient()
     {
       if ((this.httpClient != null) && (this.httpClient.getConnectionManager() != null)) {
@@ -60,7 +59,6 @@ onTerminate()会在app关闭的时候调用,但是就像onDestroy()一样，不�
       }
     }.start();
   }
-  
        {% endhighlight %}
     
 清除ActivityLifecycleCallbacks的注册
@@ -89,7 +87,6 @@ onLowMemory()在内存比较紧张时,根据优先级把后台程序杀死时,�
             }
         }
     }
-
     public void onTrimMemory(int level) {
         Object[] callbacks = collectComponentCallbacks();
         if (callbacks != null) {
@@ -157,7 +154,6 @@ OnLowMemory()和OnTrimMemory()的比较
 public void onTrimMemory(int level) {
     Log.e(TAG, " onTrimMemory ... level:" + level);     
 }
-
 @Override
 public void onLowMemory() {     
     Log.e(TAG, " onLowMemory ... ");     
