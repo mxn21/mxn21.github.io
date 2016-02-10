@@ -49,22 +49,18 @@ ScrollView，软键盘就会自动的弹出来了！如下，在这种布局文�
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="toOther"
                 android:text="跳转" />
-
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -176,31 +172,24 @@ ScrollView，软键盘就会自动的弹出来了！如下，在这种布局文�
     {% highlight java  %}
 public class ResizeLayout extends LinearLayout{
     private static int count = 0;
-
     public ResizeLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-
         Log.e("onSizeChanged " + count++, "=>onResize called! w="+w + ",h="+h+",oldw="+oldw+",oldh="+oldh);
     }
-
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         Log.e("onLayout " + count++, "=>OnLayout called! l=" + l + ", t=" + t + ",r=" + r + ",b="+b);
     }
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         Log.e("onMeasure " + count++, "=>onMeasure called! widthMeasureSpec=" + widthMeasureSpec + ", heightMeasureSpec=" + heightMeasureSpec);
     }
-
     {% endhighlight %}
 
 我们的布局设置为：
@@ -213,19 +202,16 @@ public class ResizeLayout extends LinearLayout{
     android:layout_height="fill_parent"
     android:orientation="vertical"
     >
-
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
     />
-
     <LinearLayout
             android:id="@+id/bottom_layout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical"
             android:gravity="bottom">s
-
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -234,7 +220,6 @@ public class ResizeLayout extends LinearLayout{
       />
    </LinearLayout>
 </com.winuxxan.inputMethodTest.ResizeLayout>
-
     {% endhighlight %}
 
 AndroidManifest.xml的Activity设置属性：android:windowSoftInputMode = "adjustResize"

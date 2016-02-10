@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md" afterPath="$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-8-8-自定义view的三种构造方法浅析.md" afterPath="$PROJECT_DIR$/_posts/2015-8-8-自定义view的三种构造方法浅析.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-8-15-windowSoftInputMode属性使用.md" afterPath="$PROJECT_DIR$/_posts/2015-8-15-windowSoftInputMode属性使用.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,36 +36,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="2015-8-1-Android堆栈分析.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="2015-8-1-Android堆栈分析.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2015-8-1-Android堆栈分析.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="MarkdownPreviewEditor">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2015-8-8-自定义view的三种构造方法浅析.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/_posts/2015-8-8-自定义view的三种构造方法浅析.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5941255">
-              <caret line="67" column="7" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="MarkdownPreviewEditor">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="2015-8-15-windowSoftInputMode属性使用.md" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/_posts/2015-8-15-windowSoftInputMode属性使用.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
+            <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -143,6 +116,7 @@
         <option value="$PROJECT_DIR$/_posts/2015-8-21-android渲染机制和丢帧分析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-8-自定义view的三种构造方法浅析.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-8-15-windowSoftInputMode属性使用.md" />
       </list>
     </option>
   </component>
@@ -973,39 +947,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-8-24-eventBus原理分析.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-8-1-Android堆栈分析.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-8-15-windowSoftInputMode属性使用.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-8-22-android垂直同步和三重缓存.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.518024">
@@ -1041,8 +982,41 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-8-8-自定义view的三种构造方法浅析.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5941255">
-          <caret line="67" column="7" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.54339117">
+          <caret line="65" column="23" selection-start-line="65" selection-start-column="23" selection-end-line="65" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-8-24-eventBus原理分析.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-8-15-windowSoftInputMode属性使用.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.48197597">
+          <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-8-1-Android堆栈分析.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
