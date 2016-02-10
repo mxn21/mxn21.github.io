@@ -17,13 +17,11 @@ Android UI是线程不安全的，如果想要在子线程里进行UI操作，�
         mWorker = new WorkerRunnable<Params, Result>() {
             public Result call() throws Exception {
                 mTaskInvoked.set(true);
-
                 Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
                 //noinspection unchecked
                 return postResult(doInBackground(mParams));
             }
         };
-
         mFuture = new FutureTask<Result>(mWorker) {
             @Override
             protected void done() {
@@ -40,7 +38,6 @@ Android UI是线程不安全的，如果想要在子线程里进行UI操作，�
             }
         };
     }
-    
      {% endhighlight  %}   
      
      
@@ -65,7 +62,6 @@ Android UI是线程不安全的，如果想要在子线程里进行UI操作，�
         message.sendToTarget();
         return result;
     }
-    
         {% endhighlight  %} 
 
 这个方法接受了result之后再将自己本身返回，但是中间实例化了AsyncTaskResult，并且通过message发送出去。
@@ -76,7 +72,6 @@ AsyncTaskResult是一个静态内部类：
   private static class AsyncTaskResult<Data> {
         final AsyncTask mTask;
         final Data[] mData;
-
         AsyncTaskResult(AsyncTask task, Data... data) {
             mTask = task;
             mData = data;
@@ -94,7 +89,6 @@ private void postResultIfNotInvoked(Result result) {
             postResult(result);
         }
     }
-
 {% endhighlight  %} 
 postResultIfNotInvoked中判断是否被调用，如果没有被调用，则执行postResult，发送message出去。
 
@@ -103,8 +97,6 @@ postResultIfNotInvoked中判断是否被调用，如果没有被调用，则执�
 public final AsyncTask<Params, Progress, Result> execute(Params... params) {  
     return executeOnExecutor(sDefaultExecutor, params);  
 }  
-
-
 {% endhighlight  %} 
 sDefaultExecutor是一个默认线程池。
  通过 public static final Executor SERIAL_EXECUTOR = new SerialExecutor();
@@ -141,7 +133,6 @@ public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec
     exec.execute(mFuture);  
     return this;  
 }  
-
 {% endhighlight %}
 
 在方法中首先判断了mStatus。在看看mStatus.
@@ -180,7 +171,6 @@ if (mStatus != Status.PENDING)，然后进入 switch语句，无论哪个 case�
    private static class SerialExecutor implements Executor {
         final ArrayDeque<Runnable> mTasks = new ArrayDeque<Runnable>();
         Runnable mActive;
-
         public synchronized void execute(final Runnable r) {
             mTasks.offer(new Runnable() {
                 public void run() {
@@ -195,14 +185,12 @@ if (mStatus != Status.PENDING)，然后进入 switch语句，无论哪个 case�
                 scheduleNext();
             }
         }
-
         protected synchronized void scheduleNext() {
             if ((mActive = mTasks.poll()) != null) {
                 THREAD_POOL_EXECUTOR.execute(mActive);
             }
         }
     }
-  
 {% endhighlight %}
 
 可以看到在activity执行excute()时就会执行到SerialExecutor中的execute，注意这个方法有一个Runnable参数，这个参数的值就是mFuture对象。这个方法里的所有逻辑就是在子线程中执行的。
@@ -228,9 +216,7 @@ public static final Executor THREAD_POOL_EXECUTOR
 Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
                 new AsyncTaskResult<Result>(this, result));
  
- 
                 {% highlight java %}  
-                
      private static class InternalHandler extends Handler {
         public InternalHandler() {
             super(Looper.getMainLooper());
@@ -250,13 +236,11 @@ Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
             }
         }
     }
-    
     {% endhighlight %}
     
  handle收到这个类型的message后执行了finish（）
  
         {% highlight java %} 
-        
          private void finish(Result result) {
         if (isCancelled()) {
             onCancelled(result);
@@ -266,7 +250,6 @@ Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
         mStatus = Status.FINISHED;
     }
        {% endhighlight %}
-       
  
  在finish（）之中执行onPostExecute（）或者onCancelled（），然后设置mStatus为FINISHED完成状态，因为finish（）是在handler中执行，所以onPostExecute（）也是在主线程中执行。
  
@@ -279,7 +262,6 @@ Message message = getHandler().obtainMessage(MESSAGE_POST_RESULT,
                     new AsyncTaskResult<Progress>(this, values)).sendToTarget();
         }
     }
-    
      {% endhighlight %}
      
 在doInBackground()方法中调用publishProgress()方法才可以从子线程切换到UI线程，从而完成对UI元素的更新操作。
