@@ -53,7 +53,6 @@ AndroidStackTaskActivity2、AndroidStackTaskActivity3，具体代码如果下：
             startActivity(i);
         }
     }
-
     public class AndroidStackTaskActivity2 extends Activity  implements OnClickListener {
         private Button next = null ;
         @Override
@@ -73,7 +72,6 @@ AndroidStackTaskActivity2、AndroidStackTaskActivity3，具体代码如果下：
             startActivity(i);
         }
     }
-
     public class AndroidStackTaskActivity3 extends Activity  implements OnClickListener {
         private Button next = null ;
         @Override
@@ -94,7 +92,6 @@ AndroidStackTaskActivity2、AndroidStackTaskActivity3，具体代码如果下：
         }
     }
     {% endhighlight %}
-
 
 此时，生成的活动堆栈如下图所示：
 
