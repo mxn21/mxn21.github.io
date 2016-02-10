@@ -277,8 +277,8 @@ process一般翻译成进程，进程是操作系统内核中的一个概念，�
 <activity android:name=".MyActivity" android:label="@string/app_nam"
     android:process=":remote">
 </activity>
-
      {% endhighlight %}
+     
 这样的话这个activity会运行在一个独立的进程中。
 
 task是可以跨应用的，这正是task存在的一个重要原因。有的Activity，虽然不在同一个app中，但为了保持用户操作的连贯性，把他们放在同一个任务中。
@@ -293,7 +293,6 @@ launchMode为singleTop的时候，如果IntentActivity处于任务栈的顶端�
 其他应用再发送Intent的话，执行顺序为：onNewIntent，onRestart，onStart，onResume。
 
 不要忘记，系统可能会随时杀掉后台运行的 Activity ，如果这一切发生，那么系统就会调用 onCreate 方法，而不调用 onNewIntent 方法，一个好的解决方法就是在 onCreate 和 onNewIntent 方法中调用同一个处理数据的方法，如下所示：
-
 
     {% highlight java  %}
 public void onCreate(Bundle savedInstanceState) {
