@@ -52,13 +52,11 @@ addToOne方法的参数是另一个实体，和本实体的外键属性。
         if(protobuf) {
             throw new IllegalStateException("Protobuf entities do not support realtions, currently");
         }
-
         Property[] fkProperties = { fkProperty };
         ToOne toOne = new ToOne(schema, this, target, fkProperties, true);
         toOneRelations.add(toOne);
         return toOne;
     }
-
     /** Convenience for {@link #addToOne(Entity, Property)} with a subsequent call to {@link ToOne#setName(String)}. */
     public ToOne addToOne(Entity target, Property fkProperty, String name) {
         ToOne toOne = addToOne(target, fkProperty);
@@ -129,11 +127,9 @@ To-Many关系在第一次请求时懒汉式解析，之后，关联的实体被�
     {% highlight java %}
 List orders1 = customer.getOrders();
 int size1 = orders1.size();
-
 Order order = new Order();
 order.setCustomerId(customer.getId());
 daoSession.insert(order);
-
 Listorders2 = customer.getOrders();
 // size1 == orders2.size(); // NOT updated
 // orders1 == orders2; // SAME list object
@@ -185,14 +181,12 @@ List orders2 = customer.getOrders();
 Entity customer = schema.addEntity("Customer");
 customer.addIdProperty();
 customer.addStringProperty("name").notNull();
-
 Entity order = schema.addEntity("Order");
 order.setTableName("ORDERS"); // "ORDER" is a reserved keyword
 order.addIdProperty();
 Property orderDate = order.addDateProperty("date").getProperty();
 Property customerId = order.addLongProperty("customerId").notNull().getProperty();
 order.addToOne(customer, customerId);
-
 ToMany customerToOrders = customer.addToMany(order, customerId);
 customerToOrders.setName("orders");
 customerToOrders.orderAsc(orderDate);
