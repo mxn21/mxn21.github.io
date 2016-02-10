@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-8-24-eventBus原理分析.md" afterPath="$PROJECT_DIR$/_posts/2015-8-24-eventBus原理分析.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md" afterPath="$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,8 +26,8 @@
       <file leaf-file-name="2015-8-19-从源码深入理解context.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5073431">
-              <caret line="178" column="24" selection-start-line="178" selection-start-column="24" selection-end-line="178" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.4926569">
+              <caret line="864" column="12" selection-start-line="864" selection-start-column="12" selection-end-line="864" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -88,11 +88,11 @@
         <option value="$PROJECT_DIR$/_posts/2015-9-8-okhttp缓存浅析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-9-11-FragmentTransactions和ActivityStateLoss.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-21-android渲染机制和丢帧分析.md" />
-        <option value="$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-8-自定义view的三种构造方法浅析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-15-windowSoftInputMode属性使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-1-Android堆栈分析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-8-24-eventBus原理分析.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md" />
       </list>
     </option>
   </component>
@@ -991,8 +991,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-8-19-从源码深入理解context.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5073431">
-          <caret line="178" column="24" selection-start-line="178" selection-start-column="24" selection-end-line="178" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.4926569">
+          <caret line="864" column="12" selection-start-line="864" selection-start-column="12" selection-end-line="864" selection-end-column="12" />
           <folding />
         </state>
       </provider>
