@@ -24,7 +24,6 @@ android {
 #####2.多渠道打包修改如下:
 
 {% highlight c %}
-
 productFlavors {
         demo {
             applicationId "com.example.app.demo"
@@ -35,8 +34,6 @@ productFlavors {
             versionName "1.0-full"
         }
     }
-
-
 {% endhighlight %}
 
 #####3.脚本的运行环境:
@@ -52,7 +49,6 @@ productFlavors {
             classpath 'com.android.tools.build:gradle:1.2.2'
         }
     }
-
 {% endhighlight %}
 
 <!-- more -->
@@ -63,7 +59,6 @@ productFlavors {
 android {
         compileSdkVersion 22
         buildToolsVersion "22.0.1"
-     
         defaultConfig {
             minSdkVersion 16
             targetSdkVersion 20
@@ -82,7 +77,6 @@ android {
             //测试所在的路径，这里假设是tests文件夹，没有可以不写这一行
             instrumentTest.setRoot('tests')
         }
-         
         //这个是解决lint报错的代码
         lintOptions {
             abortOnError false
@@ -125,7 +119,6 @@ android {
             play {
             applicationId "包名"
          }
-        
         }
     }
 {% endhighlight %}
@@ -140,9 +133,7 @@ dependencies {
     //某个文件夹下面全部依赖
     compile fileTree(dir: 'libs', include: '*.jar')
 }
- 
 android {
-     
 }
 {% endhighlight %}
 
@@ -161,13 +152,10 @@ repositories {
         url "远程库地址"
     }
 }
- 
 dependencies { 
         //应用格式: packageName:artifactId:version
     compile 'com.google.android:support-v4:r13'}
  
 android {
- 
 }
-
 {% endhighlight %}
