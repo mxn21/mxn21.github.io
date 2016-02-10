@@ -49,7 +49,6 @@ EventBus.getDefault()是个单例：
        }
        return defaultInstance;
    }
-
      {% endhighlight %}
 
 使用了双重判断的方式，防止并发的问题，还能极大的提高效率。
@@ -58,7 +57,6 @@ EventBus.getDefault()是个单例：
    public void register(Object subscriber) {
         register(subscriber, false, 0);
     }
-
      {% endhighlight %}
 
 其实调用的就是同名函数register，它的三个参数意义分别是：
@@ -87,7 +85,6 @@ register 函数中会先根据订阅者类名去subscriberMethodFinder中查找�
 subscriberMethodFinde通过一个findSubscriberMethods方法找到了一个订阅者中的所有订阅方法，返回一个 List<SubscriberMethod>，进入到findSubscriberMethods看看如何实现的
 
     {% highlight java  %}
-
     List<SubscriberMethod> findSubscriberMethods(Class<?> subscriberClass) {
     //通过订阅者类名创建一个key
             String key = subscriberClass.getName();
@@ -180,7 +177,6 @@ subscriberMethodFinde通过一个findSubscriberMethods方法找到了一个订�
                 return subscriberMethods;
             }
         }
-
        {% endhighlight %}
 
 对于这个方法的讲解都在注释里面了，这里就不在重复叙述了，到了这里我们就找到了一个订阅者的所有的订阅方法。
@@ -225,7 +221,6 @@ private void subscribe(Object subscriber, SubscriberMethod subscriberMethod, boo
                 }
             }
         }
-
         //根据优先级插入订阅
         int size = subscriptions.size();
         for (int i = 0; i <= size; i++) {
@@ -283,7 +278,6 @@ post 函数流程图如下：
         List<Object> eventQueue = postingState.eventQueue;
         //将事件放入队列
         eventQueue.add(event);
-
         if (postingState.isPosting) {
             return;
         } else {
