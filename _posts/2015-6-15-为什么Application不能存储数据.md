@@ -16,7 +16,6 @@ tag: [android]
 
 Application如下所示：
 {% highlight java %}
-
 class MyApplication extends Application {
     String name;
     String getName() {
@@ -45,7 +44,6 @@ class WhatIsYourNameActivity extends Activity {
 在第二个activity中，我们取出name
 
 {% highlight java %}
-
 class GreetLoudlyActivity extends Activity {
     TextView textview;
     void onCreate(Bundle savedInstanceState) {
@@ -59,7 +57,6 @@ class GreetLoudlyActivity extends Activity {
         textview.setText("HELLO " + app.getName().toUpperCase());
     }
 }
-
 {% endhighlight %}
 
 <!-- more -->
@@ -103,19 +100,14 @@ class GreetLoudlyActivity extends Activity {
 # find the process id
 adb shell ps
 # then find the line with the package name of your app
-
 # Mac/Unix: save some time by using grep:
 adb shell ps | grep your.app.package
-
 # The result should look like:
 # USER      PID   PPID  VSIZE  RSS     WCHAN    PC         NAME
 # u0_a198   21997 160   827940 22064 ffffffff 00000000 S your.app.package
-
 # Kill the app by PID
 adb shell kill -9 21997
-
 # the app is now killed
-
 {% endhighlight %}
 
 3、现在通过进程切换器回到app中，你就在一个新的application当中了。
