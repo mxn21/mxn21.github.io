@@ -10,7 +10,6 @@ tag: java
 
 先看看future
 {% highlight java %}
-
 public interface Future<V> {
   boolean cancel(boolean mayInterruptIfRunning);
   boolean isCancelled();
@@ -19,7 +18,6 @@ public interface Future<V> {
  V get(long timeout, TimeUnit unit)
         throws InterruptedException, ExecutionException, TimeoutException;
 }
-
      {% endhighlight  %}   
 
 可以看到future是一个接口，里面定义了一些方法。
@@ -35,7 +33,6 @@ public interface Callable<V> {
      */
     V call() throws Exception;
 }
-
 {% endhighlight  %}  
 
 他也是一个接口，里面定义了一个call方法。
@@ -68,32 +65,25 @@ public interface Callable<V> {
  
  {% highlight java %}
  public class MyCallable implements Callable<Integer>{
-
 	@Override
 	public Integer call() throws Exception {
 		System.out.println("正在处理任务－－－－>" + Thread.currentThread().getName());
 		Thread.sleep(5000) ; 
 		return 100;
 	}
-
 }
  {% endhighlight  %}  
 
 
  {% highlight java %}
  public class FutureTest {
-
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		MyCallable myCallable = new MyCallable() ; 
-		
 		FutureTask<Integer> myFutureTast = new FutureTask(myCallable); 
-		
 		new Thread(myFutureTast).start(); 
-		
-		
 		System.out.println("已经提交了任务");
 		try {
 			System.out.println(myFutureTast.get());
@@ -102,10 +92,7 @@ public interface Callable<V> {
 		}
 		System.out.println("任务执行完毕");
 	}
-
 }
- 
- 
   {% endhighlight  %}  
   输出结果：
   
@@ -114,7 +101,6 @@ public interface Callable<V> {
   正在处理任务－－－－>Thread-0
   100
   任务执行完毕
-
    {% endhighlight  %}
    
    可以看到myFutureTast.get()方法得到了Callable的call()方法的返回值，这里是100.
@@ -125,7 +111,6 @@ public interface Callable<V> {
    首先是FutureTask通过传入Callable实例化，
    
     {% highlight java %}
-   
     public FutureTask(Callable<V> callable) {
         if (callable == null)
             throw new NullPointerException();
@@ -138,9 +123,7 @@ public interface Callable<V> {
  因为FutureTask继承了Runnable，所以当new Thread(myFutureTast).start(); 的时候一定会调用FutureTask覆写的run()方法。
  那么找找这个方法。
     
-    
      {% highlight java %}
-    
     public void run() {
         if (state != NEW ||
             !UNSAFE.compareAndSwapObject(this, runnerOffset,
@@ -173,9 +156,7 @@ public interface Callable<V> {
                 handlePossibleCancellationInterrupt(s);
         }
     }
-    
     {% endhighlight  %}
-
 
 可以看到，把之前保存的callable变量，赋值给变量c,然后c调用了call(),把结果给了result ,再调用set(result) ; 
 看看set方法 。
@@ -190,10 +171,8 @@ public interface Callable<V> {
     }
      {% endhighlight  %}
      
-     
 set()方法把这个result保存到一个新的变量outcome中，outcome就是计算的结果。
 那么get()一定是返回了这个outcome 。 
-
 
      {% highlight java %}
      public V get() throws InterruptedException, ExecutionException {
@@ -202,8 +181,6 @@ set()方法把这个result保存到一个新的变量outcome中，outcome就是�
             s = awaitDone(false, 0L);
         return report(s);
     }
-
-
         {% endhighlight  %}
         
 看到了get()并没有直接返回outcome，而是调用report。
@@ -218,7 +195,6 @@ set()方法把这个result保存到一个新的变量outcome中，outcome就是�
             throw new CancellationException();
         throw new ExecutionException((Throwable)x);
     }
-         
            {% endhighlight  %}
 
 在report()中终于返回了之前的结果outcome 。 
@@ -233,7 +209,6 @@ set()方法把这个result保存到一个新的变量outcome中，outcome就是�
 	
     {% highlight java %}	
 public class FutureTest {
-
 	public static void main(String[] args) {
 		MyCallable myCallable = new MyCallable() ; 
 		//方式1
@@ -242,7 +217,6 @@ public class FutureTest {
 		//方式2
 		ExecutorService threadPool = Executors.newSingleThreadExecutor();  
 		Future<Integer> myFutureTast = threadPool.submit(myCallable) ; 
-		
 		System.out.println("已经提交了任务");
 		try {
 			System.out.println(myFutureTast.get());
@@ -251,7 +225,6 @@ public class FutureTest {
 		}
 		System.out.println("任务执行完毕");
 	}
-
 }
  {% endhighlight  %}
 
@@ -264,11 +237,9 @@ public class FutureTest {
 任务执行完毕
      {% endhighlight  %}
 
-
 下面是一个终极版演示例子。
   {% highlight java %}
   public class CallableAndFuture {     
-    
     /** *//**   
      * 自定义一个任务类，实现Callable接口   
      */    
@@ -300,13 +271,11 @@ public class FutureTest {
             }     
         }     
     }     
-         
     public static void main(String[] args) {     
         // 定义3个Callable类型的任务     
         MyCallableClass task1 = new MyCallableClass(0);     
         MyCallableClass task2 = new MyCallableClass(1);     
         MyCallableClass task3 = new MyCallableClass(2);     
-             
         // 创建一个执行任务的服务     
         ExecutorService es = Executors.newFixedThreadPool(3);     
         try {     
@@ -315,12 +284,10 @@ public class FutureTest {
             Future future1 = es.submit(task1);     
             // 获得第一个任务的结果，如果调用get方法，当前线程会等待任务执行完毕后才往下执行     
             System.out.println("task1: " + future1.get());     
-                 
             Future future2 = es.submit(task2);     
             // 等待5秒后，再停止第二个任务。因为第二个任务进行的是无限循环     
             Thread.sleep(5000);     
             System.out.println("task2 cancel: " + future2.cancel(true));     
-                 
             // 获取第三个任务的输出，因为执行第三个任务会引起异常     
             // 所以下面的语句将引起异常的抛出     
             Future future3 = es.submit(task3);     
@@ -343,7 +310,6 @@ looping.
 task2 cancel: true
 Interrupted
 java.util.concurrent.ExecutionException: java.lang.Exception: Bad flag value!
-
   {% endhighlight  %}
         
 第一个线程进入call()方法，通过get取得 call返回值和之前的例子没有什么不同。
