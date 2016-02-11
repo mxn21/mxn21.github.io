@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-6-14-android建设者模式分析.md" afterPath="$PROJECT_DIR$/_posts/2015-6-14-android建设者模式分析.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-6-19-retrofit实现原理分析.md" afterPath="$PROJECT_DIR$/_posts/2015-6-19-retrofit实现原理分析.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,8 +30,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35514018">
-              <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.44192258">
+              <caret line="194" column="25" selection-start-line="194" selection-start-column="25" selection-end-line="194" selection-end-column="25" />
               <folding />
             </state>
           </provider>
@@ -50,7 +50,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/_posts/2015-11-5-wakelock解析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-10-22-模拟定位的使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-10-18-drawBitmapMesh使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-10-14-PathMeasure使用方法.md" />
@@ -101,6 +100,7 @@
         <option value="$PROJECT_DIR$/_posts/2015-6-15-为什么Application不能存储数据.md" />
         <option value="$PROJECT_DIR$/_posts/2015-6-19-java动态代理分析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-6-14-android建设者模式分析.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-6-19-retrofit实现原理分析.md" />
       </list>
     </option>
   </component>
@@ -1040,8 +1040,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35514018">
-          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.44192258">
+          <caret line="194" column="25" selection-start-line="194" selection-start-column="25" selection-end-line="194" selection-end-column="25" />
           <folding />
         </state>
       </provider>
