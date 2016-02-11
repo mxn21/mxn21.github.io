@@ -28,35 +28,28 @@ onUpgrade(SQLiteDatabse db, int oldVersion, int newVersion): 更新的时候可�
 代码如下：
 {% highlight java %}
 public class DatabaseHelper extends SQLiteOpenHelper {  
- 
     static final String dbName="demoDB";  
     static final String employeeTable="Employees";  
     static final String colID="EmployeeID";  
     static final String colName="EmployeeName";  
     static final String colAge="Age";  
     static final String colDept="Dept";  
- 
     static final String deptTable="Dept";  
     static final String colDeptID="DeptID";  
     static final String colDeptName="DeptName";  
- 
     static final String viewEmps="ViewEmps";  
- 
     public DatabaseHelper(Context context) {  
       super(context, dbName, null,33);   
     }  
- 
     // 创建库中的表，视图和触发器
     public void onCreate(SQLiteDatabase db) {  
       db.execSQL("CREATE TABLE "+deptTable+" ("+colDeptID+ " INTEGER PRIMARY KEY , "+  
         colDeptName+ " TEXT)");  
- 
       db.execSQL("CREATE TABLE "+employeeTable+"   
         ("+colID+" INTEGER PRIMARY KEY AUTOINCREMENT, "+  
             colName+" TEXT, "+colAge+" Integer, "+colDept+"   
         INTEGER NOT NULL ,FOREIGN KEY ("+colDept+") REFERENCES   
         "+deptTable+" ("+colDeptID+"));");  
- 
       //创建触发器  
       db.execSQL("CREATE TRIGGER fk_empdept_deptid " +  
         " BEFORE INSERT "+  
@@ -66,7 +59,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         WHERE "+colDeptID+"=new."+colDept+" ) IS NULL)"+  
         " THEN RAISE (ABORT,'Foreign Key Violation') END;"+  
         "  END;");  
- 
      //创建视图  
       db.execSQL("CREATE VIEW "+viewEmps+  
         " AS SELECT "+employeeTable+"."+colID+" AS _id,"+  
@@ -77,12 +69,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         " ON "+employeeTable+"."+colDept+" ="+deptTable+"."+colDeptID  
         );  
      }  
- 
     // 更新库中的表
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {  
           db.execSQL("DROP TABLE IF EXISTS "+employeeTable);  
           db.execSQL("DROP TABLE IF EXISTS "+deptTable);  
- 
           db.execSQL("DROP TRIGGER IF EXISTS fk_empdept_deptid");  
           db.execSQL("DROP VIEW IF EXISTS "+viewEmps);  
           onCreate(db);  
@@ -93,13 +83,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 加入数据
 
 {% highlight java %}
-
 SQLiteDatabase db=this.getWritableDatabase();  
  ContentValues cv=new ContentValues();  
    cv.put(colDeptID, 1);  
    cv.put(colDeptName, "Sales");  
    db.insert(deptTable, colDeptID, cv);  
- 
    cv.put(colDeptID, 2);  
    cv.put(colDeptName, "IT");  
    db.insert(deptTable, colDeptID, cv);  
@@ -145,10 +133,8 @@ Cursor getAllDepts()
   }  
 {% endhighlight  %}
 
-
 取得部门内雇员信息
 {% highlight java %}
-
 public Cursor getEmpByDept(String Dept)  
   {  
    SQLiteDatabase db=this.getReadableDatabase();  
