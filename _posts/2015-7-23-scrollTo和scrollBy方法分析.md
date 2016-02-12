@@ -45,7 +45,6 @@ scrollTo(100, 100)的效果图如下：
 scrollBy(int x, int y)其实是对scrollTo的包装，移动的是相当位置。 scrollTo(int x, int y)的源码和scrollBy(int x, int y)源码如下所示.
 
     {% highlight java  %}
-
 public void scrollTo(int x, int y) {
     if (mScrollX != x || mScrollY != y) {
         int oldX = mScrollX;
@@ -59,9 +58,7 @@ public void scrollTo(int x, int y) {
         }
     }
 }
-
 public void scrollBy(int x, int y) { scrollTo(mScrollX + x, mScrollY + y); }
-
     {% endhighlight %}
 
 
@@ -71,20 +68,13 @@ public void scrollBy(int x, int y) { scrollTo(mScrollX + x, mScrollY + y); }
 在View.java中提供了mScrollX，mScrollY两个变量以及相应的属性方法去读取滚动值
 这两个函数的源码如下所示：
 
-
     {% highlight java  %}
     protected int mScrollX;   //该视图内容相当于视图起始坐标的偏移量   ， X轴 方向
     protected int mScrollY;   //该视图内容相当于视图起始坐标的偏移量   ， Y轴方向
     public final int getScrollX() {
         return mScrollX;
     }
-
     public final int getScrollY() {
         return mScrollY;
     }
-
     {% endhighlight %}
-
-
-
-
