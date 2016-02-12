@@ -153,7 +153,6 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
 第三部分代码:
 
     {% highlight java  %}
-
     boolean addingToTask = false;
             boolean movedHome = false;
             TaskRecord reuseTask = null;
@@ -309,8 +308,6 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
                     }
                 }
             }
-
-
     {% endhighlight %}
 
 
@@ -322,12 +319,10 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
 
 继续跟进代码，会发现调用了findTaskLocked方法返回一个ActivityRecord，你可以查看findTaskLocked的逻辑，你会知道这个ActiivtyRecord 就是对应的是Activity C，继续往下走，就会调用 moveTaskToFrontLocked将后台任务移动到前台，由于我们考虑的是launchMode是singleTask，所以将会进入
 
-
        {% highlight java  %}
         else if ((launchFlags&Intent.FLAG_ACTIVITY_CLEAR_TOP) != 0
                             || r.launchMode == ActivityInfo.LAUNCH_SINGLE_TASK
                             || r.launchMode == ActivityInfo.LAUNCH_SINGLE_INSTANCE)
-
         {% endhighlight %}
 
 进入上面的if语句之后，就会调用performClearTaskLocked返回一个ActivityRecord，你可以去研究一下performClearTaskLocked的逻辑，这个方法传入了一个ActivityRecord r，就是将任务栈中r之上的AcrivityRecord 清除掉，并返回ActivityRecord r，这里返回的ActivityRecord 对应的就是Activity B。接着调用Activity B的onNewIntent方法。执行了这个else if，其他else if是都不会执行的，所以就直接执行到了
@@ -382,7 +377,6 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
                            }
                        }
                    }
-
                } else {
                    if (r.resultTo != null) {
                        sendActivityResultLocked(-1,
@@ -392,10 +386,8 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
                    ActivityOptions.abort(options);
                    return ActivityManager.START_CLASS_NOT_FOUND;
                }
-
                boolean newTask = false;
                boolean keepCurTransition = false;
-
                // Should this be considered a new task?
                if (r.resultTo == null && !addingToTask
                        && (launchFlags&Intent.FLAG_ACTIVITY_NEW_TASK) != 0) {
@@ -415,7 +407,6 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
                    if (!movedHome) {
                        moveHomeToFrontFromLaunchLocked(launchFlags);
                    }
-
                } else if (sourceRecord != null) {
                    if (!addingToTask &&
                            (launchFlags&Intent.FLAG_ACTIVITY_CLEAR_TOP) != 0) {
@@ -459,7 +450,6 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
                    r.setTask(sourceRecord.task, sourceRecord.thumbHolder, false);
                    if (DEBUG_TASKS) Slog.v(TAG, "Starting new activity " + r
                            + " in existing task " + r.task);
-
                } else {
                    // This not being started from an existing activity, and not part
                    // of a new task...  just put it in the top task, though these days
@@ -473,10 +463,8 @@ SingleInstance 加载模式打开的)，你按返回键，回到的是微信的�
                    if (DEBUG_TASKS) Slog.v(TAG, "Starting new activity " + r
                            + " in new guessed " + r.task);
                }
-
                mService.grantUriPermissionFromIntentLocked(callingUid, r.packageName,
                        intent, r.getUriPermissionsLocked());
-
                if (newTask) {
                    EventLog.writeEvent(EventLogTags.AM_CREATE_TASK, r.task.taskId);
                }
