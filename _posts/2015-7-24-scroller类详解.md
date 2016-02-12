@@ -17,18 +17,14 @@ tag: android
 其源代码(部分)如下： 路径位于 \frameworks\base\core\java\android\widget\Scroller.java
 
     {% highlight java  %}
-
 public class Scroller  {
-
     private int mStartX;    //起始坐标点 ,  X轴方向
     private int mStartY;    //起始坐标点 ,  Y轴方向
     private int mCurrX;     //当前坐标点  X轴， 即调用startScroll函数后,经过一定时间所达到的值
     private int mCurrY;     //当前坐标点  Y轴， 即调用startScroll函数后,经过一定时间所达到的值
-
     private float mDeltaX;  //应该继续滑动的距离， X轴方向
     private float mDeltaY;  //应该继续滑动的距离， Y轴方向
     private boolean mFinished;  //是否已经完成本次滑动操作， 如果完成则为 true
-
     //构造函数
     public Scroller(Context context) {
         this(context, null);
@@ -81,7 +77,6 @@ public class Scroller  {
     }
 }
     {% endhighlight %}
-
 
 <!-- more -->
 
@@ -144,7 +139,6 @@ computeScroll()方法原型如下，该方法位于ViewGroup.java类中
      * object.
      */由父视图调用用来请求子视图根据偏移值 mScrollX,mScrollY重新绘制
     public void computeScroll() { //空方法 ，自定义ViewGroup必须实现方法体
-
     }
     {% endhighlight %}
 
@@ -155,7 +149,6 @@ computeScroll()方法原型如下，该方法位于ViewGroup.java类中
 @Override
 protected void dispatchDraw(Canvas canvas){
     ...
-
     for (int i = 0; i < count; i++) {
         final View child = children[getChildDrawingOrder(count, i)];
         if ((child.mViewFlags & VISIBILITY_MASK) == VISIBLE || child.getAnimation() != null) {
@@ -168,9 +161,7 @@ protected boolean drawChild(Canvas canvas, View child, long drawingTime) {
     child.computeScroll();
     ...
 }
-
     {% endhighlight %}
-
 
 ### ViewConfiguration类
 
@@ -246,7 +237,6 @@ public boolean onTouchEvent(MotionEvent event){
     return true;
 }
         {% endhighlight %}
-
 
 那么获得滑动速度有什么用呢，假如我们做一个滑动翻页的相册，那么可以设置一个常量，表示滑动最快速度。超过了这个速度则实现翻页效果，
 就可以使用上面的方法。这个速度是有正负之分的，所以可以用来区别滑动的方向。
