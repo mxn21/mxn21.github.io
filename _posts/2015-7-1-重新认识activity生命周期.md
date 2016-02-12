@@ -361,11 +361,10 @@ XML文件里的属性android:id）,如果你没有为控件提供id，那系统�
 
 需要注意的是：onSaveInstanceState()方法不保证一定会被调用，所以在这个方法里你只应该保存一些临时变量（如UI的状态），而不要去保存一些需要持久化的数据。相反，你应该在onPaused（）方法里保存需要持久化的数据（例如保存到数据库里的数据）。
 
-
-```Android系统上Back按钮和Home按钮的区别，尽管他们都可以导航到另外一个otherActivity（可以是其他程序的），
+Android系统上Back按钮和Home按钮的区别，尽管他们都可以导航到另外一个otherActivity（可以是其他程序的），
 可他们的作用原理是不一样的。在界面（Activity）上点击Back按钮，系统会认为这个Activity已完成其对应的实现逻辑，
 则调用对应的方法销毁此Activity；可当点击Home按钮时，系统会认为这个Activity还没有完成对应的逻辑，则系统并不会销毁这个Activity，
-而是让其处于停止态（Stopped State）。```
+而是让其处于停止态（Stopped State）。
 
 #### onAttachedToWindow()在整个Activity生命周期的位置及使用
 
