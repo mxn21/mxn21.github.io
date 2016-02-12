@@ -18,17 +18,13 @@ measure方法确认当前View是否有FORCE_LAYOUT标记。
         if ((mPrivateFlags & FORCE_LAYOUT) == FORCE_LAYOUT ||
                 widthMeasureSpec != mOldWidthMeasureSpec ||
                 heightMeasureSpec != mOldHeightMeasureSpec) {
-
             // first clears the measured dimension flag
             mPrivateFlags &= ~MEASURED_DIMENSION_SET;
-
             if (ViewDebug.TRACE_HIERARCHY) {
                 ViewDebug.trace(this, ViewDebug.HierarchyTraceType.ON_MEASURE);
             }
-
             // measure ourselves, this should set the measured dimension flag back
             onMeasure(widthMeasureSpec, heightMeasureSpec);
-
             // flag not set, setMeasuredDimension() was not invoked, we raise
             // an exception to warn the developer
             if ((mPrivateFlags & MEASURED_DIMENSION_SET) != MEASURED_DIMENSION_SET) {
@@ -36,10 +32,8 @@ measure方法确认当前View是否有FORCE_LAYOUT标记。
                         + " measured dimension by calling"
                         + " setMeasuredDimension()");
             }
-
             mPrivateFlags |= LAYOUT_REQUIRED;
         }
-
         mOldWidthMeasureSpec = widthMeasureSpec;
         mOldHeightMeasureSpec = heightMeasureSpec;
     }
@@ -52,7 +46,6 @@ onLayout调用后清理LAYOUT_REQUIRED标记。
 layout调用之后，会清理掉FORCE_LAYOUT标记。
 
     {% highlight java  %}
-
   @SuppressWarnings({"unchecked"})
    public void layout(int l, int t, int r, int b) {
        int oldL = mLeft;
@@ -64,10 +57,8 @@ layout调用之后，会清理掉FORCE_LAYOUT标记。
            if (ViewDebug.TRACE_HIERARCHY) {
                ViewDebug.trace(this, ViewDebug.HierarchyTraceType.ON_LAYOUT);
            }
-
            onLayout(changed, l, t, r, b);
            mPrivateFlags &= ~LAYOUT_REQUIRED;
-
            ListenerInfo li = mListenerInfo;
            if (li != null && li.mOnLayoutChangeListeners != null) {
                ArrayList<OnLayoutChangeListener> listenersCopy =
