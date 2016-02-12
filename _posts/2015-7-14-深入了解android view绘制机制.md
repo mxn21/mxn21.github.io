@@ -21,7 +21,6 @@ tag: android
     {% highlight java  %}
     LayoutInflater layoutInflater = (LayoutInflater) context
         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         {% endhighlight %}
 
 其实第一种就是第二种的简单写法，只是Android给我们做了一下封装而已。得到了LayoutInflater的实例之后就可以调用它的inflate()方法来加载布局了，如下所示：
@@ -297,7 +296,6 @@ public final void measure(int widthMeasureSpec, int heightMeasureSpec) {
         int result = size;
         int specMode = MeasureSpec.getMode(measureSpec);
         int specSize = MeasureSpec.getSize(measureSpec);
-
         switch (specMode) {
         case MeasureSpec.UNSPECIFIED:
             result = size;
@@ -328,13 +326,11 @@ protected void measureChildren(int widthMeasureSpec, int heightMeasureSpec) {
         }
     }
 }
-
     {% endhighlight %}
 
 这里首先会去遍历当前布局下的所有子视图，然后逐个调用measureChild()方法来测量相应子视图的大小，如下所示：
 
     {% highlight java  %}
-
     protected void measureChild(View child, int parentWidthMeasureSpec,
             int parentHeightMeasureSpec) {
         final LayoutParams lp = child.getLayoutParams();
@@ -344,7 +340,6 @@ protected void measureChildren(int widthMeasureSpec, int heightMeasureSpec) {
                 mPaddingTop + mPaddingBottom, lp.height);
         child.measure(childWidthMeasureSpec, childHeightMeasureSpec);
     }
-
      {% endhighlight %}
 
 可以看到，在第4行和第6行分别调用了getChildMeasureSpec()方法来去计算子视图的MeasureSpec，计算的依据就是布局文件中定义的MATCH_PARENT、WRAP_CONTENT等值，这个方法的内部细节就不再贴出。然后在第8行调用子视图的measure()方法，并把计算出的MeasureSpec传递进去，之后的流程就和前面所介绍的一样了。
@@ -352,18 +347,13 @@ protected void measureChildren(int widthMeasureSpec, int heightMeasureSpec) {
 
 
     {% highlight java  %}
-
 public class MyView extends View {
-
     ......
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         setMeasuredDimension(200, 200);
     }
-
 }
-
      {% endhighlight %}
 
 这样的话就把View默认的测量流程覆盖掉了，不管在布局文件中定义MyView这个视图的大小是多少，最终在界面上显示的大小都将会是200*200。
@@ -414,7 +404,6 @@ public void layout(int l, int t, int r, int b) {
     {% highlight java  %}
 @Override
 protected abstract void onLayout(boolean changed, int l, int t, int r, int b);
-
     {% endhighlight %}
 
 可以看到，ViewGroup中的onLayout()方法竟然是一个抽象方法，这就意味着所有ViewGroup的子类都必须重写这个方法。没错，像LinearLayout、RelativeLayout等布局，都是重写了这个方法，
@@ -424,11 +413,9 @@ protected abstract void onLayout(boolean changed, int l, int t, int r, int b);
 
     {% highlight java  %}
     public class SimpleLayout extends ViewGroup {
-
         public SimpleLayout(Context context, AttributeSet attrs) {
             super(context, attrs);
         }
-
         @Override
         protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -437,7 +424,6 @@ protected abstract void onLayout(boolean changed, int l, int t, int r, int b);
                 measureChild(childView, widthMeasureSpec, heightMeasureSpec);
             }
         }
-
         @Override
         protected void onLayout(boolean changed, int l, int t, int r, int b) {
             if (getChildCount() > 0) {
@@ -445,7 +431,6 @@ protected abstract void onLayout(boolean changed, int l, int t, int r, int b);
                 childView.layout(0, 0, childView.getMeasuredWidth(), childView.getMeasuredHeight());
             }
         }
-
     }
     {% endhighlight %}
 
@@ -469,7 +454,6 @@ protected abstract void onLayout(boolean changed, int l, int t, int r, int b);
             childView.layout(0, 0, 200, 200);
         }
     }
-
         {% endhighlight %}
 
 这样getWidth()方法得到的值就是200 - 0 = 200，不会再和getMeasuredWidth()的值相同了。当然这种做法充分不尊重measure()过程计算出的结果，通常情况下是不推荐这么写的。getHeight()与getMeasureHeight()方法之间的关系同上，就不再重复分析了。
@@ -538,14 +522,11 @@ measure和layout的过程都结束后，接下来就进入到draw的过程了。
 
     {% highlight java  %}
 public class MyView extends View {
-
     private Paint mPaint;
-
     public MyView(Context context, AttributeSet attrs) {
         super(context, attrs);
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     }
-
     @Override
     protected void onDraw(Canvas canvas) {
         mPaint.setColor(Color.YELLOW);
@@ -556,7 +537,6 @@ public class MyView extends View {
         canvas.drawText(text, 0, getHeight() / 2, mPaint);
     }
 }
-
      {% endhighlight %}
 
 可以看到，我们创建了一个自定义的MyView继承自View，并在MyView的构造函数中创建了一个Paint对象。Paint就像是一个画笔一样，配合着Canvas就可以进行绘制了。这里我们的绘制逻辑比较简单，在onDraw()方法中先是把画笔设置成黄色，然后调用Canvas的drawRect()方法绘制一个矩形。然后在把画笔设置成蓝色，并调整了一下文字的大小，然后调用drawText()方法绘制了一段文字。
@@ -566,12 +546,10 @@ public class MyView extends View {
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
     <com.example.viewtest.MyView
         android:layout_width="200dp"
         android:layout_height="100dp"
         />
-
 </LinearLayout>
       {% endhighlight %}
 
