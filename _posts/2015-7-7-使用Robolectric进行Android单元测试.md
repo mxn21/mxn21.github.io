@@ -47,7 +47,6 @@ Android Studio新建项目的时候并没有建立测试文件夹，如果使用
     sourceSets {
         instrumentTest.setRoot('src/test')
      }
-
     {% endhighlight %}
 
 #### 加入Gradle Test Plug-in
@@ -70,14 +69,12 @@ Android Studio新建项目的时候并没有建立测试文件夹，如果使用
 4、加入 test-only dependencies:
 
     {% highlight c  %}
-
  testCompile 'junit:junit:4.10'
  testCompile 'org.robolectric:robolectric:2.1.+'
  testCompile 'com.squareup:fest-android:1.0.+'
  instrumentTestCompile 'junit:junit:4.10'
  instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
  instrumentTestCompile 'com.squareup:fest-android:1.0.+'
-
      {% endhighlight %}
 
 最终的build.gradle文件如下
@@ -97,38 +94,31 @@ Android Studio新建项目的时候并没有建立测试文件夹，如果使用
     }
     apply plugin: 'android'
     apply plugin: 'android-test'
-
     repositories {
       mavenCentral()
       maven {
           url 'https://oss.sonatype.org/content/repositories/snapshots/'
       }
     }
-
     android {
       compileSdkVersion 18
       buildToolsVersion "18.1.0"
-
       defaultConfig {
           minSdkVersion 7
           targetSdkVersion 18
       }
-
       sourceSets {
           instrumentTest.setRoot('src/test')
       }
     }
-
     dependencies {
       compile 'com.android.support:appcompat-v7:+'
-
       testCompile 'junit:junit:4.10'
       testCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
       testCompile 'com.squareup:fest-android:1.0.+'
       instrumentTestCompile 'junit:junit:4.10'
       instrumentTestCompile 'org.robolectric:robolectric:2.3-SNAPSHOT'
       instrumentTestCompile 'com.squareup:fest-android:1.0.+'
-
     }
     {% endhighlight %}
 
@@ -144,20 +134,16 @@ Robolectric会在测试启动阶段读取AndroidManifest.xml，如果测试在sr
     import android.app.FragmentManager;
     import android.app.FragmentTransaction;
     import android.support.v4.app.FragmentActivity;
-
     import org.junit.runners.model.InitializationError;
     import org.robolectric.AndroidManifest;
     import org.robolectric.Robolectric;
     import org.robolectric.RobolectricTestRunner;
     import org.robolectric.annotation.Config;
     import org.robolectric.res.Fs;
-
     public class RobolectricGradleTestRunner extends RobolectricTestRunner {
-
       public RobolectricGradleTestRunner(Class<?> testClass) throws InitializationError {
        super(testClass);
       }
-
      @Override
     protected AndroidManifest getAppManifest(Config config) {
           String manifestProperty = System.getProperty("android.manifest");
@@ -170,7 +156,6 @@ Robolectric会在测试启动阶段读取AndroidManifest.xml，如果测试在sr
           AndroidManifest appManifest = super.getAppManifest(config);
           return appManifest;
      }
-
     }
         {% endhighlight %}
 
@@ -179,19 +164,13 @@ Robolectric会在测试启动阶段读取AndroidManifest.xml，如果测试在sr
 在src/test/java下写一个Robolectric Test
 
     {% highlight java  %}
-
     package de.peterfriese.robolectricdemo;
-
     import org.junit.Test;
     import org.junit.runner.RunWith;
-
     import de.peterfriese.robolectric.RobolectricGradleTestRunner;
-
     import static org.junit.Assert.assertTrue;
-
     @RunWith(RobolectricGradleTestRunner.class)
     public class MainActivityTest {
-
       @Test
      public void shouldFail() {
          assertTrue(false);
@@ -224,24 +203,17 @@ test会直接运行tests, check 会运行tests和checkstyle等等, build会compi
 
     {% highlight c  %}
 $ ./gradlew test
-
 de.peterfriese.robolectricdemo.MainActivityTest > shouldFail FAILED
 java.lang.AssertionError at MainActivityTest.java:15
-
 1 test completed, 1 failed
 :RobolectricDemo:testDebug FAILED
-
 FAILURE: Build failed with an exception.
-
 * What went wrong:
 Execution failed for task ':RobolectricDemo:testDebug'.
 > There were failing tests. See the report at: file:///Users/peterfriese/Projects/peterfriese.de/Robolectric/RobolectricDemoProject/RobolectricDemo/build/test-report/debug/index.html
-
 * Try:
 Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
-
 BUILD FAILED
-
     {% endhighlight %}
 
 和预想的一样出现test failed，可以在浏览器中打开../RobolectricDemoProject/RobolectricDemo/build/test-report/debug/index
@@ -252,15 +224,13 @@ BUILD FAILED
     {% highlight java  %}
 @RunWith(MyTestRunner.class)
 public class SignInScreenTest {
-
     @Test
     public void should_start_intent_when_click_registration_button() {
-    2   Activity activity = new Activity();
+        Activity activity = new Activity();
         SignInScreen signInScreen = new SignInSceen(activity);
-    3   TextView textView = (TextView)  signInScreen.findViewById(R.id.sign_in_registration);
-         textView.performClick();
-
-    4   ShadowActivity shadowActivity = Robolectric.shadowOf(activity);
+        TextView textView = (TextView)  signInScreen.findViewById(R.id.sign_in_registration);
+        textView.performClick();
+        ShadowActivity shadowActivity = Robolectric.shadowOf(activity);
         Intent nextStartedActivity = shadowActivity.getNextStartedActivity();
         ShadowIntent shadowIntent = Robolectric.shadowOf(nextStartedActivity);
         assertThat((Class<WebPageActivity>) shadowIntent.getIntentClass(), equalTo(WebPageActivity.class));
@@ -290,9 +260,7 @@ import static org.fest.assertions.api.ANDROID.assertThat;
 我们需要在tests获取activity
 
     {% highlight java  %}
-
     private MainActivity activity;
-
     @Before
     public void setup() {
       activity = Robolectric.buildActivity(MainActivity.class).get();
@@ -305,13 +273,10 @@ import static org.fest.assertions.api.ANDROID.assertThat;
 @Test
 public void shouldNotBeNull() {
   assertThat(activity).isNotNull();
-
   TextView textView = (TextView) activity.findViewById(R.id.textView);
   assertThat(textView).isNotNull();
-
   Button button = (Button) activity.findViewById(R.id.button);
   assertThat(button).isNotNull();
-
   EditText editText = (EditText) activity.findViewById(R.id.editText);
   assertThat(editText).isNotNull();
 }
@@ -325,13 +290,10 @@ public void shouldProduceGreetingWhenButtonPressed() {
   TextView textView = (TextView) activity.findViewById(R.id.textView);
   Button button = (Button) activity.findViewById(R.id.button);
   EditText editText = (EditText) activity.findViewById(R.id.editText);
-
   editText.setText("Peter");
   button.performClick();
-
   assertThat(textView).containsText("Hello, Peter!");
 }
-
     {% endhighlight %}
 
 当运行的时候，测试会fail。需要按下面的方法修复。
@@ -348,11 +310,9 @@ public static class MainFragment extends Fragment {
           public void onClick(View view) {
               TextView textView = (TextView) rootView.findViewById(R.id.textView);
               EditText editText = (EditText) rootView.findViewById(R.id.editText);
-
               textView.setText(String.format("Hello, %s!", editText.getText()));
           }
       });
-
       return rootView;
   }
 }
@@ -374,6 +334,5 @@ public static class MainFragment extends Fragment {
     {% highlight c  %}
     $ ./gradlew test
     BUILD SUCCESSFUL
-
     Total time: 7.066 secs
      {% endhighlight %}
