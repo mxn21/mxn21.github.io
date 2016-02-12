@@ -17,10 +17,8 @@ public  void getHitRect(Rect outRect)这个方法用来找到控件占据的矩�
 public class MainActivity extends Activity {
     private TextView textView = null;
     private Button button = null;
-
     Rect Trect = new Rect();
     Rect Brect = new Rect();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,21 +126,17 @@ Android4.0设计规定的有效可触摸的UI元素标准是48dp，转化为一�
      */
     public static void expandViewTouchDelegate(final View view, final int top,
             final int bottom, final int left, final int right) {
-
         ((View) view.getParent()).post(new Runnable() {
             @Override
             public void run() {
                 Rect bounds = new Rect();
                 view.setEnabled(true);
                 view.getHitRect(bounds);
-
                 bounds.top -= top;
                 bounds.bottom += bottom;
                 bounds.left -= left;
                 bounds.right += right;
-
                 TouchDelegate touchDelegate = new TouchDelegate(bounds, view);
-
                 if (View.class.isInstance(view.getParent())) {
                     ((View) view.getParent()).setTouchDelegate(touchDelegate);
                 }
@@ -165,14 +159,12 @@ Android4.0设计规定的有效可触摸的UI元素标准是48dp，转化为一�
      * @param view
      */
     public static void restoreViewTouchDelegate(final View view) {
-
         ((View) view.getParent()).post(new Runnable() {
             @Override
             public void run() {
                 Rect bounds = new Rect();
                 bounds.setEmpty();
                 TouchDelegate touchDelegate = new TouchDelegate(bounds, view);
-
                 if (View.class.isInstance(view.getParent())) {
                     ((View) view.getParent()).setTouchDelegate(touchDelegate);
                 }
