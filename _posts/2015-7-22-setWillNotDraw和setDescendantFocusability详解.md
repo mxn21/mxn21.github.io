@@ -13,22 +13,15 @@ tag: android
 先重写一个ViewGroup
 
     {% highlight java  %}
-
 <com.test.demo.MyLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:id="@+id/ll_absolute"
-
     android:orientation="vertical"
-
     android:layout_width="fill_parent"
-
     android:layout_height="fill_parent"
-
     android:background="#FF000000">
-
 </com.test.demo.MyLinearLayout>
-
     {% endhighlight %}
+    
 大概的架构是，MyLinearLayout从LinearLayout派生出来，然后在程序中重载OnDraw(Canvas canvas)。
 但是，onDraw不会被调用。我们可能会遇到这个问题：如果不给LinearLayout设置一个背景，系统是不会调用onDraw时，
 也就是说，我们重写的onDraw是不会调用的。当设置一个背景后，onDraw就会被调用。
@@ -69,9 +62,7 @@ View还提供了一个重要的方法：setWillNotDraw，我们看一看它的�
       */
  public void setWillNotDraw(boolean willNotDraw) {
      setFlags(willNotDraw ? WILL_NOT_DRAW : 0, DRAW_MASK);
-
  }
-
      {% endhighlight %}
 
 从这个方法的注释，我们可以看出，如果你想重写onDraw的话，你应该调用这个方法来清除flag，
@@ -119,7 +110,6 @@ public void setDescendantFocusability(int focusability) {
         mGroupFlags &= ~FLAG_MASK_FOCUSABILITY;
         mGroupFlags |= (focusability & FLAG_MASK_FOCUSABILITY);
     }
-
      {% endhighlight %}
 
 可以看到，只有这三个常量可以设置，不是这三个常量会抛出异常的。
@@ -134,7 +124,6 @@ public boolean requestFocus(int direction, Rect previouslyFocusedRect) {
                     + direction);
         }
         int descendantFocusability = getDescendantFocusability();
-
         switch (descendantFocusability) {
             case FOCUS_BLOCK_DESCENDANTS:
                 return super.requestFocus(direction, previouslyFocusedRect);
