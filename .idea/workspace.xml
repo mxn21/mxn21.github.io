@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-7-31-Android中的获取控件矩阵getHitRect方法.md" afterPath="$PROJECT_DIR$/_posts/2015-7-31-Android中的获取控件矩阵getHitRect方法.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2015-7-25-Android中的稀疏数组SparseArray.md" afterPath="$PROJECT_DIR$/_posts/2015-7-25-Android中的稀疏数组SparseArray.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -22,7 +22,21 @@
     <favorites_list name="mxn21.github.io" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="2015-7-24-scroller类详解.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_posts/2015-7-24-scroller类详解.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -35,7 +49,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/_posts/2015-12-7-oy的使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-12-7-StrictMode的使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-12-23-andrd开发小技巧积累.md" />
         <option value="$PROJECT_DIR$/_posts/2015-12-23-GradientDrawable.md" />
@@ -86,6 +99,7 @@
         <option value="$PROJECT_DIR$/_posts/2015-5-31-AsyncTask解析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-5-26-android开发错误解决方法汇总.md" />
         <option value="$PROJECT_DIR$/_posts/2015-7-31-Android中的获取控件矩阵getHitRect方法.md" />
+        <option value="$PROJECT_DIR$/_posts/2015-7-25-Android中的稀疏数组SparseArray.md" />
       </list>
     </option>
   </component>
@@ -440,7 +454,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -454,7 +468,7 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -484,26 +498,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_posts/2016-1-29-TextView超链接实现方式总结.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-59.714287">
-          <caret line="559" column="56" selection-start-line="559" selection-start-column="56" selection-end-line="559" selection-end-column="56" />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2015-7-16-android view状态及重绘流程分析.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.196429">
-          <caret line="110" column="5" selection-start-line="110" selection-start-column="5" selection-end-line="110" selection-end-column="5" />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-12-23-android渐变研究.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-16.37931">
@@ -1010,6 +1004,28 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7463284">
           <caret line="173" column="23" selection-start-line="173" selection-start-column="23" selection-end-line="173" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-7-25-Android中的稀疏数组SparseArray.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23898531">
+          <caret line="301" column="31" selection-start-line="301" selection-start-column="31" selection-end-line="301" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2015-7-24-scroller类详解.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>

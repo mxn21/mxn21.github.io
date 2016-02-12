@@ -34,7 +34,6 @@ SparseArray支持和HashMap类似的put和get方法。在其内部，维护着�
 
     {% highlight java  %}
     public class SparseArray<E> implements Cloneable {
-
         private int[] mKeys;
         private Object[] mValues;
         private int mSize;
@@ -51,16 +50,13 @@ SparseArray支持和HashMap类似的put和get方法。在其内部，维护着�
     {% highlight java  %}
 private static int binarySearch(int[] a, int start, int len, int key) {
     int high = start + len, low = start - 1, guess;
-
     while (high - low > 1) {
         guess = (high + low) / 2;
-
         if (a[guess] < key)
             low = guess;
         else
             high = guess;
     }
-
     if (high == start + len)
         return ~(start + len);
     else if (a[high] == key)
@@ -96,27 +92,22 @@ put的过程分为以下几步：
 
     {% highlight java  %}
 public void put(int key, E value) {
-
     // 1. 计算索引
     int i = binarySearch(mKeys, 0, mSize, key);
-
     // 2. key已经有对应槽位，更新值
     if (i >= 0) {
         mValues[i] = value;
     } else {
         i = ~i;
-
         // 3. 扩容
         if (mSize >= mKeys.length) {
         }
-
         // 4. 移动区段
         if (mSize - i != 0) {
             // Log.e("SparseArray", "move " + (mSize - i));
             System.arraycopy(mKeys, i, mKeys, i + 1, mSize - i);
             System.arraycopy(mValues, i, mValues, i + 1, mSize - i);
         }
-
         // 4. 设置值，长度加1
         mKeys[i] = key;
         mValues[i] = value;
@@ -224,7 +215,6 @@ HashMap不管是倒序还是正序开销几乎是一样的；但是SparseArray�
 
     {% highlight java  %}
     SparseArray<String> sparse = new SparseArray<String>(3);
-
     sparse.put(1, "s1");
     sparse.put(3, "s3");
     sparse.put(2, "s2");
@@ -290,15 +280,12 @@ class FOO{
 }
 ...
 int MAX = 100000;
-
 HashMap<Integer, String> hash = new HashMap<Integer, String>();
 SparseArray<String> sparse = new SparseArray<String>();
-
 for (int i = 0; i < MAX; i++) {
     hash.put(i, String.valueOf(i));
     sparse.put(i, String.valueOf(i));
 }
-
 List<FOO> keylist4search = new ArrayList<FOO>();
 for (int i = 0; i < MAX; i++) {
     FOO f = new FOO();
@@ -306,13 +293,11 @@ for (int i = 0; i < MAX; i++) {
     f.objKey = Integer.valueOf(i);
     keylist4search.add(f);
 }
-
 long start4search = System.currentTimeMillis();
 for (int i = 0; i < MAX; i++) {
     hash.get(keylist4search.get(i).objKey);
 }
 long end4searchHash = System.currentTimeMillis() - start4search;
-
 long start4search2 = System.currentTimeMillis();
 for (int i = 0; i < MAX; i++) {
     sparse.get(keylist4search.get(i).intKey);
