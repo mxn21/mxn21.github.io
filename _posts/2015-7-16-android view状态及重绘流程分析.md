@@ -82,7 +82,6 @@ public final int[] getDrawableState() {
 在得到了视图状态的数组之后，就会调用Drawable的setState()方法来对状态进行更新，代码如下所示：
 
     {% highlight java  %}
-
 public boolean setState(final int[] stateSet) {
     if (!Arrays.equals(mStateSet, stateSet)) {
         mStateSet = stateSet;
@@ -165,7 +164,6 @@ View的源码中会有数个invalidate()方法的重载和一个invalidateDrawab
 因此会调用到ViewGroup的invalidateChild()方法中，代码如下所示：
 
     {% highlight java  %}
-
     public final void invalidateChild(View child, final Rect dirty) {
         ViewParent parent = this;
         final AttachInfo attachInfo = mAttachInfo;
@@ -235,7 +233,6 @@ View的源码中会有数个invalidate()方法的重载和一个invalidateDrawab
 这里的代码非常简单，仅仅是去调用了invalidateChild()方法而已:
 
     {% highlight java  %}
-
 public void invalidateChild(View child, Rect dirty) {
     checkThread();
     if (LOCAL_LOGV) Log.v(TAG, "Invalidate child: " + dirty);
