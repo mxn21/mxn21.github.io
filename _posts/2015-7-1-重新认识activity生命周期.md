@@ -314,12 +314,12 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img21.png)
 
-```上表中 “是否可以终止”是指系统是否可以在此方法执行完后直接销毁该Activity的实例（没有再去执行此Activity内的其他代码）。
+上表中 “是否可以终止”是指系统是否可以在此方法执行完后直接销毁该Activity的实例（没有再去执行此Activity内的其他代码）。
 如上表所示，onPause(),onStop(),和onDestroy()三个方法是可以终止的。同时从状态图（上图）中可以知道onPause()方法是这三个方法中第一个调用的，
 自一个Activity创建开始，直到此Activity终止或销毁，onPause()是最后一个保证会被调用的方法（如在突发情况下系统回收内存，onStop()和onDestroy()就不会被调用）。
 因此，你应该在onPause()方法里保存一些关键的数据（如用户编辑的内容），所谓“关键“就是让你有选择地去保存一些重要的数据，因为onPause()方法执行时间过长，会延迟下一状态的切换，进而影响了用户的体验。
 在上表注明不可以被终止的方法也可能会被系统终止，不过这一情况只会在一些极端的情况下发生。
-同时可以联想到service的生命周期中没有onPause，所以想在service生命周期中判断service被中止，是比较棘手的```
+同时可以联想到service的生命周期中没有onPause，所以想在service生命周期中判断service被中止，是比较棘手的.
 
 #### 保存Activity的状态信息(onSaveInstanceState和OnRestoreInstanceState的具体使用)
 
