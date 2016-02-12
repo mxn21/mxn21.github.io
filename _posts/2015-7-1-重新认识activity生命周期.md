@@ -29,8 +29,6 @@ Called when the current Window of the activity gains or loses focus.
 
 可以看出在窗口获得焦点或失去时调用
 
-
-
 ```注意：onWindowFocusChanged当Activity被创建时是在onResume之后被调用，当Activity被覆盖或者退居后台或者当前Activity退出时，它是在onPause之后被调用```
 
 <!-- more -->

@@ -35,7 +35,6 @@ ListView.getChildAt(int position)， 这个position指的是在可视的item中�
         if (mAdapter == null) {
             return;
         }
-
         if (!isInTouchMode()) {
             position = lookForSelectablePosition(position, true);
             if (position >= 0) {
@@ -44,16 +43,13 @@ ListView.getChildAt(int position)， 这个position指的是在可视的item中�
         } else {
             mResurrectToPosition = position;
         }
-
         if (position >= 0) {
             mLayoutMode = LAYOUT_SPECIFIC;
             mSpecificTop = mListPadding.top + y;
-
             if (mNeedSync) {
                 mSyncPosition = position;
                 mSyncRowId = mAdapter.getItemId(position);
             }
-
             if (mPositionScroller != null) {
                 mPositionScroller.stop();
             }
@@ -83,7 +79,6 @@ ListView还有一个方法叫setSelection()，传入一个index整型数值，�
 
     {% highlight java  %}
 listView.setOnScrollListener(new OnScrollListener() {
-
     /**
      * 滚动状态改变时调用
      */
@@ -97,7 +92,6 @@ listView.setOnScrollListener(new OnScrollListener() {
             }
         }
     }
-
     /**
      * 滚动时调用
      */
