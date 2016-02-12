@@ -36,23 +36,17 @@ Called when the current Window of the activity gains or loses focus.
 
 下面的demo解释了整个生命周期：
 
-
 	{% highlight java  %}
-
 	public class LifeCycleActivity extends Activity {
-
         private static final String TAG = "LifeCycleActivity";
         private Context context = this;
         private int param = 1;
-
         //Activity创建时被调用
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             Log.i(TAG, "onCreate called.");
-
             setContentView(R.layout.lifecycle);
-
             Button btn = (Button) findViewById(R.id.btn);
             btn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -62,35 +56,30 @@ Called when the current Window of the activity gains or loses focus.
                 }
             });
         }
-
         //Activity创建或者从后台重新回到前台时被调用
         @Override
         protected void onStart() {
             super.onStart();
             Log.i(TAG, "onStart called.");
         }
-
         //Activity从后台重新回到前台时被调用
         @Override
         protected void onRestart() {
             super.onRestart();
             Log.i(TAG, "onRestart called.");
         }
-
         //Activity创建或者从被覆盖、后台重新回到前台时被调用
         @Override
         protected void onResume() {
             super.onResume();
             Log.i(TAG, "onResume called.");
         }
-
         //Activity窗口获得或失去焦点时被调用,在onResume之后或onPause之后
         @Override
         public void onWindowFocusChanged(boolean hasFocus) {
             super.onWindowFocusChanged(hasFocus);
             Log.i(TAG, "onWindowFocusChanged called.");
         }
-
         //Activity被覆盖到下面或者锁屏时被调用
         @Override
         protected void onPause() {
@@ -98,21 +87,18 @@ Called when the current Window of the activity gains or loses focus.
             Log.i(TAG, "onPause called.");
             //有可能在执行完onPause或onStop后,系统资源紧张将Activity杀死,所以有必要在此保存持久数据
         }
-
         //退出当前Activity或者跳转到新Activity时被调用
         @Override
         protected void onStop() {
             super.onStop();
             Log.i(TAG, "onStop called.");
         }
-
         //退出当前Activity时被调用,调用之后Activity就结束了
         @Override
         protected void onDestroy() {
             super.onDestroy();
             Log.i(TAG, "onDestory called.");
         }
-
         /**
          * Activity被系统杀死时被调用.
          * 例如:屏幕方向改变时,Activity被销毁再重建;当前Activity处于后台,系统资源紧张将其杀死.
@@ -125,7 +111,6 @@ Called when the current Window of the activity gains or loses focus.
             Log.i(TAG, "onSaveInstanceState called. put param: " + param);
             super.onSaveInstanceState(outState);
         }
-
         /**
          * Activity被系统杀死后再重建时被调用.
          * 例如:屏幕方向改变时,Activity被销毁再重建;当前Activity处于后台,系统资源紧张将其杀死,用户又启动该Activity.
@@ -138,7 +123,6 @@ Called when the current Window of the activity gains or loses focus.
             super.onRestoreInstanceState(savedInstanceState);
         }
     }
-
 	{% endhighlight %}
 
 #### onSaveInstanceState和onRestoreInstanceState
@@ -237,71 +221,58 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
 这是应用中的Activity设置特定的方向是经常用到的办法，可以为我们省去不少不必要的麻烦。不过，我们今天讲的是屏幕方向改变时的生命周期，所以我们并不采用固定屏幕方向这种办法。
 下面我们就结合实例讲解一下屏幕转换的生命周期，我们新建一个Activity命名为OrientationActivity，如下：
 
-
 	{% highlight java  %}
-
 	public class OrientationActivity extends Activity {
-
         private static final String TAG = "OrientationActivity";
         private int param = 1;
-
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.orientation_portrait);
             Log.i(TAG, "onCreate called.");
         }
-
         @Override
         protected void onStart() {
             super.onStart();
             Log.i(TAG, "onStart called.");
         }
-
         @Override
         protected void onRestart() {
             super.onRestart();
             Log.i(TAG, "onRestart called.");
         }
-
         @Override
         protected void onResume() {
             super.onResume();
             Log.i(TAG, "onResume called.");
         }
-
         @Override
         protected void onPause() {
             super.onPause();
             Log.i(TAG, "onPause called.");
         }
-
         @Override
         protected void onStop() {
             super.onStop();
             Log.i(TAG, "onStop called.");
         }
-
         @Override
         protected void onDestroy() {
             super.onDestroy();
             Log.i(TAG, "onDestory called.");
         }
-
         @Override
         protected void onSaveInstanceState(Bundle outState) {
             outState.putInt("param", param);
             Log.i(TAG, "onSaveInstanceState called. put param: " + param);
             super.onSaveInstanceState(outState);
         }
-
         @Override
         protected void onRestoreInstanceState(Bundle savedInstanceState) {
             param = savedInstanceState.getInt("param");
             Log.i(TAG, "onRestoreInstanceState called. get param: " + param);
             super.onRestoreInstanceState(savedInstanceState);
         }
-
         //当指定了android:configChanges="orientation"后,方向改变时onConfigurationChanged被调用
         @Override
         public void onConfigurationChanged(Configuration newConfig) {
@@ -317,9 +288,7 @@ setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); //横屏
             }
         }
     }
-
 	{% endhighlight %}
-
 
 当我们旋转屏幕时，我们发现系统会先将当前Activity销毁，然后重建一个新的：
 
@@ -373,7 +342,6 @@ XML文件里的属性android:id）,如果你没有为控件提供id，那系统�
 
 
 	{% highlight java  %}
-
     @Override
     protected void OnSaveInstanceState(Bundle outState)
     {
@@ -388,9 +356,7 @@ XML文件里的属性android:id）,如果你没有为控件提供id，那系统�
         var myString =savedState.GetString(amyStringa);
         var myBool =GetBoolean(amyBoola);
     }
-
     {% endhighlight %}
-
 
 如果需要强制控件不保存对应的信息，可以在布局文件设置android:saveEnabled = “false”，或者使用控件对象的setSaveEnabled()方法。
 
@@ -436,16 +402,12 @@ getWindowManager().updateViewLayout(view,lp);
 	{% highlight java  %}
 public final class ActivityThread {
     ......
-
     final void handleResumeActivity(IBinder token, boolean clearHide, boolean isForward) {
         ......
-
         ActivityClientRecord r = performResumeActivity(token, clearHide);
-
         if (r != null) {
             final Activity a = r.activity;
             ......
-
             // If the window hasn't yet been added to the window manager,
             // and this guy didn't finish itself or start another activity,
             // then go ahead and add the window.
@@ -471,13 +433,10 @@ public final class ActivityThread {
                     wm.addView(decor, l);
                 }
             }
-
             ......
         }
-
         ......
     }
-
     ......
 }
 	    {% endhighlight %}
@@ -509,7 +468,6 @@ public void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         Log.d(TAG, "onPostCreate");
     }
-    
  public void onPostResume() {
         super.onPostResume();
         Log.d(TAG, "onPostResume");
