@@ -54,11 +54,9 @@ event.getX(index)和event.getY(index)可以获取到指定index点的坐标，�
 
     {% highlight java  %}
     public static final int ACTION_MASK = 0xff;
-
     public final int getAction() {
         return mAction;
     }
-
     public final int getActionMasked() {
     return mAction & ACTION_MASK;
     }
