@@ -56,8 +56,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.79706275">
-              <caret line="605" column="22" selection-start-line="605" selection-start-column="22" selection-end-line="605" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.84779704">
+              <caret line="608" column="0" selection-start-line="608" selection-start-column="0" selection-end-line="608" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -166,6 +166,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -219,7 +220,6 @@
       </pane>
       <pane id="Scope" />
       <pane id="PackagesPane" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1058,8 +1058,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79706275">
-          <caret line="605" column="22" selection-start-line="605" selection-start-column="22" selection-end-line="605" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.84779704">
+          <caret line="608" column="0" selection-start-line="608" selection-start-column="0" selection-end-line="608" selection-end-column="0" />
           <folding />
         </state>
       </provider>
