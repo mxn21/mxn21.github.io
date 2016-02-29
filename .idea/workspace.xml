@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2016-2-25-android分包原理.md" afterPath="$PROJECT_DIR$/_posts/2016-2-25-android分包原理.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
@@ -56,8 +55,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7209613">
-              <caret line="601" column="14" selection-start-line="601" selection-start-column="14" selection-end-line="601" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.84779704">
+              <caret line="212" column="0" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1058,8 +1057,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7209613">
-          <caret line="601" column="14" selection-start-line="601" selection-start-column="14" selection-end-line="601" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.84779704">
+          <caret line="212" column="0" selection-start-line="212" selection-start-column="0" selection-end-line="212" selection-end-column="0" />
           <folding />
         </state>
       </provider>
