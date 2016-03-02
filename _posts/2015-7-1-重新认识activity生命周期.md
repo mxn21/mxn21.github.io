@@ -199,7 +199,7 @@ Called when the current Window of the activity gains or loses focus.
 
 注意：虽然onSaveInstanceState方法在onPause之前被调用，但是并不意味onSaveInstanceState一定会被执行。onSaveInstanceState的调用遵循一个重要原则，
 即当系统“未经你许可”时销毁了你的activity，则onSaveInstanceState会被系统调用，这是系统的责任，
-因为它必须要提供一个机会让你保存你的数据（当然你不保存那就随便你了）。如果activity是被用户主动销毁的，例如当用户按BACK键的时候。那么不一定被调用
+因为它必须要提供一个机会让你保存你的数据（当然你不保存那就随便你了）。如果activity是被用户主动销毁的，例如当用户按BACK键的时候。那么不一定被调用。
 一个会调用onPause()和onStop()，但不触发onSaveInstanceState的例子是当用户从activity B返回到activity A时：没有必要调用B的onSaveInstanceState(Bundle)，此时的B实例永远不会被恢复，因此系统会避免调用它。
 
 大家似乎注意到，在所有的过程中，并没有onRestoreInstanceState的出现，这个并不奇怪，因为之前我们就说过，
