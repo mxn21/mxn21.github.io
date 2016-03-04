@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2014-12-12-jekyll搭建博客中遇到的问题总结.md" afterPath="$PROJECT_DIR$/_posts/2014-12-12-jekyll搭建博客中遇到的问题总结.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2014-12-15-代码高亮.md" afterPath="$PROJECT_DIR$/_posts/2014-12-15-代码高亮.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -24,14 +23,27 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="2014-12-12-jekyll搭建博客中遇到的问题总结.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="2014-12-12-jekyll搭建博客中遇到的问题总结.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2014-12-12-jekyll搭建博客中遇到的问题总结.md">
           <provider editor-type-id="MarkdownPreviewEditor">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8224299">
-              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+            <state vertical-scroll-proportion="-12.068966">
+              <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="2014-12-15-代码高亮.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/_posts/2014-12-15-代码高亮.md">
+          <provider editor-type-id="MarkdownPreviewEditor">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.87316424">
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -54,7 +66,6 @@
         <option value="$PROJECT_DIR$/_posts/2015-10-13-java的四种引用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-10-10-LayoutAnimation使用.md" />
         <option value="$PROJECT_DIR$/_posts/2015-10-8-clipChildren属性分析.md" />
-        <option value="$PROJECT_DIR$/_posts/2014-12-15-代码高亮.md" />
         <option value="$PROJECT_DIR$/_posts/2014-12-19-学习笔记——CSS3动画.md" />
         <option value="$PROJECT_DIR$/_posts/2014-12-25-前端学习-图片轮播期.md" />
         <option value="$PROJECT_DIR$/_posts/2015-9-18-ViewStub用法分析.md" />
@@ -101,6 +112,7 @@
         <option value="$PROJECT_DIR$/_posts/2015-8-1-Android堆栈分析.md" />
         <option value="$PROJECT_DIR$/_posts/2015-9-20-理解JVM.md" />
         <option value="$PROJECT_DIR$/_posts/2014-12-12-jekyll搭建博客中遇到的问题总结.md" />
+        <option value="$PROJECT_DIR$/_posts/2014-12-15-代码高亮.md" />
       </list>
     </option>
   </component>
@@ -539,16 +551,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_posts/2015-9-11-FragmentTransactions和ActivityStateLoss.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49666223">
-          <caret line="241" column="29" selection-start-line="241" selection-start-column="29" selection-end-line="241" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2015-9-8-okhttp缓存浅析.md">
       <provider editor-type-id="MarkdownPreviewEditor">
         <state />
@@ -1047,8 +1049,19 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8224299">
-          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        <state vertical-scroll-proportion="-12.068966">
+          <caret line="28" column="19" selection-start-line="28" selection-start-column="19" selection-end-line="28" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2014-12-15-代码高亮.md">
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.87316424">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
           <folding />
         </state>
       </provider>
