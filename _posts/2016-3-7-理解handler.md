@@ -177,5 +177,13 @@ public static Looper myLooper() {
      
 可以看到该方法只是简单地新建了一个Looper对象，并将其保存在sThreadLocal中。接下来看一下Looper的构造函数。
 
+    {% highlight java %}  
+    private Looper(boolean quitAllowed) {
+        mQueue = new MessageQueue(quitAllowed);
+        mThread = Thread.currentThread();
+    }
+     {% endhighlight %} 
+     
+
 
 
