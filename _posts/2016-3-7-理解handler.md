@@ -157,3 +157,25 @@ public static Looper myLooper() {
 可以看到，该方法返回一个sThreadLocal对象中保存的Looper。如果尚未在当前线程上运行过Looper.prepare()的话，myLooper会返回null。
 接下来看看Looper.prepare()的实现：
 
+    {% highlight java %}   
+/** Initialize the current thread as a looper.
+      * This gives you a chance to create handlers that then reference
+      * this looper, before actually starting the loop. Be sure to call
+      * {@link #loop()} after calling this method, and end it by calling
+      * {@link #quit()}.
+      */
+    public static void prepare() {
+        prepare(true);
+    }
+    private static void prepare(boolean quitAllowed) {
+        if (sThreadLocal.get() != null) {
+            throw new RuntimeException("Only one Looper may be created per thread");
+        }
+        sThreadLocal.set(new Looper(quitAllowed));
+    }
+     {% endhighlight %} 
+     
+可以看到该方法只是简单地新建了一个Looper对象，并将其保存在sThreadLocal中。接下来看一下Looper的构造函数。
+
+
+
