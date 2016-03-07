@@ -146,5 +146,14 @@ handler其构造函数：
 而如果构造中传递了looper，则调用 public Handler(Looper looper, Callback callback, boolean async)，
 用传递进来的looper代替默认的looper，然后再同样的初始化mQueue，mCallback，mAsynchronous。
 
+先看mLooper = Looper.myLooper();这一句发生了什么：
 
+    {% highlight java %}   
+public static Looper myLooper() {
+    return sThreadLocal.get();
+}
+    {% endhighlight %} 
+  
+可以看到，该方法返回一个sThreadLocal对象中保存的Looper。如果尚未在当前线程上运行过Looper.prepare()的话，myLooper会返回null。
+接下来看看Looper.prepare()的实现：
 
