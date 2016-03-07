@@ -140,3 +140,11 @@ handler其构造函数：
     }
     {% endhighlight %} 
     
+构造方法中无参构造和没有传递looper的构造最终调用了public Handler(Callback callback, boolean async)；
+在这个方法中获得当前线程的looper，再使用这个looper获得looper上的message queue。
+
+而如果构造中传递了looper，则调用 public Handler(Looper looper, Callback callback, boolean async)，
+用传递进来的looper代替默认的looper，然后再同样的初始化mQueue，mCallback，mAsynchronous。
+
+
+
