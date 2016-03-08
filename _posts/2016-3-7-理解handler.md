@@ -296,5 +296,12 @@ public static Looper myLooper() {
     }
     {% endhighlight %} 
     
-分发之后就执行了mCallback中的回调，这个回调就是我们自己覆写的方法public void handleMessage(Message msg)
+分发之后就执行了mCallback中的回调，这个回调就是我们自己覆写的方法public void handleMessage(Message msg)。
+
+从上面代码也可以看出，轮询器在for (;;){}死循环代码块中不断的执行，通过queue.next();从MessageQueue中取出一个Message，
+当msg不为空时，执行msg.target.dispatchMessage(msg);（实际上最终是调用到了Handler的dispatchMessage方法去拦截消息）
+
+在Message中的源码中，target就是当前线程的Handler对象，msg的成员变量target是在发送消息的时候设置好的，一般就通过哪个Handler
+来发送消息，就通过哪个Handler来处理消息。
+
 
