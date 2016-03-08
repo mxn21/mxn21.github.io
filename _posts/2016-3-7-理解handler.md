@@ -324,3 +324,22 @@ public final class Message implements Parcelable {
     private static int sPoolSize = 0;
 }
     {% endhighlight %} 
+    
+    
+    /**
+         * Return a new Message instance from the global pool. Allows us to
+         * avoid allocating new objects in many cases.
+         */
+        public static Message obtain() {
+            synchronized (sPoolSync) {
+                if (sPool != null) {
+                    Message m = sPool;
+                    sPool = m.next;
+                    m.next = null;
+                    m.flags = 0; // clear in-use flag
+                    sPoolSize--;
+                    return m;
+                }
+            }
+            return new Message();
+        }
