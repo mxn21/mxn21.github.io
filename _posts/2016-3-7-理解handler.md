@@ -175,7 +175,8 @@ public static Looper myLooper() {
     }
      {% endhighlight %} 
      
-可以看到该方法只是简单地新建了一个Looper对象，并将其保存在sThreadLocal中。接下来看一下Looper的构造函数。
+可以看到该方法只是简单地新建了一个Looper对象，并将其保存在sThreadLocal中。在注释中说明了prepare()要在loop()之前调用，最后
+调用quit()。接下来看一下Looper的构造函数。
 
     {% highlight java %}  
     private Looper(boolean quitAllowed) {
