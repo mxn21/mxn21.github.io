@@ -37,6 +37,13 @@ Handler一些特点：handler可以分发Message对象和Runnable对象到主线
 通常使用一个Looper对象对该线程的MessageQueue进行管理。主线程创建时，会创建一个默认的Looper对象，而Looper对象的创建，
 将自动创建一个Message Queue。其他非主线程，不会自动创建Looper，要需要的时候，通过调用Looper的prepare函数来实现。 
 
+### Looper
+
+Looper是MessageQueue的管理者。每一个MessageQueue都不能脱离Looper而存在，Looper对象的创建是通过prepare函数来实现的。
+同时每一个Looper对象和一个线程关联。通过调用Looper.myLooper()可以获得当前线程的Looper对象 创建一个Looper对象时，
+会同时创建一个MessageQueue对象。除了主线程有默认的Looper，其他线程默认是没有MessageQueue对象的，所以，不能接受Message。
+如需要接受，自己定义一个Looper对象(通过prepare函数),这样该线程就有了自己的Looper对象和MessageQueue数据结构了。 
+Looper从MessageQueue中取出Message然后，交由Handler的handleMessage进行处理。处理完成后，调用Message.recycle()将其放入Message Pool中。
 
 
 
