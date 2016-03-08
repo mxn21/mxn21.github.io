@@ -238,5 +238,24 @@ public static Looper myLooper() {
 1.调用Looper me = myLooper()取出looper对象
 2.调用MessageQueue queue = me.mQueue; 取出looper绑定的message queue
 3.死循环调用Message msg = queue.next();直到msg为null ，在message queue中取数据
-4. 在上面的循环中调用msg.target.dispatchMessage(msg); 分发message到指定的target handler
+4.在上面的循环中调用msg.target.dispatchMessage(msg); 分发message到指定的target handler
 
+    {% highlight java %}  
+  /**
+     * Handle system messages here.
+     */
+    public void dispatchMessage(Message msg) {
+        if (msg.callback != null) {
+            handleCallback(msg);
+        } else {
+            if (mCallback != null) {
+                if (mCallback.handleMessage(msg)) {
+                    return;
+                }
+            }
+            handleMessage(msg);
+        }
+    }
+    {% endhighlight %} 
+    
+分发之后就执行了mCallback中的回调，这个回调就是我们自己覆写的方法public void handleMessage(Message msg)
