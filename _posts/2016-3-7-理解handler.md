@@ -325,8 +325,11 @@ public final class Message implements Parcelable {
 }
     {% endhighlight %} 
     
-    
-    /**
+Message中有一个静态类型的Message对象，叫做sPool，同时还有一个叫做next的Message对象，这个应该是指向队列中下一个message的引用。
+当我们调用Message.obtain()时，返回了一个Message对象。Message对象使用完毕后，调用recycle()方法将其回收。其中obtain方法的代码如下所示：
+        
+            {% highlight java %} 
+        /**
          * Return a new Message instance from the global pool. Allows us to
          * avoid allocating new objects in many cases.
          */
@@ -343,3 +346,6 @@ public final class Message implements Parcelable {
             }
             return new Message();
         }
+            {% endhighlight %} 
+            
+可以看到，obtain方法被调用时，首先检测sPool对象是否为空，若否则将其当做新的message对象返回，并“指向"message对象的next属性，sPoolSize自减。可以看出message对象通过next属性串成了一个链表，sPool为“头指针”。再来看看recycle方法的实现
