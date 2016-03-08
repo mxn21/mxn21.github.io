@@ -16,6 +16,9 @@ android中处理一些费时的操作需要单独启动一个子线程去处理�
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img161.jpg)
 
+looper对象拥有message queue，并且负责从message queue中取出消息给handler来处理。同时handler又负责发送message给looper,由looper把message添加到message queue尾部。
+handler和looper是来联系在一起的。多个message可以指向同一个handler，多个handler也可以指向同一个looper。
+
 ### Handler
 
 消息的处理者，handler负责将需要传递的信息封装成Message，通过调用handler对象的obtainMessage()来实现。将消息传递给Looper，
@@ -294,3 +297,4 @@ public static Looper myLooper() {
     {% endhighlight %} 
     
 分发之后就执行了mCallback中的回调，这个回调就是我们自己覆写的方法public void handleMessage(Message msg)
+
