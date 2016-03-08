@@ -304,4 +304,23 @@ public static Looper myLooper() {
 在Message中的源码中，target就是当前线程的Handler对象，msg的成员变量target是在发送消息的时候设置好的，一般就通过哪个Handler
 来发送消息，就通过哪个Handler来处理消息。
 
+接下来看一下Message类：
 
+    {% highlight java %}  
+public final class Message implements Parcelable {
+    public int what;
+    public int arg1;
+    public int arg2;
+    public Object obj;
+    ...
+    /*package*/ int flags;
+    /*package*/ long when;
+    /*package*/ Bundle data;
+    /*package*/ Handler target;
+    /*package*/ Runnable callback;
+    /*package*/ Message next;
+    private static final Object sPoolSync = new Object();
+    private static Message sPool;
+    private static int sPoolSize = 0;
+}
+    {% endhighlight %} 
