@@ -233,3 +233,10 @@ public static Looper myLooper() {
     }
          {% endhighlight %} 
          
+在loop()主要干了四件事：
+
+1.调用Looper me = myLooper()取出looper对象
+2.调用MessageQueue queue = me.mQueue; 取出looper绑定的message queue
+3.死循环调用Message msg = queue.next();直到msg为null ，在message queue中取数据
+4. 在上面的循环中调用msg.target.dispatchMessage(msg); 分发message到指定的target handler
+
