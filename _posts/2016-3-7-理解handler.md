@@ -14,7 +14,7 @@ android中处理一些费时的操作需要单独启动一个子线程去处理�
 
 下面介绍Handler，Message，MessageQueue，Looper的关系：
 
-
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img161.jpg)
 
 ### Handler
 
@@ -47,8 +47,6 @@ Looper是MessageQueue的管理者。每一个MessageQueue都不能脱离Looper�
 如需要接受，自己定义一个Looper对象(通过prepare函数),这样该线程就有了自己的Looper对象和MessageQueue数据结构了,而且一个线程只能有一个looper。
 调用完prepare以后，此线程就成为了所谓的LooperThread,若在当前LooperThread中创建Handler对象，那么此Handler会自动关联到当前线程的looper对象，也就是拥有looper的引用。
 Looper从MessageQueue中取出Message然后，交由Handler的handleMessage进行处理。处理完成后，调用Message.recycle()将其放入Message Pool中。
-
-
 
 ### 源码解析
 
