@@ -7,13 +7,26 @@ tag: android
 ---
 
 android中处理一些费时的操作需要单独启动一个子线程去处理。子线程处理完毕将结果通知给UI主线程更新UI界面。
-子线程与UI主线程的通信在android中使用了消息机制来完成，那么是怎么完成的呢？这就和handler机制的原理（android中跨线程操作的原理，而不是跨进程），
+子线程与UI主线程的通信在android中使用了消息机制来完成，那么是怎么完成的呢？这就和handler机制的原理（android中线程间通信的原理，而不是进程间通信），
 简而言之，就是需要两样古老的东西，消息队列、轮询。也就是说，主线程起来以后有一个消息队列，同时和该队列配对的有一个轮询，
 而子线程有这个消息队列的引用，那这样，子线程处理完以后就会向主线程的消息队列发消息，主线程轮询自己的队列，发现有未处理的消息就进行处理。
 这就是handler的机制。
 
+下面介绍Handler
 
-### 源码解析
+###Handler
+
+消息的处理者，handler负责将需要传递的信息封装成Message，通过调用handler对象的obtainMessage()来实现。将消息传递给Looper，
+这是通过handler对象的sendMessage()来实现的。继而由Looper将Message放入MessageQueue中。当Looper对象看到MessageQueue中含有Message，
+就将其分发出去。该handler对象收到该消息后，调用相应的handler对象的handleMessage()方法对其进行处理。
+
+Handler一些特点：handler可以分发Message对象和Runnable对象到主线程中,每个Handler实例,都会绑定到创建他的线程中(一般是位于主线程),
+它有两个作用: (1)安排消息或Runnable在某个主线程中某个地方执行。(2)安排一个动作在不同的线程中执行。
+
+
+
+
+###源码解析
 
 handler其构造函数：
 
@@ -237,8 +250,8 @@ public static Looper myLooper() {
 
 1.调用Looper me = myLooper()取出looper对象
 2.调用MessageQueue queue = me.mQueue; 取出looper绑定的message queue
-3.死循环调用Message msg = queue.next();直到msg为null ，在message queue中取数据
-4.在上面的循环中调用msg.target.dispatchMessage(msg); 分发message到指定的target handler
+3.死循环调用Message msg = queue.next();在message queue中取数据，若msg为null就不执行下面的分发，继续死循环
+4.在上面的循环中若msg不为null，调用msg.target.dispatchMessage(msg); 分发message到指定的target handler
 
     {% highlight java %}  
   /**
