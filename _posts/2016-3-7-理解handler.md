@@ -617,5 +617,14 @@ public static interface IdleHandler {
     
 IdleHandler提供了一个在MessageQueue进入idle时的一个hook point。更多时与barrier机制一起使用，使message queue遇到barrier时产生一个回调。
 
+### 总结
+
+前面涉及到的几个主要的类Handler、Looper、MessageQueue和Message的关系如下所述：
+
+Handler负责将Looper绑定到线程，初始化Looper和提供对外API。
+Looper负责消息循环和操作MessageQueue对象。
+MessageQueue实现了一个堵塞队列。
+Message是一次业务中所有参数的载体。
+
 
 
