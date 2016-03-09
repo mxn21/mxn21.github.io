@@ -350,3 +350,53 @@ Message中有一个静态类型的Message对象，叫做sPool，同时还有一�
             
 可以看到，obtain方法被调用时，首先检测sPool对象是否为空，若不为空将其当做新的message对象返回，并指向message对象的next属性，
 sPoolSize自减。可以看出message对象通过next属性串成了一个链表，sPool为“头指针”。再来看看recycle方法的实现。
+
+    {% highlight java %} 
+    /**
+     * Return a Message instance to the global pool.
+     * <p>
+     * You MUST NOT touch the Message after calling this function because it has
+     * effectively been freed.  It is an error to recycle a message that is currently
+     * enqueued or that is in the process of being delivered to a Handler.
+     * </p>
+     */
+    public void recycle() {
+        if (isInUse()) {
+            if (gCheckRecycle) {
+                throw new IllegalStateException("This message cannot be recycled because it "
+                        + "is still in use.");
+            }
+            return;
+        }
+        recycleUnchecked();
+    }
+    /**
+     * Recycles a Message that may be in-use.
+     * Used internally by the MessageQueue and Looper when disposing of queued Messages.
+     */
+    void recycleUnchecked() {
+        // Mark the message as in use while it remains in the recycled object pool.
+        // Clear out all other details.
+        flags = FLAG_IN_USE;
+        what = 0;
+        arg1 = 0;
+        arg2 = 0;
+        obj = null;
+        replyTo = null;
+        sendingUid = -1;
+        when = 0;
+        target = null;
+        callback = null;
+        data = null;
+        synchronized (sPoolSync) {
+            if (sPoolSize < MAX_POOL_SIZE) {
+                next = sPool;
+                sPool = this;
+                sPoolSize++;
+            }
+        }
+    }
+    {% endhighlight %} 
+
+如果message对象不是处于正在被使用的状态，则会被回收。其属性全部恢复到原始状态后，放在了链表的头部。sPool对象“指向”它，sPoolSize自增。
+
