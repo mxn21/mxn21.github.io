@@ -607,3 +607,15 @@ Message next() {
 }
     {% endhighlight %} 
     
+代码执行流程见注释。其中IdleHandler是一个接口：
+
+    {% highlight java %} 
+public static interface IdleHandler {
+    boolean queueIdle();
+}
+    {% endhighlight %} 
+    
+IdleHandler提供了一个在MessageQueue进入idle时的一个hook point。更多时与barrier机制一起使用，使message queue遇到barrier时产生一个回调。
+
+
+
