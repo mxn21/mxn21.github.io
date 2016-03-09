@@ -19,6 +19,8 @@ android中处理一些费时的操作需要单独启动一个子线程去处理�
 looper对象拥有message queue，并且负责从message queue中取出消息给handler来处理。同时handler又负责发送message给looper,由looper把message添加到message queue尾部。
 handler和looper是来联系在一起的。多个message可以指向同一个handler，多个handler也可以指向同一个looper。
 
+<!-- more -->  
+
 ### Handler
 
 消息的处理者，handler负责将需要传递的信息封装成Message，通过调用handler对象的obtainMessage()来实现。将消息传递给Looper，
@@ -621,10 +623,10 @@ IdleHandler提供了一个在MessageQueue进入idle时的一个hook point。更�
 
 前面涉及到的几个主要的类Handler、Looper、MessageQueue和Message的关系如下所述：
 
-Handler负责将Looper绑定到线程，初始化Looper和提供对外API。
-Looper负责消息循环和操作MessageQueue对象。
-MessageQueue实现了一个堵塞队列。
-Message是一次业务中所有参数的载体。
+1.Handler负责将Looper绑定到线程，初始化Looper和提供对外API。
+2.Looper负责消息循环和操作MessageQueue对象。
+3.MessageQueue实现了一个堵塞队列。
+4.Message是一次业务中所有参数的载体。
 
 
 
