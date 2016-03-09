@@ -628,3 +628,10 @@ Message是一次业务中所有参数的载体。
 
 
 
+参考原文：
+
+[Android应用程序消息处理机制](http://legendmohe.net/2015/06/12/android应用程序消息处理机制/)
+
+[Handler源码解析 (Java层)](http://legendmohe.net/2015/10/23/android-handler源码解析-java层/)
+
+[Handler源码解析 (Native层)](http://legendmohe.net/2015/10/26/android-handler源码解析-native层/)
