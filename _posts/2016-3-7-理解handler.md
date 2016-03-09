@@ -510,3 +510,100 @@ for (;;) {
 }
     {% endhighlight %} 
     
+可以看出，message queue的next方法被调用时，可能会发生堵塞。我们来看一看message queue的next方法：
+
+    {% highlight java %} 
+Message next() {
+    // 1. 判断当前loop是否已经使用过，下文会解释这个mPtr
+    final long ptr = mPtr;
+    if (ptr == 0) {
+        return null;
+    }
+    int pendingIdleHandlerCount = -1; // -1 only during first iteration
+    int nextPollTimeoutMillis = 0;
+    // 2. 进入死循环，直到获取到合法的msg对象为止。
+    for (;;) {
+        if (nextPollTimeoutMillis != 0) {
+            Binder.flushPendingCommands(); // 这个是什么？
+        }
+        // 3. 进入等待，nextPollTimeoutMillis为等待超时值
+        nativePollOnce(ptr, nextPollTimeoutMillis);
+        synchronized (this) {
+            // 4. 获取下一个msg
+            final long now = SystemClock.uptimeMillis();
+            Message prevMsg = null;
+            Message msg = mMessages;
+            if (msg != null && msg.target == null) {
+                // 当前节点为barrier，所以要找到第一个asynchronous节点
+                do {
+                    prevMsg = msg;
+                    msg = msg.next;
+                } while (msg != null && !msg.isAsynchronous());
+            }
+            if (msg != null) {
+                if (now < msg.when) {
+                    // 当前队列里最早的节点比当前时间还要晚，所以要进入堵塞状态，超时值为nextPollTimeoutMillis
+                    nextPollTimeoutMillis = (int) Math.min(msg.when - now, Integer.MAX_VALUE);
+                } else {
+                    // 删除当前节点，并返回
+                    mBlocked = false;
+                    if (prevMsg != null) {
+                        prevMsg.next = msg.next;
+                    } else {
+                        mMessages = msg.next;
+                    }
+                    msg.next = null;
+                    if (false) Log.v("MessageQueue", "Returning message: " + msg);
+                    return msg;
+                }
+            } else {
+                // 头结点指向null
+                nextPollTimeoutMillis = -1;
+            }
+            // Process the quit message now that all pending messages have been handled.
+            if (mQuitting) {
+                dispose();
+                return null;
+            }
+            // 5. 如果当前状态为idle（就绪），则进入idle handle的代码块
+            //    进入idle的情况有：队列为空；队列头元素blocking;
+            if (pendingIdleHandlerCount < 0
+                    && (mMessages == null || now < mMessages.when)) {
+                pendingIdleHandlerCount = mIdleHandlers.size();
+            }
+            if (pendingIdleHandlerCount <= 0) {
+                // 6. 本轮唤醒（next被调用）时没处理任何东西，故再次进入等待。
+                mBlocked = true;
+                continue;
+            }
+            if (mPendingIdleHandlers == null) {
+                mPendingIdleHandlers = new IdleHandler[Math.max(pendingIdleHandlerCount, 4)];
+            }
+            mPendingIdleHandlers = mIdleHandlers.toArray(mPendingIdleHandlers);
+        }
+        // 在一次next调用中，这个代码块只会执行一次
+        for (int i = 0; i < pendingIdleHandlerCount; i++) {
+            final IdleHandler idler = mPendingIdleHandlers[i];
+            mPendingIdleHandlers[i] = null; // release the reference to the handler
+            boolean keep = false;
+            try {
+                // 如果返回true，则idler被保留，下次next的idle时会被调用。
+                keep = idler.queueIdle();
+            } catch (Throwable t) {
+                Log.wtf("MessageQueue", "IdleHandler threw exception", t);
+            }
+            if (!keep) {
+                synchronized (this) {
+                    mIdleHandlers.remove(idler);
+                }
+            }
+        }
+        // Reset the idle handler count to 0 so we do not run them again.
+        pendingIdleHandlerCount = 0;
+        // While calling an idle handler, a new message could have been delivered
+        // so go back and look again for a pending message without waiting.
+        nextPollTimeoutMillis = 0;
+    }
+}
+    {% endhighlight %} 
+    
