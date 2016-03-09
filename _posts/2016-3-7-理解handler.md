@@ -348,4 +348,5 @@ Message中有一个静态类型的Message对象，叫做sPool，同时还有一�
         }
             {% endhighlight %} 
             
-可以看到，obtain方法被调用时，首先检测sPool对象是否为空，若否则将其当做新的message对象返回，并“指向"message对象的next属性，sPoolSize自减。可以看出message对象通过next属性串成了一个链表，sPool为“头指针”。再来看看recycle方法的实现
+可以看到，obtain方法被调用时，首先检测sPool对象是否为空，若不为空将其当做新的message对象返回，并指向message对象的next属性，
+sPoolSize自减。可以看出message对象通过next属性串成了一个链表，sPool为“头指针”。再来看看recycle方法的实现。
