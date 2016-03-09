@@ -400,3 +400,40 @@ sPoolSize自减。可以看出message对象通过next属性串成了一个链表
 
 如果message对象不是处于正在被使用的状态，则会被回收。其属性全部恢复到原始状态后，放在了链表的头部。sPool对象“指向”它，sPoolSize自增。
 可以看出，通过obtain和recycle方法可以重用message对象。通过操作next、sPoolSync、sPool、sPoolSize这四个属性，实现了一个类似栈的对象池。
+
+下面看看msg对象是如何放到消息队列里面的,通常来说，我们通过Handler的sendMessage(msg)方法来发送消息，其源码如下所示：
+
+    {% highlight java %} 
+public final boolean sendMessage(Message msg)
+{
+    return sendMessageDelayed(msg, 0);
+}
+...
+public final boolean sendMessageDelayed(Message msg, long delayMillis)
+{
+    if (delayMillis < 0) {
+        delayMillis = 0;
+    }
+    return sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis);
+}
+...
+public boolean sendMessageAtTime(Message msg, long uptimeMillis) {
+    MessageQueue queue = mQueue;
+    if (queue == null) {
+        RuntimeException e = new RuntimeException(
+                this + " sendMessageAtTime() called with no mQueue");
+        Log.w("Looper", e.getMessage(), e);
+        return false;
+    }
+    return enqueueMessage(queue, msg, uptimeMillis);
+}
+...
+private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMillis) {
+    msg.target = this;
+    if (mAsynchronous) {
+        msg.setAsynchronous(true);
+    }
+    return queue.enqueueMessage(msg, uptimeMillis);
+}
+    {% endhighlight %} 
+    
