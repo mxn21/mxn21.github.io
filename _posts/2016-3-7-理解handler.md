@@ -437,3 +437,59 @@ private boolean enqueueMessage(MessageQueue queue, Message msg, long uptimeMilli
 }
     {% endhighlight %} 
     
+可知sendMessage最终会调用queue.enqueueMessage(msg, uptimeMillis)将msg对象保存至message queue中，uptimeMillis表示msg执行回调的时刻。 我们来看一下MessageQueue类的enqueueMessage方法：
+
+    {% highlight java %} 
+boolean enqueueMessage(Message msg, long when) {
+    if (msg.target == null) {
+        throw new IllegalArgumentException("Message must have a target.");
+    }
+    if (msg.isInUse()) {
+        throw new IllegalStateException(msg + " This message is already in use.");
+    }
+    synchronized (this) {
+        if (mQuitting) {
+            IllegalStateException e = new IllegalStateException(
+                    msg.target + " sending message to a Handler on a dead thread");
+            Log.w("MessageQueue", e.getMessage(), e);
+            msg.recycle();
+            return false;
+        }
+        // 1.设置当前msg的状态
+        msg.markInUse();
+        msg.when = when;
+        Message p = mMessages;
+        boolean needWake;
+        // 2.检测当前头指针是否为空（队列为空）或者没有设置when 或者设置的when比头指针的when要前
+        if (p == null || when == 0 || when < p.when) {
+            // 3. 插入队列头部，并且唤醒线程处理msg
+            msg.next = p;
+            mMessages = msg;
+            needWake = mBlocked;
+        } else {
+            //4. 几种情况要唤醒线程处理消息：1）队列是堵塞的 2)barrier，头部结点无target 3）当前msg是堵塞的
+            needWake = mBlocked && p.target == null && msg.isAsynchronous();
+            Message prev;
+            for (;;) {
+                prev = p;
+                p = p.next;
+                if (p == null || when < p.when) {
+                    break;
+                }
+                if (needWake && p.isAsynchronous()) {
+                    needWake = false;
+                }
+            }
+            // 5. 将当前msg插入第一个比其when值大的结点前。
+            msg.next = p; // invariant: p == prev.next
+            prev.next = msg;
+        }
+        // We can assume mPtr != 0 because mQuitting is false.
+        if (needWake) {
+            nativeWake(mPtr);
+        }
+    }
+    return true;
+}
+    {% endhighlight %} 
+    
