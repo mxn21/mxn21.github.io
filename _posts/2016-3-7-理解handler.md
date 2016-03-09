@@ -493,3 +493,20 @@ boolean enqueueMessage(Message msg, long when) {
 }
     {% endhighlight %} 
     
+结合注释，我们可以了解到msg push到queue中时，queue的状态的变化和处理队列的逻辑。
+前文中Looper对象的loop方法中：
+
+    {% highlight java %} 
+for (;;) {
+    ...
+    Message msg = queue.next(); // 3. 堵塞式在message queue中取数据
+    if (msg == null) {
+        // No message indicates that the message queue is quitting.
+        return;
+    }
+    ...
+    msg.target.dispatchMessage(msg); 4. 分发message到指定的target handler
+    ...
+}
+    {% endhighlight %} 
+    
