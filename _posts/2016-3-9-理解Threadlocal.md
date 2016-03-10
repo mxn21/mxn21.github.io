@@ -216,7 +216,10 @@ public T get() {
 可以发现，ThreadLocal的get方法的逻辑也比较清晰，它同样是取出当前线程的localValues对象，如果这个对象为null那么就返回初始值，
 初始值由ThreadLocal的initialValue方法来描述，默认情况下为null，当然也可以重写这个方法。
  
-
+如果localValues对象不为null，那就取出它的table数组并找出ThreadLocal的reference对象在table数组中的位置，
+然后table数组中的下一个位置所存储的数据就是ThreadLocal的值。从ThreadLocal的set和get方法可以看出，
+它们所操作的对象都是当前线程的localValues对象的table数组，因此在不同线程中访问同一个ThreadLocal的set和get方法，
+它们对ThreadLocal所做的读写操作仅限于各自线程的内部，这就是为什么ThreadLocal可以在多个线程中互不干扰地存储和修改数据.
 
 ### 总结
 
