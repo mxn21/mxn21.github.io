@@ -110,8 +110,13 @@ public class TestActivity extends Activity {
 }
     {% endhighlight %}   
     
-在activity中先初始化    
-    
+在activity中先初始两个变量a和b,都等于1，b使用ThreadLocal初始化，在子线程中每隔一秒改变a和b的值，然后分别输出：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img162.png)
+
+可以看出a的值是两个线程共享的，多个线程可以同时改变a的值，如果不加上同步锁的情况下，这是线程不安全的。
+而主线程中b的值始终是1，没有改变，而子线程中的b每次增加1，可见b的值并没有被共享，而是相互独立的。
+ 
 
 ### Thread同步机制的比较
 
