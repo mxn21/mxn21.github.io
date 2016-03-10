@@ -30,6 +30,8 @@ ThreadLocal另一个使用场景是复杂逻辑下的对象传递，比如监听
 比如如果同时有两个线程在执行，那么就需要提供两个静态的监听器对象，如果有10个线程在并发执行呢？提供10个静态的监听器对象？
 这显然是不可思议的，而采用ThreadLocal每个监听器对象都在自己的线程内部存储，根据就不会有方法2的这种问题。
 
+<!-- more -->  
+
 ### ThreadLocal的基本操作
 
 ThreadLocal类接口需要注意如下几个方法：
@@ -183,9 +185,30 @@ private void initializeTable(int capacity) {
 上面的代码我们可以看到，当初始化一个Values对象时，它会创建一个长度为capacity*2的数组。 
 然后在add()方法当中，也可以看到它会把ThreadLocal对象(key)和对应的value放在连续的位置中。
 
-
+    {% highlight java %}  
+/** 
+ * Adds an entry during rehashing. Compared to put(), this method 
+ * doesn't have to clean up, check for existing entries, account for 
+ * tombstones, etc. 
+ */  
+void add(ThreadLocal<?> key, Object value) {  
+    for (int index = key.hash & mask;; index = next(index)) {  
+        Object k = table[index];  
+        if (k == null) {  
+            table[index] = key.reference;  
+            table[index + 1] = value;  
+            return;  
+        }  
+    }  
+}  
+    {% endhighlight %}  
+    
+也就是table被设计为下标为0,2,4...2n的位置存放key，而1,3,5...(2n +1 )的位置存放value。直接通过下标存取线程变量，
+它比用WeakReference<ThreadLocal>类在内存占用上更经济，性能也更好。它也保证了在计算key的下标时，一定是偶数位。
+而在remove()方法中，移除变量时它是把对应的key的位置赋值为TOMBSTONE，value赋值为null，然后 tombstones++;size--;。
+TOMBSTONE是前面定义的一个常量，表示被删除的实体。 
  
-看看ThreadLocal的set方法，如下所示：
+再看看ThreadLocal的set方法，如下所示：
 
     {% highlight java %}  
 public void set(T value) {  
