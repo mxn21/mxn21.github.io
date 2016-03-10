@@ -134,6 +134,19 @@ Android中的ThreadLocal的源码在libcore/luni/src/main/java/java/lang目录�
 android中ThreadLocal比java原生的这个类少了一些API，而且保存线程变量的内部类名字也改为Values，里面没有再定义内部类。
 仔细地阅读比较，我们可以看到Android中对Java原生的ThreadLocal做了一些优化的工作。
  
+首先看ThreadLocal的set方法，如下所示：
+
+    {% highlight java %}  
+public void set(T value) {  
+    Thread currentThread = Thread.currentThread();  
+    Values values = values(currentThread);  
+    if (values == null) {  
+        values = initializeValues(currentThread);  
+    }  
+    values.put(this, value);  
+}  
+    {% endhighlight %}   
+    
 
 
 ### 总结
