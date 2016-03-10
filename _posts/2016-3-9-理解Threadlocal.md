@@ -54,15 +54,21 @@ ThreadLocal类接口需要注意如下几个方法：
     };
     {% endhighlight %}   
     
+3.get函数:public T get()
     
-1.public void set(T value);设置当前线程的线程局部变量的值。
-2.public T get();该方法返回当前线程所对应的线程局部变量。
+该函数用来获取与当前线程关联的ThreadLocal的值,如果当前线程没有该ThreadLocal的值，则调用initialValue函数获取初始值返回。
+ 
+4.set函数:public void set(T value)
 
-3.public void remove(); 将当前线程局部变量的值删除，目的是为了减少内存的占用，该方法是JDK 5.0新增的方法。
-需要指出的是，当线程结束后，对应该线程的局部变量将自动被垃圾回收，所以显式调用该方法清除线程的局部变量并不是必须的操作，但它可以加快内存回收的速度。
+set函数用来设置当前线程的该ThreadLocal的值,设置当前线程的ThreadLocal的值为value。
+ 
+5.remove函数:public void remove()
 
+remove函数用来将当前线程的ThreadLocal绑定的值删除,在某些情况下需要手动调用该函数，防止内存泄露。
 
 ### ThreadLocal的使用
+
+下面写一个demo来演示ThreadLocal的作用，用一个android的中多线程来演示，代码如下
 
 
 
@@ -71,8 +77,41 @@ ThreadLocal类接口需要注意如下几个方法：
 ThreadLocal是如何做到为每一个线程维护变量的副本的呢？其实实现的思路很简单：在ThreadLocal类中有一个Map，
 用于存储每一个线程的变量副本，Map中元素的键为线程对象，而值对应线程的变量副本。
 
-
-
+    {% highlight java %}  
+public class TestActivity extends Activity {
+    private int a = 1 ;
+    private ThreadLocal<Integer> b = new ThreadLocal<Integer>(){
+        @Override
+        protected Integer initialValue() {
+            return 1;
+        }
+    };
+    final Handler myHandler = new Handler() {
+        @Override
+        //重写handleMessage方法,根据msg中what的值判断是否执行后续操作
+        public void handleMessage(Message msg) {
+            Log.e(Thread.currentThread().getName(),"a的值是："+a+",   b的值是：" + b.get()) ;
+        }
+    };
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test11);
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                a ++ ;
+                b.set(a);
+                Log.e(Thread.currentThread().getName(),"a的值是："+a+",   b的值是：" + b.get()) ;
+                myHandler.sendEmptyMessage(0x123);
+            }
+        }, 0,1000);
+    }
+}
+    {% endhighlight %}   
+    
+在activity中先初始化    
+    
 
 ### Thread同步机制的比较
 
