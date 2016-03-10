@@ -135,6 +135,55 @@ android中ThreadLocal比java原生的这个类少了一些API，而且保存线�
 仔细地阅读比较，我们可以看到Android中对Java原生的ThreadLocal做了一些优化的工作。
  
 我们来看一下Values这个类是怎么定义和设计的。 
+Values是被设计用来保存线程的变量的一个类，它相当于一个容器，存储保存进来的变量。它的成员变量如下：
+
+    {% highlight java %}  
+    /** 
+     * Map entries. Contains alternating keys (ThreadLocal) and values. 
+     * The length is always a power of 2. 
+     */  
+    private Object[] table;  
+    /** Used to turn hashes into indices. */  
+    private int mask;  
+    /** Number of live entries. */  
+    private int size;  
+    /** Number of tombstones. */  
+    private int tombstones;  
+    /** Maximum number of live entries and tombstones. */  
+    private int maximumLoad;  
+    /** Points to the next cell to clean up. */  
+    private int clean;  
+    {% endhighlight %}  
+ 
+同样table是实际上保存变量的地方，但它在这里是个Object类型的数组，它的长度必须是2的n次方的值。mask即计算下标的掩码，
+它的值是table的长度-1。size表示存放进来的实体的数量。这与前面原生的ThreadLocal的ThreadLocalMap是一样的。
+但是在这里它还定义了三个int类型的变量：tombstones表示被删除的实体的数量，maximumLoad是一个阈值，用来判断是否需要进行rehash，
+clean表示下一个要进行清理的位置点。 我们来看一下当Values对象被创建时进行了什么工作，代码如下： 
+
+    {% highlight java %}  
+/** 
+ * Constructs a new, empty instance. 
+ */  
+Values() {  
+    initializeTable(INITIAL_SIZE);  
+    this.size = 0;  
+    this.tombstones = 0;  
+}  
+/** 
+ * Creates a new, empty table with the given capacity. 
+ */  
+private void initializeTable(int capacity) {  
+    this.table = new Object[capacity * 2];  
+    this.mask = table.length - 1;  
+    this.clean = 0;  
+    this.maximumLoad = capacity * 2 / 3; // 2/3  
+}  
+    {% endhighlight %}  
+
+上面的代码我们可以看到，当初始化一个Values对象时，它会创建一个长度为capacity*2的数组。 
+然后在add()方法当中，也可以看到它会把ThreadLocal对象(key)和对应的value放在连续的位置中。
+
+
  
 看看ThreadLocal的set方法，如下所示：
 
