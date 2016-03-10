@@ -147,6 +147,75 @@ public void set(T value) {
 }  
     {% endhighlight %}   
     
+在上面的set方法中，首先会通过values方法来获取当前线程中的ThreadLocal数据，如果获取呢？其实获取的方式也是很简单的，
+在Thread类的内容有一个成员专门用于存储线程的ThreadLocal的数据，如下所示：ThreadLocal.Values localValues，
+因此获取当前线程的ThreadLocal数据就变得异常简单了。如果localValues的值为null，那么就需要对其进行初始化，
+初始化后再将ThreadLocal的值进行存储。下面看下ThreadLocal的值到底是怎么localValues中进行存储的。在localValues内部有一个数组：
+private Object[] table，ThreadLocal的值就是存在在这个table数组中，下面看下localValues是如何使用put方法将ThreadLocal的值存
+储到table数组中的，如下所示：
+
+    {% highlight java %}  
+void put(ThreadLocal<?> key, Object value) {  
+    cleanUp();  
+    // Keep track of first tombstone. That's where we want to go back  
+    // and add an entry if necessary.  
+    int firstTombstone = -1;  
+    for (int index = key.hash & mask;; index = next(index)) {  
+        Object k = table[index];  
+        if (k == key.reference) {  
+            // Replace existing entry.  
+            table[index + 1] = value;  
+            return;  
+        }  
+        if (k == null) {  
+            if (firstTombstone == -1) {  
+                // Fill in null slot.  
+                table[index] = key.reference;  
+                table[index + 1] = value;  
+                size++;  
+                return;  
+            }  
+            // Go back and replace first tombstone.  
+            table[firstTombstone] = key.reference;  
+            table[firstTombstone + 1] = value;  
+            tombstones--;  
+            size++;  
+            return;  
+        }  
+        // Remember first tombstone.  
+        if (firstTombstone == -1 && k == TOMBSTONE) {  
+            firstTombstone = index;  
+        }  
+    }  
+}  
+    {% endhighlight %}   
+    
+上面的代码实现数据的存储过程，这里不去分析它的具体算法，但是我们可以得出一个存储规则，那就是ThreadLocal的值在table
+数组中的存储位置总是为ThreadLocal的reference字段所标识的对象的下一个位置，比如ThreadLocal的reference对象在table数组的
+索引为index，那么ThreadLocal的值在table数组中的索引就是index+1。最终ThreadLocal的值将会被存储在table数组中：
+table[index + 1] = value。上面分析了ThreadLocal的set方法，这里分析下它的get方法，如下所示：
+
+    {% highlight java %}  
+public T get() {  
+    // Optimized for the fast path.  
+    Thread currentThread = Thread.currentThread();  
+    Values values = values(currentThread);  
+    if (values != null) {  
+        Object[] table = values.table;  
+        int index = hash & values.mask;  
+        if (this.reference == table[index]) {  
+            return (T) table[index + 1];  
+        }  
+    } else {  
+        values = initializeValues(currentThread);  
+    }  
+    return (T) values.getAfterMiss(this);  
+} 
+    {% endhighlight %}   
+    
+可以发现，ThreadLocal的get方法的逻辑也比较清晰，它同样是取出当前线程的localValues对象，如果这个对象为null那么就返回初始值，
+初始值由ThreadLocal的initialValue方法来描述，默认情况下为null，当然也可以重写这个方法。
+ 
 
 
 ### 总结
