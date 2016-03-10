@@ -16,5 +16,10 @@ ThreadLocal和Synchonized都用于解决多线程并发访问。但是ThreadLoca
 Synchronized用于线程间的数据共享，而ThreadLocal则用于线程间的数据隔离。
 当然ThreadLocal并不能替代synchronized,它们处理不同的问题域。Synchronized用于实现同步机制，比ThreadLocal更加复杂。
 
+### ThreadLocal的接口方法
+
+ThreadLocal类接口需要注意4个方法：
+
+
 
 
