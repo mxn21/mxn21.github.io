@@ -6,29 +6,61 @@ category: 技术博文
 tag: android
 ---
 
-ThreadLocal使用场合主要解决多线程中数据数据因并发产生不一致问题。ThreadLocal为每个线程的中并发访问的数据提供一个副本，
-通过访问副本来运行业务，这样的结果是耗费了内存，单大大减少了线程同步所带来性能消耗，也减少了线程并发控制的复杂度。
+ThreadLocal类用来提供线程内部的局部变量。这种变量在多线程环境下访问(通过get或set方法访问)时能保证各个线程里的变量相对独立于其他线程内的变量。
 
-ThreadLocal不能使用原子类型，只能使用Object类型。ThreadLocal的使用比synchronized要简单得多。
-ThreadLocal和Synchonized都用于解决多线程并发访问。但是ThreadLocal与synchronized有本质的区 别。synchronized是利用锁的机制，
-使变量或代码块在某一时该只能被一个线程访问。而ThreadLocal为每一个线程都提供了变量的副本， 使得每个线程在某一时间访问到的并不是同一个对象，
-这样就隔离了多个线程对数据的数据共享。而Synchronized却正好相反，它用于在多个线程间通 信时能够获得数据共享。
-Synchronized用于线程间的数据共享，而ThreadLocal则用于线程间的数据隔离。
-当然ThreadLocal并不能替代synchronized,它们处理不同的问题域。Synchronized用于实现同步机制，比ThreadLocal更加复杂。
+ThreadLocal不能使用原子类型，只能使用Object类型。
+hreadLocal为每一个线程都提供了变量的副本， 使得每个线程在某一时间访问到的并不是同一个对象，
+这样就隔离了多个线程对数据的数据共享。
 
-### ThreadLocal的接口方法
+### ThreadLocal的基本操作
 
-ThreadLocal类接口需要注意4个方法：
+ThreadLocal类接口需要注意如下几个方法：
 
+1.构造函数
+
+    {% highlight java %}  
+        /**
+         * Creates a new thread-local variable.
+         */
+        public ThreadLocal() {}
+    {% endhighlight %} 
+    
+构造函数内部什么也没做。    
+
+2.initialValue函数
+
+    {% highlight java %}  
+    /**
+     * Provides the initial value of this variable for the current thread.
+     * The default implementation returns {@code null}.
+     *
+     * @return the initial value of the variable.
+     */
+    protected T initialValue() {
+        return null;
+    }
+     {% endhighlight %} 
+     
+该函数在调用get函数的时候会第一次调用，但是如果一开始就调用了set函数，则该函数不会被调用。通常该函数只会被调用一次，
+除非手动调用了remove函数之后又调用get函数，这种情况下，get函数中还是会调用initialValue函数。该函数是protected类型的，
+很显然是建议在子类重载该函数的，所以通常该函数都会以匿名内部类的形式被重载，以指定初始值，比如：
+
+    {% highlight java %}  
+ ThreadLocal<Integer> b = new ThreadLocal<Integer>(){
+        @Override
+        protected Integer initialValue() {
+            return 1;
+        }
+    };
+    {% endhighlight %}   
+    
+    
 1.public void set(T value);设置当前线程的线程局部变量的值。
-
 2.public T get();该方法返回当前线程所对应的线程局部变量。
 
 3.public void remove(); 将当前线程局部变量的值删除，目的是为了减少内存的占用，该方法是JDK 5.0新增的方法。
 需要指出的是，当线程结束后，对应该线程的局部变量将自动被垃圾回收，所以显式调用该方法清除线程的局部变量并不是必须的操作，但它可以加快内存回收的速度。
 
-4. protected T initialValue();返回该线程局部变量的初始值，该方法是一个protected的方法，显然是为了让子类覆盖而设计的。
-这个方法是一个延迟调用方法，在线程第1次调用get()或set(Object)时才执行，并且仅执行1次。ThreadLocal中的缺省实现直接返回一个null。
 
 ### ThreadLocal的使用
 
@@ -56,6 +88,4 @@ ThreadLocal和线程同步机制相比有什么优势呢？ThreadLocal和线程�
 
 ### 总结
 
-ThreadLocal是解决线程安全问题一个很好的思路，它通过为每个线程提供一个独立的变量副本解决了变量并发访问的冲突问题。
-在很多情况下，ThreadLocal比直接使用synchronized同步机制解决线程安全问题更简单，更方便，且结果程序拥有更高的并发性。
-总结一句话就是一个是锁机制进行时间换空间，一个是存储拷贝进行空间换时间。
+ThreadLocal的作用是提供线程内的局部变量，这种变量在线程的生命周期内起作用，减少同一个线程内多个函数或者组件之间一些公共变量的传递的复杂度。
