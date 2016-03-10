@@ -127,10 +127,14 @@ public class TestActivity extends Activity {
 
 可以看出a的值是两个线程共享的，多个线程可以同时改变a的值，如果不加上同步锁的情况下，这是线程不安全的。
 而主线程中b的值始终是1，没有改变，而子线程中的b每次增加1，可见b的值并没有被共享，而是相互独立的。
- 
-
 
 ### ThreadLocal的原理
+
+Android中的ThreadLocal的源码在libcore/luni/src/main/java/java/lang目录下,在Android中，ThreadLocal像是对原来的ThreadLcal做了优化的实现。
+android中ThreadLocal比java原生的这个类少了一些API，而且保存线程变量的内部类名字也改为Values，里面没有再定义内部类。
+仔细地阅读比较，我们可以看到Android中对Java原生的ThreadLocal做了一些优化的工作。
+ 
+
 
 ### 总结
 
