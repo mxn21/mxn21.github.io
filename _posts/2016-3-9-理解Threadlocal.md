@@ -134,7 +134,9 @@ Android中的ThreadLocal的源码在libcore/luni/src/main/java/java/lang目录�
 android中ThreadLocal比java原生的这个类少了一些API，而且保存线程变量的内部类名字也改为Values，里面没有再定义内部类。
 仔细地阅读比较，我们可以看到Android中对Java原生的ThreadLocal做了一些优化的工作。
  
-首先看ThreadLocal的set方法，如下所示：
+我们来看一下Values这个类是怎么定义和设计的。 
+ 
+看看ThreadLocal的set方法，如下所示：
 
     {% highlight java %}  
 public void set(T value) {  
@@ -217,10 +219,17 @@ public T get() {
 初始值由ThreadLocal的initialValue方法来描述，默认情况下为null，当然也可以重写这个方法。
  
 如果localValues对象不为null，那就取出它的table数组并找出ThreadLocal的reference对象在table数组中的位置，
-然后table数组中的下一个位置所存储的数据就是ThreadLocal的值。从ThreadLocal的set和get方法可以看出，
-它们所操作的对象都是当前线程的localValues对象的table数组，因此在不同线程中访问同一个ThreadLocal的set和get方法，
-它们对ThreadLocal所做的读写操作仅限于各自线程的内部，这就是为什么ThreadLocal可以在多个线程中互不干扰地存储和修改数据.
+然后table数组中的下一个位置所存储的数据就是ThreadLocal的值。
 
-### 总结
+我们会注意到其中的代码如下： 
 
-ThreadLocal的作用是提供线程内的局部变量，这种变量在线程的生命周期内起作用，减少同一个线程内多个函数或者组件之间一些公共变量的传递的复杂度。
+    {% highlight java %} 
+if (this.reference == table[index]) {  
+    return (T) table[index + 1];  
+}  
+    {% endhighlight %}   
+
+从ThreadLocal的set和get方法可以看出，它们所操作的对象都是当前线程的localValues对象的table数组，
+因此在不同线程中访问同一个ThreadLocal的set和get方法，它们对ThreadLocal所做的读写操作仅限于各自线程的内部，
+这就是为什么ThreadLocal可以在多个线程中互不干扰地存储和修改数据.
+
