@@ -4,7 +4,7 @@ title: About
 ---
 
 
-![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img126.jpg)
+![](http://7xrtby.com1.z0.glb.clouddn.com/img126.jpg)
 
 
 ### 关于我
