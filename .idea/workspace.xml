@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img181.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img182.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img183.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img184.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2016-3-15-理解KMP算法.md" afterPath="$PROJECT_DIR$/_posts/2016-3-15-理解KMP算法.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
@@ -34,8 +29,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6947791">
-              <caret line="151" column="36" selection-start-line="151" selection-start-column="36" selection-end-line="151" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.5013889">
+              <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -1043,8 +1038,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6947791">
-          <caret line="151" column="36" selection-start-line="151" selection-start-column="36" selection-end-line="151" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.5013889">
+          <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
           <folding />
         </state>
       </provider>
