@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2016-3-15-理解KMP算法.md" afterPath="$PROJECT_DIR$/_posts/2016-3-15-理解KMP算法.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img163.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img164.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img165.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img166.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img167.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img168.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img169.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img170.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img171.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img172.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img173.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img174.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img175.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -187,6 +200,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mxn21.github.io" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mxn21.github.io" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="_posts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -202,8 +233,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/_posts" />
       <recent name="$PROJECT_DIR$/public/img" />
+      <recent name="$PROJECT_DIR$/_posts" />
     </key>
   </component>
   <component name="RunManager">
