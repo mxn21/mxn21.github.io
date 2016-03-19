@@ -33,9 +33,11 @@ if (mWindow == null) {
    }   
    {% endhighlight %} 
 
-很明显，每个SurfaceView创建的时候都会创建一个MyWindow，new MyWindow(this)中的this正是SurfaceView自身，
-因此将SurfaceView和window绑定在一起，由第一部分我们知道，一个window对应一个Surface，因此SurfaceView也就内嵌了一个自己的Surface，
+每个SurfaceView创建的时候都会创建一个MyWindow，new MyWindow(this)中的this正是SurfaceView自身，
+因此将SurfaceView和window绑定在一起，因为一个window对应一个Surface，因此SurfaceView也就内嵌了一个自己的Surface，
 可以认为SurfaceView是用来控制Surface中View的位置和尺寸的。
+
+
 
 
 
