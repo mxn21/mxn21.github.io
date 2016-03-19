@@ -35,7 +35,11 @@ if (mWindow == null) {
 
 每个SurfaceView创建的时候都会创建一个MyWindow，new MyWindow(this)中的this正是SurfaceView自身，
 因此将SurfaceView和window绑定在一起，因为一个window对应一个Surface，因此SurfaceView也就内嵌了一个自己的Surface，
-可以认为SurfaceView是用来控制Surface中View的位置和尺寸的。
+可以认为SurfaceView就是展示Surface中数据的地方，是用来控制Surface中View的位置和尺寸的。
+
+传统View及其派生类的更新只能在UI线程，然而UI线程还同时处理其他交互逻辑，这就无法保证View更新的速度和帧率了，
+而SurfaceView可以用独立的线程进行绘制，因此可以提供更高的帧率，例如游戏，摄像头取景等场景就比较适合SurfaceView来实现。
+
 
 
 
