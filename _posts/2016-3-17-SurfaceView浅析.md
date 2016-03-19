@@ -50,15 +50,23 @@ SurfaceHolder是一个接口，其作用就像一个关于Surface的监听器，
 
 SurfaceHolder还提供了几个重要的方法：
 
- 1、abstract void addCallback(SurfaceHolder.Callbackcallback)：为SurfaceHolder添加一个SurfaceHolder.Callback回调接口。
+1、abstract void addCallback(SurfaceHolder.Callbackcallback)：为SurfaceHolder添加一个SurfaceHolder.Callback回调接口。
  
-       2、abstract Canvas lockCanvas()：获取一个Canvas对象，并锁定之。所得到的Canvas对象，其实就是Surface中一个成员。
+2、abstract Canvas lockCanvas()：获取一个Canvas对象，并锁定之。所得到的Canvas对象，其实就是Surface中一个成员。
  
-       3、abstract Canvas lockCanvas(Rect  dirty)：同上。但只锁定dirty所指定的矩形区域，因此效率更高。
+3、abstract Canvas lockCanvas(Rect  dirty)：同上。但只锁定dirty所指定的矩形区域，因此效率更高。
+
+4、abstract void unlockCanvasAndPost(Canvas  canvas)：当修改Surface中的数据完成后，释放同步锁，并提交改变，然后将新的数据进行展示，
+同时Surface中相关数据会被丢失。
  
-       4、abstract void unlockCanvasAndPost(Canvas  canvas)：当修改Surface中的数据完成后，释放同步锁，并提交改变，然后将新的数据进行展示，同时Surface中相关数据会被丢失。
- 
-        2、3、4中的同步锁机制的目的，就是为了在绘制的过程中，Surface中的数据不会被改变。lockCanvas是为了防止同一时刻多个线程对同一canvas写入。
+2、3、4中的同步锁机制的目的，就是为了在绘制的过程中，Surface中的数据不会被改变。lockCanvas是为了防止同一时刻多个线程对同一canvas写入。
+
+
+### SurfaceHolder.Callback
+
+SurfaceHolder.Callback主要是当底层的Surface被创建、销毁或者改变时提供回调通知，由于绘制必须在Surface被创建后才能进行，
+因此SurfaceHolder.Callback中的surfaceCreated 和surfaceDestroyed 就成了绘图处理代码的边界。
+
 
 
 
