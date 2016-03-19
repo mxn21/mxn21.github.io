@@ -40,6 +40,13 @@ if (mWindow == null) {
 传统View及其派生类的更新只能在UI线程，然而UI线程还同时处理其他交互逻辑，这就无法保证View更新的速度和帧率了，
 而SurfaceView可以用独立的线程进行绘制，因此可以提供更高的帧率，例如游戏，摄像头取景等场景就比较适合SurfaceView来实现。
 
+总结一下SurfaceView和view的区别：
+
+SurfaceView是从View基类中派生出来的显示类，直接子类有GLSurfaceView和VideoView，可以看出GL和视频播放以及Camera摄像头一般均使用SurfaceView。
+SurfaceView和View最本质的区别在于，surfaceView是在一个新起的单独线程中可以重新绘制画面而View必须在UI的主线程中更新画面。 
+那么在UI的主线程中更新画面可能会引发问题，比如你更新画面的时间过长，那么你的主UI线程会被你正在画的函数阻塞。那么将无法响应按键，触屏等消息。 
+当使用surfaceView 由于是在新的线程中更新画面所以不会阻塞你的UI主线程。
+
 
 ### SurfaceHolder
 
@@ -66,6 +73,16 @@ SurfaceHolder还提供了几个重要的方法：
 
 SurfaceHolder.Callback主要是当底层的Surface被创建、销毁或者改变时提供回调通知，由于绘制必须在Surface被创建后才能进行，
 因此SurfaceHolder.Callback中的surfaceCreated 和surfaceDestroyed 就成了绘图处理代码的边界。
+
+SurfaceHolder.Callback中定义了三个接口方法：
+ 
+1、abstract void surfaceChanged(SurfaceHolder holder, int format, int width, int height)：当surface发生任何结构性的变化时
+（格式或者大小），该方法就会被立即调用。
+ 
+2、abstract void surfaceCreated(SurfaceHolder holder)：当surface对象创建后，该方法就会被立即调用。
+ 
+3、abstract void  surfaceDestroyed(SurfaceHolder holder)：当surface对象在将要销毁前，该方法会被立即调用。
+
 
 
 
