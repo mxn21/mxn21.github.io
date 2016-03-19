@@ -41,6 +41,14 @@ if (mWindow == null) {
 而SurfaceView可以用独立的线程进行绘制，因此可以提供更高的帧率，例如游戏，摄像头取景等场景就比较适合SurfaceView来实现。
 
 
+### SurfaceHolder
+
+SurfaceHolder是一个接口，其作用就像一个关于Surface的监听器，提供访问和控制SurfaceView内嵌的Surface相关的方法。
+它通过三个回调方法，让我们可以感知到Surface的创建、销毁或者改变。
+
+在SurfaceView中有一个方法getHolder，可以很方便地获得SurfaceView内嵌的Surface所对应的监听器接口SurfaceHolder。
+
+
 
 
 
