@@ -23,8 +23,15 @@ Surface对应了一块屏幕缓冲区，每个window对应一个Surface，任何
 
 SurfaceView继承自View，但是SurfaceView却有自己的Surface，SurfaceView的源码：
 
-
-
+    {% highlight java %} 
+if (mWindow == null) {    
+         mWindow = new MyWindow(this);    
+         mLayout.type = mWindowType;    
+         mLayout.gravity = Gravity.LEFT|Gravity.TOP;    
+         mSession.addWithoutInputChannel(mWindow, mWindow.mSeq, mLayout,    
+         mVisible ? VISIBLE : GONE, mContentInsets);     
+   }   
+   {% endhighlight %} 
 
 
 
