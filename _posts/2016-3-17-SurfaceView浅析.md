@@ -89,10 +89,3 @@ SurfaceHolder.Callback中定义了三个接口方法：
  
 3、abstract void  surfaceDestroyed(SurfaceHolder holder)：当surface对象在将要销毁前，该方法会被立即调用。
 
-
-
-
-
-
-
-
