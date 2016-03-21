@@ -91,3 +91,52 @@ SurfaceHolder.Callback中定义了三个接口方法：
 
 ## 使用案例
 
+我们知道使用自定义view可以做一些简单的动画效果。它通过不断循环的执行View.onDraw方法，每次执行都对内部显示的图形做一些调整，我们假设 
+onDraw方法每秒执行20次，这样就会形成一个20帧的补间动画效果。但是现实情况是你无法简单的控制View.onDraw的执行帧数，
+这边说的执行帧数是指每秒View.onDraw方法被执行多少次，这是为什么呢？首先我们知道，onDraw方法是由系统帮我们调用的，
+我们是通过调用View的invalidate方法通知系统需要重新绘制View，然后它就会调用View.onDraw方法。这些都是由系统帮我们实现的，
+所以我们很难精确去定义View.onDraw的执行帧数，这个就是为什么我们这边要了解SurfaceView了，它能弥补View的一些不足。
+
+首先我们先写一个自定义View实现动画效果，AnimateViewActivity.java：
+
+    {% highlight java %} 
+public class AnimateViewActivity extends Activity {  
+    @Override  
+    protected void onCreate(Bundle savedInstanceState) {  
+        super.onCreate(savedInstanceState);  
+        setContentView(new AnimateView(this));
+    }  
+    class AnimateView extends View{  
+        float radius = 10;  
+        Paint paint;  
+        public AnimateView(Context context) {  
+            super(context);  
+            paint = new Paint();  
+            paint.setColor(Color.YELLOW);  
+            paint.setStyle(Paint.Style.STROKE);  
+        }  
+        @Override  
+        protected void onDraw(Canvas canvas) {  
+            canvas.translate(200, 200);  
+            canvas.drawCircle(0, 0, radius++, paint);            
+            if(radius > 100){  
+                radius = 10;  
+            }  
+            invalidate();//通过调用这个方法让系统自动刷新视图  
+        }  
+    }  
+}  
+   {% endhighlight %} 
+运行上面的Activity，你将看到一个圆圈，它原始半径是10，然后不断的变大，直到达到100后又恢复到10，这样循环显示，
+视觉效果上说你将看到一个逐渐变大的圆圈。效果如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img185.png)
+
+它能做的只是简单的动画效果，具有一些局限性。首先你无法控制动画的显示速度，目前它是以最快的速度显示，但是当你要更快，
+获取帧数更高的动画呢？因为View的帧数是由系统控制的，所以你没办法完成上面的操作。如果你需要编写一个游戏，它需要的帧数比较高，
+那么View就无能为力了，因为它被设计出来时本来就不是用来处理一些高帧数显示的。你可以把View理解为一个经过系统优化的，
+可以用来高效的执行一些帧数比较低动画的对象，它具有特定的使用场景，比如有一些帧数较低的游戏就可以使用它来完成：贪吃蛇、
+俄罗斯方块、棋牌类等游戏，因为这些游戏执行的帧数都很低。但是如果是一些实时类的游戏，如 射击游戏、塔防游戏、RPG游戏等就
+没办法使用View来做，因为它的帧数太低了，会导致动画执行不顺畅。所以我们需要一个能自己控制执行帧数的对象，SurfaceView因此诞生了。
+
+
