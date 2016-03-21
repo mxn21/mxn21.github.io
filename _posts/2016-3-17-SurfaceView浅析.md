@@ -254,3 +254,23 @@ public class DemoSurfaceView extends SurfaceView  implements SurfaceHolder.Callb
 }     
     {% endhighlight %} 
     
+上面代码编写了一个使用SurfaceView制作的动画效果，它的效果跟上面自定义View的一样，但是这边的SurfaceView可以控制动画的帧数。
+在SurfaceView中内置一个LoopThread线程，这个线程的作用就是用来绘制图形，在SurfaceView中实例化一个LoopThread实例，
+一般这个操作会放在SurfaceView的构造方法中。然后通过在SurfaceView中的SurfaceHolder的生命周期回调方法中插入一些操作，
+当Surface被创建时(SurfaceView显示在屏幕中时)，开启LoopThread执行绘制，LoopThread会一直刷新SurfaceView对象，
+当SurfaceView被隐藏时就停止改线程释放资源。这边有几个地方要注意下：
+                           
+1.因为SurfaceView允许自定义的线程操作Surface对象执行绘制方法，而你可能同时定义多个线程执行绘制，所以当你获取
+SurfaceHolder中的Canvas对象时记得加同步操作，避免两个不同的线程同时操作同一个Canvas对象，当操作完成后记得调用
+SurfaceHolder.unlockCanvasAndPost方法释放掉Canvas锁。
+                           
+2.在调用doDraw执行绘制时，因为SurfaceView的特点，它会保留之前绘制的图形，所以你需要先清空掉上一次绘制时留下的图形。
+(View则不会，它默认在调用View.onDraw方法时就自动清空掉视图里的东西)。
+                           
+3. 记得在回调方法：onSurfaceDestroyed方法里将后台执行绘制的LoopThread关闭，这里是使用join方法。这涉及到线程如何关闭的问题，
+多数人建议是通过一个标志位：isRunning来判断线程是否该停止运行，如果你想关闭线程只需要将isRunning改成false即可，
+线程会自动执行完run方法后退出。
+
+
+
+
