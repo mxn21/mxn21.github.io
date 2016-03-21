@@ -271,14 +271,21 @@ SurfaceHolder.unlockCanvasAndPost方法释放掉Canvas锁。
 多数人建议是通过一个标志位：isRunning来判断线程是否该停止运行，如果你想关闭线程只需要将isRunning改成false即可，
 线程会自动执行完run方法后退出。
 
+#### SurfaceView设置透明背景的方法
 
+将SurfaceView背景设置为透明其实很简单主要添加以下几句话就可以了.
 
-SurfaceView设置透明背景：
-
-将SurfaceView背景设置为透明其实很简单
-主要添加以下几句话就可以了：
 在SurfaceView创建后设置一下下面的参数：
+
+    {% highlight java %} 
 setZOrderOnTop(true);
 getHolder().setFormat(PixelFormat.TRANSLUCENT);
-还有在draw方法中绘制背景颜色的时候以下面的方式进行绘制就可以实现SurfaceView的背景透明化
+    {% endhighlight %} 
+
+还有在draw方法中绘制背景颜色的时候以下面的方式进行绘制就可以实现SurfaceView的背景透明化,
+将上面代码中的  c.drawColor(Color.BLACK);  改为
+
+    {% highlight java %} 
 canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
+    {% endhighlight %} 
+    
