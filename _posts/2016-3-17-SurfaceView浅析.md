@@ -91,6 +91,8 @@ SurfaceHolder.Callback中定义了三个接口方法：
 
 ## 使用案例
 
+### 基本用法
+
 我们知道使用自定义view可以做一些简单的动画效果。它通过不断循环的执行View.onDraw方法，每次执行都对内部显示的图形做一些调整，我们假设 
 onDraw方法每秒执行20次，这样就会形成一个20帧的补间动画效果。但是现实情况是你无法简单的控制View.onDraw的执行帧数，
 这边说的执行帧数是指每秒View.onDraw方法被执行多少次，这是为什么呢？首先我们知道，onDraw方法是由系统帮我们调用的，
@@ -127,6 +129,7 @@ public class AnimateViewActivity extends Activity {
     }  
 }  
    {% endhighlight %} 
+   
 运行上面的Activity，你将看到一个圆圈，它原始半径是10，然后不断的变大，直到达到100后又恢复到10，这样循环显示，
 视觉效果上说你将看到一个逐渐变大的圆圈。效果如下：
 
@@ -139,4 +142,35 @@ public class AnimateViewActivity extends Activity {
 俄罗斯方块、棋牌类等游戏，因为这些游戏执行的帧数都很低。但是如果是一些实时类的游戏，如 射击游戏、塔防游戏、RPG游戏等就
 没办法使用View来做，因为它的帧数太低了，会导致动画执行不顺畅。所以我们需要一个能自己控制执行帧数的对象，SurfaceView因此诞生了。
 
+那么SurfaceView怎么控制帧数的呢？SurfaceView允许其他线程(不是UI线程)绘制图形(使用Canvas)，根据它这个特性，
+你就可以控制它的帧数，你如果让这个线程1秒执行50次绘制，那么最后显示的就是50帧，先看看代码：
+
+    {% highlight java %} 
+public class DemoSurfaceView extends SurfaceView  implements SurfaceHolder.Callback{  
+    public DemoSurfaceView(Context context) {  
+        super(context);  
+        init(); //初始化,设置生命周期回调方法  
+    }  
+    private void init(){  
+        SurfaceHolder holder = getHolder();  
+        holder.addCallback(this); //设置Surface生命周期回调  
+    }  
+    @Override  
+    public void surfaceChanged(SurfaceHolder holder, int format, int width,  
+            int height) {  
+    }  
+    @Override  
+    public void surfaceCreated(SurfaceHolder holder) {  
+    }  
+    @Override  
+    public void surfaceDestroyed(SurfaceHolder holder) {  
+    }  
+}  
+   {% endhighlight %} 
+
+上面代码我们在SurfaceView的构造方法中执行了init初始化方法，在这个方法里，我们先获取SurfaceView里的 SurfaceHolder对象，
+然后通过它设置Surface的生命周期回调方法，使用DemoSurfaceView类本身作为回调方法代理类。 surfaceCreated方法，
+是当SurfaceView被显示时会调用的方法，所以你需要再这边开启绘制的线 程，surfaceDestroyed方法是当SurfaceView被隐藏会销毁时调用的方法，
+在这里你可以关闭绘制的线程。上面的例子运行后什么也不 显示，因为还没定义一个执行绘制的线程。下面我们修改下代码，使用一个线程绘制一个
+逐渐变大的圆圈：
 
