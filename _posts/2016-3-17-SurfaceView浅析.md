@@ -289,3 +289,7 @@ getHolder().setFormat(PixelFormat.TRANSLUCENT);
 canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
     {% endhighlight %} 
     
+    
+    
+    
+    
