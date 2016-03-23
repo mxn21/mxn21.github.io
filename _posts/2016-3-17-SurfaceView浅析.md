@@ -290,6 +290,3 @@ canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
     {% endhighlight %} 
     
     
-    
-    
-    
