@@ -12,6 +12,8 @@ tag: android
 SurfaceView封装了一个Surface对象，而不是Canvas。因为Surface可以使用后台线程绘制。对于那些资源敏感的操作，
 或者那些要求快速更新或者高速帧率的地方，例如使用3D图形，创建游戏，或者实时预览摄像头，这一点特别有用。
 
+下面分别介绍Surface相关的几个类：
+
 ### Surface
 
 Surface对应了一块屏幕缓冲区，每个window对应一个Surface，任何View都要画在Surface的Canvas上,传统的view共享一块屏幕缓冲区，
@@ -89,7 +91,7 @@ SurfaceHolder.Callback中定义了三个接口方法：
  
 3、abstract void  surfaceDestroyed(SurfaceHolder holder)：当surface对象在将要销毁前，该方法会被立即调用。
 
-## 使用案例
+
 
 ### 基本用法
 
@@ -290,8 +292,13 @@ canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
     {% endhighlight %} 
     
     
+### 源码分析
 
-    
+SurfaceView源码分析参考如下：
+
+Android视图SurfaceView的实现原理分析
+
+[Android 热补丁动态修复框架小结](http://blog.csdn.net/lmj623565791/article/details/49883661) 
     
     
     
