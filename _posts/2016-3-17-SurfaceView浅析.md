@@ -296,13 +296,7 @@ canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
 
 SurfaceView源码分析参考如下：
 
-Android视图SurfaceView的实现原理分析
+[Android视图SurfaceView的实现原理分析](http://blog.csdn.net/luoshengyang/article/details/8661317)   
 
-[Android 热补丁动态修复框架小结](http://blog.csdn.net/lmj623565791/article/details/49883661) 
-    
-    
-    
-    
-    
-    
+[Android SurfaceView 源码分析及使用](http://tech.youzan.com/surfaceview-sourcecode/)
     

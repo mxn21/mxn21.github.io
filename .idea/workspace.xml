@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2016-3-17-SurfaceView浅析.md" afterPath="$PROJECT_DIR$/_posts/2016-3-17-SurfaceView浅析.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
@@ -30,8 +29,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6448598">
-              <caret line="300" column="81" selection-start-line="300" selection-start-column="81" selection-end-line="300" selection-end-column="81" />
+            <state vertical-scroll-proportion="0.7463284">
+              <caret line="298" column="22" selection-start-line="298" selection-start-column="22" selection-end-line="298" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -1042,8 +1041,8 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6448598">
-          <caret line="300" column="81" selection-start-line="300" selection-start-column="81" selection-end-line="300" selection-end-column="81" />
+        <state vertical-scroll-proportion="0.7463284">
+          <caret line="298" column="22" selection-start-line="298" selection-start-column="22" selection-end-line="298" selection-end-column="22" />
           <folding />
         </state>
       </provider>
