@@ -292,6 +292,9 @@ canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
     {% endhighlight %} 
     
     
+    
+    
+    
 ### 源码分析
 
 SurfaceView源码分析参考如下：
