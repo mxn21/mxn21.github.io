@@ -296,6 +296,13 @@ canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
 
 1.每个SurfaceView 对象有两个独立的graphic buffer，官方SDK将它们称作"front buffer"和"back buffer"。
 
+2.常规的"double-buffer"会这么做：每一帧的数据都被绘制到back buffer，然后back buffer的内容被持续翻转(flip)到front 
+buffer；屏幕一直显示front buffer。但Android SurfaceView的"double-buffer"却是这么做的：在buffer A里绘制内容，
+然后让屏幕显示buffer A; 下一个循环，在buffer B里绘制内容，然后让屏幕显示buffer B; 如此往复。于是，屏幕上显示的
+内容依次来自buffer A, B, A, B,....这样看来，两个buffer其实没有主从的分别，与其称之为"front buffer""back buffer"，
+不如称之为"buffer A""buffer B"。
+
+
 
     
     
