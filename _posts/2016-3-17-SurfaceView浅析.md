@@ -294,6 +294,8 @@ canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
     
 ### 双缓存(Double-buffer)与黑屏闪烁
 
+1.每个SurfaceView 对象有两个独立的graphic buffer，官方SDK将它们称作"front buffer"和"back buffer"。
+
 
     
     
