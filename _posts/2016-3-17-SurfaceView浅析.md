@@ -308,7 +308,12 @@ buffer；屏幕一直显示front buffer。但Android SurfaceView的"double-buffe
 
 #### 解决方法
 
+出现黑屏是因为buffer A与buffer B中一者内容为空，而且为空的一方还被post到了屏幕。于是有两种解决思路：
 
+1.不让空buffer出现：每次向一个buffer写完内容并post之后，顺便用这个buffer的内容填充另一个buffer。这样能保证两个
+buffer的内容是同步的，缺点是做了无用功，耗费性能。
+
+2.不post空buffer到屏幕：当准备更新内容时，先判断内容是否为空，只有非空时才启动"lockCanvas-drawCanvas-unlockCanvasAndPost"这个流程。
     
     
 ### SurfaceView源码分析
