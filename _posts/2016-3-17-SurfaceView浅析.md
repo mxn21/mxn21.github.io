@@ -302,11 +302,16 @@ buffer；屏幕一直显示front buffer。但Android SurfaceView的"double-buffe
 内容依次来自buffer A, B, A, B,....这样看来，两个buffer其实没有主从的分别，与其称之为"front buffer""back buffer"，
 不如称之为"buffer A""buffer B"。
 
+3.Android中"double-buffer"的实现机制，可以很好地解释闪屏现象。在第一个"lockCanvas-drawCanvas-unlockCanvasAndPost
+"循环中，更新的是buffer A的内容；到下一个"lockCanvas-drawCanvas-unlockCanvasAndPost"循环中，更新的是buffer B的内容。
+如果buffer A与buffer B中某个buffer内容为空，当屏幕轮流显示它们时，就会出现画面黑屏闪烁现象。
+
+#### 解决方法
 
 
     
     
-### 源码分析
+### SurfaceView源码分析
 
 SurfaceView源码分析参考如下：
 
