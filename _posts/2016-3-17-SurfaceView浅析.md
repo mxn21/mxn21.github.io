@@ -292,7 +292,9 @@ canvas.drawColor(Color.TRANSPARENT,Mode.CLEAR);
     {% endhighlight %} 
     
     
-    
+### 双缓存(Double-buffer)与黑屏闪烁
+
+
     
     
 ### 源码分析
