@@ -41,6 +41,8 @@ if (mWindow == null) {
    }   
    {% endhighlight %} 
 
+<!-- more -->  
+
 每个SurfaceView创建的时候都会创建一个MyWindow，new MyWindow(this)中的this正是SurfaceView自身，
 因此将SurfaceView和window绑定在一起，因为一个window对应一个Surface，因此SurfaceView也就内嵌了一个自己的Surface，
 可以认为SurfaceView就是展示Surface中数据的地方，是用来控制Surface中View的位置和尺寸的。
@@ -566,7 +568,13 @@ try{
 }
      {% endhighlight %} 
 
-处理思路是在surfaceCreated()中按照SurfaceView的尺寸创建一个bitmap，叫做myCanvasBitmap，
+处理思路是在surfaceCreated()中按照SurfaceView的尺寸创建一个bitmap，叫做myCanvasBitmap，我们需要注意不能在
+MyGameSurfaceView_OnResume()中创建，因为MyGameSurfaceView_OnResume()调用时SurfaceView可能没有初始化完成。
+然后我们再建立一个新的canvas，叫做myCanvas。现在可以调用myCanvas.setBitmap(myCanvasBitmap)来指定myCanvas绘制的
+bitmap。那么myCanvas上绘制的任何东西都将绘制在myCanvasBitmap上。
+
+在onDraw()
+
      
      
 ### SurfaceView原理分析
