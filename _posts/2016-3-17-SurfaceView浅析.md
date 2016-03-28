@@ -462,7 +462,14 @@ public class MyGameSurfaceView extends SurfaceView implements SurfaceHolder.Call
      {% endhighlight %} 
      
 这样我们的demo就完成了。如果你运行了上面的代码，你就会注意到屏幕在两个bitmap之间闪烁，这就是SurfaceView的double-buffer的原因：
-当你在绘制Buffer A的时候，Buffer B正在被展示，然后你再画Buffer B，这时Buffer A被展示。
+当你在绘制Buffer A的时候，Buffer B正在被展示，然后你再画Buffer B，这时Buffer A被展示。因此，我们在Buffer A和Buffer B上是独立的
+画了一些随机点，而不是同一个bitmap。这个特性可以解决一些显示性能的问题，但是在这里并不是我们想要的效果。
+
+为了解决这个问题，我们需要在一个独立的bitmap上绘制，然后把这个bitmap绘制到canvas上。
+
+下面我们修改MyGameSurfaceView.java文件如下：
+
+
 
 
 
