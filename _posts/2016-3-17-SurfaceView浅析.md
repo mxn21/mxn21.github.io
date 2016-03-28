@@ -321,9 +321,53 @@ buffer的内容是同步的，缺点是做了无用功，耗费性能。
 
 ![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img186.png)
 
+整个屏幕是一个MyGameSurfaceView, main.xml文件包含MyGameSurfaceView,代码如下：
 
+    {% highlight xml %} 
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ android:layout_width="fill_parent"
+ android:layout_height="fill_parent"
+ android:orientation="vertical" >
+ <TextView
+     android:layout_width="fill_parent"
+     android:layout_height="wrap_content"
+     android:text="@string/hello" />
+ <com.MyGame.MyGameSurfaceView
+     android:id="@+id/myview1"
+     android:layout_width="fill_parent"
+     android:layout_height="fill_parent" />
+</LinearLayout>
+    {% endhighlight %} 
 
-    
+下面写main activity，我们这里叫MyGameActivity，并且在onResume()中调用myGameSurfaceView1.MyGameSurfaceView_OnResume()，
+在onPause()中调用myGameSurfaceView1.MyGameSurfaceView_OnPause()，这两个方法用来启动和关闭后台的绘制进程。
+
+    {% highlight java %} 
+public class MyGameActivity extends Activity {
+ MyGameSurfaceView myGameSurfaceView1;
+ /** Called when the activity is first created. */
+ @Override
+ public void onCreate(Bundle savedInstanceState) {
+     super.onCreate(savedInstanceState);
+     setContentView(R.layout.main);
+     myGameSurfaceView1 = (MyGameSurfaceView)findViewById(R.id.myview1);
+ }
+ @Override
+ protected void onResume() {
+  // TODO Auto-generated method stub
+  super.onResume();
+  myGameSurfaceView1.MyGameSurfaceView_OnResume();
+ }
+ @Override
+ protected void onPause() {
+  // TODO Auto-generated method stub
+  super.onPause();
+  myGameSurfaceView1.MyGameSurfaceView_OnPause();
+ }
+}
+      {% endhighlight %}   
+
     
 ### SurfaceView源码分析
 
