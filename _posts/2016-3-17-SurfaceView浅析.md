@@ -314,6 +314,15 @@ buffer；屏幕一直显示front buffer。但Android SurfaceView的"double-buffe
 buffer的内容是同步的，缺点是做了无用功，耗费性能。
 
 2.不post空buffer到屏幕：当准备更新内容时，先判断内容是否为空，只有非空时才启动"lockCanvas-drawCanvas-unlockCanvasAndPost"这个流程。
+
+#### 双缓存的演示
+
+我们写一个demo，效果是在屏幕上随机画一些彩色的点，每次绘制时不清除上一次的点，这些点是累加的。效果图如下：
+
+![](https://raw.githubusercontent.com/mxn21/mxn21.github.io/master/public/img/img186.png)
+
+
+
     
     
 ### SurfaceView源码分析
