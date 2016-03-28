@@ -371,6 +371,10 @@ public class MyGameActivity extends Activity {
 下面是MyGameThread.java文件，这是一个典型的后台线程的结构，需要注意的是run()方法中的parent.updateSurfaceView()，
 它会调用MyGameSurfaceView里的updateSurfaceView()方法来进行绘制。
 
+下面是MyGameSurfaceView.java文件，这是核心部分。updateSurfaceView()会在前面的线程里循环调用， 这个方法里又调用了
+updateStates()和onDraw(canvas)分别用于更新状态和在屏幕绘制。注意updateSurfaceView()是在后台线程调用的，而不是UI线程。
+
+
 
     
 ### SurfaceView源码分析
