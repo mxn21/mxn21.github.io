@@ -26,8 +26,8 @@
       <file leaf-file-name="2016-3-17-SurfaceView浅析.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2016-3-17-SurfaceView浅析.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.55263156">
-              <caret line="575" column="1" selection-start-line="575" selection-start-column="1" selection-end-line="575" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.69559413">
+              <caret line="583" column="27" selection-start-line="583" selection-start-column="27" selection-end-line="583" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -39,7 +39,7 @@
       <file leaf-file-name="2016-3-15-理解KMP算法.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/_posts/2016-3-15-理解KMP算法.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.9464285">
+            <state vertical-scroll-proportion="70.57143">
               <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
               <folding />
             </state>
@@ -221,11 +221,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="img" />
+              <option name="myItemId" value="_posts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1046,7 +1042,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2016-3-15-理解KMP算法.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.9464285">
+        <state vertical-scroll-proportion="70.57143">
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
           <folding />
         </state>
@@ -1057,8 +1053,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2016-3-17-SurfaceView浅析.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55263156">
-          <caret line="575" column="1" selection-start-line="575" selection-start-column="1" selection-end-line="575" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.69559413">
+          <caret line="583" column="27" selection-start-line="583" selection-start-column="27" selection-end-line="583" selection-end-column="27" />
           <folding />
         </state>
       </provider>

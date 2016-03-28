@@ -573,9 +573,9 @@ MyGameSurfaceView_OnResume()中创建，因为MyGameSurfaceView_OnResume()调用
 然后我们再建立一个新的canvas，叫做myCanvas。现在可以调用myCanvas.setBitmap(myCanvasBitmap)来指定myCanvas绘制的
 bitmap。那么myCanvas上绘制的任何东西都将绘制在myCanvasBitmap上。
 
-在onDraw()
-
-     
+在onDraw()方法中，我们在myCanvas上绘制，而不是方法参数中的canvas，所以所有的绘制都会画在myCanvasBitmap上，因为
+myCanvas和myCanvasBitmap是关联的。然后我们把这个bitmap画到方法参数的这个canvas中就可以了，这里我们使用identity matrix，通过
+调用canvas.drawBitmap(myCanvasBitmap, identityMatrix, null)实现。
      
 ### SurfaceView原理分析
 
