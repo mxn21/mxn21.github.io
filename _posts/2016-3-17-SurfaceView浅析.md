@@ -368,6 +368,10 @@ public class MyGameActivity extends Activity {
 }
       {% endhighlight %}   
 
+下面是MyGameThread.java文件，这是一个典型的后台线程的结构，需要注意的是run()方法中的parent.updateSurfaceView()，
+它会调用MyGameSurfaceView里的updateSurfaceView()方法来进行绘制。
+
+
     
 ### SurfaceView源码分析
 
