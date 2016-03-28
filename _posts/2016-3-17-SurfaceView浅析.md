@@ -461,15 +461,19 @@ public class MyGameSurfaceView extends SurfaceView implements SurfaceHolder.Call
 }
      {% endhighlight %} 
      
-这样我们的demo就完成了。
+这样我们的demo就完成了。如果你运行了上面的代码，你就会注意到屏幕在两个bitmap之间闪烁，这就是SurfaceView的double-buffer的原因：
+当你在绘制Buffer A的时候，Buffer B正在被展示，然后你再画Buffer B，这时Buffer A被展示。
+
 
 
      
-### SurfaceView源码分析
+### SurfaceView原理分析
 
-SurfaceView源码分析参考如下：
+SurfaceView原理分析参考如下：
 
 [Android视图SurfaceView的实现原理分析](http://blog.csdn.net/luoshengyang/article/details/8661317)   
 
 [Android SurfaceView 源码分析及使用](http://tech.youzan.com/surfaceview-sourcecode/)
+
+[Graphics architecture](https://source.android.com/devices/graphics/architecture.html#activity)
     
