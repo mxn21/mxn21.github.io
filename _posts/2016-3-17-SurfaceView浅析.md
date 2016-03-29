@@ -586,4 +586,6 @@ SurfaceView原理分析参考如下：
 [Android SurfaceView 源码分析及使用](http://tech.youzan.com/surfaceview-sourcecode/)
 
 [Graphics architecture](https://source.android.com/devices/graphics/architecture.html#activity)
+
+
     
