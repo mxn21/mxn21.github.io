@@ -89,7 +89,7 @@ public class Test {
     }
     {% endhighlight %}
     
-    
+check()中的 n != n 好像永远不会成立，因为他们指向同一个值，但非同步时却很有可能发生。
 
 ### volatile使用情形
 
