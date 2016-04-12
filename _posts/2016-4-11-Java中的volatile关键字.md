@@ -44,6 +44,53 @@ t2执行完毕后t1又把没有完成的第三步做完。这个时候就出现�
 且前一个操作按顺序排在第二个操作之前。CPU是可以不按我们写代码的顺序执行内存的存取过程的，也就是指令会乱序或并行运行，
 只有上面的happens-before所规定的情况下，才保证顺序性，确保任何内存的写，对其他语句都是可见的。
 
+举例说明如下：
+
+    {% highlight java %} 
+public class Test {
+	private int a = 0;
+	private long b = 0;
+	public void set() {
+		a = 1;
+		b = -1;
+	}
+	public void check() {
+		if (! ((b == 0) || (b == -1 && a == 1))
+			throw new Exception("check Error!");
+	}
+}
+   {% endhighlight %}
+   
+对于set()方法的执行： 
+1. 编译器可以重新安排语句的执行顺序，这样b就可以在a之前赋值。如果方法是内嵌的(inline)，编译器还可以把其它语句重新排序。 
+2. 处理器可以改变这些语句的机器指令的执行顺序，甚到同时执行这些语句。 
+3. 存储系统(由于被缓存控制单元控制)也可以重新安排对应存储单元的写操作顺序，这些写操作可能与其他计算和存储操作同时发生。 
+4. 编译器，处理器和存储系统都可以把这两条语句的机器指令交叉执行。 
+例如：在一台32位的机器上，可以先写b的高位，然后写a，最后写b的低位，(注：b为long类型，在32位的机器上分高低位存储) 
+5. 编译器，处理器和存储系统都可以使对应于变量的存储单元一直保留着原来的值， 以某种方式维护相应的值(例如，在CPU的寄存器中)
+以保证代码正常运行，直到下一个check调用才更新。 
+
+在单线程(或同步)的情况下，上面的check()永远不会报错， 但非同步多线程运行时却很有可能。
+并且，多个CPU之间的缓存也不保证实时同步，也就是说你刚给一个变量赋值，另一个线程立即获取它的值，可能拿到的却是旧值(或null)， 
+因为两个线程在不同的CPU执行，它们看到的缓存值不一样，只有在synchronized或volatile或final的性况下才能保证正确性。
+
+例如：
+
+    {% highlight java %} 
+    public class Test {
+        private int n;
+        public void set(int n) {
+            this.n = n;
+        }
+        public void check() {
+            if (n != n)
+                throw new Exception("check Error!");
+        }
+    }
+    {% endhighlight %}
+    
+    
+
 ### volatile使用情形
 
 只能在有限的一些情形下使用 volatile 变量替代锁。要使 volatile 变量提供理想的线程安全，必须同时满足下面两个条件：
