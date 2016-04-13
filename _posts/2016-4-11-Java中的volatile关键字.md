@@ -19,6 +19,8 @@ Java 语言中的 volatile 变量可以被看作是一种 “程度较轻的 syn
 使用volatile会比使用锁更快，但是在一些情况下它不能工作。volatile使用范围在Java5中得到了扩展，特别是双重检查锁定现在能够正确工作。
 volatile可以用在任何变量前面，但不能用于final变量前面，因为final型的变量是禁止修改的。也不存在线程安全的问题。
 
+了解volatile关键字关键字之前，首先了解下原子操作和happens-before关系的相关概念。
+
 ### 原子操作
 
 原子（atom）本意是“不能被进一步分割的最小粒子”，而原子操作（atomic operation）意为"不可被中断的一个或一系列操作" 。
@@ -37,6 +39,7 @@ t2执行完毕后t1又把没有完成的第三步做完。这个时候就出现�
 假想一下，当将以上的操作放到一个多线程环境下操作时候，有可能出现的问题，是这些步骤执行了一部分，而另外一个线程就已经引用了变量值，
 这样就导致了读取脏数据的问题。
 
+<!-- more --> 
 
 ### happens-before关系
 
@@ -80,6 +83,7 @@ Java语言中有一个“先行发生”（happen—before）的规则，它是J
 #### 时间上先后顺序和happen—before原则
 
 “时间上执行的先后顺序”与“happen—before”之间有何不同呢？
+
 1、首先来看操作A在时间上先与操作B发生，是否意味着操作A happen—before操作B？
 
 一个常用来分析的例子如下：
@@ -174,6 +178,7 @@ public class Test {
     {% endhighlight %}
     
 check()中的 n != n 好像永远不会成立，因为他们指向同一个值，但非同步时却很有可能发生。
+
 
 ### volatile使用情形
 
@@ -323,7 +328,12 @@ volatile 允许多个线程执行读操作，因此当使用 volatile 保证读�
 参考资料：
 
 [Java 理论与实践: 正确使用 Volatile 变量](http://www.ibm.com/developerworks/cn/java/j-jtp06197.html)
+
 [深入理解Java内存模型（四）——volatile](http://www.infoq.com/cn/articles/java-memory-model-4)
+
 [Java多线程：volatile变量、happens-before关系及内存一致性](http://www.importnew.com/17149.html)
+
 [Java内存模型与volatile关键字](http://www.importnew.com/16127.html)
+
 [Java并发编程：volatile关键字解析](http://www.importnew.com/18126.html)
+
