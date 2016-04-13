@@ -319,3 +319,11 @@ volatile 的第一个条件，因此不能使用 volatile 安全地实现计数�
 volatile 允许多个线程执行读操作，因此当使用 volatile 保证读代码路径时，要比使用锁执行全部代码路径获得更高的共享度，
 就像读－写操作一样。然而，要随时牢记这种模式的弱点：如果超越了该模式的最基本应用，结合这两个竞争的同步机制将变得非常困难。
 
+
+参考资料：
+
+[Java 理论与实践: 正确使用 Volatile 变量](http://www.ibm.com/developerworks/cn/java/j-jtp06197.html)
+[深入理解Java内存模型（四）——volatile](http://www.infoq.com/cn/articles/java-memory-model-4)
+[Java多线程：volatile变量、happens-before关系及内存一致性](http://www.importnew.com/17149.html)
+[Java内存模型与volatile关键字](http://www.importnew.com/16127.html)
+[Java并发编程：volatile关键字解析](http://www.importnew.com/18126.html)
