@@ -95,6 +95,19 @@ Java语言中有一个“先行发生”（happen—before）的规则，它是J
 }
    {% endhighlight %}
    
+假设存在线程A和线程B，线程A先（时间上的先）调用了setValue（3）操作，然后（时间上的后）线程B调用了同一对象的getValue（）方法，
+那么线程B得到的返回值一定是3吗？
+对照以上八条happen—before规则，发现没有一条规则适合于这里的value变量，从而我们可以判定线程A中的setValue（3）操作与
+线程B中的getValue（）操作不存在happen—before关系。因此，尽管线程A的setValue（3）在操作时间上先于操作B的getvalue（），
+但无法保证线程B的getValue（）操作一定观察到了线程A的setValue（3）操作所产生的结果，也即是getValue（）的返回值不一定为3
+（有可能是之前setValue所设置的值）。这里的操作不是线程安全的。
+
+因此，“一个操作时间上先发生于另一个操作”并不代表“一个操作happen—before另一个操作”。
+
+解决方法：可以将setValue（int）方法和getValue（）方法均定义为synchronized方法，也可以把value定义为volatile变量
+（value的修改并不依赖value的原值，符合volatile的使用场景），分别对应happen—before规则的第2和第3条。注意，
+只将setValue（int）方法和getvalue（）方法中的一个定义为synchronized方法是不行的，必须对同一个变量的所有读写同步，
+才能保证不读取到陈旧的数据，仅仅同步读或写是不够的 。
 
 
 如果A happens- before B，JMM并不要求A一定要在B之前执行。JMM仅仅要求前一个操作（执行的结果）对后一个操作可见，
