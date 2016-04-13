@@ -84,8 +84,17 @@ Java语言中有一个“先行发生”（happen—before）的规则，它是J
 
 一个常用来分析的例子如下：
 
-
-
+    {% highlight java %} 
+	private int value = 0;
+	public int get(){
+		return value;
+	}
+	public void set(int value){
+		this.value = value;
+	}
+}
+   {% endhighlight %}
+   
 
 
 如果A happens- before B，JMM并不要求A一定要在B之前执行。JMM仅仅要求前一个操作（执行的结果）对后一个操作可见，
