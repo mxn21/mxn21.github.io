@@ -294,3 +294,22 @@ public class Person {
     
 #### 模式5：开销较低的读－写锁策略
 
+目前为止，您应该了解了 volatile 的功能还不足以实现计数器。因为 ++x 实际上是三种操作（读、添加、存储）的简单组合，
+如果多个线程凑巧试图同时对 volatile 计数器执行增量操作，那么它的更新值有可能会丢失。
+然而，如果读操作远远超过写操作，您可以结合使用内部锁和 volatile 变量来减少公共代码路径的开销。下面的代码显示的线程安全的计数器使用 
+synchronized 确保增量操作是原子的，并使用 volatile 保证当前结果的可见性。如果更新不频繁的话，该方法可实现更好的性能，
+因为读路径的开销仅仅涉及 volatile 读操作，这通常要优于一个无竞争的锁获取的开销。
+
+    {% highlight java %} 
+@ThreadSafe
+public class CheesyCounter {
+    // Employs the cheap read-write lock trick
+    // All mutative operations MUST be done with the 'this' lock held
+    @GuardedBy("this") private volatile int value;
+    public int getValue() { return value; }
+    public synchronized int increment() {
+        return value++;
+    }
+}    
+    {% endhighlight %}
+    
