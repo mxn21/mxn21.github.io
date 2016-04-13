@@ -77,6 +77,14 @@ Java语言中有一个“先行发生”（happen—before）的规则，它是J
 
 8、传递性：如果操作A happen—before操作B，操作B happen—before操作C，那么可以得出A happen—before操作C。
 
+#### 时间上先后顺序和happen—before原则
+
+“时间上执行的先后顺序”与“happen—before”之间有何不同呢？
+1、首先来看操作A在时间上先与操作B发生，是否意味着操作A happen—before操作B？
+
+一个常用来分析的例子如下：
+
+
 
 
 
