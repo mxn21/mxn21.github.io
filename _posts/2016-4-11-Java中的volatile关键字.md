@@ -183,7 +183,25 @@ check()中的 n != n 好像永远不会成立，因为他们指向同一个值�
 
 2.该变量没有包含在具有其他变量的不变式中。
 
+#### 模式1：状态标志
 
+也许实现 volatile 变量的规范使用仅仅是使用一个布尔状态标志，用于指示发生了一个重要的一次性事件，例如完成初始化或请求停机。
+很多应用程序包含了一种控制结构，形式为 “在还没有准备好停止程序时再执行一些工作”，如下所示：
+
+    {% highlight java %} 
+volatile boolean shutdownRequested;
+...
+public void shutdown() { shutdownRequested = true; }
+public void doWork() { 
+    while (!shutdownRequested) { 
+        // do stuff
+    }
+}
+    {% endhighlight %}
+    
+很可能会从循环外部调用 shutdown() 方法，即在另一个线程中。因此，需要执行某种同步来确保正确实现 shutdownRequested 变量的可见性。
+然而，使用 synchronized 块编写循环要比使用如上所示的 volatile 状态标志编写麻烦很多。由于 volatile 
+简化了编码，并且状态标志并不依赖于程序内任何其他状态，因此此处非常适合使用 volatile。
 
 
 
