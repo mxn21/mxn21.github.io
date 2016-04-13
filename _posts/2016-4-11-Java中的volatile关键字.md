@@ -234,3 +234,29 @@ public class SomeOtherClass {
 该模式的一个必要条件是：被发布的对象必须是线程安全的，或者是有效的不可变对象（有效不可变意味着对象的状态在发布之后永远不会被修改）。
 volatile 类型的引用可以确保对象的发布形式的可见性，但是如果对象的状态在发布后将发生更改，那么就需要额外的同步。
 
+#### 模式3：独立观察（independent observation）
+
+安全使用 volatile 的另一种简单模式是：定期 “发布” 观察结果供程序内部使用。例如，假设有一种环境传感器能够感觉环境温度。
+一个后台线程可能会每隔几秒读取一次该传感器，并更新包含当前文档的 volatile 变量。然后，其他线程可以读取这个变量，
+从而随时能够看到最新的温度值。
+使用该模式的另一种应用程序就是收集程序的统计信息。下面展示了身份验证机制如何记忆最近一次登录的用户的名字。将反复使用 
+lastUser 引用来发布值，以供程序的其他部分使用。
+
+    {% highlight java %} 
+    public class UserManager {
+        public volatile String lastUser;
+        public boolean authenticate(String user, String password) {
+            boolean valid = passwordIsValid(user, password);
+            if (valid) {
+                User u = new User();
+                activeUsers.add(u);
+                lastUser = user;
+            }
+            return valid;
+        }
+    }
+    {% endhighlight %}
+    
+该模式是前面模式的扩展；将某个值发布以在程序内的其他地方使用，但是与一次性事件的发布不同，
+这是一系列独立事件。这个模式要求被发布的值是有效不可变的 —— 即值的状态在发布后不会更改。使用该值的代码需要清楚该值可能随时发生变化。
+
