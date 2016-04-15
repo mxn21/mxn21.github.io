@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/img/img188.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2016-4-15-下载编译android源码笔记.md" afterPath="$PROJECT_DIR$/_posts/2016-4-15-下载编译android源码笔记.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
@@ -27,8 +26,8 @@
       <file leaf-file-name="2016-4-15-下载编译android源码笔记.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2016-4-15-下载编译android源码笔记.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53271025">
-              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.6341789">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -98,8 +97,8 @@
         <option value="$PROJECT_DIR$/_layouts/default.html" />
         <option value="$PROJECT_DIR$/about.md" />
         <option value="$PROJECT_DIR$/_posts/2016-4-11-java中的.md" />
-        <option value="$PROJECT_DIR$/_posts/2016-4-11-Java中的volatile关键字.md" />
         <option value="$PROJECT_DIR$/_posts/2016-4-15-android源码.md" />
+        <option value="$PROJECT_DIR$/_posts/2016-4-11-Java中的volatile关键字.md" />
         <option value="$PROJECT_DIR$/_posts/2016-4-15-下载编译android源码笔记.md" />
       </list>
     </option>
@@ -990,17 +989,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/_posts/2016-4-11-Java中的volatile关键字.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42990655">
-          <caret line="78" column="22" selection-start-line="78" selection-start-column="22" selection-end-line="78" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2016-3-17-SurfaceView浅析.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39118826">
@@ -1023,10 +1011,21 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/_posts/2016-4-11-Java中的volatile关键字.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12188365">
+          <caret line="33" column="17" selection-start-line="33" selection-start-column="17" selection-end-line="33" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MarkdownPreviewEditor">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2016-4-15-下载编译android源码笔记.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53271025">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.6341789">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
