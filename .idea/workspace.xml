@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/_posts/2016-4-15-下载编译android源码笔记.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2016-4-15-下载编译android源码笔记.md" afterPath="$PROJECT_DIR$/_posts/2016-4-15-下载编译android源码笔记.md" />
     </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,8 +39,8 @@
       <file leaf-file-name="2016-4-15-下载编译android源码笔记.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/_posts/2016-4-15-下载编译android源码笔记.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.20293725">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.30440587">
+              <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -1022,8 +1021,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/_posts/2016-4-15-下载编译android源码笔记.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.20293725">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.30440587">
+          <caret line="12" column="4" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
           <folding />
         </state>
       </provider>
