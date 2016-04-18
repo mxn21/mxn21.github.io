@@ -122,18 +122,19 @@ public void put(int key, E value) {
 遍历需要获取数组的总的对象大小，然后用keyAt(int index)获取索引或者valueAt(int index)获取值。
 
     {% highlight java  %}
-int key = 0;
 for(int i = 0; i < sparseArray.size(); i++) {
-       key = sparseArray.keyAt(i);
+       int key = sparseArray.keyAt(i);
        Object obj = sparseArray.get(key);
 }
      {% endhighlight %}
 
 如果不关系key，可以直接通过valueAt得到value，这样速度更快，写法更简单：
 
-
-
-
+    {% highlight java  %}
+for(int i = 0; i < sparseArray.size; i++) {
+    Object obj = sparseArray.valueAt(i);
+}
+     {% endhighlight %}
 
 ### 测试
 
