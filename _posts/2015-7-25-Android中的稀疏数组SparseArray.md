@@ -129,6 +129,10 @@ for(int i = 0; i < sparseArray.size(); i++) {
 }
      {% endhighlight %}
 
+如果不关系key，可以直接通过valueAt得到value，
+
+
+
 ### 测试
 
 下面我们就通过几段程序来证明SparseArray在各方面表现如何
