@@ -125,7 +125,7 @@ public void put(int key, E value) {
 int key = 0;
 for(int i = 0; i < sparseArray.size(); i++) {
        key = sparseArray.keyAt(i);
-       Object obj = sparseArray.valueAt(key);
+       Object obj = sparseArray.get(key);
 }
      {% endhighlight %}
 
