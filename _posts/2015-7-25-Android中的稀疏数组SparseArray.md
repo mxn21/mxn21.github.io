@@ -129,7 +129,7 @@ for(int i = 0; i < sparseArray.size(); i++) {
 }
      {% endhighlight %}
 
-如果不关系key，可以直接通过valueAt得到value，
+如果不关系key，可以直接通过valueAt得到value，这样
 
 
 
