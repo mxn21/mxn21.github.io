@@ -1,6 +1,8 @@
 # Dependencies
-markdown:         rdiscount
-highlighter:      pygments
+markdown:         kramdown
+kramdown:
+    input: GFM
+highlighter:      rouge
 
 #
 encoding:         "utf-8"
