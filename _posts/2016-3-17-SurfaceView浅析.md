@@ -271,7 +271,7 @@ SurfaceHolder.unlockCanvasAndPost方法释放掉Canvas锁。
 2.在调用doDraw执行绘制时，因为SurfaceView的特点，它会保留之前绘制的图形，所以你需要先清空掉上一次绘制时留下的图形。
 (View则不会，它默认在调用View.onDraw方法时就自动清空掉视图里的东西)。
                            
-3. 记得在回调方法：onSurfaceDestroyed方法里将后台执行绘制的LoopThread关闭，这里是使用join方法。这涉及到线程如何关闭的问题，
+3.记得在回调方法：onSurfaceDestroyed方法里将后台执行绘制的LoopThread关闭，这里是使用join方法。这涉及到线程如何关闭的问题，
 多数人建议是通过一个标志位：isRunning来判断线程是否该停止运行，如果你想关闭线程只需要将isRunning改成false即可，
 线程会自动执行完run方法后退出。
 
