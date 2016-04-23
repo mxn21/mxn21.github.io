@@ -36,3 +36,7 @@ class Child extends Father {
 当我们调用对象的getClass()方法时，就得到对应Class对象的引用。
 在c2中，即使我们将child对象的引用向上转换为Father对象的引用，对象所指向的Class类对象依然是Child。
 
+Java中每个对象都有相应的Class类对象，因此，我们随时能通过Class对象知道某个对象“真正”所属的类。无论我们对引用进行怎样的类型转换，
+对象本身所对应的Class对象都是同一个。当我们通过某个引用调用方法时，Java总能找到正确的Class类中所定义的方法，并执行该Class类中的代码。
+由于Class对象的存在，Java不会因为类型的向上转换而迷失。这就是多态的原理。
+
