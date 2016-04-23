@@ -22,7 +22,7 @@ public class Test1 {
         Father father = new Father();
         Class c1  = father.getClass();
         System.out.println(c1.getName());
-        Child child = new Child();
+        Father child = new Child();
         Class c2  = child.getClass();
         System.out.println(c2.getName());
     }
@@ -33,3 +33,6 @@ class Child extends Father {
 }
     {% endhighlight %} 
     
+当我们调用对象的getClass()方法时，就得到对应Class对象的引用。
+在c2中，即使我们将child对象的引用向上转换为Father对象的引用，对象所指向的Class类对象依然是Child。
+
