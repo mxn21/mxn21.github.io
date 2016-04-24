@@ -58,3 +58,7 @@ class Child extends Father {
   {% endhighlight %} 
   
 上面显示了两种方式:
+
+1.forName()方法接收一个字符串作为参数，该字符串是类的名字。这将返回相应的Class类对象。
+2.Child.class方法是直接调用类的class成员。这将返回相应的Class类对象。
+
