@@ -42,3 +42,19 @@ Java中每个对象都有相应的Class类对象，因此，我们随时能通�
 
 除了getClass()方法外，我们还有其他方式调用Class类的对象。
 
+   {% highlight java %}
+public class Test1 {
+    public static void main(String[] args) throws ClassNotFoundException {
+        Class c1  = Class.forName("com.souly.myapplication.test.Father");
+        System.out.println(c1.getName());
+        Class c2  = Child.class ;
+        System.out.println(c2.getName());
+    }
+}
+class Father {
+}
+class Child extends Father {
+}
+  {% endhighlight %} 
+  
+上面显示了两种方式:
