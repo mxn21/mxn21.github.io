@@ -62,3 +62,9 @@ class Child extends Father {
 1.forName()方法接收一个字符串作为参数，该字符串是类的名字。这将返回相应的Class类对象。
 2.Child.class方法是直接调用类的class成员。这将返回相应的Class类对象。
 
+### Class类的加载
+
+当Java创建某个类的对象，比如Child类对象时，Java会检查内存中是否有相应的Class对象。如果内存中没有相应的Class对象，
+那么Java会在.class文件中寻找Child类的定义，并加载Child类的Class对象。在Class对象加载成功后，
+其他Child对象的创建和相关操作都将参照该Class对象。
+
