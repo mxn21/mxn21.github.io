@@ -64,7 +64,8 @@ class Child extends Father {
 
 ### Class类的加载
 
-当Java创建某个类的对象，比如Child类对象时，Java会检查内存中是否有相应的Class对象。如果内存中没有相应的Class对象，
-那么Java会在.class文件中寻找Child类的定义，并加载Child类的Class对象。在Class对象加载成功后，
-其他Child对象的创建和相关操作都将参照该Class对象。
+当Java创建某个类的对象，jvm虚拟机的classLoader会检测对象对应的Class对象是否已加载,
+比如Child类对象时，Java会检查内存中是否有相应的Class对象。如果内存中没有相应的Class对象，会依据相关途径查询对应.class文件
+（如 通过classPath在本地文件系统进行查找,在获取到.class文件之后会对文件进行有效验证，之后会依据Class对象进行详细类型对象的创建。
+在Class对象加载成功后，其他Child对象的创建和相关操作都将参照该Class对象。
 
