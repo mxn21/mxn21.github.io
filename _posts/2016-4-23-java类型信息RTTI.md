@@ -22,6 +22,16 @@ RTTI Run-Time Type Infomation（运行时类型信息），在Java运行时，RT
 而反射不需要，反射在运行时打开和检查.class文件。传统的RTTI使用转型或Instance形式实现，
 但都需要指定要转型的类型，比如：
 
+{% highlight java %}
+public void rtti(Object obj){
+    Toy toy = Toy(obj);
+    // Toy toy = Class.forName("com.rtti.Toy")
+    // obj instanceof Toy
+}
+{% endhighlight %} 
+
+注意其中的obj虽然是被转型了，但在编译期，就需要知道要转成的类型Toy，也就是需要Toy的.class文件。
+相对的，反射完全在运行时在通过Class类来确定类型，不需要提前加载Toy的.class文件。
 
 ### Class类
 
