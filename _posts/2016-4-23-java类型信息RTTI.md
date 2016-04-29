@@ -128,4 +128,15 @@ public class ToyTest {
         printInfo(o.getClass());
     }
 }
-    {% endhighlight %} 
+    {% endhighlight %}
+     
+运行后输出结果如下：
+
+   {% highlight c %}
+   Class name: com.souly.myapplication.test.FancyToy is interface? [false]
+   Class name: com.souly.myapplication.test.HasBatteries is interface? [true]
+   Class name: com.souly.myapplication.test.Waterproof is interface? [true]
+   Class name: com.souly.myapplication.test.Shoots is interface? [true]
+   Class name: com.souly.myapplication.test.Toy is interface? [false]
+    {% endhighlight %}
+
