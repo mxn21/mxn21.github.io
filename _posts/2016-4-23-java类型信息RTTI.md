@@ -140,3 +140,8 @@ public class ToyTest {
    Class name: com.souly.myapplication.test.Toy is interface? [false]
     {% endhighlight %}
 
+从中可以看出，class FancyToy相当复杂，因为它从Toy中继承，并实现了HasBatteries，Waterproof以及ShootsThings的接口。在main()方法中
+有一个Class对象，它通过Class.forName()初始化成FancyToy Class。Class.getInterfaces方法会返回Class对象的一个数组，用于表示Class对象内的接口。
+若有一个Class对象，也可以用getSuperclass()查询该对象的直接父类是什么。当然，这种做会返回一个Class对象，可用它作进一步的查询。
+这意味着在运行期的时候，完全有机会调查到对象的完整层次结构。
+
