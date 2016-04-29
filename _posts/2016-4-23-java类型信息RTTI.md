@@ -18,7 +18,9 @@ RTTI Run-Time Type Infomation（运行时类型信息），在Java运行时，RT
 2.Class对象（用了Class对象，不代表就是反射，如果只是用Class对象cast成指定的类，那就还是传统的RTTI）。
 3.instanceof或isInstance()。
 
-传统的RTTI与反射最主要的区别，在于RTTI在编译期需要.class文件，而反射不需要。传统的RTTI使用转型或Instance形式实现，但都需要指定要转型的类型，比如：
+传统的RTTI与反射最主要的区别：RTTI，编译器在编译时打开和检查.class文件。
+而反射不需要，反射在运行时打开和检查.class文件。传统的RTTI使用转型或Instance形式实现，
+但都需要指定要转型的类型，比如：
 
 
 ### Class类
