@@ -9,6 +9,17 @@ tag: android
 RTTI Run-Time Type Infomation（运行时类型信息），在Java运行时，RTTI维护类的相关信息，识别类和对象的信息。
 多态(polymorphism)是基于RTTI实现的。RTTI的功能主要是由Class类实现的。
 
+严格的说，反射也是一种形式的RTTI，不过，一般的文档资料中把RTTI和反射分开，因为一般的，大家认为RTTI指的是传统的RTTI
+，通过继承和多态来实现，在运行时通过调用超类的方法来实现具体的功能（超类会自动实例化为子类，或使用instance of）。
+
+传统的RTTI有3种实现方式：
+
+1.向上转型或向下转型（upcasting and downcasting），在java中，向下转型（父类转成子类）需要强制类型转换。
+2.Class对象（用了Class对象，不代表就是反射，如果只是用Class对象cast成指定的类，那就还是传统的RTTI）。
+3.instanceof或isInstance()。
+
+传统的RTTI与反射最主要的区别，在于RTTI在编译期需要.class文件，而反射不需要。传统的RTTI使用转型或Instance形式实现，但都需要指定要转型的类型，比如：
+
 
 ### Class类
 
