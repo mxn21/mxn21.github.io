@@ -74,6 +74,8 @@ Java程序在运行之前并没有被完全加载，各个部分是在需要时�
 
 其中静态初始化器可以理解为静态域在定义处的初始化，如：static Dog d = new Dog(0);。
 
+final static成员和static成员的在以上三个过程中不一样，final static成员被称为“编译器常量”，在编译时已经被赋值，
+所以可以在类加载前就进行访问，而静态成员（非final）需要在类加载后、class对象初始化之后赋值。
 
 当Java创建某个类的对象，jvm虚拟机的classLoader会检测对象对应的Class对象是否已加载,
 比如Child类对象时，Java会检查内存中是否有相应的Class对象。如果内存中没有相应的Class对象，会依据相关途径查询对应.class文件
