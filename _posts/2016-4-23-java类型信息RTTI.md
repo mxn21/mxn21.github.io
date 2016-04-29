@@ -62,6 +62,12 @@ class Child extends Father {
 1.forName()方法接收一个字符串作为参数，该字符串是类的名字。这将返回相应的Class类对象。
 2.Child.class方法是直接调用类的class成员。这将返回相应的Class类对象。
 
+使用forName(String str)有一个副作用：如果类没有被加载，调用它会触发类的static子句（静态初始化块）。与之相比，更好用的是类字面常量，
+例如Child.class。支持编译时检查，所以不会抛出异常。使用类字面常量创建Class对象的引用与forName(String str)
+不同，不会触发类的static子句（静态初始化块）。所以，更简单更安全更高效。类字面常量支持类、接口、数组、基本数据类型。
+
+
+
 ### Class类的加载
 
 Java程序在运行之前并没有被完全加载，各个部分是在需要时才被加载的。
