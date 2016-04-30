@@ -128,6 +128,9 @@ final static成员和static成员的在以上三个过程中不一样，final st
 （如 通过classPath在本地文件系统进行查找,在获取到.class文件之后会对文件进行有效验证，之后会依据Class对象进行详细类型对象的创建。
 在Class对象加载成功后，其他Child对象的创建和相关操作都将参照该Class对象。
 
+更详细的介绍可以参考：
+
+[Java 类加载与初始化](http://www.cnblogs.com/zhguang/archive/2013/06/25/3154584.html)
 
 ### 举例说明
 
@@ -199,3 +202,12 @@ public class ToyTest {
 用newInstance()创建的类必须有一个无参数的构造方法。没有办法用newInstance()创建拥有非默认构建方法的对象，如果我们注释掉Toy() {}构造方法，
 将会报错：java.lang.InstantiationException。
 
+### 总结
+
+
+
+
+
+参考阅读：
+
+[Thinking in Java中对RTTI的介绍](http://nicolas.blancpain.free.fr/Documents/Java/online/Chapter12.html)
