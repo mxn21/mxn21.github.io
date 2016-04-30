@@ -202,11 +202,6 @@ public class ToyTest {
 用newInstance()创建的类必须有一个无参数的构造方法。没有办法用newInstance()创建拥有非默认构建方法的对象，如果我们注释掉Toy() {}构造方法，
 将会报错：java.lang.InstantiationException。
 
-### 总结
-
-
-
-
 
 参考阅读：
 
