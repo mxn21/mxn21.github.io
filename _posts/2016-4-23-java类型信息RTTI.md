@@ -34,6 +34,8 @@ class Child extends Father {
 }
     {% endhighlight %} 
 
+这里 Child c = cc.cast(f) ; 等价于 Child c = (Child)f ;
+
 传统的RTTI与反射最主要的区别：RTTI，编译器在编译时打开和检查.class文件。
 而反射不需要，反射在运行时打开和检查.class文件。传统的RTTI使用转型或Instance形式实现，
 但都需要指定要转型的类型，比如：
