@@ -15,8 +15,12 @@ RTTI Run-Time Type Infomation（运行时类型信息），在Java运行时，RT
 传统的RTTI有3种实现方式：
 
 1.向上转型或向下转型（upcasting and downcasting），在java中，向下转型（父类转成子类）需要强制类型转换。
+
 2.Class对象（用了Class对象，不代表就是反射，如果只是用Class对象cast成指定的类，那就还是传统的RTTI）。
+
 3.instanceof或isInstance()。
+
+<!-- more -->
 
 其中cast的用法如下所示：
 
