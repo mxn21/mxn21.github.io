@@ -280,8 +280,9 @@ public static Looper myLooper() {
 2.调用MessageQueue queue = me.mQueue; 取出looper绑定的message queue。
 
 3.死循环调用Message msg = queue.next();在message queue中取数据，若msg为null就不执行下面的分发，跳出死循环。
-这里为什么敢直接跳出循环？因为上一行的queue.next()里也是一个循环，这个循环实现很巧妙，只有
-
+这里为什么敢直接跳出循环？因为上一行的queue.next()里也是一个循环，这个循环实现很巧妙，只有遇到message时才取出，否则阻塞。
+一旦queue.next()里的循环阻塞了，外面的for循环也阻塞了，避免了空循环浪费资源。queue.next()里的for循环也不是一直做空循环的，
+它会根据message里的when字段（postDelay设置的延迟）来计算时间，到时间了才会开始取，其他时间都是阻塞状态。
 
 4.在上面的循环中若msg不为null，调用msg.target.dispatchMessage(msg); 分发message到指定的target handler。
 
