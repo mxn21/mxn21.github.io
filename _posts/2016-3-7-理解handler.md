@@ -275,10 +275,15 @@ public static Looper myLooper() {
          
 在loop()主要干了四件事：
 
-1.调用Looper me = myLooper()取出looper对象
-2.调用MessageQueue queue = me.mQueue; 取出looper绑定的message queue
-3.死循环调用Message msg = queue.next();在message queue中取数据，若msg为null就不执行下面的分发，继续死循环
-4.在上面的循环中若msg不为null，调用msg.target.dispatchMessage(msg); 分发message到指定的target handler
+1.调用Looper me = myLooper()取出looper对象。
+
+2.调用MessageQueue queue = me.mQueue; 取出looper绑定的message queue。
+
+3.死循环调用Message msg = queue.next();在message queue中取数据，若msg为null就不执行下面的分发，跳出死循环。
+这里为什么敢直接跳出循环？因为上一行的queue.next()里也是一个循环，这个循环实现很巧妙，只有
+
+
+4.在上面的循环中若msg不为null，调用msg.target.dispatchMessage(msg); 分发message到指定的target handler。
 
     {% highlight java %}  
   /**
