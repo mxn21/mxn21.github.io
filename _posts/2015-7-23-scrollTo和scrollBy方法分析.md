@@ -79,5 +79,9 @@ public void scrollBy(int x, int y) { scrollTo(mScrollX + x, mScrollY + y); }
     }
     {% endhighlight %}
 
-在scrollTo方法最后调用了postInvalidateOnAnimation();
+在scrollTo方法最后调用了postInvalidateOnAnimation();之后这个方法会通知View进行重绘。
+
+
+
+
 
