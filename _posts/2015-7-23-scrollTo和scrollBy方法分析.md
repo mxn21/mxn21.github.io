@@ -81,7 +81,43 @@ public void scrollBy(int x, int y) { scrollTo(mScrollX + x, mScrollY + y); }
 
 在scrollTo方法最后调用了postInvalidateOnAnimation();之后这个方法会通知View进行重绘。
 然后会调用draw方法，在draw方法中会绘制scrollbars，调用了onDrawScrollBars(canvas);
+onDrawScrollBars中的invalidate如下：
+
+    {% highlight java  %}
+invalidate(left, top, right, bottom);
+    {% endhighlight %}
+
+这个方法的代码如下：
 
 
-
+public void invalidate(int l, int t, int r, int b) {
+       if (skipInvalidate()) {
+           return;
+       }
+       if ((mPrivateFlags & (PFLAG_DRAWN | PFLAG_HAS_BOUNDS)) == (PFLAG_DRAWN | PFLAG_HAS_BOUNDS) ||
+               (mPrivateFlags & PFLAG_DRAWING_CACHE_VALID) == PFLAG_DRAWING_CACHE_VALID ||
+               (mPrivateFlags & PFLAG_INVALIDATED) != PFLAG_INVALIDATED) {
+           mPrivateFlags &= ~PFLAG_DRAWING_CACHE_VALID;
+           mPrivateFlags |= PFLAG_INVALIDATED;
+           mPrivateFlags |= PFLAG_DIRTY;
+           final ViewParent p = mParent;
+           final AttachInfo ai = mAttachInfo;
+           //noinspection PointlessBooleanExpression,ConstantConditions
+           if (!HardwareRenderer.RENDER_DIRTY_REGIONS) {
+               if (p != null && ai != null && ai.mHardwareAccelerated) {
+                   // fast-track for GL-enabled applications; just invalidate the whole hierarchy
+                   // with a null dirty rect, which tells the ViewAncestor to redraw everything
+                   p.invalidateChild(this, null);
+                   return;
+               }
+           }
+           if (p != null && ai != null && l < r && t < b) {
+               final int scrollX = mScrollX;
+               final int scrollY = mScrollY;
+               final Rect tmpr = ai.mTmpInvalRect;
+               tmpr.set(l - scrollX, t - scrollY, r - scrollX, b - scrollY);
+               p.invalidateChild(this, tmpr);
+           }
+       }
+   }
 
