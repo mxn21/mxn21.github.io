@@ -78,3 +78,6 @@ public void scrollBy(int x, int y) { scrollTo(mScrollX + x, mScrollY + y); }
         return mScrollY;
     }
     {% endhighlight %}
+
+在scrollTo方法最后调用了postInvalidateOnAnimation();
+
