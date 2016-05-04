@@ -89,7 +89,7 @@ invalidate(left, top, right, bottom);
 
 这个方法的代码如下：
 
-
+    {% highlight java  %}
 public void invalidate(int l, int t, int r, int b) {
        if (skipInvalidate()) {
            return;
@@ -120,4 +120,7 @@ public void invalidate(int l, int t, int r, int b) {
            }
        }
    }
+       {% endhighlight %}
+       
+
 
