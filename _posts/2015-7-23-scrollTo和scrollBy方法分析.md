@@ -122,5 +122,6 @@ public void invalidate(int l, int t, int r, int b) {
    }
        {% endhighlight %}
        
-
+在这个方法的最后，调用了tmpr.set(l - scrollX, t - scrollY, r - scrollX, b - scrollY)，设置了滚动距离。这就是
+scrollTo方法内部的实现原理。
 
