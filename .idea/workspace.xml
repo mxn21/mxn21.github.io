@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="" />
+    <list default="true" id="c8cb687b-2549-49bc-82df-3378d4378023" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/_posts/2016-2-25-android分包原理.md" afterPath="$PROJECT_DIR$/_posts/2016-2-25-android分包原理.md" />
+    </list>
     <ignored path="mxn21.github.io.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,7 +40,7 @@
         <entry file="file://$PROJECT_DIR$/_posts/2016-2-25-android分包原理.md">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.643909">
-              <caret line="189" column="0" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+              <caret line="193" column="0" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -1006,7 +1008,7 @@
     <entry file="file://$PROJECT_DIR$/_posts/2016-2-25-android分包原理.md">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.643909">
-          <caret line="189" column="0" selection-start-line="189" selection-start-column="0" selection-end-line="189" selection-end-column="0" />
+          <caret line="193" column="0" selection-start-line="193" selection-start-column="0" selection-end-line="193" selection-end-column="0" />
           <folding />
         </state>
       </provider>
